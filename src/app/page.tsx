@@ -178,14 +178,12 @@ export default function Get({params, searchParams}: any) {
             <div className="!w-20 text-3xl font-medium flex justify-between">
               <button className="bg-black px-3 py-3 rounded-full text-xs mr-4">
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20.0001 25.3327L10.6667 15.9993L20.0001 6.66602" stroke="white" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.0001 25.3327L10.6667 15.9993L20.0001 6.66602" stroke="white"/>
                 </svg>
               </button>
               <button className="bg-black px-3 py-3 rounded-full text-xs">
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.9999 6.66732L21.3333 16.0007L11.9999 25.334" stroke="white" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11.9999 6.66732L21.3333 16.0007L11.9999 25.334" stroke="white"/>
                 </svg>
               </button>
             </div>
@@ -337,14 +335,12 @@ export default function Get({params, searchParams}: any) {
             <div className="!w-20 text-3xl font-medium flex justify-between">
               <button className="bg-black px-3 py-3 rounded-full text-xs mr-4">
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20.0001 25.3327L10.6667 15.9993L20.0001 6.66602" stroke="white" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.0001 25.3327L10.6667 15.9993L20.0001 6.66602" stroke="white"/>
                 </svg>
               </button>
               <button className="bg-black px-3 py-3 rounded-full text-xs">
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.9999 6.66732L21.3333 16.0007L11.9999 25.334" stroke="white" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11.9999 6.66732L21.3333 16.0007L11.9999 25.334" stroke="white"/>
                 </svg>
               </button>
             </div>
@@ -381,8 +377,7 @@ export default function Get({params, searchParams}: any) {
                     <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                       <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
                       </g>
                     </svg>
                   </a>
@@ -420,8 +415,7 @@ export default function Get({params, searchParams}: any) {
                     <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                       <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
                       </g>
                     </svg>
                   </a>
@@ -459,8 +453,7 @@ export default function Get({params, searchParams}: any) {
                     <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                       <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
                       </g>
                     </svg>
                   </a>
@@ -498,8 +491,7 @@ export default function Get({params, searchParams}: any) {
                     <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                       <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
                       </g>
                     </svg>
                   </a>

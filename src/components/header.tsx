@@ -1,8 +1,9 @@
 "use client";
-import {useState} from 'react'
+import React, {useState} from 'react'
 
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
 import Link from "next/link";
+import Image from 'next/image'
 
 
 const products = [
@@ -44,11 +45,16 @@ export default function Header() {
               <button className="text-sm cursor-pointer flex items-center focus:outline-none">
                 Kategorien
                 <span className="float-end ml-3">
-                  <img src="/icons/chevron-down-icon.svg" alt="chevron down icon"/>
+                  <Image
+                    src="/icons/chevron-down-icon.svg"
+                    width={10}
+                    height={10}
+                    alt="chevron down icon"
+                  />
                 </span>
               </button>
             </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions">
+            <DropdownMenu>
               {products.map((data) => <DropdownItem key="new">{data.name}</DropdownItem>)}
             </DropdownMenu>
           </Dropdown>

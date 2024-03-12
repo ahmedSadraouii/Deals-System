@@ -13,7 +13,8 @@ const Page = () => {
   } = useForm({
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
+      phone: "",
     }
   });
   const onSubmit = (data: any) => {
@@ -41,7 +42,7 @@ const Page = () => {
                 <Input
                   className="mb-5"
                   type="email"
-                  label="Nutzername oder E-Mail"
+                  label="E-Mail"
                   variant="bordered"
                   isRequired={true}
                   isInvalid={errors.email ? true : false}
@@ -59,6 +60,18 @@ const Page = () => {
                   radius="full"
                   {...register("password", {required: true})}
                   errorMessage={errors.email && "Email is required"}
+                  validationState={errors.email ? "invalid" : "valid"}
+                />
+
+                <Input
+                  className="mb-5"
+                  label="Telefonnummer"
+                  variant="bordered"
+                  isRequired={true}
+                  isInvalid={errors.email ? true : false}
+                  radius="full"
+                  {...register("phone", {required: true})}
+                  errorMessage={errors.email && "Telefonnummer is required"}
                   validationState={errors.email ? "invalid" : "valid"}
                 />
 
