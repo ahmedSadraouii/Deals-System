@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.cdnfonts.com/css/hvdtrial-brandon-grotesque');
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+* {
+  font-family: 'HvDTrial Brandon Grotesque', sans-serif;
+}
+
+body {
+  font-family: 'HvDTrial Brandon Grotesque', sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: 'HvDTrial Brandon Grotesque', system-ui, sans-serif;
+  }
+}
+
+
+.aldi-text-color {
+  @apply text-[#f05322]
+}
+
+.aldi-bg-color {
+  @apply bg-[#f0dfdc]
+}
+
+
+.swiper-button-next {
+  @apply bg-black;
+  @apply rounded-full;
+  @apply w-10 !important;
+  @apply h-10 !important;
+  @apply right-0 !important;
+}
+
+.swiper-button-next:after {
+  @apply text-xs !important;
+  @apply text-white;
+}
+
+.swiper-button-prev {
+  @apply bg-black;
+  @apply rounded-full;
+  @apply w-10 !important;
+  @apply h-10 !important;
+  @apply left-0 !important;
+}
+
+.swiper-button-prev:after {
+  @apply text-xs !important;
+  @apply text-white;
+}
+
+.swiper-custom-bullet-active {
+  @apply border-2 border-gray-500
+}
