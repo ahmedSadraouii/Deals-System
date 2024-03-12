@@ -1,0 +1,35 @@
+### Test Application ###
+.test_application:
+  when: on_success
+  stage: Test
+  image: node:18
+  allow_failure: true
+  artifacts:
+    paths:
+      - node_modules/
+  before_script:
+    - npm install yarn
+  script:
+    - yarn install
+    - yarn test
+    #- yarn build
+  
+test_application_prod:
+  extends:
+    - .test_application
+    - .environment_prod
+
+test_application_staging:
+  extends:
+    - .test_application
+    - .environment_staging
+
+test_application_dev:
+  extends:
+    - .test_application
+    - .environment_dev
+
+test_application_mr:
+  extends:
+    - .test_application
+    - .environment_mr
