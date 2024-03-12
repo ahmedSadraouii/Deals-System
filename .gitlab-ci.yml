@@ -15,13 +15,13 @@ variables:
   IMAGE_NAME: "ad-fe"
 
 include:
-  - '/gitlab-ci/build/steps.yml'
   - '/gitlab-ci/test/steps.yml'
+  - '/gitlab-ci/build/steps.yml'
   - '/gitlab-ci/deploy/steps.yml'
 
 stages:
-  - Build
   - Test
+  - Build
   - Deploy
 
 ### Environments ###

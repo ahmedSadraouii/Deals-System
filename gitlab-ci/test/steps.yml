@@ -1,5 +1,4 @@
 .test_application:
-  when: on_success
   stage: Test
   image: node:18
   allow_failure: true
