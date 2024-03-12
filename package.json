@@ -6,6 +6,7 @@
     "dev": "next dev -p 4420",
     "build": "next build",
     "start": "next start -p 4420",
+    "test:": "",
     "lint": "next lint",
     "genclient": "openapi --input http://localhost:4430/umbraco/swagger/delivery/swagger.json --output src/apiclient --postfixServices Resource --useOptions"
   },
