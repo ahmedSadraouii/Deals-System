@@ -23,7 +23,12 @@ export default function Header() {
         <div className="flex lg:flex-1 items-center">
           <Link href="/" className="-m-1.5 p-1.5"><img className="h-16 w-auto" src="/logo.svg" alt="logo"/></Link>
           <a href="#" className="ml-16 bg-gray-100 py-3 px-7 rounded-full text-sm leading-6 text-gray-900">
-            <img src="/icons/search-icon.svg" alt="backet icon"/>
+            <Image
+              src="/icons/search-icon.svg"
+              width={10}
+              height={10}
+              alt="basket icon"
+            />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -42,16 +47,8 @@ export default function Header() {
           </a>
           <Dropdown>
             <DropdownTrigger>
-              <button className="text-sm cursor-pointer flex items-center focus:outline-none">
+              <button type="button" className="text-sm cursor-pointer flex items-center focus:outline-none">
                 Kategorien
-                <span className="float-end ml-3">
-                  <Image
-                    src="/icons/chevron-down-icon.svg"
-                    width={10}
-                    height={10}
-                    alt="chevron down icon"
-                  />
-                </span>
               </button>
             </DropdownTrigger>
             <DropdownMenu>

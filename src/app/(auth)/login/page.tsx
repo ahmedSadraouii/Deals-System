@@ -58,7 +58,7 @@ const Page = () => {
                 />
                 <Input
                   className="mb-5"
-                  label="Password"
+                  label="Passwort"
                   variant="bordered"
                   isRequired={true}
                   isInvalid={errors.email ? true : false}
