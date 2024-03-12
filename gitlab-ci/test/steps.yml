@@ -1,4 +1,3 @@
-### Test Application ###
 .test_application:
   when: on_success
   stage: Test
