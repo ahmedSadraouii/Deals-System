@@ -22,12 +22,7 @@ const nextConfig = {
     includePaths: ["node_modules", "styles"],
   },
   env: {
-    WEBAPI_BASEURL: process.env.WEBAPI_BASEURL,
-    WEBAPI_API_KEY: process.env.WEBAPI_KEY,
-    KEYCLOAK_ID: process.env.KEYCLOAK_ID,
-    KEYCLOAK_SECRET: process.env.KEYCLOAK_SECRET,
-    KEYCLOAK_ISSUER: process.env.KEYCLOAK_ISSUER,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    WEBAPI_BASEURL: process.env.WEBAPI_BASEURL
   },
 };
 

@@ -52,10 +52,10 @@ const ProductSlider = () => {
   return (
     <>
       <Swiper
-        style={{
+        /*style={{
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
-        }}
+        }}*/
         loop={true}
         spaceBetween={10}
         navigation={false}
@@ -72,7 +72,7 @@ const ProductSlider = () => {
       </Swiper>
       <div className="relative mt-5">
         <Swiper
-          onSwiper={setThumbsSwiper}
+          onSwiper={() => setThumbsSwiper }
           loop={true}
           spaceBetween={10}
           slidesPerView={6}

@@ -13,11 +13,11 @@ export async function getApiResource(path: string) {
   try {
     const res = await fetch(
       `${process.env.WEBAPI_BASEURL}${path}`,
-      {
+      /* {
         headers: {
           Authorization: `Bearer ${session.token.accessToken}`
         },
-      }
+      } */
     );
 
     return await res.json();
@@ -60,10 +60,10 @@ function setBaseUrl() {
   OpenAPI.BASE = process.env.WEBAPI_BASEURL;
 }
 
-async function getContentById(id: string) : CancelablePromise<IApiContentResponseModel> {
+function getContentById(id: string) : CancelablePromise<IApiContentResponseModel> {
   setBaseUrl();
 
-  const content = await ContentResource.getContentItemById20({
+  const content = ContentResource.getContentItemById20({
     id
   });
 
