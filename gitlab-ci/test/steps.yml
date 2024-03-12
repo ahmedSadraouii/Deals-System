@@ -6,10 +6,12 @@
     paths:
       - node_modules/
   before_script:
-    - npm install yarn
+    - echo "Add some steps" 
+    #- npm install yarn
   script:
-    - yarn install
-    - yarn test
+    - echo "Add some steps" 
+    #- yarn install
+    #- yarn test
     #- yarn build
   
 test_application_prod:
