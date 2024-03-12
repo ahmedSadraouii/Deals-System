@@ -1,4 +1,4 @@
-.deploy_application:
+.deploy:
   when: on_success
   stage: Deploy
   script:
@@ -18,23 +18,23 @@
     - kubectl config use-context $KUBE_CONTEXT
     - kubectl --kubeconfig ${KUBECONFIG} rollout restart deploy $IMAGE_NAME -n $CI_ENVIRONMENT_NAME
 
-deploy_application_prod:
+deploy_prod:
   extends:
-    - .deploy_application
+    - .deploy
     - .environment_prod
   before_script:
     - export KUBECONFIG=$PROD_KUBECONFIG
 
-deploy_application_staging:
+deploy_staging:
   extends:
-    - .deploy_application
+    - .deploy
     - .environment_staging
   before_script:
     - export KUBECONFIG=$STAGING_KUBECONFIG
 
-deploy_application_dev:
+deploy_dev:
   extends:
-    - .deploy_application
+    - .deploy
     - .environment_dev
   before_script:
     - export KUBECONFIG=$DEV_KUBECONFIG

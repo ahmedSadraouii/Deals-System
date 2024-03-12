@@ -1,5 +1,5 @@
 ### Build Application ###
-.build_application:
+.build:
   when: on_success
   stage: Build
   allow_failure: false
@@ -12,17 +12,17 @@
     - docker push $DOCKER_TAG
     - if [[ $CI_PIPELINE_SOURCE != 'merge_request_event' ]]; then docker push $DOCKER_TAG_LATEST; fi
   
-build_application_prod:
+build_prod:
   extends:
-    - .build_application
+    - .build
     - .environment_prod
 
-build_application_staging:
+build_staging:
   extends:
-    - .build_application
+    - .build
     - .environment_staging
 
-build_application_dev:
+build_dev:
   extends:
-    - .build_application
+    - .build
     - .environment_dev

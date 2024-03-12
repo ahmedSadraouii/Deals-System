@@ -1,4 +1,4 @@
-.test_application:
+.test:
   stage: Test
   image: node:18
   allow_failure: true
@@ -14,22 +14,22 @@
     #- yarn test
     #- yarn build
   
-test_application_prod:
+test_prod:
   extends:
-    - .test_application
+    - .test
     - .environment_prod
 
-test_application_staging:
+test_staging:
   extends:
-    - .test_application
+    - .test
     - .environment_staging
 
-test_application_dev:
+test_dev:
   extends:
-    - .test_application
+    - .test
     - .environment_dev
 
-test_application_mr:
+test_mr:
   extends:
-    - .test_application
+    - .test
     - .environment_mr
