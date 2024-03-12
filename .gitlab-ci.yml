@@ -1,0 +1,65 @@
+default:
+  image: docker
+
+services:
+  - docker:dind
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .next/cache/
+
+variables:
+  DOCKER_DRIVER: overlay2
+  IMAGE_NAME: "ad-fe"
+
+include:
+  - '/gitlab-ci/test/steps.yml'
+  - '/gitlab-ci/build/steps.yml'
+  - '/gitlab-ci/deploy/steps.yml'
+
+stages:
+  - Test
+  - Build
+  - Deploy
+
+### Environments ###
+.environment_prod:
+  only:
+    - main
+  environment: 
+    name: prod
+  variables:
+    KUBE_CONTEXT: $PROD_KUBE_CONTEXT
+    AZURE_REGISTRY_URL: $PROD_AZURE_REGISTRY_URL
+    AZURE_REGISTRY_USER: $PROD_AZURE_REGISTRY_USER
+    AZURE_REGISTRY_PASSWORD: $PROD_AZURE_REGISTRY_PASSWORD
+
+.environment_staging:
+  only:
+    - staging
+  environment: 
+    name: staging
+  variables:
+    KUBE_CONTEXT: $STAGING_KUBE_CONTEXT
+    AZURE_REGISTRY_URL: $STAGING_AZURE_REGISTRY_URL
+    AZURE_REGISTRY_USER: $STAGING_AZURE_REGISTRY_USER
+    AZURE_REGISTRY_PASSWORD: $STAGING_AZURE_REGISTRY_PASSWORD
+
+.environment_dev:
+  only:
+    - dev
+  environment:
+    name: dev
+  variables:
+    KUBE_CONTEXT: $DEV_KUBE_CONTEXT
+    AZURE_REGISTRY_URL: $DEV_AZURE_REGISTRY_URL
+    AZURE_REGISTRY_USER: $DEV_AZURE_REGISTRY_USER
+    AZURE_REGISTRY_PASSWORD: $DEV_AZURE_REGISTRY_PASSWORD
+    
+.environment_mr:
+  only:
+    - merge_requests
+  environment:
+    name: dev/$CI_COMMIT_REF_NAME

@@ -1,0 +1,35 @@
+.test_application:
+  stage: Test
+  image: node:18
+  allow_failure: true
+  artifacts:
+    paths:
+      - node_modules/
+  before_script:
+    - echo "Add some steps" 
+    #- npm install yarn
+  script:
+    - echo "Add some steps" 
+    #- yarn install
+    #- yarn test
+    #- yarn build
+  
+test_application_prod:
+  extends:
+    - .test_application
+    - .environment_prod
+
+test_application_staging:
+  extends:
+    - .test_application
+    - .environment_staging
+
+test_application_dev:
+  extends:
+    - .test_application
+    - .environment_dev
+
+test_application_mr:
+  extends:
+    - .test_application
+    - .environment_mr
