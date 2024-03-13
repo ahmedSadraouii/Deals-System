@@ -5,6 +5,9 @@ const isProd = process.env.NODE_ENV === 'production'
 const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
+  experimental: {
+    outputStandalone: true,
+  },
   eslint: {
     // Warning: Dangerously allow production builds to successfully complete even if
     // your project has ESLint errors.
