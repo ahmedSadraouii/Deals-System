@@ -131,7 +131,7 @@ const Page = () => {
                 <div className="flex justify-center items-center mb-4">
                   <input id="default-checkbox" type="checkbox" value=""
                          className="w-14 h-14 rounded-2xl bg-gray-100 border-gray-300 focus:!border-none !shadow-none"/>
-                  <label for="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 text-left">
+                  <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 text-left">
                     Indem Sie dieses Formular abschicken, stimmen Sie unseren Datenschutzbestimmungen und
                     Nutzungsbedingungen zu.
                   </label>
@@ -140,7 +140,7 @@ const Page = () => {
                 <div className="flex justify-center items-center mb-4">
                   <input id="default-checkbox" type="checkbox" value=""
                          className="w-14 h-14 rounded-2xl bg-gray-100 border-gray-300 focus:!border-none !shadow-none"/>
-                  <label for="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 text-left">
+                  <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 text-left">
                     Ja, ich möchte den Newsletter erhalten und akzeptiere die Datenschutzrichtlinie sowie die
                     Nutzungsbedingungen.
                   </label>
