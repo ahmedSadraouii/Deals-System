@@ -22,18 +22,6 @@ yarn dev
 this will start Deals Customer Frontend on http://localhost:4420 
 
 
-__NOTE!__: You need to start the Umbraco CMS first in order to be able to consume data. 
-
-Start a service from a docker container 
-
-```bash
-docker-compose -f infrastructure/docker-compose-umbracocms.yml
-```
-
-Or if you want to debug the service go to [../umbracocms](../umbracocms) for development instructions. 
-
-
-
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
