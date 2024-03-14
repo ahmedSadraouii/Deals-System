@@ -70,3 +70,39 @@ body {
 .swiper-custom-bullet-active {
   @apply border-2 border-gray-500
 }
+
+.relative.w-full.inline-flex.tap-highlight-transparent.flex-row.items-center.shadow-sm.px-3.gap-3.bg-default-100.data-\[hover\=true\]\:bg-default-200.group-data-\[focus\=true\]\:bg-default-100.h-unit-10.min-h-unit-10.rounded-medium.transition-background.motion-reduce\:transition-none.\!duration-150.outline-none.group-data-\[focus-visible\=true\]\:z-10.group-data-\[focus-visible\=true\]\:ring-2.group-data-\[focus-visible\=true\]\:ring-focus.group-data-\[focus-visible\=true\]\:ring-offset-2.group-data-\[focus-visible\=true\]\:ring-offset-background {
+  background: transparent !important;
+}
+
+.relative.w-full.inline-flex.tap-highlight-transparent.shadow-sm.px-3.bg-default-100.data-\[hover\=true\]\:bg-default-200.group-data-\[focus\=true\]\:bg-default-100.min-h-unit-10.rounded-medium.flex-col.items-start.justify-center.gap-0.transition-background.motion-reduce\:transition-none.\!duration-150.outline-none.group-data-\[focus-visible\=true\]\:z-10.group-data-\[focus-visible\=true\]\:ring-2.group-data-\[focus-visible\=true\]\:ring-focus.group-data-\[focus-visible\=true\]\:ring-offset-2.group-data-\[focus-visible\=true\]\:ring-offset-background.h-14.py-2 {
+  background: transparent !important;
+}
+
+.pay-radio:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+.pay-radio:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #000000;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}

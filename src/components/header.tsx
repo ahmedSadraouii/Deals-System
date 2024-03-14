@@ -1,7 +1,7 @@
 "use client";
 import React, {useState} from 'react'
 
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User, Button} from "@nextui-org/react";
 import Link from "next/link";
 import Image from 'next/image'
 
@@ -41,18 +41,21 @@ export default function Header() {
 
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-12 items-center">
           <a href="#" className="text-sm leading-6 text-gray-900">
             Start
           </a>
+
+
           <Dropdown>
             <DropdownTrigger>
-              <button type="button" className="text-sm cursor-pointer flex items-center focus:outline-none">
+              <Button type="button"
+                      className="bg-transparent p-0 text-sm cursor-pointer flex items-center focus:outline-none">
                 Kategorien
-              </button>
+              </Button>
             </DropdownTrigger>
             <DropdownMenu>
-              {products.map((data) => <DropdownItem key="new">{data.name}</DropdownItem>)}
+              {products.map((data, index) => <DropdownItem key={index} isDisabled={false}>{data.name}</DropdownItem>)}
             </DropdownMenu>
           </Dropdown>
           <a href="#" className="text-sm leading-6 text-gray-900">
