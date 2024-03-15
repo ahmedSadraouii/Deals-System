@@ -6,6 +6,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import {Pagination, Navigation} from 'swiper/modules';
 import Slider from "@/components/home/slider";
+import ProductItem from "@/components/product/product-item";
+import LogoSlider from "@/components/home/logo-slider";
 
 
 export default function Get({params, searchParams}: any) {
@@ -168,340 +170,50 @@ export default function Get({params, searchParams}: any) {
         </Swiper>
       </div>
 
-      <Slider></Slider>
-
-
-      <section className="w-full py-16 mt-10 px-5">
-        <div className="container mx-auto">
-          <div className="w-full flex justify-between items-center mb-5">
-            <h1 className="text-4xl mb-4 font-bold">Nur Online verfügbar</h1>
-            <div className="!w-20 text-3xl font-medium flex justify-between">
-              <button className="bg-black px-3 py-3 rounded-full text-xs mr-4">
-                <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20.0001 25.3327L10.6667 15.9993L20.0001 6.66602" stroke="white"/>
-                </svg>
-              </button>
-              <button className="bg-black px-3 py-3 rounded-full text-xs">
-                <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.9999 6.66732L21.3333 16.0007L11.9999 25.334" stroke="white"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div className="w-full bg-orange-200 rounded-full h-1 mb-10">
-            <div className="bg-amber-500 h-1 rounded-full" style={{width: '5%'}}></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-white bg-slate-900 rounded-full py-3 px-5">
-                    Jetzt Deal sichern!
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-white bg-slate-900 rounded-full py-3 px-5">
-                    Jetzt Deal sichern!
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-white bg-slate-900 rounded-full py-3 px-5">
-                    Jetzt Deal sichern!
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-white bg-slate-900 rounded-full py-3 px-5">
-                    Jetzt Deal sichern!
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </section>
+      <Slider name="Last minute deals" bg="gray"></Slider>
+      <Slider name="Beliebt auf ALDI Deals" bg="white"></Slider>
+      <Slider name="Nur Online verfügbar" bg="gray"></Slider>
 
 
       <section className="w-full py-16 mt-10 px-5">
         <div className="container mx-auto">
           <div className="w-full flex justify-between items-center mb-5">
             <h1 className="text-4xl mb-4 font-bold">Alle Deals im Überblick</h1>
-            <div className="!w-20 text-3xl font-medium flex justify-between">
-              <button className="bg-black px-3 py-3 rounded-full text-xs mr-4">
-                <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20.0001 25.3327L10.6667 15.9993L20.0001 6.66602" stroke="white"/>
-                </svg>
-              </button>
-              <button className="bg-black px-3 py-3 rounded-full text-xs">
-                <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.9999 6.66732L21.3333 16.0007L11.9999 25.334" stroke="white"/>
-                </svg>
-              </button>
-            </div>
           </div>
-          <div className="w-full bg-orange-200 rounded-full h-1 mb-10">
-            <div className="bg-amber-500 h-1 rounded-full" style={{width: '5%'}}></div>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-gray-400 py-3 px-5 flex">
-                    Jetzt Deal sichern!
-                    <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
-                      </g>
-                    </svg>
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-gray-400 py-3 px-5 flex">
-                    Jetzt Deal sichern!
-                    <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
-                      </g>
-                    </svg>
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-gray-400 py-3 px-5 flex">
-                    Jetzt Deal sichern!
-                    <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
-                      </g>
-                    </svg>
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="w-full max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow">
-              <a href="#">
-                <img className="rounded-t-lg mb-5" src="/slider-train.png" alt="product image"/>
-              </a>
-              <div className="px-5 pb-5">
-                <div className="flex items-center justify-between mt-2.5 mb-5">
-                <span
-                  className="bg-white text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                </span>
-                  <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                    <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie sparen
-                      50%
-                    </div>
-                  </div>
-                </div>
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900">Köln - Hamburg für 2 Personen – 2
-                    für
-                    1 Tickets!</h5>
-                </a>
-                <div className="flex items-center justify-between mt-5">
-                  <a href="#" className="text-sm leading-6 text-gray-400 py-3 px-5 flex">
-                    Jetzt Deal sichern!
-                    <svg className="ml-4" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <g opacity="0.5">
-                        <path d="M3 12H21M21 12L16 7M21 12L16 17" stroke="#0B102F"/>
-                      </g>
-                    </svg>
-                  </a>
-                  <span className="text-3xl font-bold text-gray-900 flex">
-                  15€
-                  <small className="text-lg font-light aldi-text-color line-through ml-1 -mt-2">30€</small>
-                </span>
-                </div>
-              </div>
-            </div>
+
+            <ProductItem data={{
+              id: '1',
+              name: 'Slider1',
+              image: '/slider-train.png',
+              price: 190,
+              discountPrice: 0
+            }}></ProductItem>
+
+            <ProductItem data={{
+              id: '1',
+              name: 'Slider1',
+              image: '/slider-train.png',
+              price: 190,
+              discountPrice: 0
+            }}></ProductItem>
+
+            <ProductItem data={{
+              id: '1',
+              name: 'Slider1',
+              image: '/slider-train.png',
+              price: 190,
+              discountPrice: 0
+            }}></ProductItem>
+
+            <ProductItem data={{
+              id: '1',
+              name: 'Slider1',
+              image: '/slider-train.png',
+              price: 190,
+              discountPrice: 0
+            }}></ProductItem>
+
           </div>
           <div className="mt-10 text-center">
             <a href="#" className="text-sm leading-6 text-white bg-slate-900 rounded-full py-3 px-5">
@@ -517,9 +229,11 @@ export default function Get({params, searchParams}: any) {
             <p className="text-xs font-light">Angezeigt werden 8 von 16 Deals</p>
           </div>
 
-
         </div>
       </section>
+
+      <LogoSlider name="Unsere Partner" bg="white"></LogoSlider>
+
 
     </>
   );

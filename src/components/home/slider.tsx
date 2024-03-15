@@ -7,51 +7,66 @@ import 'swiper/css/thumbs';
 import 'swiper/css/navigation';
 import {Pagination, FreeMode, Navigation, Thumbs} from 'swiper/modules';
 import Price from "@/components/price";
+import SliderCard from "@/components/home/slider-card";
 
-const Slider = () => {
+const Slider = (props: { name: string, bg: string }) => {
   const data = [
     {
       id: '1',
       name: 'Slider1',
       image: '/slider-train.png',
+      price: 190,
+      discountPrice: 0
     },
     {
       id: '2',
       name: '/slider-train.png',
       image: '/img.png',
+      price: 30,
+      discountPrice: 15
     },
     {
       id: '2',
       name: 'Slider2',
       image: '/img.png',
+      price: 400,
+      discountPrice: 300
     },
     {
       id: '2',
       name: 'Slider2',
       image: '/img.png',
+      price: 175,
+      discountPrice: 85
     },
     {
       id: '2',
       name: 'Slider2',
       image: '/img.png',
+      price: 120,
+      discountPrice: 90
     },
     {
       id: '2',
       name: 'Slider2',
       image: '/img.png',
+      price: 800,
+      discountPrice: 640
     },
     {
       id: '2',
       name: 'Slider2',
       image: '/img.png',
+      price: 380,
+      discountPrice: 300
     }
   ]
   return (
     <>
-      <section className="bg-gray-100 w-full py-16 mt-10 px-5">
+      <section className={`bg-${props.bg}-100 w-full py-16 px-5`}>
         <div className="container mx-auto">
           <div className="w-full flex justify-between items-center mb-5">
-            <h1 className="text-4xl mb-4 font-bold">Last minute deals</h1>
+            <h1 className="text-4xl mb-4 font-bold">{props.name}</h1>
             <div className="!w-20 text-3xl font-medium flex justify-between">
               <button type="button" className="prev bg-black px-3 py-3 rounded-full text-xs">
                 <img src="/icons/left-icon.svg" alt="left icon"/>
@@ -106,37 +121,7 @@ const Slider = () => {
           >
             {data.map((data, index) =>
               <SwiperSlide key={index}>
-                <div
-                  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-                  <a href="#">
-                    <div className="md:h-[300px] h-[300px] !bg-center !bg-cover rounded-lg"
-                         style={{background: `url('${data.image}')`}}></div>
-                  </a>
-                  <div className="px-5 pb-5">
-                    <div className="flex items-center justify-between mt-2.5 mb-5">
-                        <span
-                          className="bg-gray-100 text-black text-xs font-light px-4 py-2 rounded">Last minute!
-                        </span>
-                      <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-                        <div className="aldi-bg-color aldi-text-color font-extrabold rounded py-2 px-4 text-xs">Sie
-                          sparen
-                          50%
-                        </div>
-                      </div>
-                    </div>
-                    <a href="#">
-                      <h5 className="text-xl font-semibold tracking-tight text-gray-900">
-                        Köln - Hamburg für 2 Personen – 2 für 1 Tickets!
-                      </h5>
-                    </a>
-                    <div className="flex items-center justify-between mt-5">
-                      <a href="#" className="text-sm leading-6 text-white bg-slate-900 rounded-full py-3 px-5">
-                        Jetzt Deal sichern!
-                      </a>
-                      <Price price={15} discountedPrice={30} textSize={1} uvp={false} textColor={1}></Price>
-                    </div>
-                  </div>
-                </div>
+                <SliderCard data={data}></SliderCard>
               </SwiperSlide>
             )}
           </Swiper>
