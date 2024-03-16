@@ -1,44 +1,85 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { tv } from '@nextui-org/react';
+import { formatCurrency } from '@/utils/format-currency';
 
-const Price = (props: {
-  price: number,
-  discountedPrice: number,
-  uvp: boolean,
-  textSize: number,
-  textColor: number
-}) => {
-  let textSizePrice = 'text-3xl'
-  let textSize = 'text-lg'
+export interface PriceProps {
+  price: number;
+  discountedPrice: number;
+  uvp: boolean;
+  textSize?: 'default' | 1 | 2;
+  textColor?: 1 | 2;
+}
 
-  if (props?.textSize == 1) textSize = 'text-lg';
-  if (props?.textSize == 1) textSizePrice = 'text-2xl';
+export function Price({
+  price,
+  discountedPrice,
+  uvp,
+  textSize = 'default',
+  textColor = 1,
+}: PriceProps) {
+  const priceText = tv({
+    base: 'font-bold text-aldi-text flex items-center',
+    variants: {
+      textSize: {
+        default: 'text-3xl',
+        1: 'text-2xl',
+        2: 'text-5xl',
+      },
+      textColor: {
+        1: 'text-gray-900',
+        2: 'text-gray-900',
+      },
+    },
+    defaultVariants: {
+      textSize: 'default',
+      textColor: 1,
+    },
+  });
 
-  if (props?.textSize == 2) textSize = 'text-xl';
-  if (props?.textSize == 2) textSizePrice = 'text-5xl';
+  const uvpText = tv({
+    base: 'font-light text-black line-through mr-2',
+    variants: {
+      textSize: {
+        default: 'text-lg',
+        1: 'text-lg',
+        2: 'text-xl',
+      },
+      textColor: {
+        1: 'text-aldi-text',
+        2: 'text-gray-900',
+      },
+    },
+    defaultVariants: {
+      textSize: 'default',
+      textColor: 1,
+    },
+  });
 
-  const Money = (price: any) => {
-    return new Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(price)
-  }
-
-  const calculatePercentage = () => {
-    return Math.ceil((props.price - props.discountedPrice) / props.price * 100)
-  }
+  const savingsPercentage = useMemo(
+    () => Math.ceil(((price - discountedPrice) / price) * 100),
+    [price, discountedPrice],
+  );
 
   return (
     <div>
-      <span className={`${textSizePrice} font-bold aldi-text-color flex items-center`}>
-        <small
-          className={`${textSize} font-light text-black line-through mr-2`}>
-          {(props.uvp ? 'UVP' : '')} {props.discountedPrice > 0 ? (props.price ? Money(props.price) : Money(props.discountedPrice)) : ''}
+      <span className={priceText({ textSize, textColor })}>
+        <small className={uvpText({ textSize, textColor })}>
+          {uvp ? 'UVP' : ''}{' '}
+          {discountedPrice > 0
+            ? price
+              ? formatCurrency(price)
+              : formatCurrency(discountedPrice)
+            : ''}
         </small>
-        {(props.discountedPrice ? Money(props.discountedPrice) : Money(props.price))}
-        {props.discountedPrice > 0 && <small
-          className="font-extralight text-xs ml-2">Sie
-          sparen {calculatePercentage()}%</small>}
+        {discountedPrice
+          ? formatCurrency(discountedPrice)
+          : formatCurrency(price)}
+        {discountedPrice > 0 && (
+          <small className="ml-2 text-xs font-extralight">
+            Sie sparen {savingsPercentage}%
+          </small>
+        )}
       </span>
-
     </div>
   );
-};
-
-export default Price;
+}

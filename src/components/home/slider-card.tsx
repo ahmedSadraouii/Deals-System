@@ -1,28 +1,40 @@
 import React from 'react';
-import Price from "@/components/price";
-import Image from 'next/image'
+import Image from 'next/image';
+import { Price } from '@/components/price';
 
-const SliderCard = (props: any) => {
+export interface SliderCardProps {
+  data: {
+    image: string;
+    price: number;
+    discountPrice: number;
+  };
+}
+
+export function SliderCard({
+  data: { image, price, discountPrice },
+}: SliderCardProps) {
   return (
     <>
-      <div
-        className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+      <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow">
         <a href="#">
-          <div className="md:h-[300px] h-[300px] !bg-center !bg-cover rounded-lg relative"
-               style={{background: `url('${props.data.image}')`}}>
-            <span className="flex bg-gray-100 text-black text-xs font-light px-4 py-2 rounded absolute right-5 top-5">
+          <div
+            className="relative h-[300px] rounded-lg !bg-cover !bg-center md:h-[300px]"
+            style={{ background: `url('${image}')` }}
+          >
+            <span className="absolute right-5 top-5 flex rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
               <Image
                 src="/icons/last-minute-icon.svg"
                 width={15}
                 height={10}
                 alt="last minute icon"
                 className="mr-2"
-              /> Last minute!
+              />{' '}
+              Last minute!
             </span>
           </div>
         </a>
         <div className="px-5 pb-5">
-          <div className="flex items-center justify-between mt-2.5 mb-5">
+          <div className="mb-5 mt-2.5 flex items-center justify-between">
             <span className="px-0 py-2">
               <Image
                 src="/logos/check24-logo.svg"
@@ -32,8 +44,8 @@ const SliderCard = (props: any) => {
                 className="mr-2"
               />
             </span>
-            <div className="flex items-center space-x-1 rtl:space-x-reverse ms-3">
-              <div className="border-1 aldi-text-color font-extralight rounded py-2 px-4 flex items-center">
+            <div className="ms-3 flex items-center space-x-1 rtl:space-x-reverse">
+              <div className="flex items-center rounded border-1 px-4 py-2 font-extralight text-aldi-text">
                 <Image
                   src="/icons/clock-icon.svg"
                   width={20}
@@ -50,9 +62,14 @@ const SliderCard = (props: any) => {
               Köln - Hamburg für 2 Personen – 2 für 1 Tickets!
             </h5>
           </a>
-          <div className="flex items-center justify-between mt-5">
-            <Price price={props.data.price} discountedPrice={props.data.discountPrice} textSize={1} uvp={false}
-                   textColor={1}></Price>
+          <div className="mt-5 flex items-center justify-between">
+            <Price
+              price={price}
+              discountedPrice={discountPrice}
+              textSize={1}
+              textColor={1}
+              uvp={false}
+            />
             <a href="#" className="ml-2">
               <Image
                 src="/icons/link-icon.svg"
@@ -67,6 +84,6 @@ const SliderCard = (props: any) => {
       </div>
     </>
   );
-};
+}
 
 export default SliderCard;

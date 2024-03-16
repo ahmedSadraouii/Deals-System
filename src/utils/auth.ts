@@ -1,9 +1,5 @@
-import { AuthOptions } from "next-auth"
-import KeycloakProvider from "next-auth/providers/keycloak";
-
-export interface FooSession {
-
-}
+import KeycloakProvider from 'next-auth/providers/keycloak';
+import type { AuthOptions } from 'next-auth';
 
 export const authOptions: AuthOptions = {
   debug: false,
@@ -12,23 +8,23 @@ export const authOptions: AuthOptions = {
       clientId: process.env.KEYCLOAK_ID!,
       clientSecret: process.env.KEYCLOAK_SECRET!,
       issuer: process.env.KEYCLOAK_ISSUER!,
-    })
+    }),
   ],
   session: {
-    strategy: "jwt",  // <-- make sure to use jwt here
+    strategy: 'jwt', // <-- make sure to use jwt here
     maxAge: 30 * 24 * 60 * 60,
   },
   callbacks: {
     jwt: async ({ token, user, account }) => {
       if (account && account.access_token) {
-        token.accessToken = account.access_token
+        token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
       }
-      return token
+      return token;
     },
     session: async ({ session, user, token }) => {
-      (session as any).token
-      return { ...session, token }
+      (session as any).token;
+      return { ...session, token };
     },
   },
-}
+};
