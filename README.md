@@ -7,11 +7,12 @@ This website contains a ALDI end customer frontend, the customers can buy deals 
 ## Table of Contents
 
 <!-- TOC -->
-* [ALDI Deals Customer Frontend](#aldi-deals-customer-frontend)
-  * [Table of Contents](#table-of-contents)
-  * [Getting Started](#getting-started)
-  * [Learn More](#learn-more)
-<!-- TOC -->
+
+- [ALDI Deals Customer Frontend](#aldi-deals-customer-frontend)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Learn More](#learn-more)
+  <!-- TOC -->
 
 ## Getting Started
 
@@ -38,4 +39,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-

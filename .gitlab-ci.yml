@@ -1,3 +1,8 @@
+include:
+  - '/.gitlab-ci/test/steps.yml'
+  - '/.gitlab-ci/build/steps.yml'
+  - '/.gitlab-ci/deploy/steps.yml'
+
 default:
   image: docker
 
@@ -13,11 +18,6 @@ cache:
 variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: "ad-fe"
-
-include:
-  - '/gitlab-ci/test/steps.yml'
-  - '/gitlab-ci/build/steps.yml'
-  - '/gitlab-ci/deploy/steps.yml'
 
 stages:
   - Test

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "TS Library",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    "target": "ES5",
+    "esModuleInterop": false,
+    "isolatedModules": false
+  }
+}
