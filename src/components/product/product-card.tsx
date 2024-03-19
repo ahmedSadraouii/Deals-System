@@ -1,16 +1,17 @@
 import React from 'react';
 
-const ProductCard = (props: { title: string, content: string }) => {
+export interface ProductCardProps {
+  title: string;
+  content: string;
+}
+
+export function ProductCard({ title, content }: ProductCardProps) {
   return (
     <>
-      <div className="bg-gray-100 rounded-xl p-6 mb-10">
-        <h1 className="font-bold text-3xl mb-4">{props.title}</h1>
-        <p className="font-light text-gray-500 mb-5">
-          {props.content}
-        </p>
+      <div className="mb-10 rounded-xl bg-gray-100 p-6">
+        <h1 className="mb-4 text-3xl font-bold">{title}</h1>
+        <p className="mb-5 font-light text-gray-500">{content}</p>
       </div>
     </>
   );
-};
-
-export default ProductCard;
+}

@@ -1,9 +1,10 @@
-import { CancelablePromise, ContentResource, IApiContentResponseModel, OpenAPI } from "@/apiclient";
-import { authOptions } from "@/utils/auth";
-import { getServerSession } from "next-auth";
+import { getServerSession } from 'next-auth';
+import type { CancelablePromise, IApiContentResponseModel } from '@/apiclient';
+import { ContentResource, OpenAPI } from '@/apiclient';
+import { authOptions } from '@/utils/auth';
 
 export async function getApiResource(path: string) {
-  "use server";
+  'use server';
   const session = await getServerSession(authOptions);
 
   if (session === null) {
@@ -21,25 +22,26 @@ export async function getApiResource(path: string) {
     );
 
     return await res.json();
-  }
-  catch (e) {
+  } catch (e) {
     return null;
   }
 }
 
 export async function getDeal(dealId: string): Promise<DealModel> {
-  "use server";
+  'use server';
   return await getApiResource(`/customapi/deals/${dealId}`);
 }
 
 export async function getDeals(): Promise<DealModel> {
-  "use server";
+  'use server';
   return await getApiResource(`/customapi/deals`);
 }
 
 export async function getContentItem(idOrPath: string): Promise<any> {
-  "use server";
-  return await getApiResource(`/umbraco/delivery/api/v1/content/item/${idOrPath}`);
+  'use server';
+  return await getApiResource(
+    `/umbraco/delivery/api/v1/content/item/${idOrPath}`,
+  );
 }
 
 export interface DealModel {
@@ -51,20 +53,21 @@ export interface DealModel {
   count: number;
 }
 
-
 function setBaseUrl() {
   if (!process.env.WEBAPI_BASEURL) {
-    throw Error("WEBAPI_BASEURL has to be set");
+    throw Error('WEBAPI_BASEURL has to be set');
   }
 
   OpenAPI.BASE = process.env.WEBAPI_BASEURL;
 }
 
-function getContentById(id: string) : CancelablePromise<IApiContentResponseModel> {
+function getContentById(
+  id: string,
+): CancelablePromise<IApiContentResponseModel> {
   setBaseUrl();
 
   const content = ContentResource.getContentItemById20({
-    id
+    id,
   });
 
   return content;

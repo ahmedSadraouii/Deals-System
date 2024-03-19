@@ -1,16 +1,11 @@
-import React, {useState} from 'react';
-import {Swiper, SwiperSlide} from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import 'swiper/css/navigation';
-import {Pagination, FreeMode, Navigation, Thumbs} from 'swiper/modules';
+'use client';
 
-const ProductSlider = () => {
+import React, { useState } from 'react';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+export function ProductSlider() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const navigationPrevRef = React.useRef(null)
-  const navigationNextRef = React.useRef(null)
   const data = [
     {
       id: '1',
@@ -46,9 +41,9 @@ const ProductSlider = () => {
       id: '2',
       name: 'Slider2',
       image: '/img.png',
-    }
-  ]
-  let menu = ['Slide 1', 'Slide 2', 'Slide 3']
+    },
+  ];
+  let menu = ['Slide 1', 'Slide 2', 'Slide 3'];
   return (
     <>
       <Swiper
@@ -59,20 +54,22 @@ const ProductSlider = () => {
         loop={true}
         spaceBetween={10}
         navigation={false}
-        thumbs={{swiper: thumbsSwiper}}
+        thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {data.map((data, index) =>
+        {data.map((data, index) => (
           <SwiperSlide key={index}>
-            <div className="md:h-[600px] h-[400px] !bg-center !bg-cover rounded-3xl"
-                 style={{background: `url('${data.image}')`}}></div>
+            <div
+              className="h-[400px] rounded-3xl !bg-cover !bg-center md:h-[600px]"
+              style={{ background: `url('${data.image}')` }}
+            />
           </SwiperSlide>
-        )}
+        ))}
       </Swiper>
       <div className="relative mt-5">
         <Swiper
-          onSwiper={() => setThumbsSwiper }
+          onSwiper={() => setThumbsSwiper}
           loop={true}
           spaceBetween={10}
           slidesPerView={6}
@@ -85,24 +82,30 @@ const ProductSlider = () => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper"
         >
-          {data.map((data, index) =>
+          {data.map((data, index) => (
             <SwiperSlide key={index}>
-              <div className="md:h-[100px] h-[100px] !bg-center !bg-cover rounded-3xl"
-                   style={{background: `url('${data.image}')`}}></div>
+              <div
+                className="h-[100px] rounded-3xl !bg-cover !bg-center md:h-[100px]"
+                style={{ background: `url('${data.image}')` }}
+              />
             </SwiperSlide>
-          )}
-          <button type="button"
-                  className="prev h-10 w-10 bg-black rounded-full flex justify-center items-center absolute top-8 z-20">
-            <img src="/icons/left-icon.svg" alt="left icon"/>
+          ))}
+          <button
+            type="button"
+            className="prev absolute top-8 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black"
+          >
+            <img src="/icons/left-icon.svg" alt="left icon" />
           </button>
-          <button type="button"
-                  className="next h-10 w-10 bg-black rounded-full flex justify-center items-center absolute top-8 right-0 z-20">
-            <img src="/icons/right-icon.svg" alt="right icon"/>
+          <button
+            type="button"
+            className="next absolute right-0 top-8 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black"
+          >
+            <img src="/icons/right-icon.svg" alt="right icon" />
           </button>
         </Swiper>
       </div>
     </>
   );
-};
+}
 
 export default ProductSlider;

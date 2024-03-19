@@ -1,14 +1,14 @@
 import React from 'react';
-import {Swiper, SwiperSlide} from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import 'swiper/css/navigation';
-import {Pagination, FreeMode, Navigation, Thumbs} from 'swiper/modules';
-import Image from 'next/image'
+import Image from 'next/image';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const Slider = (props: { name: string, bg: string }) => {
+export interface LogoSliderProps {
+  name: string;
+  bg: string;
+}
+
+export function LogoSlider({ name, bg }: LogoSliderProps) {
   const data = [
     {
       id: '1',
@@ -38,24 +38,33 @@ const Slider = (props: { name: string, bg: string }) => {
       id: '2',
       image: 'https://cruip-tutorials.vercel.app/logo-carousel/quora.svg',
     },
-  ]
+  ];
   return (
     <>
-      <section className={`bg-${props.bg}-100 w-full py-16 px-5`}>
+      <section className={`bg-${bg}-100 w-full px-5 py-16`}>
         <div className="container mx-auto">
-          <div className="w-full flex justify-between items-center mb-5">
-            <h1 className="text-4xl mb-4 font-bold">{props.name}</h1>
-            <div className="!w-20 text-3xl font-medium flex justify-between">
-              <button type="button" className="prev bg-black px-3 py-3 rounded-full text-xs">
-                <img src="/icons/left-icon.svg" alt="left icon"/>
+          <div className="mb-5 flex w-full items-center justify-between">
+            <h1 className="mb-4 text-4xl font-bold">{name}</h1>
+            <div className="flex !w-20 justify-between text-3xl font-medium">
+              <button
+                type="button"
+                className="prev rounded-full bg-black px-3 py-3 text-xs"
+              >
+                <img src="/icons/left-icon.svg" alt="left icon" />
               </button>
-              <button type="button" className="next bg-black px-3 py-3 rounded-full text-xs">
-                <img src="/icons/right-icon.svg" alt="right icon"/>
+              <button
+                type="button"
+                className="next rounded-full bg-black px-3 py-3 text-xs"
+              >
+                <img src="/icons/right-icon.svg" alt="right icon" />
               </button>
             </div>
           </div>
-          <div className="w-full bg-orange-200 rounded-full h-1 mb-10">
-            <div className="bg-amber-500 h-1 rounded-full" style={{width: '5%'}}></div>
+          <div className="mb-10 h-1 w-full rounded-full bg-orange-200">
+            <div
+              className="h-1 rounded-full bg-amber-500"
+              style={{ width: '5%' }}
+            />
           </div>
           <Swiper
             loop={true}
@@ -65,28 +74,28 @@ const Slider = (props: { name: string, bg: string }) => {
               // when window width is >= 320px
               320: {
                 slidesPerView: 1,
-                spaceBetween: 20
+                spaceBetween: 20,
               },
               // when window width is >= 480px
               480: {
                 slidesPerView: 6,
-                spaceBetween: 30
+                spaceBetween: 30,
               },
               // when window width is >= 640px
               640: {
                 slidesPerView: 6,
-                spaceBetween: 40
+                spaceBetween: 40,
               },
               // when window width is >= 640px
               1024: {
                 slidesPerView: 6,
-                spaceBetween: 40
+                spaceBetween: 40,
               },
               // when window width is >= 640px
               1280: {
                 slidesPerView: 6,
-                spaceBetween: 40
-              }
+                spaceBetween: 40,
+              },
             }}
             freeMode={true}
             navigation={{
@@ -97,7 +106,7 @@ const Slider = (props: { name: string, bg: string }) => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
           >
-            {data.map((data, index) =>
+            {data.map((data, index) => (
               <SwiperSlide key={index}>
                 <Image
                   src={data.image}
@@ -107,12 +116,10 @@ const Slider = (props: { name: string, bg: string }) => {
                   className="mr-2"
                 />
               </SwiperSlide>
-            )}
+            ))}
           </Swiper>
         </div>
       </section>
     </>
   );
-};
-
-export default Slider;
+}
