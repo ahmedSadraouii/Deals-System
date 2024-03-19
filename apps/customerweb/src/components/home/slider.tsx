@@ -1,65 +1,76 @@
+'use client';
 import React from 'react';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { SliderCard } from '@/components/home/slider-card';
+import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {SliderCard} from '@/components/home/slider-card';
 
 export interface SliderProps {
   name: string;
   bg: string;
 }
 
-export function Slider({ name, bg }: SliderProps) {
+export function Slider({name, bg}: SliderProps) {
   const data = [
     {
       id: '1',
-      name: 'Slider1',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
       image: '/slider-train.png',
+      logo: '/logos/check24-logo.svg',
       price: 190,
       discountPrice: 0,
     },
     {
       id: '2',
-      name: '/slider-train.png',
-      image: '/img.png',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
+      image: '/img_4.png',
+      logo: '/logos/check24-logo.svg',
       price: 30,
       discountPrice: 15,
     },
     {
       id: '2',
-      name: 'Slider2',
-      image: '/img.png',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
+      image: '/slider-train.png',
+      logo: '/logos/check24-logo.svg',
       price: 400,
       discountPrice: 300,
     },
     {
       id: '2',
-      name: 'Slider2',
-      image: '/img.png',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
+      image: '/img_4.png',
+      logo: '/logos/check24-logo.svg',
       price: 175,
       discountPrice: 85,
     },
     {
       id: '2',
-      name: 'Slider2',
-      image: '/img.png',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
+      image: '/slider-train.png',
+      logo: '/logos/check24-logo.svg',
       price: 120,
       discountPrice: 90,
     },
     {
       id: '2',
-      name: 'Slider2',
-      image: '/img.png',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
+      image: '/img_4.png',
+      logo: '/logos/check24-logo.svg',
       price: 800,
       discountPrice: 640,
     },
     {
       id: '2',
-      name: 'Slider2',
-      image: '/img.png',
+      name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
+      image: '/slider-train.png',
+      logo: '/logos/check24-logo.svg',
       price: 380,
       discountPrice: 300,
     },
   ];
+
+  const randomClass = Math.floor(Math.random() * 9) + 1
+
   return (
     <>
       <section className={`bg-${bg}-100 w-full px-5 py-16`}>
@@ -69,22 +80,22 @@ export function Slider({ name, bg }: SliderProps) {
             <div className="flex !w-20 justify-between text-3xl font-medium">
               <button
                 type="button"
-                className="prev rounded-full bg-black px-3 py-3 text-xs"
+                className={"prev rounded-full bg-black px-3 py-3 text-xs"}
               >
-                <img src="/icons/left-icon.svg" alt="left icon" />
+                <img src="/icons/left-icon.svg" alt="left icon"/>
               </button>
               <button
                 type="button"
-                className="next rounded-full bg-black px-3 py-3 text-xs"
+                className={`next rounded-full bg-black px-3 py-3 text-xs`}
               >
-                <img src="/icons/right-icon.svg" alt="right icon" />
+                <img src="/icons/right-icon.svg" alt="right icon"/>
               </button>
             </div>
           </div>
           <div className="mb-10 h-1 w-full rounded-full bg-orange-200">
             <div
               className="h-1 rounded-full bg-amber-500"
-              style={{ width: '5%' }}
+              style={{width: '5%'}}
             />
           </div>
           <Swiper
@@ -129,7 +140,7 @@ export function Slider({ name, bg }: SliderProps) {
           >
             {data.map((data, index) => (
               <SwiperSlide key={index}>
-                <SliderCard data={data} />
+                <SliderCard data={data}/>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -10,37 +10,37 @@ export function ProductSlider() {
     {
       id: '1',
       name: 'Slider1',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/img.png',
+      image: '/aldi-online-shop-logo.png',
     },
   ];
   let menu = ['Slide 1', 'Slide 2', 'Slide 3'];

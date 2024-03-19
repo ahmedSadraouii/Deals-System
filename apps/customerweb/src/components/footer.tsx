@@ -1,60 +1,85 @@
+import FooterForm from "@/components/footer/footer-form";
+import React from "react";
+import Image from 'next/image';
+import {FooterSlider} from "@/components/footer/footer-slider";
+
 export function Footer() {
   return (
     <>
-      <div className="bg-[#FFD7D8]">
+      <FooterSlider name="Angebote unserer ALDI Möglichkeiten" bg="white"/>
+
+
+      <div className="container mx-auto w-full mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 bg-indigo-900 rounded-3xl min-h-[700px]">
+          <div className="!bg-center !bg-cover" style={{background: 'url("/img_2.png")'}}></div>
+          <div className="flex items-center justify-center p-20">
+            <div className="w-full p-10 bg-[#364084] rounded-3xl">
+              <h1 className="text-white text-sm">Nie wieder einen Deal verpassen!</h1>
+              <h2 className="text-2xl text-white">Jetzt zum Newsletter anmelden</h2>
+              <ul className="mt-5">
+                <li className="text-white flex items-center">
+                  <Image
+                    src="/icons/login-check-icon.svg"
+                    width={30}
+                    height={70}
+                    alt="aldi sport logo"
+                    className="mr-3"
+                  />
+                  Kostenlos, unverbindlich und jederzeit löschbar!
+                </li>
+                <li className="text-white flex items-center">
+                  <Image
+                    src="/icons/login-check-icon.svg"
+                    width={30}
+                    height={70}
+                    alt="aldi sport logo"
+                    className="mr-3"
+                  />
+                  Neue Angebote, Sonderaktionen und Deals – nichts mehr verpassen!
+                </li>
+              </ul>
+              <FooterForm/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-gray-100">
         <div className="container mx-auto w-full p-4 py-16">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex items-center">
               <div className="mb-6 md:mb-0">
-                <h2 className="text-3xl font-bold">Service & Kontakt</h2>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h2 className="mb-6 text-2xl font-semibold">
-                  Schnell selbst klären?
+                <h2 className="text-2xl font-bold">
+                  Du brauchst Hilfe? Unser Kundendienst hilft gerne!
                 </h2>
-                <span className="font-light">
-                  <small className="text-sm">
-                    {' '}
-                    Finde die Antwort auf deine Frage in unseren
-                  </small>{' '}
-                  <b className="underline">häufig gestellten Fragen</b>.
-                </span>
               </div>
             </div>
-            <div>
-              <h2 className="mb-6 text-2xl font-semibold">
-                Brauchst du unsere Hilfe?
-              </h2>
-              <div>
-                <ul className="font-medium">
-                  <li className="mb-4">
-                    <a href="tel:+49 1803 252722" className="hover:underline">
-                      <img
-                        src="/icons/phone-footer-icon.svg"
-                        alt="phone icon"
-                        className="float-start mr-3"
-                      />{' '}
-                      +49 1803 252722
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a
-                      href="mailto:kundenservice@aldideals.de"
-                      className="hover:underline"
-                    >
-                      <img
-                        src="/icons/mail-footer-icon.svg"
-                        alt="email icon"
-                        className="float-start mr-3"
-                      />{' '}
-                      kundenservice@aldideals.de
-                    </a>
-                  </li>
-                </ul>
-              </div>
+
+            <div className="md:flex">
+              <a
+                href="mailto:kundenservice@aldideals.de"
+                className="hover:underline bg-slate-900 flex items-center px-6 py-3 rounded-full text-white"
+              >
+                <img
+                  src="/icons/mail-footer-icon.svg"
+                  alt="email icon"
+                  className="float-left mr-3 text-white fill-white stroke-white"
+                />{' '}
+                kontakt@kundenservice.aldi-sued.de
+              </a>
+              <a
+                href="mailto:kundenservice@aldideals.de"
+                className="hover:underline bg-slate-900 flex items-center px-6 py-3 rounded-full text-white md:ml-4 mt-5 md:mt-0"
+              >
+                <img
+                  src="/icons/info-icon.svg"
+                  alt="email icon"
+                  className="float-left mr-3 text-white fill-white stroke-white"
+                />{' '}
+                Häufig gestellte Fragen
+              </a>
+
             </div>
+
           </div>
         </div>
       </div>
@@ -153,9 +178,9 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
+          <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700"/>
           <div className="justify-center sm:flex sm:items-center">
-            <span className="text-sm text-white">
+            <span className="text-sm text-gray-600">
               &copy; 2023{' '}
               <a href="/" className="hover:underline">
                 Aldi-Deals&trade;

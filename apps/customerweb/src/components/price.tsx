@@ -7,7 +7,6 @@ export interface PriceProps {
   discountedPrice: number;
   uvp: boolean;
   textSize?: 'default' | 1 | 2;
-  textColor?: 1 | 2;
 }
 
 export function Price({
@@ -15,24 +14,18 @@ export function Price({
   discountedPrice,
   uvp,
   textSize = 'default',
-  textColor = 1,
 }: PriceProps) {
   const priceText = tv({
-    base: 'font-bold text-aldi-text flex items-center',
+    base: 'font-bold text-aldi-text flex items-center text-aldi-text',
     variants: {
       textSize: {
         default: 'text-3xl',
         1: 'text-2xl',
         2: 'text-5xl',
       },
-      textColor: {
-        1: 'text-gray-900',
-        2: 'text-gray-900',
-      },
     },
     defaultVariants: {
       textSize: 'default',
-      textColor: 1,
     },
   });
 
@@ -44,14 +37,9 @@ export function Price({
         1: 'text-lg',
         2: 'text-xl',
       },
-      textColor: {
-        1: 'text-aldi-text',
-        2: 'text-gray-900',
-      },
     },
     defaultVariants: {
       textSize: 'default',
-      textColor: 1,
     },
   });
 
@@ -62,8 +50,8 @@ export function Price({
 
   return (
     <div>
-      <span className={priceText({ textSize, textColor })}>
-        <small className={uvpText({ textSize, textColor })}>
+      <span className={priceText({ textSize })}>
+        <small className={uvpText({ textSize })}>
           {uvp ? 'UVP' : ''}{' '}
           {discountedPrice > 0
             ? price
