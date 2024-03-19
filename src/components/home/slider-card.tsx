@@ -67,7 +67,6 @@ export function SliderCard({
               price={price}
               discountedPrice={discountPrice}
               textSize={1}
-              textColor={1}
               uvp={false}
             />
             <a href="#" className="ml-2">

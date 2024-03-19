@@ -136,7 +136,6 @@ export default function Page() {
                     discountedPrice={90}
                     uvp={true}
                     textSize={2}
-                    textColor={2}
                   />
                 </div>
               </div>

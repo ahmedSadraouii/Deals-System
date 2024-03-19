@@ -36,7 +36,6 @@ export function BasketProductItem({
               discountedPrice={0}
               uvp={false}
               textSize={1}
-              textColor={2}
             />
           </div>
         </div>
