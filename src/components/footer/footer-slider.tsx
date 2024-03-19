@@ -13,38 +13,31 @@ export function FooterSlider({name, bg}: FooterSliderProps) {
   const data = [
     {
       id: '1',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/facebook.svg',
+      image: '/img_3.png',
+      name: 'Angebote im ALDI Onlineshop',
+      description: '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
+      link: '',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/disney.svg',
+      image: '/img_3.png',
+      name: 'Angebote im ALDI Onlineshop',
+      description: '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
+      link: '',
     },
     {
-      id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/airbnb.svg',
-    },
-    {
-      id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/apple.svg',
-    },
-    {
-      id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/spark.svg',
-    },
-    {
-      id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/samsung.svg',
-    },
-    {
-      id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/quora.svg',
+      id: '3',
+      image: '/img_3.png',
+      name: 'Angebote im ALDI Onlineshop',
+      description: '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
+      link: '',
     },
   ];
   return (
     <>
       <section className={`bg-${bg}-100 w-full px-5 py-16`}>
         <div className="container mx-auto">
-          <div className="mb-5 flex w-full items-center justify-between text-center">
+          <div className="mb-5 w-full items-center justify-between text-center">
             <h1 className="mb-4 text-4xl font-bold">{name}</h1>
           </div>
           <Swiper
@@ -89,16 +82,24 @@ export function FooterSlider({name, bg}: FooterSliderProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 bg-gray-100 rounded-3xl">
                   <div>
                     <Image
-                      src="/img_3.png"
+                      src={data.image}
                       width={800}
                       height={70}
                       alt="aldi sport logo"
                       className="mr-3"
                     />
                   </div>
-                  <div className="p-5 flex flex-col  justify-center">
-                    <h1 className="font-bold text-xl mb-3">Angebote im ALDI Onlineshop</h1>
-                    <p>15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop</p>
+                  <div className="p-5 flex flex-col justify-center">
+                    <Image
+                      src="/logos/aldi-online-shop-logo.png"
+                      width={150}
+                      height={70}
+                      alt="aldi sport logo"
+                      className="mb-4"
+                    />
+                    <h1 className="font-bold text-xl mb-3">{data.name}</h1>
+                    <p>{data.description}</p>
+                    <button className="mt-4 bg-orange-600 p-2 rounded-full text-white max-w-sm">Jetzt entdecken</button>
                   </div>
                 </div>
               </SwiperSlide>
