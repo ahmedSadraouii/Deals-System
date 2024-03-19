@@ -1,35 +1,39 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export interface FooterSliderProps {
   name: string;
   bg: string;
 }
 
-export function FooterSlider({name, bg}: FooterSliderProps) {
+export function FooterSlider({ name, bg }: FooterSliderProps) {
   const data = [
     {
       id: '1',
       image: '/img_3.png',
       name: 'Angebote im ALDI Onlineshop',
-      description: '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
+      description:
+        '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
       link: '',
     },
     {
       id: '2',
       image: '/img_3.png',
       name: 'Angebote im ALDI Onlineshop',
-      description: '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
+      description:
+        '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
       link: '',
     },
     {
       id: '3',
       image: '/img_3.png',
       name: 'Angebote im ALDI Onlineshop',
-      description: '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
+      description:
+        '15% Rabatt auf alle ALDI SPORTS Produkte im ALDI SÜD Onlineshop',
       link: '',
     },
   ];
@@ -79,7 +83,7 @@ export function FooterSlider({name, bg}: FooterSliderProps) {
           >
             {data.map((data, index) => (
               <SwiperSlide key={index}>
-                <div className="grid grid-cols-1 md:grid-cols-2 bg-gray-100 rounded-3xl">
+                <div className="grid grid-cols-1 rounded-3xl bg-gray-100 md:grid-cols-2">
                   <div>
                     <Image
                       src={data.image}
@@ -89,7 +93,7 @@ export function FooterSlider({name, bg}: FooterSliderProps) {
                       className="mr-3"
                     />
                   </div>
-                  <div className="p-5 flex flex-col justify-center">
+                  <div className="flex flex-col justify-center p-5">
                     <Image
                       src="/logos/aldi-online-shop-logo.png"
                       width={150}
@@ -97,9 +101,11 @@ export function FooterSlider({name, bg}: FooterSliderProps) {
                       alt="aldi sport logo"
                       className="mb-4"
                     />
-                    <h1 className="font-bold text-xl mb-3">{data.name}</h1>
+                    <h1 className="mb-3 text-xl font-bold">{data.name}</h1>
                     <p>{data.description}</p>
-                    <button className="mt-4 bg-orange-600 p-2 rounded-full text-white max-w-sm">Jetzt entdecken</button>
+                    <button className="mt-4 max-w-sm rounded-full bg-orange-600 p-2 text-white">
+                      Jetzt entdecken
+                    </button>
                   </div>
                 </div>
               </SwiperSlide>

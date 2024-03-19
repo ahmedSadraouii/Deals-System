@@ -12,7 +12,7 @@
     "build": "turbo run build --no-daemon",
     "dev": "turbo run dev --no-daemon",
     "lint": "turbo run lint --no-daemon",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "eslint . --fix"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.3.0",

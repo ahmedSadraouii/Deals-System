@@ -43,14 +43,9 @@ export function ProductSlider() {
       image: '/aldi-online-shop-logo.png',
     },
   ];
-  let menu = ['Slide 1', 'Slide 2', 'Slide 3'];
   return (
     <>
       <Swiper
-        /*style={{
-          '--swiper-navigation-color': '#fff',
-          '--swiper-pagination-color': '#fff',
-        }}*/
         loop={true}
         spaceBetween={10}
         navigation={false}

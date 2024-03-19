@@ -45,7 +45,7 @@ const products = [
 ];
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [_mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header className="border-b-1">
       <nav

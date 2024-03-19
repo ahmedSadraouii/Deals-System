@@ -20,16 +20,13 @@ export default function Page() {
     defaultValues,
   });
 
-  const onSubmit = useCallback(
-    async (data: typeof defaultValues) => {
-      await signIn('credentials', {
-        email: data.email,
-        password: data.password,
-        callbackUrl: '/',
-      });
-    },
-    [errors],
-  );
+  const onSubmit = useCallback(async (data: typeof defaultValues) => {
+    await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      callbackUrl: '/',
+    });
+  }, []);
 
   return (
     <>

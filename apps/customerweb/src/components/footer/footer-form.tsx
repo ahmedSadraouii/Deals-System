@@ -1,8 +1,9 @@
 'use client';
-import React, {useCallback} from 'react';
+
+import React, { useCallback } from 'react';
 import Image from 'next/image';
-import {Input, Button} from '@nextui-org/react';
-import {useForm} from 'react-hook-form';
+import { Input, Button } from '@nextui-org/react';
+import { useForm } from 'react-hook-form';
 
 const FooterForm = () => {
   const defaultValues = {
@@ -14,7 +15,7 @@ const FooterForm = () => {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues,
   });
@@ -31,7 +32,7 @@ const FooterForm = () => {
       <form method="post" onSubmit={handleSubmit(onSubmit)} className="mt-5">
         <div className="mb-5 flex">
           <Input
-            className="bg-white rounded-full"
+            className="rounded-full bg-white"
             type="text"
             label="Vorname"
             variant="bordered"
@@ -39,10 +40,10 @@ const FooterForm = () => {
             isInvalid={!!errors.name}
             radius="full"
             errorMessage={errors.name && 'Vorname is required'}
-            {...register('name', {required: true})}
+            {...register('name', { required: true })}
           />
           <Input
-            className="bg-white rounded-full ml-4"
+            className="ml-4 rounded-full bg-white"
             type="text"
             label="Nachname"
             variant="bordered"
@@ -50,11 +51,11 @@ const FooterForm = () => {
             isInvalid={!!errors.surname}
             radius="full"
             errorMessage={errors.surname && 'Nachname is required'}
-            {...register('surname', {required: true})}
+            {...register('surname', { required: true })}
           />
         </div>
         <Input
-          className="bg-white rounded-full"
+          className="rounded-full bg-white"
           type="email"
           label="E-Mail Adresse"
           variant="bordered"
@@ -62,7 +63,7 @@ const FooterForm = () => {
           isInvalid={!!errors.email}
           radius="full"
           errorMessage={errors.email && 'Email is required'}
-          {...register('email', {required: true})}
+          {...register('email', { required: true })}
         />
 
         <div className="mb-4 mt-4 flex items-center justify-center">
@@ -76,16 +77,18 @@ const FooterForm = () => {
             htmlFor="default-checkbox"
             className="ms-2 text-left text-sm font-medium text-white"
           >
-            Ich möchte News per E-Mail erhalten und bin mit der damit verbundenen Verarbeitung meiner personenbezogenen
-            Daten gemäß der ALDI SÜD-Datenschutzerklärung einverstanden*. Ein Widerruf ist jederzeit möglich.
+            Ich möchte News per E-Mail erhalten und bin mit der damit
+            verbundenen Verarbeitung meiner personenbezogenen Daten gemäß der
+            ALDI SÜD-Datenschutzerklärung einverstanden*. Ein Widerruf ist
+            jederzeit möglich.
           </label>
         </div>
 
         <Button
           type="submit"
-          className="mb-5 mt-5 w-full rounded-full bg-amber-500 px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
+          className="hover:bg-primary-700 focus:ring-primary-300 mb-5 mt-5 w-full rounded-full bg-amber-500 px-5 py-7 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
         >
-          Jetzt anmelden {""}
+          Jetzt anmelden {''}
           <Image
             src="/icons/send-icon.svg"
             width={15}

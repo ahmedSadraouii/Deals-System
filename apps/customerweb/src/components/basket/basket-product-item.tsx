@@ -31,12 +31,7 @@ export function BasketProductItem({
             <h2 className="text-base font-semibold leading-7 text-gray-500">
               {description}
             </h2>
-            <Price
-              price={price}
-              discountedPrice={0}
-              uvp={false}
-              textSize={1}
-            />
+            <Price price={price} discountedPrice={0} uvp={false} textSize={1} />
           </div>
         </div>
         <div className="flex items-center justify-between rounded-full border-2 px-0 py-0">

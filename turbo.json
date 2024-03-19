@@ -1,5 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "API_HOST"
+  ],
   "pipeline": {
     "build": {
       "outputs": [

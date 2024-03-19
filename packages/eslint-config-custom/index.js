@@ -26,6 +26,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@next/next/no-html-link-for-pages': 'off',
+    '@next/next/no-img-element': 'off', // temporarily disable that warning
     'prettier/prettier': [
       'error',
       {

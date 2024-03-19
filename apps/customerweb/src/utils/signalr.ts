@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import * as signalR from '@microsoft/signalr';
 import useTryCatch from '@/hooks/use-try-catch';
 
@@ -11,8 +11,6 @@ interface SignalRContextProps {
 const SignalRContext = createContext<SignalRContextProps>(undefined!);
 
 export function SignalRProvider({ children }: any) {
-  const [currentUser, setUser] = useState<boolean>();
-
   return { children };
   /*
     return (
@@ -29,54 +27,51 @@ export default function useSignalConnection() {
     null,
   );
 
-  const connect = useCallback(
-    useTryCatch(
-      async () => {
-        setIsConnecting(false);
-        const conn = new signalR.HubConnectionBuilder()
-          .withUrl(`${process.env.API_HOST}/api/signal`) // TODO: change that ...
-          .withAutomaticReconnect()
-          .build();
+  const connect = useTryCatch(
+    async () => {
+      setIsConnecting(false);
+      const conn = new signalR.HubConnectionBuilder()
+        .withUrl(`${process.env.API_HOST}/api/signal`) // TODO: change that ...
+        .withAutomaticReconnect()
+        .build();
 
-        conn.onclose((error) => {
-          if (error) {
-            console.error(`SignalR connection closed with error: ${error}`);
-          }
-        });
-        conn.onreconnecting(() => {
-          console.log(`SignalR client is trying to reconnect ...`);
-          setIsConnecting(true);
-        });
-        conn.onreconnected(() => {
-          console.log(`SignalR Connection reestablished`);
-          setIsConnecting(false);
-        });
-
-        async function start() {
-          try {
-            await conn.start();
-            console.log('SignalR Connected.');
-            setConnection(conn);
-            setIsConnecting(true);
-
-            // Keep alive every 30 seconds, in case you impement "WhoIsOnline" feature!
-            // setInterval(() => {
-            //    conn.invoke('Ping').catch((error) => console.error(`SignalR could not ping: ${error}`));
-            // }, 30000);
-          } catch (err) {
-            setIsConnecting(false);
-            setTimeout(start, 5000);
-          }
+      conn.onclose((error) => {
+        if (error) {
+          console.error(`SignalR connection closed with error: ${error}`);
         }
-
-        await start();
-      },
-      () => {
+      });
+      conn.onreconnecting(() => {
+        console.log(`SignalR client is trying to reconnect ...`);
+        setIsConnecting(true);
+      });
+      conn.onreconnected(() => {
+        console.log(`SignalR Connection reestablished`);
         setIsConnecting(false);
-        setConnection(null);
-      },
-    ),
-    [],
+      });
+
+      async function start() {
+        try {
+          await conn.start();
+          console.log('SignalR Connected.');
+          setConnection(conn);
+          setIsConnecting(true);
+
+          // Keep alive every 30 seconds, in case you impement "WhoIsOnline" feature!
+          // setInterval(() => {
+          //    conn.invoke('Ping').catch((error) => console.error(`SignalR could not ping: ${error}`));
+          // }, 30000);
+        } catch (err) {
+          setIsConnecting(false);
+          setTimeout(start, 5000);
+        }
+      }
+
+      await start();
+    },
+    () => {
+      setIsConnecting(false);
+      setConnection(null);
+    },
   );
 
   return { connect, isConnecting, connection };
