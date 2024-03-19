@@ -1,25 +1,25 @@
 import React from 'react';
 import Image from 'next/image';
-import { Price } from '@/components/price';
+import {Price} from '@/components/price';
 
 export interface SliderCardProps {
   data: {
+    name: string;
+    logo: string;
     image: string;
     price: number;
     discountPrice: number;
   };
 }
 
-export function SliderCard({
-  data: { image, price, discountPrice },
-}: SliderCardProps) {
+export function SliderCard({data: {name, image, price, discountPrice, logo}}: SliderCardProps) {
   return (
     <>
       <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow">
         <a href="#">
           <div
             className="relative h-[300px] rounded-lg !bg-cover !bg-center md:h-[300px]"
-            style={{ background: `url('${image}')` }}
+            style={{background: `url('${image}')`}}
           >
             <span className="absolute right-5 top-5 flex rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
               <Image
@@ -37,7 +37,7 @@ export function SliderCard({
           <div className="mb-5 mt-2.5 flex items-center justify-between">
             <span className="px-0 py-2">
               <Image
-                src="/logos/check24-logo.svg"
+                src={logo}
                 width={105}
                 height={30}
                 alt="last minute icon"
@@ -59,7 +59,7 @@ export function SliderCard({
           </div>
           <a href="#">
             <h5 className="text-xl font-semibold tracking-tight text-gray-900">
-              Köln - Hamburg für 2 Personen – 2 für 1 Tickets!
+              {name}
             </h5>
           </a>
           <div className="mt-5 flex items-center justify-between">
