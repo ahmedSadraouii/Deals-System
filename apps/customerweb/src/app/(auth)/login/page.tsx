@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 import { Input, Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 
@@ -20,9 +21,12 @@ export default function Page() {
   });
 
   const onSubmit = useCallback(
-    (data: typeof defaultValues) => {
-      console.log(data);
-      console.log(errors);
+    async (data: typeof defaultValues) => {
+      await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        callbackUrl: '/',
+      });
     },
     [errors],
   );

@@ -8,7 +8,9 @@
   "scripts": {
     "build:api-gen": "openapi-generator-cli generate -i ../../api-spec/auth.json -g typescript -o generated",
     "build:tsc": "tsc -d --declarationMap",
-    "build": "run-s build:api-gen build:tsc"
+    "build": "run-s build:api-gen build:tsc",
+    "dev": "run-s build:api-gen dev:watch",
+    "dev:watch": "tsc-watch -d --noClear --declarationMap"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.9.0",
