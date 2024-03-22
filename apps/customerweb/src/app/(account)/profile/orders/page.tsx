@@ -1,35 +1,10 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import React from 'react';
 import MenuBar from '@/components/account/menu-bar';
 import { OrderProductItem } from '@/components/account/order-product-item';
 
 const Page = () => {
-  const defaultValues = {
-    email: '',
-    name: '',
-    surname: '',
-    postCode: '',
-    place: '',
-    password: '',
-    phone: '',
-  };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues,
-  });
-  const onSubmit = useCallback(
-    (data: typeof defaultValues) => {
-      console.log(data);
-      console.log(errors);
-    },
-    [errors],
-  );
-
   return (
     <div className="container mx-auto py-14">
       <MenuBar />
@@ -47,12 +22,14 @@ const Page = () => {
                 description="2 Tickets zum Preis von 1"
                 count={2}
                 image="/img_1.png"
+                link="/profile/orders/1"
               />
               <OrderProductItem
                 name="Mud Masters Tickets"
                 description="2 Tickets zum Preis von 1"
                 count={2}
                 image="/img_1.png"
+                link="/profile/orders/1"
               />
             </div>
           </div>

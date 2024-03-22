@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@nextui-org/react';
 
 export interface OrderProductItemProps {
@@ -7,12 +8,14 @@ export interface OrderProductItemProps {
   description: string;
   count: number;
   image: string;
+  link: string;
 }
 
 export function OrderProductItem({
   name,
   description,
   image,
+  link,
 }: OrderProductItemProps) {
   return (
     <div>
@@ -39,20 +42,19 @@ export function OrderProductItem({
             Download
           </Button>
 
-          <Button
-            type="button"
-            className="border-1  mt-5 w-full rounded-full border-black bg-transparent px-8 py-6 text-center text-sm font-medium text-black"
-            endContent={
-              <Image
-                src="/icons/order-right-icon.svg"
-                width={14}
-                height={14}
-                alt="profil icon"
-              />
-            }
+          <Link
+            href={link}
+            className="border-1 mt-5 flex w-full rounded-full border-black bg-transparent px-8 py-4 text-center text-sm font-medium text-black"
           >
             Details
-          </Button>
+            <Image
+              src="/icons/order-right-icon.svg"
+              width={14}
+              height={14}
+              alt="profil icon"
+              className="ml-3"
+            />
+          </Link>
         </div>
       </div>
       <hr className="mb-10 mt-5" />
