@@ -16,15 +16,17 @@ export interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="de">
-      <body>
-        <Header />
-        <main>
+    <html lang="de" className="aldi">
+      <body className="bg-white">
+        <Providers>
           <div>
-            <Providers>{children}</Providers>
+            <Header />
+            <main>
+              <div>{children}</div>
+            </main>
+            <Footer />
           </div>
-        </main>
-        <Footer />
+        </Providers>
       </body>
     </html>
   );

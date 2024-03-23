@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Avatar } from '@nextui-org/react';
 
-const ProfileAvatar = () => {
+function ProfileAvatar() {
   return (
     <div className="relative max-w-24">
       <Avatar
@@ -21,6 +21,6 @@ const ProfileAvatar = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProfileAvatar;

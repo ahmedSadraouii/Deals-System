@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Price } from '@/components/price';
+import { IconLastMinute } from '@/components/svg/icon-last-minute';
 
 export interface ProductItemProps {
   price: number;
@@ -17,15 +18,9 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
             className="relative h-[300px] rounded-lg !bg-cover !bg-center md:h-[300px]"
             style={{ background: `url('${image}')` }}
           >
-            <span className="absolute right-5 top-5 flex rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
-              <Image
-                src="/icons/last-minute-icon.svg"
-                width={15}
-                height={10}
-                alt="last minute icon"
-                className="mr-2"
-              />{' '}
-              Last minute!
+            <span className="absolute right-5 top-5 flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+              <IconLastMinute className="mr-2 text-base" />
+              <span>Last minute!</span>
             </span>
           </div>
         </a>
@@ -35,7 +30,7 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
               <Image
                 src="/logos/check24-logo.svg"
                 width={105}
-                height={30}
+                height={26}
                 alt="last minute icon"
                 className="mr-2"
               />
@@ -45,7 +40,7 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
                 <Image
                   src="/icons/clock-icon.svg"
                   width={20}
-                  height={15}
+                  height={20}
                   alt="clock icon"
                   className="mr-2"
                 />

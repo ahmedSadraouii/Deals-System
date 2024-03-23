@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Button } from '@nextui-org/react';
 
-const MenuBar = () => {
+function MenuBar() {
   return (
     <>
       <div className="flex items-center justify-center">
@@ -73,6 +73,6 @@ const MenuBar = () => {
       </div>
     </>
   );
-};
+}
 
 export default MenuBar;

@@ -27,16 +27,21 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@next/next/no-html-link-for-pages': 'off',
     '@next/next/no-img-element': 'off', // temporarily disable that warning
+    'no-relative-import-paths/no-relative-import-paths': [
+      'warn',
+      { allowSameFolder: true },
+    ],
     'prettier/prettier': [
       'error',
       {
         endOfLine: 'auto',
       },
     ],
-    'no-relative-import-paths/no-relative-import-paths': [
-      'warn',
-      { allowSameFolder: true },
-    ],
+    'react/function-component-definition': ['error', {
+      namedComponents: 'function-declaration'
+    }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react/jsx-fragments': 'error',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
       'warn',

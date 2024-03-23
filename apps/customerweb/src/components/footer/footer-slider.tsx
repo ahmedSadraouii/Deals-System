@@ -97,7 +97,7 @@ export function FooterSlider({ name, bg }: FooterSliderProps) {
                     <Image
                       src="/logos/aldi-online-shop-logo.png"
                       width={150}
-                      height={70}
+                      height={27}
                       alt="aldi sport logo"
                       className="mb-4"
                     />

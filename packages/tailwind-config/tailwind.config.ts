@@ -2,6 +2,7 @@ import { nextui } from '@nextui-org/react';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     // customerweb
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -17,10 +18,23 @@ const config: Config = {
       },
       colors: {
         'aldi-text': '#f05322',
+        'aldi-blue': '#0B102F',
         'aldi-bg': '#f0dfdc',
       },
     },
   },
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        aldi: {
+          extend: 'light',
+          colors: {
+            primary: '#f05322',
+            secondary: '#0B102F',
+          },
+        },
+      },
+    }),
+  ],
 };
 export default config;

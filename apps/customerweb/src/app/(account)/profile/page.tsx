@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import MenuBar from '@/components/account/menu-bar';
 import ProfileAvatar from '@/components/account/profile-avatar';
 
-const Page = () => {
+export default function Page() {
   const defaultValues = {
     email: '',
     name: '',
@@ -170,6 +170,4 @@ const Page = () => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}

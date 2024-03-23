@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -108,13 +107,14 @@ export function LogoSlider({ name, bg }: LogoSliderProps) {
           >
             {data.map((data, index) => (
               <SwiperSlide key={index}>
-                <Image
-                  src={data.image}
-                  width={130}
-                  height={80}
-                  alt="logo image"
-                  className="mr-2"
-                />
+                <div className="flex h-16 items-center justify-center">
+                  <img
+                    src={data.image}
+                    width={130}
+                    height={80}
+                    alt="logo image"
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>

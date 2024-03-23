@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Input, Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 
-const FooterForm = () => {
+function FooterForm() {
   const defaultValues = {
     name: '',
     surname: '',
@@ -91,7 +91,7 @@ const FooterForm = () => {
           Jetzt anmelden {''}
           <Image
             src="/icons/send-icon.svg"
-            width={15}
+            width={16}
             height={15}
             alt="send icon"
           />
@@ -99,6 +99,6 @@ const FooterForm = () => {
       </form>
     </>
   );
-};
+}
 
 export default FooterForm;

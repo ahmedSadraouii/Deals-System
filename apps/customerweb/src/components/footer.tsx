@@ -26,9 +26,9 @@ export function Footer() {
                 <li className="flex items-center text-white">
                   <Image
                     src="/icons/login-check-icon.svg"
-                    width={30}
-                    height={70}
-                    alt="aldi sport logo"
+                    width={32}
+                    height={32}
+                    alt=""
                     className="mr-3"
                   />
                   Kostenlos, unverbindlich und jederzeit löschbar!
@@ -36,9 +36,9 @@ export function Footer() {
                 <li className="flex items-center text-white">
                   <Image
                     src="/icons/login-check-icon.svg"
-                    width={30}
-                    height={70}
-                    alt="aldi sport logo"
+                    width={32}
+                    height={32}
+                    alt=""
                     className="mr-3"
                   />
                   Neue Angebote, Sonderaktionen und Deals – nichts mehr

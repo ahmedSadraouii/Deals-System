@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import { SessionProvider } from 'next-auth/react';
 import { NextUIProvider } from '@nextui-org/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -13,5 +14,9 @@ export interface ProvidersProps {
 }
 
 export default function Providers({ children }: ProvidersProps) {
-  return <NextUIProvider>{children}</NextUIProvider>;
+  return (
+    <SessionProvider>
+      <NextUIProvider>{children}</NextUIProvider>
+    </SessionProvider>
+  );
 }

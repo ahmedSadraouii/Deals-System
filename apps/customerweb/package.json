@@ -6,7 +6,8 @@
     "dev": "next dev -p 4420",
     "build": "next build",
     "start": "next start -p 3000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "eslint . --fix"
   },
   "dependencies": {
     "@microsoft/signalr": "8.0.0",

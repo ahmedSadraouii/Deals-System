@@ -12,7 +12,7 @@
     "build": "turbo run build --no-daemon",
     "dev": "turbo run dev --no-daemon",
     "lint": "turbo run lint --no-daemon",
-    "format": "eslint . --fix"
+    "format": "turbo run format --no-daemon"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.3.0",
@@ -30,7 +30,7 @@
     "postcss": "8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.4",
-    "turbo": "^1.12.5"
+    "turbo": "1.13.0"
   },
   "engines": {
     "node": ">=20.0.0"

@@ -1,10 +1,8 @@
-'use client';
-
 import React from 'react';
 import MenuBar from '@/components/account/menu-bar';
 import { OrderProductItem } from '@/components/account/order-product-item';
 
-const Page = () => {
+export default function Page() {
   return (
     <div className="container mx-auto py-14">
       <MenuBar />
@@ -37,6 +35,4 @@ const Page = () => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}
