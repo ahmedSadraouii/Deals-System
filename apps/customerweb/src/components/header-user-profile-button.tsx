@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { useCallback } from 'react';
+import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import {
   Dropdown,
@@ -38,7 +39,9 @@ export function HeaderUserProfileButton({
       </DropdownTrigger>
       <DropdownMenu>
         <DropdownSection showDivider={true}>
-          <DropdownItem key="profile">Profil</DropdownItem>
+          <DropdownItem key="profile" as={Link} href="/profile">
+            Profil
+          </DropdownItem>
         </DropdownSection>
         <DropdownItem key="logout" onClick={onClickSignOut}>
           Ausloggen
