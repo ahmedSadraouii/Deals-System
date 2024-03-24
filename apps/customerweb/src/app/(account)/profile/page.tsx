@@ -152,14 +152,14 @@ export default function Page() {
 
                 <Button
                   type="submit"
-                  className="hover:bg-primary-700 focus:ring-primary-300 mt-5 w-full rounded-full bg-black px-5 py-7 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
+                  className="mt-5 w-full rounded-full bg-black px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                   Speichern
                 </Button>
 
                 <Button
                   type="button"
-                  className="border-1 hover:bg-primary-700 focus:ring-primary-300 mt-5 w-full rounded-full border-black bg-transparent px-5 py-7 text-center text-sm font-medium text-black focus:outline-none focus:ring-4"
+                  className="mt-5 w-full rounded-full border-1 border-black bg-transparent px-5 py-7 text-center text-sm font-medium text-black hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                   Ausloggen
                 </Button>

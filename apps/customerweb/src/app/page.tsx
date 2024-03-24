@@ -88,16 +88,16 @@ export default function Page() {
                       </div>
                     </dl>
                     <div className="mt-10 flex hidden items-center justify-between md:flex">
-                      <div className="bg-aldi-bg text-aldi-text rounded px-7 py-4 text-2xl font-extrabold">
+                      <div className="rounded bg-aldi-bg px-7 py-4 text-2xl font-extrabold text-aldi-text">
                         Sie sparen 50%
                       </div>
                     </div>
                     <div className="w-full">
                       <div className="mt-10 flex items-center">
-                        <span className="text-aldi-text text-2xl font-extrabold">
+                        <span className="text-2xl font-extrabold text-aldi-text">
                           Jetzt!
                         </span>
-                        <span className="text-aldi-text ml-3 text-4xl font-bold underline">
+                        <span className="ml-3 text-4xl font-bold text-aldi-text underline">
                           45€
                         </span>
                         <small className="-mt-4 ml-4 text-lg text-black line-through">
@@ -166,16 +166,16 @@ export default function Page() {
                       </div>
                     </dl>
                     <div className="mt-10 flex items-center justify-between">
-                      <div className="bg-aldi-bg text-aldi-text rounded px-7 py-4 text-2xl font-extrabold">
+                      <div className="rounded bg-aldi-bg px-7 py-4 text-2xl font-extrabold text-aldi-text">
                         Sie sparen 50%
                       </div>
                     </div>
                     <div className="w-full">
                       <div className="mt-10 flex items-center">
-                        <span className="text-aldi-text text-2xl font-extrabold">
+                        <span className="text-2xl font-extrabold text-aldi-text">
                           Jetzt!
                         </span>
-                        <span className="text-aldi-text ml-3 text-4xl font-bold underline">
+                        <span className="ml-3 text-4xl font-bold text-aldi-text underline">
                           45€
                         </span>
                         <small className="-mt-4 ml-4 text-lg text-black line-through">

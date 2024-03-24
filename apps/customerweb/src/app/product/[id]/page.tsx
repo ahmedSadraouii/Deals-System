@@ -42,7 +42,7 @@ export default function Page() {
                   </svg>
                   <a
                     href="#"
-                    className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                    className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ms-2"
                   >
                     Product
                   </a>
@@ -59,7 +59,7 @@ export default function Page() {
                   >
                     <path stroke="currentColor" d="m1 9 4-4-4-4" />
                   </svg>
-                  <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                  <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
                     Mud Master
                   </span>
                 </div>
@@ -98,7 +98,7 @@ export default function Page() {
             <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
               <div className="mb-5 mt-2.5 flex items-center justify-between">
                 <div className="flex items-center">
-                  <div className="bg-aldi-bg text-aldi-text rounded px-4 py-2 text-xs font-extrabold">
+                  <div className="rounded bg-aldi-bg px-4 py-2 text-xs font-extrabold text-aldi-text">
                     Sie sparen 50%
                   </div>
                 </div>

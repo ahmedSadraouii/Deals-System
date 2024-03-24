@@ -86,7 +86,7 @@ function FooterForm() {
 
         <Button
           type="submit"
-          className="hover:bg-primary-700 focus:ring-primary-300 mb-5 mt-5 w-full rounded-full bg-amber-500 px-5 py-7 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
+          className="mb-5 mt-5 w-full rounded-full bg-amber-500 px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
         >
           Jetzt anmelden {''}
           <Image

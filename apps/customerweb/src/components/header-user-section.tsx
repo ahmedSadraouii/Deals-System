@@ -25,8 +25,8 @@ export async function HeaderUserSection() {
         </AldiButton>
         <HeaderUserProfileButton>
           <span>Hey {session.user.profile.firstName}!</span>
-          <div className="bg-default/40 flex h-12 w-12 items-center justify-center rounded-full">
-            <IconProfile className="text-secondary text-2xl" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-default/40">
+            <IconProfile className="text-2xl text-secondary" />
           </div>
         </HeaderUserProfileButton>
       </>

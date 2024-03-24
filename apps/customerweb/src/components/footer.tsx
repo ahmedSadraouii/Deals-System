@@ -183,7 +183,7 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
+          <hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
           <div className="justify-center sm:flex sm:items-center">
             <span className="text-sm text-gray-600">
               &copy; 2023{' '}

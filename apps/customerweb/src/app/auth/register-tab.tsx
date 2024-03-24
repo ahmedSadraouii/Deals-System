@@ -53,7 +53,7 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <p className="text-secondary/50 flex flex-row items-center justify-center gap-2">
+      <p className="flex flex-row items-center justify-center gap-2 text-secondary/50">
         <span>Du besitzt ein</span>
         <img alt="ALDI SPORTS" src="/aldi-sport-logo.svg" />
         <span>
@@ -72,7 +72,7 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
       <div className="flex flex-row gap-12">
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="bg-default-100 rounded-large flex w-[600px] flex-col gap-6 border p-10">
+            <div className="flex w-[600px] flex-col gap-6 rounded-large border bg-default-100 p-10">
               <Controller
                 render={({ field }) => (
                   <AldiInput
@@ -227,8 +227,8 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
           </form>
         </FormProvider>
 
-        <div className="rounded-large flex w-[680px] items-end overflow-hidden bg-[url('/login-image.png')] bg-cover p-10">
-          <div className="bg-aldi-key rounded-large w-full p-10 text-white">
+        <div className="flex w-[680px] items-end overflow-hidden rounded-large bg-[url('/login-image.png')] bg-cover p-10">
+          <div className="w-full rounded-large bg-aldi-key p-10 text-white">
             <h2 className="mb-4 text-2xl font-medium">
               Deine Vorteile deines Accounts im Überblick!
             </h2>

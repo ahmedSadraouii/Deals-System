@@ -42,7 +42,7 @@ export function LoginTab() {
     <div className="flex flex-col gap-8">
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="bg-default-100 rounded-large flex w-[600px] flex-col items-center gap-6 border p-10">
+          <div className="flex w-[600px] flex-col items-center gap-6 rounded-large border bg-default-100 p-10">
             <Controller
               render={({ field }) => (
                 <AldiInput
@@ -98,7 +98,7 @@ export function LoginTab() {
           </div>
         </form>
       </FormProvider>
-      <p className="text-secondary/50 flex flex-row items-center justify-center gap-2">
+      <p className="flex flex-row items-center justify-center gap-2 text-secondary/50">
         Du besitzt ein <img alt="ALDI SPORTS" src="/aldi-sport-logo.svg" />{' '}
         Konto? Melde dich mit deinen Accountdaten an.
       </p>

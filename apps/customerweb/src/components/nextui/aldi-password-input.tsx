@@ -22,9 +22,9 @@ export const AldiPasswordInput = forwardRef<HTMLInputElement, InputProps>(
             onClick={toggleVisibility}
           >
             {isVisible ? (
-              <IconEyeSlashFilled className="text-default-400 pointer-events-none text-2xl" />
+              <IconEyeSlashFilled className="pointer-events-none text-2xl text-default-400" />
             ) : (
-              <IconEyeFilled className="text-default-400 pointer-events-none text-2xl" />
+              <IconEyeFilled className="pointer-events-none text-2xl text-default-400" />
             )}
           </button>
         }

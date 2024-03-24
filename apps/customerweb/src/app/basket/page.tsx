@@ -15,24 +15,24 @@ export default function Page() {
               <Input
                 type="text"
                 label="Vorname"
-                className="border-1 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
               <Input
                 type="text"
                 label="Nachname"
-                className="border-1 ml-4 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="ml-4 rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
             </div>
             <div className="mb-4 flex">
               <Input
                 type="text"
                 label="Geschlecht"
-                className="border-1 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
               <Input
                 type="text"
                 label="Geburtstag"
-                className="border-1 ml-4 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="ml-4 rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
             </div>
 
@@ -40,24 +40,24 @@ export default function Page() {
               <Input
                 type="text"
                 label="Straße"
-                className="border-1 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
               <Input
                 type="text"
                 label="Hausnummer"
-                className="border-1 ml-4 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="ml-4 rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
             </div>
             <div className="flex">
               <Input
                 type="text"
                 label="Stadt"
-                className="border-1 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
               <Input
                 type="text"
                 label="PLZ"
-                className="border-1 ml-4 rounded-full border-black !bg-transparent hover:!bg-transparent"
+                className="ml-4 rounded-full border-1 border-black !bg-transparent hover:!bg-transparent"
               />
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function Page() {
             <div className="flex items-center justify-between">
               <Input
                 type="text"
-                className="border-1 rounded-full border-gray-300 !bg-transparent hover:!bg-transparent"
+                className="rounded-full border-1 border-gray-300 !bg-transparent hover:!bg-transparent"
               />
               <Button className="ml-4 rounded-full bg-slate-900 px-10 text-white">
                 Anwenden

@@ -40,7 +40,7 @@ export function AuthTabs() {
 
   return (
     <div className="flex flex-col items-center py-20">
-      <h1 className="text-secondary mb-20 text-5xl font-bold">
+      <h1 className="mb-20 text-5xl font-bold text-secondary">
         {selectedTab === 'login' &&
           'Melde Dich an, um Dir tolle Deals zu sichern!'}
         {selectedTab === 'register' &&

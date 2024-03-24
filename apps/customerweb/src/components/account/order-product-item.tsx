@@ -44,7 +44,7 @@ export function OrderProductItem({
 
           <Link
             href={link}
-            className="border-1 mt-5 flex w-full rounded-full border-black bg-transparent px-8 py-4 text-center text-sm font-medium text-black"
+            className="mt-5 flex w-full rounded-full border-1 border-black bg-transparent px-8 py-4 text-center text-sm font-medium text-black"
           >
             Details
             <Image

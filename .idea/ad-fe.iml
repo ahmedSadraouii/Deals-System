@@ -6,6 +6,12 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/apps/customerweb/src/openapi/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/copilot" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/customerweb/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/out" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-auth/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-auth/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-auth/generated" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

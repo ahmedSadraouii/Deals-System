@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: 'standalone',
   poweredByHeader: false,
   images: {
     // These widths are used when the next/image component uses layout="responsive" or layout="fill"

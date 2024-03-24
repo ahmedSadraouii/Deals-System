@@ -36,7 +36,7 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
               />
             </span>
             <div className="ms-3 flex items-center space-x-1 rtl:space-x-reverse">
-              <div className="border-1 text-aldi-text flex items-center rounded px-4 py-2 font-extralight">
+              <div className="flex items-center rounded border-1 px-4 py-2 font-extralight text-aldi-text">
                 <Image
                   src="/icons/clock-icon.svg"
                   width={20}
