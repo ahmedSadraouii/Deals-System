@@ -2,7 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.cdnfonts.com/css/hvdtrial-brandon-grotesque');
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: normal;
+  font-weight: 400;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Regular.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: italic;
+  font-weight: 400;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Regular-Italic.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: normal;
+  font-weight: 250;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Thin.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: italic;
+  font-weight: 250;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Thin-Italic.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: normal;
+  font-weight: 300;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Light.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: italic;
+  font-weight: 300;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Light-Italic.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: normal;
+  font-weight: 500;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Medium.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: italic;
+  font-weight: 500;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Medium-Italic.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: normal;
+  font-weight: 700;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Bold.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: italic;
+  font-weight: 700;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Bold-Italic.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: normal;
+  font-weight: 900;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Black.otf);
+}
+
+@font-face {
+  font-family: hvdtrial brandon grotesque;
+  font-style: italic;
+  font-weight: 900;
+  src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Black-Italic.otf);
+}
 
 .swiper-button-next {
   @apply bg-black rounded-full !w-10 !h-10 !right-0

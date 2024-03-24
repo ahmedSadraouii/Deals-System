@@ -14,7 +14,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['HvDTrial Brandon Grotesque', 'sans-serif'],
+        sans: ['hvdtrial brandon grotesque', 'sans-serif'],
       },
       colors: {
         'aldi-text': '#f05322',
