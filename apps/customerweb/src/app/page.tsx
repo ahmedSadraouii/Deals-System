@@ -5,6 +5,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { LogoSlider } from '@/components/home/logo-slider';
 import { Slider } from '@/components/home/slider';
+import { AldiButton } from '@/components/nextui/aldi-button';
 import { ProductItem } from '@/components/product/product-item';
 
 export default function Page() {
@@ -104,13 +105,10 @@ export default function Page() {
                         </small>
                       </div>
 
-                      <div className="flex w-full justify-start">
-                        <a
-                          href="#"
-                          className="mt-5 w-full rounded-full bg-slate-900 px-5 py-3 text-center  text-sm leading-6 text-white md:w-1/4"
-                        >
+                      <div className="mt-5 flex w-full justify-start">
+                        <AldiButton color="secondary">
                           Jetzt Deal sichern!
-                        </a>
+                        </AldiButton>
                       </div>
                     </div>
                   </div>

@@ -20,11 +20,17 @@ const config: Config = {
         'aldi-text': '#f05322',
         'aldi-blue': '#0B102F',
         'aldi-bg': '#f0dfdc',
+        'aldi-key': '#ffa300',
       },
     },
   },
   plugins: [
     nextui({
+      layout: {
+        radius: {
+          large: '20px',
+        },
+      },
       themes: {
         aldi: {
           extend: 'light',
