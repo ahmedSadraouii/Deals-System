@@ -3588,7 +3588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"api-auth@workspace:packages/api-auth":
+"api-auth@npm:*, api-auth@workspace:packages/api-auth":
   version: 0.0.0-use.local
   resolution: "api-auth@workspace:packages/api-auth"
   dependencies:
@@ -3603,7 +3603,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"api-content@workspace:packages/api-content":
+"api-content@npm:*, api-content@workspace:packages/api-content":
   version: 0.0.0-use.local
   resolution: "api-content@workspace:packages/api-content"
   dependencies:
@@ -4424,6 +4424,8 @@ __metadata:
     "@types/node": "npm:20.11.28"
     "@types/react": "npm:18.2.66"
     "@types/react-dom": "npm:18.2.22"
+    api-auth: "npm:*"
+    api-content: "npm:*"
     autoprefixer: "npm:10.4.18"
     eslint: "npm:8.57.0"
     eslint-config-custom: "npm:*"
