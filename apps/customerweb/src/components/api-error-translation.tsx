@@ -52,7 +52,7 @@ export function ApiErrorTranslation({
       case undefined:
         return null;
     }
-    return apiError;
+    return <>Unbekannter Fehler</>;
   }
 
   return null;
