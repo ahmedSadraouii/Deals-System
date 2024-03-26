@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ad-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ad-fe
+    restart: unless-stopped
+    ports:
+      - 4420:3000
+    environment:
+      - NODE_ENV=production
+      - NEXTAUTH_URL=http://localhost:4420
+      - NEXTAUTH_SECRET=0g1s1i9EorqlbQJTVhMelnmhrhp7prcr
+    networks:
+      - default
+
+networks:
+  default:
