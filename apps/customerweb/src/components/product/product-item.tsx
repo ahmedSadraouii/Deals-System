@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Price } from '@/components/price';
+import { IconClock } from '@/components/svg/icon-clock';
 import { IconLastMinute } from '@/components/svg/icon-last-minute';
 
 export interface ProductItemProps {
@@ -12,7 +13,7 @@ export interface ProductItemProps {
 export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
   return (
     <>
-      <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-gray-100 shadow">
+      <div className="w-full rounded-lg border border-gray-200 bg-gray-100 shadow">
         <a href="#">
           <div
             className="relative h-[300px] rounded-lg !bg-cover !bg-center md:h-[300px]"
@@ -37,13 +38,7 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
             </span>
             <div className="ms-3 flex items-center space-x-1 rtl:space-x-reverse">
               <div className="flex items-center rounded border-1 px-4 py-2 font-extralight text-aldi-text">
-                <Image
-                  src="/icons/clock-icon.svg"
-                  width={20}
-                  height={20}
-                  alt="clock icon"
-                  className="mr-2"
-                />
+                <IconClock className="mr-2" />
                 13:32:16
               </div>
             </div>
