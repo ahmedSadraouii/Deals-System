@@ -7,6 +7,7 @@ import type { Key } from '@react-types/shared';
 import { LoginTab } from '@/app/auth/login-tab';
 import { RegisterTab } from '@/app/auth/register-tab';
 import { AldiTabs } from '@/components/nextui/aldi-tabs';
+import { createQueryString } from '@/utils/create-query-string';
 
 export function AuthTabs() {
   const searchParams = useSearchParams();
@@ -16,22 +17,14 @@ export function AuthTabs() {
     searchParams.get('tab') === 'register' ? 'register' : 'login',
   );
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
-
   const setSelectedTab = useCallback(
     (tab: Key) => {
       setSelectedTabInner(tab);
-      router.replace(`${pathname}?${createQueryString('tab', '' + tab)}`);
+      router.replace(
+        `${pathname}?${createQueryString({ tab: '' + tab }, searchParams)}`,
+      );
     },
-    [createQueryString, pathname, router],
+    [pathname, router, searchParams],
   );
 
   const onSwitchToLogin = useCallback(() => {
@@ -39,7 +32,7 @@ export function AuthTabs() {
   }, [setSelectedTab]);
 
   return (
-    <div className="flex flex-col items-center py-20">
+    <>
       <h1 className="mb-20 text-5xl font-bold text-secondary">
         {selectedTab === 'login' &&
           'Melde Dich an, um Dir tolle Deals zu sichern!'}
@@ -54,6 +47,6 @@ export function AuthTabs() {
           <RegisterTab onSwitchToLogin={onSwitchToLogin} />
         </Tab>
       </AldiTabs>
-    </div>
+    </>
   );
 }

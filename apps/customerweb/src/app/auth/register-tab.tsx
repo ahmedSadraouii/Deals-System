@@ -1,21 +1,40 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import NextLink from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Link } from '@nextui-org/react';
+import {
+  AuthenticationApi,
+  createConfiguration,
+  ResponseBase,
+  ServerConfiguration,
+} from 'api-auth';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiPasswordInput } from '@/components/nextui/aldi-password-input';
 import { IconCircleCheck } from '@/components/svg/icon-circle-check';
+import { ApiErrorCodes } from '@/utils/api-response-handling';
+import { tryParseApiError } from '@/utils/api-response-handling';
+import { createQueryString } from '@/utils/create-query-string';
 import { emailRegex } from '@/utils/email-regex';
 
 export interface RegisterTabProps {
   onSwitchToLogin: () => void;
 }
 
-export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
+export function RegisterTab(props: RegisterTabProps) {
+  const [isLoading, setLoading] = useState(false);
+  const [responseError, setResponseError] = useState<ApiErrorCodes | null>(
+    null,
+  );
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const defaultValues = {
     email: '',
     firstName: '',
@@ -36,9 +55,40 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
     trigger,
   } = form;
 
-  const onSubmit = useCallback(async (data: typeof defaultValues) => {
-    console.log(data);
-  }, []);
+  const onSubmit = useCallback(
+    async (data: typeof defaultValues) => {
+      setLoading(true);
+
+      const apiConfiguration = createConfiguration({
+        baseServer: new ServerConfiguration('/auth-api', {}),
+      });
+
+      const authenticationApi = new AuthenticationApi(apiConfiguration);
+
+      try {
+        await authenticationApi.registerCustomerEmail('1', {
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          addressPostalCode: data.postalCode,
+          password: data.password,
+          termsAccepted: data.termsChecked,
+          newsletterAccepted: data.newsletterChecked,
+        });
+
+        router.push(
+          `/auth/register-success?${createQueryString({ email: data.email })}`,
+        );
+      } catch (error: any) {
+        if (!('body' in error && error.body instanceof ResponseBase)) {
+          throw error;
+        }
+        setResponseError(tryParseApiError(error.body));
+        setLoading(false);
+      }
+    },
+    [router, searchParams],
+  );
 
   const onCheckAllAndProceed = useCallback(() => {
     setValue('termsChecked', true);
@@ -51,6 +101,11 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
     await handleSubmit(onSubmit)();
   }, [handleSubmit, onSubmit, trigger]);
 
+  useEffect(() => {
+    const subscription = form.watch(() => setResponseError(null));
+    return () => subscription.unsubscribe();
+  }, [form]);
+
   return (
     <div className="flex flex-col gap-8">
       <p className="flex flex-row items-center justify-center gap-2 text-secondary/50">
@@ -60,7 +115,7 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
           Konto? Melde dich mit deinen Accountdaten{' '}
           <Link
             className="pointer-events-auto cursor-pointer"
-            onClick={onSwitchToLogin}
+            onClick={props.onSwitchToLogin}
             color="secondary"
             underline="always"
           >
@@ -79,10 +134,19 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
                     type="email"
                     placeholder="E-Mail Adresse*"
                     isRequired={true}
-                    isInvalid={!!errors.email}
+                    isInvalid={
+                      !!errors.email ||
+                      responseError === ApiErrorCodes.EMAIL_ALREADY_IN_USE
+                    }
                     errorMessage={
-                      errors.email &&
-                      'Eine korrekte E-Mail Adresse wird benötigt'
+                      <ApiErrorTranslation
+                        errorOverride={
+                          errors.email &&
+                          'Eine korrekte E-Mail Adresse wird benötigt'
+                        }
+                        allowedErrors={[ApiErrorCodes.EMAIL_ALREADY_IN_USE]}
+                        apiError={responseError}
+                      />
                     }
                     {...field}
                   />
@@ -131,7 +195,8 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
                     isRequired={true}
                     isInvalid={!!errors.postalCode}
                     errorMessage={
-                      errors.postalCode && 'Postleitzahl wird benötigt'
+                      errors.postalCode &&
+                      'Die Postleitzahl muss aus 5 Ziffern bestehen. Bitte überprüfe deine Eingabe.'
                     }
                     {...field}
                   />
@@ -147,8 +212,23 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
                   <AldiPasswordInput
                     placeholder="Passwort*"
                     isRequired={true}
-                    isInvalid={!!errors.password}
-                    errorMessage={errors.password && 'Password wird benötigt'}
+                    isInvalid={
+                      !!errors.password ||
+                      responseError === ApiErrorCodes.PASSWORD_INVALID ||
+                      responseError === ApiErrorCodes.PASSWORD_LENGTH_MISMATCH
+                    }
+                    errorMessage={
+                      <ApiErrorTranslation
+                        errorOverride={
+                          errors.password && 'Password wird benötigt'
+                        }
+                        allowedErrors={[
+                          ApiErrorCodes.PASSWORD_INVALID,
+                          ApiErrorCodes.PASSWORD_LENGTH_MISMATCH,
+                        ]}
+                        apiError={responseError}
+                      />
+                    }
                     {...field}
                   />
                 )}
@@ -211,6 +291,7 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
                   variant="solid"
                   color="secondary"
                   fullWidth={true}
+                  isLoading={isLoading}
                 >
                   Alle bestätigen und registrieren
                 </AldiButton>
@@ -219,6 +300,7 @@ export function RegisterTab({ onSwitchToLogin }: RegisterTabProps) {
                   variant="ghost"
                   color="secondary"
                   fullWidth={true}
+                  isLoading={isLoading}
                 >
                   Auswahl bestätigen und registrieren
                 </AldiButton>
