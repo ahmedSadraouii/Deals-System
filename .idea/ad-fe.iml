@@ -12,6 +12,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/api-auth/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/packages/api-auth/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/api-auth/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-content/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-content/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-content/generated" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

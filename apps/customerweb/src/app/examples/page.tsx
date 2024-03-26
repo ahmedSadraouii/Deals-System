@@ -1,5 +1,19 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
+import { createConfiguration } from 'api-content';
+
+
+function getStuff() {
+  const apiConfiguration = createConfiguration({
+    baseServer: new ServerConfiguration(
+      'https://dev.api.aldi.amplicade.com/umbraco/',
+      {},
+    )
+  });
+
+  const contentApi = new ContentApi(apiConfiguration);
+}
+
 
 export default async function Page() {
   const [session] = await Promise.all([getServerSession(authOptions)]);
