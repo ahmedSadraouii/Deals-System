@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
 
 export interface ApiErrorTranslationProps {
-  apiError?: ApiErrorCodes | null;
+  apiError?: ApiErrorCodes | string | null;
   allowedErrors?: Array<ApiErrorCodes>;
   errorOverride?: ReactNode;
 }
@@ -14,7 +14,12 @@ export function ApiErrorTranslation({
 }: ApiErrorTranslationProps) {
   if (errorOverride) return errorOverride;
 
-  if (apiError && (!allowedErrors || allowedErrors.includes(apiError))) {
+  if (
+    apiError &&
+    (!allowedErrors ||
+      allowedErrors.length === 0 ||
+      allowedErrors.indexOf(apiError as any) !== -1)
+  ) {
     switch (apiError) {
       case ApiErrorCodes.EMAIL_ALREADY_IN_USE:
         return (
@@ -36,11 +41,18 @@ export function ApiErrorTranslation({
             Das Passwort muss mindestens eine Nummer enthalten.
           </>
         );
+      case 'invalid-credentials':
+        return (
+          <>
+            Die eingegebenen Anmeldedaten sind ungültig. Bitte versuche es
+            erneut.
+          </>
+        );
       case null:
       case undefined:
         return null;
     }
-    return <>Unbekannter Fehler ({apiError}).</>;
+    return apiError;
   }
 
   return null;

@@ -2,15 +2,19 @@
 
 import { useCallback } from 'react';
 import NextLink from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Link } from '@nextui-org/react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiPasswordInput } from '@/components/nextui/aldi-password-input';
 import { emailRegex } from '@/utils/email-regex';
 
 export function LoginTab() {
+  const searchParams = useSearchParams();
+
   const defaultValues = {
     email: '',
     password: '',
@@ -43,6 +47,12 @@ export function LoginTab() {
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex w-[600px] flex-col items-center gap-6 rounded-large border bg-default-100 p-10">
+            {searchParams.has('error') && (
+              <p className="text-center text-red-500">
+                <ApiErrorTranslation apiError={searchParams.get('error')} />
+              </p>
+            )}
+
             <Controller
               render={({ field }) => (
                 <AldiInput
