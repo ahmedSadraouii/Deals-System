@@ -14,7 +14,7 @@ export interface ResendActivationLinkButtonProps {
 export function ResendActivationLinkButton({
   emailAddress,
 }: ResendActivationLinkButtonProps) {
-  const [totalSeconds, setTotalSeconds] = useState(5);
+  const [totalSeconds, setTotalSeconds] = useState(300);
   const [timerDone, setTimerDone] = useState(false);
   const [verificationEmailSent, setVerificationEmailSent] = useState(false);
 
@@ -62,8 +62,8 @@ export function ResendActivationLinkButton({
       {verificationEmailSent
         ? 'E-Mail wurde gesendet'
         : timerDone
-        ? 'E-Mail erneut senden'
-        : `E-Mail erneut senden in ${minutes}:${seconds}`}
+          ? 'E-Mail erneut senden'
+          : `E-Mail erneut senden in ${minutes}:${seconds}`}
     </AldiButton>
   );
 }
