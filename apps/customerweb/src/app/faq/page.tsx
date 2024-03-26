@@ -5,10 +5,10 @@ export default function NotFound() {
   return (
     <section className="bg-gray-50">
       <div className="mx-auto flex flex-col space-y-4 p-5 lg:items-center lg:justify-center lg:py-32">
-        <h1 className="text-5xl">Seite nicht gefunden</h1>
+        <h1 className="text-5xl">FAQ</h1>
         <p>
-          Die Seite, die Sie suchen, existiert nicht. Bitte überprüfen Sie die
-          URL und versuchen Sie es erneut.
+          Diese Seite befindet sich noch im Aufbau. Bitte versuchen Sie es
+          später erneut.
         </p>
         <div>
           <AldiButton size="lg" variant="ghost" as={Link} href={'/'}>

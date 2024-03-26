@@ -46,7 +46,7 @@ export function LoginTab() {
     <div className="flex flex-col gap-8">
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex w-[600px] flex-col items-center gap-6 rounded-large border bg-default-100 p-10">
+          <div className="flex w-[600px] flex-col items-center gap-6 rounded-3xl border bg-default-100 p-10">
             {searchParams.has('error') && (
               <p className="text-center text-red-500">
                 <ApiErrorTranslation apiError={searchParams.get('error')} />

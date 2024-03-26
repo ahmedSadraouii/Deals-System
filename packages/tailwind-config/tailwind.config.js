@@ -26,11 +26,7 @@ module.exports = {
   },
   plugins: [
     nextui({
-      layout: {
-        radius: {
-          large: '20px',
-        },
-      },
+      layout: {},
       themes: {
         aldi: {
           extend: 'light',

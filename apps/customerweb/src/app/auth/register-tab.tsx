@@ -124,10 +124,10 @@ export function RegisterTab(props: RegisterTabProps) {
           an.
         </span>
       </p>
-      <div className="flex flex-row gap-12">
+      <div className="flex flex-col gap-12 lg:flex-row">
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex w-[600px] flex-col gap-6 rounded-large border bg-default-100 p-10">
+            <div className="flex shrink-0 basis-[600px] flex-col gap-6 rounded-3xl border bg-default-100 p-10">
               <Controller
                 render={({ field }) => (
                   <AldiInput
@@ -309,8 +309,8 @@ export function RegisterTab(props: RegisterTabProps) {
           </form>
         </FormProvider>
 
-        <div className="flex w-[680px] items-end overflow-hidden rounded-large bg-[url('/login-image.png')] bg-cover p-10">
-          <div className="w-full rounded-large bg-aldi-key p-10 text-white">
+        <div className="flex basis-[680px] items-end overflow-hidden rounded-3xl bg-[url('/login-image.png')] bg-cover p-10">
+          <div className="w-full rounded-3xl bg-aldi-key p-10 text-white">
             <h2 className="mb-4 text-2xl font-medium">
               Deine Vorteile deines Accounts im Überblick!
             </h2>
