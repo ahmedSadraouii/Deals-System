@@ -19,13 +19,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="de" className="aldi">
       <body className="bg-white">
         <Providers>
-          <div>
-            <Header />
-            <main>
-              <div>{children}</div>
-            </main>
-            <Footer />
-          </div>
+          <Header />
+          <main>
+            <div>{children}</div>
+          </main>
+          <Footer />
         </Providers>
       </body>
     </html>

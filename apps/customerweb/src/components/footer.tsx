@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import FooterForm from '@/components/footer/footer-form';
 import { FooterSlider } from '@/components/footer/footer-slider';
 
@@ -183,13 +184,12 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
-          <div className="justify-center sm:flex sm:items-center">
+          <div className="mt-10 justify-center sm:flex sm:items-center">
             <span className="text-sm text-gray-600">
               &copy; 2023{' '}
-              <a href="/" className="hover:underline">
+              <Link href="/" className="hover:underline">
                 Aldi-Deals&trade;
-              </a>
+              </Link>
               . All Rights Reserved.
             </span>
           </div>

@@ -1,11 +1,16 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Slider } from '@/components/home/slider';
 import { Price } from '@/components/price';
 import { ProductCard } from '@/components/product/product-card';
 import { ProductSlider } from '@/components/product/product-slider';
+import { IconClock } from '@/components/svg/icon-clock';
+import { IconTag } from '@/components/svg/icon-tag';
 
 export default function Page() {
+  const [isAlert, setIsAlert] = useState(true);
   return (
     <>
       <div className="flex h-16 items-center justify-center border-b">
@@ -17,16 +22,7 @@ export default function Page() {
                   href="/"
                   className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
                 >
-                  <svg
-                    className="me-2.5 h-3 w-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                  </svg>
-                  Home
+                  Start
                 </Link>
               </li>
               <li>
@@ -60,7 +56,7 @@ export default function Page() {
                     <path stroke="currentColor" d="m1 9 4-4-4-4" />
                   </svg>
                   <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
-                    Mud Master
+                    Mud Masters Tickets
                   </span>
                 </div>
               </li>
@@ -74,6 +70,33 @@ export default function Page() {
           <div>
             <div className="mb-10">
               <ProductSlider />
+            </div>
+
+            <div className="mb-10 grid grid-cols-1 gap-4 rounded-xl md:grid-cols-3">
+              <div className="flex items-center justify-center rounded-xl border px-2 py-4">
+                <IconTag className="mr-3" />
+                Tolles Angebot
+              </div>
+
+              <div className="flex items-center justify-center rounded-xl border px-2 py-4">
+                <IconTag className="mr-3" />
+                Outdoor Aktivität
+              </div>
+
+              <div className="flex items-center justify-center rounded-xl border px-2 py-4">
+                <IconTag className="mr-3" />
+                Perfekt als Geschenk
+              </div>
+
+              <div className="flex items-center justify-center rounded-xl border px-2 py-4">
+                <IconTag className="mr-3" />
+                Für die Familie
+              </div>
+
+              <div className="flex items-center justify-center rounded-xl border px-2 py-4">
+                <IconTag className="mr-3" />
+                Unsere Empfehlung
+              </div>
             </div>
 
             <ProductCard
@@ -96,75 +119,61 @@ export default function Page() {
           </div>
           <div>
             <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
-              <div className="mb-5 mt-2.5 flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="rounded bg-aldi-bg px-4 py-2 text-xs font-extrabold text-aldi-text">
-                    Sie sparen 50%
-                  </div>
-                </div>
-                <span className="rounded bg-white px-4 py-2 text-xs font-light text-black">
-                  Nur online verfügbar!
-                </span>
-              </div>
               <div className="flex flex-auto items-center">
-                <div className="flex">
-                  <div>
-                    <img src="/img_1.png" alt="logo" className="w-20" />
-                  </div>
-                  <div className="ml-6">
-                    <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                      Mud Masters
-                    </h1>
-                    <h2 className="mt-2 text-base font-semibold leading-7 text-gray-500">
-                      Noch{' '}
-                      <span className="rounded-full bg-white p-2">
-                        13:32:16
-                      </span>{' '}
-                      oder bis ausverkauft
-                    </h2>
-                  </div>
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Mud Master Tickets - Jetzt 2 Tickets zum Preis von 1
+                    sichern!
+                  </h1>
+                  <h2 className="mt-2 flex items-center text-base leading-7 text-gray-500">
+                    Deal läuft ab in{' '}
+                    <span className="ml-2 mr-2 flex items-center rounded-xl border bg-transparent p-2 text-aldi-text">
+                      <IconClock className="mr-2" /> noch 5 Tage
+                    </span>{' '}
+                    oder bis ausverkauft
+                  </h2>
                 </div>
               </div>
-              <hr className="mb-10 mt-5" />
-              <div className="flex justify-between">
-                <div />
-                <div>
-                  <Price
-                    price={45}
-                    discountedPrice={90}
-                    uvp={true}
-                    textSize={2}
-                  />
+              <hr className="mb-5 mt-5" />
+              <p className="text-gray-400">
+                Willkommen zu einem unvergleichlichen Abenteuer voller
+                Nervenkitzel, Ausdauer und Gemeinschaftssinn – willkommen bei
+                Mud Masters! Mit deinem Ticket erwartet dich nicht nur ein
+                Hindernisrennen.
+              </p>
+              <hr className="mb-5 mt-5" />
+              {isAlert && (
+                <div className="mb-5 rounded-xl bg-aldi-bg p-5 text-aldi-text">
+                  Aufgrund deines Standorts kannst du diesen Deal leider nicht
+                  erwerben. Weitere Deals kannst du in deiner Aldi Nord Filiale
+                  entdecken! Hier gehts zum Filialfinder:
+                  https://www.aldi-nord.de/filialen-und-oeffnungszeiten.html
                 </div>
+              )}
+              <div className="flex justify-between">
+                <Price
+                  price={90}
+                  discountedPrice={45}
+                  uvp={true}
+                  textSize={2}
+                />
               </div>
             </div>
 
-            <div className="mb-10 rounded-xl bg-gray-100 p-6 text-center">
-              <h1 className="mb-4 text-xl font-bold">
-                Sie brauchen Hilfe? Unser Kundendienst hilft Ihnen weiter!
-              </h1>
-              <a
-                href="mailto:kundenservice@aldi-deals.d"
-                className="text-dark mb-2 me-2 inline-flex items-center rounded-lg px-5 py-2.5 text-center text-sm font-medium underline"
-              >
-                <img
-                  src="/icons/mail-footer-icon.svg"
-                  alt=""
-                  className="me-2 h-4 w-4"
-                />
-                kundenservice@aldi-deals.d
-              </a>
-              <a
-                href="mailto:kundenservice@aldi-deals.d"
-                className="text-dark mb-2 me-2 inline-flex items-center rounded-lg px-5 py-2.5 text-center text-sm font-medium underline"
-              >
-                <img
-                  src="/icons/info-icon.svg"
-                  alt=""
-                  className="me-2 h-4 w-4"
-                />
-                Häufig gestellte Fragen (FAQ)
-              </a>
+            <div className="rounded-xl border p-6">
+              <div className="flex items-center justify-start">
+                <div>
+                  <img src="/img_1.png" alt="logo" className="w-20" />
+                </div>
+                <div className="ml-6">
+                  <h1 className="text-base font-semibold text-gray-500">
+                    Partner des Deals:
+                  </h1>
+                  <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    MudMasters Hindernislauf
+                  </h2>
+                </div>
+              </div>
             </div>
           </div>
         </div>

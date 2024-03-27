@@ -10,37 +10,37 @@ export function ProductSlider() {
     {
       id: '1',
       name: 'Slider1',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
     {
       id: '2',
       name: 'Slider2',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
     {
-      id: '2',
+      id: '3',
       name: 'Slider2',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
     {
-      id: '2',
+      id: '4',
       name: 'Slider2',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
     {
-      id: '2',
+      id: '5',
       name: 'Slider2',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
     {
-      id: '2',
+      id: '6',
       name: 'Slider2',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
     {
-      id: '2',
+      id: '7',
       name: 'Slider2',
-      image: '/aldi-online-shop-logo.png',
+      image: '/img_4.png',
     },
   ];
   return (
