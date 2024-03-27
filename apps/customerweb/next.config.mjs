@@ -18,6 +18,12 @@ const nextConfig = {
   env: {
     WEBAPI_BASEURL: process.env.WEBAPI_BASEURL
   },
+  async rewrites() {
+    return [{
+      source: '/auth-api/:path*',
+      destination: `https://dev.api.aldi.amplicade.com/:path*`
+    }]
+  }
 };
 
 export default nextConfig;

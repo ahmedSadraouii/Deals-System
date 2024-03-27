@@ -21,24 +21,26 @@ export function HeaderCategoryButton({ children }: HeaderCategoryButtonProps) {
       <DropdownMenu>
         <DropdownItem
           key="category-1"
-          description="Beschreibung 1"
-          startContent={<IconTicket className="text-aldi-blue" />}
+          description={<span className="text-sm">Beschreibung 1</span>}
+          startContent={<IconTicket className="text-5xl text-aldi-blue" />}
         >
-          Kategorie 1
+          <span className="text-xl">Kategorie 1</span>
         </DropdownItem>
+
         <DropdownItem
           key="category-2"
-          description="Beschreibung 2"
-          startContent={<IconTicket className="text-aldi-blue" />}
+          description={<span className="text-sm">Beschreibung 2</span>}
+          startContent={<IconTicket className="text-5xl text-aldi-blue" />}
         >
-          Kategorie 2
+          <span className="text-xl">Kategorie 2</span>
         </DropdownItem>
+
         <DropdownItem
           key="category-3"
-          description="Beschreibung 3"
-          startContent={<IconTicket className="text-aldi-blue" />}
+          description={<span className="text-sm">Beschreibung 31</span>}
+          startContent={<IconTicket className="text-5xl text-aldi-blue" />}
         >
-          Kategorie 3
+          <span className="text-xl">Kategorie 3</span>
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

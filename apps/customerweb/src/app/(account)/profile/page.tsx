@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback } from 'react';
+import { useSession } from 'next-auth/react';
 import { Input, Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import MenuBar from '@/components/account/menu-bar';
@@ -30,6 +31,9 @@ export default function Page() {
     },
     [errors],
   );
+
+  const sessionData = useSession();
+  console.log(sessionData);
 
   return (
     <div className="container mx-auto py-14">

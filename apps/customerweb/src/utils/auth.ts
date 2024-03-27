@@ -110,7 +110,7 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           console.log(error);
           // todo: validate error message from backend and handle it properly
-          throw new Error('Invalid credentials');
+          throw new Error('invalid-credentials');
         }
       },
     }),
@@ -120,8 +120,8 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60,
   },
   pages: {
-    signIn: '/login',
-    error: '/login',
+    signIn: '/auth',
+    error: '/auth',
   },
   callbacks: {
     jwt: async ({ token, user }) => {
