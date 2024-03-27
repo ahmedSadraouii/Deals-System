@@ -36,6 +36,12 @@ export function ResendActivationLinkButton({
     [totalSeconds],
   );
 
+  const emailVerificationText = useMemo(() => {
+    if (verificationEmailSent) return 'E-Mail wurde gesendet';
+    if (timerDone) return 'E-Mail erneut senden';
+    return `E-Mail erneut senden in ${minutes}:${seconds}`;
+  }, [verificationEmailSent, timerDone, minutes, seconds]);
+
   const onResendActivationLink = useCallback(async () => {
     if (!emailAddress) return;
 
@@ -59,11 +65,7 @@ export function ResendActivationLinkButton({
       onClick={onResendActivationLink}
       isDisabled={!timerDone || verificationEmailSent}
     >
-      {verificationEmailSent
-        ? 'E-Mail wurde gesendet'
-        : timerDone
-          ? 'E-Mail erneut senden'
-          : `E-Mail erneut senden in ${minutes}:${seconds}`}
+      {emailVerificationText}
     </AldiButton>
   );
 }

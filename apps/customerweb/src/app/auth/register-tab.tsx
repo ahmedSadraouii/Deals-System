@@ -87,7 +87,7 @@ export function RegisterTab(props: RegisterTabProps) {
         setLoading(false);
       }
     },
-    [router, searchParams],
+    [router],
   );
 
   const onCheckAllAndProceed = useCallback(() => {
