@@ -1,43 +1,20 @@
-import { Configuration, ContentApi } from 'api-content';
+import type { ContentApi } from 'api-content';
 import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
-
-function getClient() {
-  const apiConfiguration = new Configuration({
-    basePath: 'http://localhost:4430',
-  });
-
-  return new ContentApi(apiConfiguration);
-}
-
-async function getContent(id: string): Promise<any> {
-  try {
-    return await getClient().getContentItemById20({
-      id,
-    });
-  } catch (e) {
-    return null;
-  }
-}
-
-async function getDeals(): Promise<any> {
-  try {
-    const result = await getClient().getContent20({
-      fetch: 'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
-    });
-
-    return result;
-  } catch (e) {
-    return null;
-  }
-}
+import { getApiClient } from '@/utils/get-api-client';
 
 export default async function Page() {
+  const contentApi = getApiClient<ContentApi>({ type: 'content' });
+
   const [session, landingPage, deals] = await Promise.all([
     getServerSession(authOptions),
-    getContent('1b639400-1757-49ea-aa97-19e44c73b6f0'),
-    getDeals(),
+    contentApi.getContentItemById20({
+      id: '1b639400-1757-49ea-aa97-19e44c73b6f0',
+    }),
+    contentApi.getContent20({
+      fetch: 'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
+    }),
   ]);
 
   return (

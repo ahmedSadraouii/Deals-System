@@ -1,12 +1,9 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  AuthenticationApi,
-  createConfiguration,
-  ServerConfiguration,
-} from 'api-auth';
+import type { AuthenticationApi } from 'api-auth';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { useApiClient } from '@/hooks/use-api-client';
 
 export interface ResendActivationLinkButtonProps {
   emailAddress: string;
@@ -42,21 +39,19 @@ export function ResendActivationLinkButton({
     return `E-Mail erneut senden in ${minutes}:${seconds}`;
   }, [verificationEmailSent, timerDone, minutes, seconds]);
 
+  const authenticationApi = useApiClient<AuthenticationApi>({ type: 'auth' });
+
   const onResendActivationLink = useCallback(async () => {
     if (!emailAddress) return;
 
-    const apiConfiguration = createConfiguration({
-      baseServer: new ServerConfiguration('/auth-api', {}),
-    });
-
-    const authenticationApi = new AuthenticationApi(apiConfiguration);
-
-    await authenticationApi.resendEmailVerificationAsync('1', {
-      email: emailAddress,
+    await authenticationApi.resendEmailVerificationAsync({
+      resendVerificationEmailRequest: {
+        email: emailAddress,
+      },
     });
 
     setVerificationEmailSent(true);
-  }, [emailAddress]);
+  }, [authenticationApi, emailAddress]);
 
   return (
     <AldiButton

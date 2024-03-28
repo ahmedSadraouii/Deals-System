@@ -1,20 +1,18 @@
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { AuthenticationApi, Configuration } from 'api-auth';
+import type { AuthenticationApi } from 'api-auth';
 import type { NextAuthOptions, User } from 'next-auth';
+import { getApiClient } from '@/utils/get-api-client';
 
 async function refreshAccessToken(
   emailAddress: string,
   refreshToken: string,
 ): Promise<JWT> {
-  const apiConfiguration = new Configuration({
-    basePath: 'https://dev.api.aldi.amplicade.com/',
-    headers: {
-      Cookie: `refreshToken=${refreshToken}`,
-    },
+  const authenticationApi = getApiClient<AuthenticationApi>({
+    type: 'auth',
+    refreshToken,
   });
 
-  const authenticationApi = new AuthenticationApi(apiConfiguration);
   try {
     const cardinalDirectionResponse =
       await authenticationApi.getCardinalDirection({
@@ -68,11 +66,10 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials) => {
         if (!credentials) return null;
 
-        const apiConfiguration = new Configuration({
-          basePath: 'https://dev.api.aldi.amplicade.com/',
+        const authenticationApi = getApiClient<AuthenticationApi>({
+          type: 'auth',
         });
 
-        const authenticationApi = new AuthenticationApi(apiConfiguration);
         try {
           const tokenResponse = await authenticationApi.jwtToken({
             tokenRequestModel: {
