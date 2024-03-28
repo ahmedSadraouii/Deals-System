@@ -10,7 +10,7 @@ import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
 
 export default function Page() {
-  const [isAlert, setIsAlert] = useState(true);
+  const [isAlert] = useState(true);
   return (
     <>
       <div className="flex h-16 items-center justify-center border-b">

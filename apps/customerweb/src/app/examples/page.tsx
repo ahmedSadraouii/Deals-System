@@ -1,8 +1,50 @@
+import {
+  createConfiguration,
+  ServerConfiguration,
+  ContentApi,
+} from 'api-content';
 import { getServerSession } from 'next-auth';
+import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
 
+function getClient() {
+  const apiConfiguration = createConfiguration({
+    baseServer: new ServerConfiguration(
+      // 'https://dev.api.aldi.amplicade.com/umbraco/',
+      'http://localhost:4430',
+      {},
+    ),
+  });
+
+  return new ContentApi(apiConfiguration);
+}
+
+async function getContent(id: string): Promise<any> {
+  try {
+    return await getClient().getContentItemById20(id);
+  } catch (e) {
+    return null;
+  }
+}
+
+async function getDeals(): Promise<any> {
+  try {
+    const result = await getClient().getContent20(
+      'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
+    );
+
+    return result;
+  } catch (e) {
+    return null;
+  }
+}
+
 export default async function Page() {
-  const [session] = await Promise.all([getServerSession(authOptions)]);
+  const [session, landingPage, deals] = await Promise.all([
+    getServerSession(authOptions),
+    getContent('1b639400-1757-49ea-aa97-19e44c73b6f0'),
+    getDeals(),
+  ]);
 
   return (
     <>
@@ -32,11 +74,28 @@ export default async function Page() {
         <div className="mb-8">
           <h2 className="text-xl font-bold">CMS Content</h2>
           <p className="text-sm">Fetched directly from Umbraco Delivery API</p>
+
+          <pre>{JSON.stringify(landingPage, null, 2)}</pre>
         </div>
 
         <div className="mb-8">
           <h2 className="text-xl font-bold">Deals</h2>
           <p className="text-sm">Fetched from deals API</p>
+
+          {deals && deals.items && (
+            <Slider
+              name="Last minute deals"
+              bg="gray"
+              data={deals.items.map((s: any) => ({
+                id: s.id,
+                name: s.name,
+                image: '/slider-train.png',
+                logo: '/logos/check24-logo.svg',
+                price: s.properties.regularPrice,
+                discountPrice: s.properties.price,
+              }))}
+            />
+          )}
         </div>
       </main>
     </>

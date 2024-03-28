@@ -8,10 +8,11 @@ import { SliderCard } from '@/components/home/slider-card';
 export interface SliderProps {
   name: string;
   bg: string;
+  data?: any[];
 }
 
-export function Slider({ name, bg }: SliderProps) {
-  const data = [
+export function Slider({ name, bg, data }: SliderProps) {
+  data = data || [
     {
       id: '1',
       name: 'Köln - Hamburg für 2 Personen – 2 für 1 Tickets!',
