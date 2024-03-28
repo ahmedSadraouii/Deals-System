@@ -4,12 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Link } from '@nextui-org/react';
-import {
-  AuthenticationApi,
-  createConfiguration,
-  ResponseBase,
-  ServerConfiguration,
-} from 'api-auth';
+import type { AuthenticationApi } from 'api-auth';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
@@ -21,6 +16,7 @@ import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiError } from '@/utils/api-response-handling';
 import { createQueryString } from '@/utils/create-query-string';
 import { emailRegex } from '@/utils/email-regex';
+import { getApiClient } from '@/utils/get-api-client';
 
 export interface RegisterTabProps {
   onSwitchToLogin: () => void;
@@ -59,28 +55,28 @@ export function RegisterTab(props: RegisterTabProps) {
     async (data: typeof defaultValues) => {
       setLoading(true);
 
-      const apiConfiguration = createConfiguration({
-        baseServer: new ServerConfiguration('/auth-api', {}),
+      const authenticationApi = getApiClient<AuthenticationApi>({
+        type: 'auth',
       });
 
-      const authenticationApi = new AuthenticationApi(apiConfiguration);
-
       try {
-        await authenticationApi.registerCustomerEmail('1', {
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          addressPostalCode: data.postalCode,
-          password: data.password,
-          termsAccepted: data.termsChecked,
-          newsletterAccepted: data.newsletterChecked,
+        await authenticationApi.registerCustomerEmail({
+          registerCustomerByEmailRequest: {
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            addressPostalCode: data.postalCode,
+            password: data.password,
+            termsAccepted: data.termsChecked,
+            newsletterAccepted: data.newsletterChecked,
+          },
         });
 
         router.push(
           `/auth/register-success?${createQueryString({ email: data.email })}`,
         );
       } catch (error: any) {
-        if (!('body' in error && error.body instanceof ResponseBase)) {
+        if (!('body' in error && error.body instanceof Response)) {
           throw error;
         }
         setResponseError(tryParseApiError(error.body));

@@ -21,7 +21,9 @@ export function getApiClient<TApiClient>(
 ): TApiClient {
   if (params.type === 'auth') {
     const apiConfiguration = new ApiAuthConfiguration({
-      basePath: 'https://dev.api.aldi.amplicade.com/',
+      // TODO: use env var as soon the http://192.168.179.20:5000/aldi/infrastructure/k8s/-/merge_requests/7 is merged
+      // basePath: process.env.SHARED_API_URL,
+      basePath: 'https://dev.api.aldi.amplicade.com',
       headers: !!params.refreshToken
         ? {
             Cookie: `refreshToken=${params.refreshToken}`,
@@ -33,7 +35,9 @@ export function getApiClient<TApiClient>(
   }
 
   const apiConfiguration = new ApiContentConfiguration({
-    basePath: 'http://localhost:4430',
+    // TODO: use env var as soon the http://192.168.179.20:5000/aldi/infrastructure/k8s/-/merge_requests/7 is merged
+    // basePath: process.env.CONTENT_API_URL,
+    basePath: 'https://dev.api.aldi.amplicade.com/umbraco',
   });
 
   return new ContentApi(apiConfiguration) as TApiClient;

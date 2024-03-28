@@ -4,6 +4,8 @@ import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
 import { getApiClient } from '@/utils/get-api-client';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   const contentApi = getApiClient<ContentApi>({ type: 'content' });
 
@@ -60,7 +62,7 @@ export default async function Page() {
               data={deals.items.map((s: any) => ({
                 id: s.id,
                 name: s.name,
-                image: '/slider-train.png',
+                image: `https://dev.api.aldi.amplicade.com/umbraco${s.properties.pictures[0].url}`,
                 logo: '/logos/check24-logo.svg',
                 price: s.properties.regularPrice,
                 discountPrice: s.properties.price,

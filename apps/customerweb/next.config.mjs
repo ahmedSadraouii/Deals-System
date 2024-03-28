@@ -9,21 +9,26 @@ const nextConfig = {
     // These widths are used when the next/image component uses layout="fixed" or layout="intrinsic".
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     domains: [],
-    path: "/_next/image",
-    loader: "default",
+    path: '/_next/image',
+    loader: 'default',
   },
   sassOptions: {
-    includePaths: ["node_modules", "styles"],
+    includePaths: ['node_modules', 'styles'],
   },
   env: {
-    WEBAPI_BASEURL: process.env.WEBAPI_BASEURL
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    CONTENT_API_URL: process.env.CONTENT_API_URL,
+    SHARED_API_URL: process.env.SHARED_API_URL,
   },
   async rewrites() {
-    return [{
-      source: '/auth-api/:path*',
-      destination: `https://dev.api.aldi.amplicade.com/:path*`
-    }]
-  }
+    return [
+      {
+        source: '/auth-api/:path*',
+        destination: `https://dev.api.aldi.amplicade.com/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
