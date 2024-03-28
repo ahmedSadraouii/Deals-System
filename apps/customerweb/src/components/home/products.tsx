@@ -1,4 +1,3 @@
-import React from 'react';
 import { ProductItem } from '@/components/product/product-item';
 
 export default function Products() {

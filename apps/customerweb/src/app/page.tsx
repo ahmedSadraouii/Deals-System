@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { LogoSlider } from '@/components/home/logo-slider';
 import MainSlider from '@/components/home/main-slider';

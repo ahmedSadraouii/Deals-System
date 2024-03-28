@@ -1,42 +1,31 @@
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import {
-  AuthenticationApi,
-  createConfiguration,
-  IsomorphicFetchHttpLibrary as DefaultHttpLibrary,
-  ServerConfiguration,
-} from 'api-auth';
+import { AuthenticationApi, Configuration } from 'api-auth';
 import type { NextAuthOptions, User } from 'next-auth';
 
 async function refreshAccessToken(
   emailAddress: string,
   refreshToken: string,
 ): Promise<JWT> {
-  const apiConfiguration = createConfiguration({
-    baseServer: new ServerConfiguration(
-      'https://dev.api.aldi.amplicade.com/',
-      {},
-    ),
-    httpApi: {
-      send: (request) => {
-        const defaultHttpLibrary = new DefaultHttpLibrary();
-        request.addCookie('refreshToken', refreshToken);
-        return defaultHttpLibrary.send(request);
-      },
+  const apiConfiguration = new Configuration({
+    basePath: 'https://dev.api.aldi.amplicade.com/',
+    headers: {
+      Cookie: `refreshToken=${refreshToken}`,
     },
   });
 
   const authenticationApi = new AuthenticationApi(apiConfiguration);
   try {
     const cardinalDirectionResponse =
-      await authenticationApi.getCardinalDirection('1', {
-        email: emailAddress,
+      await authenticationApi.getCardinalDirection({
+        cardinalDirectionRequest: {
+          email: emailAddress,
+        },
       });
 
-    const tokenResponse = await authenticationApi.renewJwtToken(
-      cardinalDirectionResponse.data?.cardinalDirection || '1',
-      '1',
-    );
+    const tokenResponse = await authenticationApi.renewJwtToken({
+      cardinalDirection: cardinalDirectionResponse.data?.cardinalDirection || 1,
+    });
     const jwtToken = JSON.parse(atob(tokenResponse.accessToken!.split('.')[1]));
 
     const user: User = {
@@ -79,18 +68,17 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials) => {
         if (!credentials) return null;
 
-        const apiConfiguration = createConfiguration({
-          baseServer: new ServerConfiguration(
-            'https://dev.api.aldi.amplicade.com/',
-            {},
-          ),
+        const apiConfiguration = new Configuration({
+          basePath: 'https://dev.api.aldi.amplicade.com/',
         });
 
         const authenticationApi = new AuthenticationApi(apiConfiguration);
         try {
-          const tokenResponse = await authenticationApi.jwtToken('', {
-            email: credentials.email,
-            password: credentials.password,
+          const tokenResponse = await authenticationApi.jwtToken({
+            tokenRequestModel: {
+              email: credentials.email,
+              password: credentials.password,
+            },
           });
           const jwtToken = JSON.parse(
             atob(tokenResponse.accessToken!.split('.')[1]),
@@ -108,7 +96,7 @@ export const authOptions: NextAuthOptions = {
             },
           } satisfies User;
         } catch (error) {
-          console.log(error);
+          console.log('Login Failed', error);
           // todo: validate error message from backend and handle it properly
           throw new Error('invalid-credentials');
         }
