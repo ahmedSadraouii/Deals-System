@@ -35,7 +35,7 @@ export default function MainSlider() {
           {Array(9)
             .fill(0)
             .map((_, index) => (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <div className="overflow-hidden p-5 ">
                   <div className="mx-auto rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
