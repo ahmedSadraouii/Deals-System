@@ -1,19 +1,11 @@
-import {
-  createConfiguration,
-  ServerConfiguration,
-  ContentApi,
-} from 'api-content';
+import { Configuration, ContentApi } from 'api-content';
 import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
 
 function getClient() {
-  const apiConfiguration = createConfiguration({
-    baseServer: new ServerConfiguration(
-      // 'https://dev.api.aldi.amplicade.com/umbraco/',
-      'http://localhost:4430',
-      {},
-    ),
+  const apiConfiguration = new Configuration({
+    basePath: 'http://localhost:4430',
   });
 
   return new ContentApi(apiConfiguration);
@@ -21,7 +13,9 @@ function getClient() {
 
 async function getContent(id: string): Promise<any> {
   try {
-    return await getClient().getContentItemById20(id);
+    return await getClient().getContentItemById20({
+      id,
+    });
   } catch (e) {
     return null;
   }
@@ -29,9 +23,9 @@ async function getContent(id: string): Promise<any> {
 
 async function getDeals(): Promise<any> {
   try {
-    const result = await getClient().getContent20(
-      'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
-    );
+    const result = await getClient().getContent20({
+      fetch: 'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
+    });
 
     return result;
   } catch (e) {
