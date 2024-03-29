@@ -12,7 +12,7 @@ export default async function Page() {
   const [session, landingPage, deals] = await Promise.all([
     getServerSession(authOptions),
     contentApi.getContentItemById20({
-      id: '1b639400-1757-49ea-aa97-19e44c73b6f0',
+      id: 'adb5302f-afa9-480c-9af2-07aae8e223a7',
     }),
     contentApi.getContent20({
       fetch: 'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
@@ -62,7 +62,10 @@ export default async function Page() {
               data={deals.items.map((s: any) => ({
                 id: s.id,
                 name: s.name,
-                image: `https://dev.api.aldi.amplicade.com/umbraco${s.properties.pictures[0].url}`,
+                image:
+                  s?.properties?.pictures?.length > 0
+                    ? `https://dev.api.aldi.amplicade.com/umbraco${s.properties.pictures[0].url}`
+                    : '/slider-train.png',
                 logo: '/logos/check24-logo.svg',
                 price: s.properties.regularPrice,
                 discountPrice: s.properties.price,
