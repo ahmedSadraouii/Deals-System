@@ -3,10 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Slider } from '@/components/home/slider';
+import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { ProductCard } from '@/components/product/product-card';
 import { ProductSlider } from '@/components/product/product-slider';
 import { IconClock } from '@/components/svg/icon-clock';
+import { IconMinus } from '@/components/svg/icon-minus';
+import { IconPlus } from '@/components/svg/icon-plus';
 import { IconTag } from '@/components/svg/icon-tag';
 
 export default function Page() {
@@ -157,6 +160,26 @@ export default function Page() {
                   uvp={true}
                   textSize={2}
                 />
+              </div>
+              <div className="mt-10 flex justify-between">
+                <div className="flex items-center justify-between gap-4 text-4xl font-bold">
+                  <AldiButton
+                    className="h-12 !w-12"
+                    variant="ghost"
+                    color="secondary"
+                  >
+                    <IconMinus />
+                  </AldiButton>
+                  <div className="font-bold">10</div>
+                  <AldiButton
+                    className="h-12 !w-12"
+                    variant="ghost"
+                    color="secondary"
+                  >
+                    <IconPlus />
+                  </AldiButton>
+                </div>
+                <AldiButton color="secondary">Jetzt Deal sichern!</AldiButton>
               </div>
             </div>
 
