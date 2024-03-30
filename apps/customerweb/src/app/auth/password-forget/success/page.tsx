@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { AldiButton } from '@/components/nextui/aldi-button';
 
 export default function Page({
@@ -26,7 +27,7 @@ export default function Page({
         zurückkehren und dich <br /> mit deinen neuen Daten anmelden.
       </p>
 
-      <AldiButton variant="ghost" color="secondary">
+      <AldiButton size="lg" variant="ghost" as={Link} href="/auth">
         Zurück zur Anmeldung
       </AldiButton>
     </>

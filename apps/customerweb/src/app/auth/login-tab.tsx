@@ -38,15 +38,16 @@ export function LoginTab() {
   }, []);
 
   const onClickProceed = useCallback(async () => {
-    await trigger();
-    await handleSubmit(onSubmit)();
+    if (await trigger()) {
+      await handleSubmit(onSubmit)();
+    }
   }, [handleSubmit, onSubmit, trigger]);
 
   return (
     <div className="flex flex-col gap-8">
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex w-[600px] flex-col items-center gap-6 rounded-3xl border bg-default-100 p-10">
+          <div className="flex basis-[600px] flex-col items-center gap-6 rounded-3xl border bg-default-100 p-10">
             {searchParams.has('error') && (
               <p className="text-center text-red-500">
                 <ApiErrorTranslation apiError={searchParams.get('error')} />
@@ -90,7 +91,7 @@ export function LoginTab() {
             />
             <Link
               as={NextLink}
-              href="/password-forget"
+              href="/auth/password-forget"
               size="lg"
               color="secondary"
               underline="always"
