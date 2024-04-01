@@ -9,16 +9,13 @@ export const dynamic = 'force-dynamic';
 export default async function Page() {
   const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
 
-  const [session, gc, landingPage, deals] = await Promise.all([
+  const [session, landingPage, deals] = await Promise.all([
     getServerSession(authOptions),
-    contentApi.getContent20({
-      filter: ['contentType:contentPage'],
-    }),
-    contentApi.getContentItemById20({
-      id: 'adb5302f-afa9-480c-9af2-07aae8e223a7',
+    contentApi.getContentItemByPath({
+      path: '/content/landing-page',
     }),
     contentApi.getContent20({
-      fetch: 'children:1b639400-1757-49ea-aa97-19e44c73b6f0',
+      fetch: 'children:/content/deals/',
     }),
   ]);
 
@@ -50,8 +47,6 @@ export default async function Page() {
         <div className="mb-8">
           <h2 className="text-xl font-bold">CMS Content</h2>
           <p className="text-sm">Fetched directly from Umbraco Delivery API</p>
-
-          <pre>{JSON.stringify(gc, null, 2)}</pre>
           <pre>{JSON.stringify(landingPage, null, 2)}</pre>
         </div>
 
