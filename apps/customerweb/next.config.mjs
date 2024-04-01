@@ -8,7 +8,7 @@ const nextConfig = {
     deviceSizes: [640, 768, 1024, 1280],
     // These widths are used when the next/image component uses layout="fixed" or layout="intrinsic".
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    domains: [],
+    domains: ['dev.api.aldi.amplicade.com'],
     path: '/_next/image',
     loader: 'default',
   },

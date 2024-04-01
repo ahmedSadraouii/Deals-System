@@ -1,4 +1,4 @@
-import type { ContentApi } from 'api-content';
+import type { ContentApi, IApiContentResponseModel } from 'api-content';
 import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
@@ -6,10 +6,34 @@ import { getApiClient } from '@/utils/get-api-client';
 
 export const dynamic = 'force-dynamic';
 
+function supplierByPath(
+  path: string,
+  suppliers: Array<IApiContentResponseModel>,
+): IApiContentResponseModel | undefined {
+  return suppliers.find((c) => c.route?.path === path);
+}
+
+function fullImagePath(path: string): string {
+  return `https://dev.api.aldi.amplicade.com/umbraco${path}`;
+}
+
+function getSupplierLogo(supplier?: IApiContentResponseModel) {
+  if (
+    supplier &&
+    supplier.properties &&
+    supplier.properties.picture &&
+    supplier.properties.picture.length > 0
+  ) {
+    return fullImagePath(supplier.properties.picture[0].url);
+  }
+
+  return '';
+}
+
 export default async function Page() {
   const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
 
-  const [session, landingPage, deals] = await Promise.all([
+  const [session, landingPage, deals, suppliers] = await Promise.all([
     getServerSession(authOptions),
     contentApi.getContentItemByPath({
       path: '/content/landing-page',
@@ -17,7 +41,13 @@ export default async function Page() {
     contentApi.getContent20({
       fetch: 'children:/content/deals/',
     }),
+    contentApi.getContent20({
+      fetch: 'children:/content/suppliers/',
+    }),
   ]);
+
+  console.log(JSON.stringify(deals, null, 2));
+  console.log(JSON.stringify(suppliers, null, 2));
 
   return (
     <>
@@ -63,9 +93,14 @@ export default async function Page() {
                 name: s.name,
                 image:
                   s?.properties?.pictures?.length > 0
-                    ? `https://dev.api.aldi.amplicade.com/umbraco${s.properties.pictures[0].url}`
+                    ? fullImagePath(s.properties.pictures[0].url)
                     : '/slider-train.png',
-                logo: '/logos/check24-logo.svg',
+                logo: getSupplierLogo(
+                  supplierByPath(
+                    s.properties?.supplier?.route.path,
+                    suppliers.items,
+                  ),
+                ),
                 price: s.properties.regularPrice,
                 discountPrice: s.properties.price,
               }))}
