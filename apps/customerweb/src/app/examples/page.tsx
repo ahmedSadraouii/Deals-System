@@ -46,8 +46,8 @@ export default async function Page() {
     }),
   ]);
 
-  console.log(JSON.stringify(deals, null, 2));
-  console.log(JSON.stringify(suppliers, null, 2));
+  // console.log(JSON.stringify(deals, null, 2));
+  // console.log(JSON.stringify(suppliers, null, 2));
 
   return (
     <>
