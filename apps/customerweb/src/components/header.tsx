@@ -29,6 +29,9 @@ export function Header() {
           <AldiButton as={Link} size="lg" variant="light" href="/faq">
             FAQ
           </AldiButton>
+          <AldiButton as={Link} size="lg" variant="light" href="/examples">
+            Examples
+          </AldiButton>
         </ul>
         <div className="flex items-center space-x-2">
           <HeaderUserSection />
