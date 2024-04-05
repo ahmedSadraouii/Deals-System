@@ -807,83 +807,13 @@
         }
       }
     },
-    "/auth/api/user/redirect": {
-      "get": {
-        "tags": [
-          "Sweepstake"
-        ],
-        "summary": "...",
-        "description": "...",
-        "operationId": "RedirectTest",
-        "parameters": [
-          {
-            "name": "redirectUrl",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "style": "simple",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "...",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Int32ActionResult"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Int32ActionResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Int32ActionResult"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "An internal error occured.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringActionResult"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringActionResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringActionResult"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/api/user/register": {
       "post": {
         "tags": [
           "Authentication"
         ],
-        "summary": "Registers a customer by email",
-        "description": "Registers a customer by email",
+        "summary": "Registers a customer by email (send domain as a header parameter)",
+        "description": "Registers a customer by email (send domain as a header parameter)",
         "operationId": "RegisterCustomerEmail",
         "parameters": [
           {
@@ -978,7 +908,7 @@
         }
       }
     },
-    "/auth/api/user/email-verification/{verificationId}": {
+    "/auth/api/user/email-verification/{verificationId}/{domain}": {
       "get": {
         "tags": [
           "Authentication"
@@ -995,6 +925,15 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "domain",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/Domain"
             }
           },
           {
@@ -1070,7 +1009,7 @@
         }
       }
     },
-    "/auth/api/user/verification-callback/{verificationId}": {
+    "/auth/api/user/verification-callback/{verificationId}/{domain}": {
       "get": {
         "tags": [
           "Authentication"
@@ -1087,6 +1026,15 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "domain",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/Domain"
             }
           },
           {
@@ -1167,8 +1115,8 @@
         "tags": [
           "Authentication"
         ],
-        "summary": "Get JWT token using username and password",
-        "description": "Get JWT token using username and password",
+        "summary": "Get JWT token using username and password (send domain as a header parameter)",
+        "description": "Get JWT token using username and password (send domain as a header parameter)",
         "operationId": "JwtToken",
         "parameters": [
           {
@@ -1236,6 +1184,248 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StringBaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/user/register-deals": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Registers a user on Deals",
+        "description": "Registers a user on Deals",
+        "operationId": "RegisterOnDealsAsync",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DealsRegistrationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DealsRegistrationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DealsRegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User registered.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data sent by client.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An internal error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/user/register-sports": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Registers a user on Sports",
+        "description": "Registers a user on Sports",
+        "operationId": "RegisterOnSportsAsync",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SportsRegistrationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SportsRegistrationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SportsRegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User registered.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data sent by client.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An internal error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
                 }
               }
             }
@@ -1515,7 +1705,7 @@
         }
       }
     },
-    "/auth/api/user/forgot-password/{forgotPasswordId}": {
+    "/auth/api/user/forgot-password/{forgotPasswordId}/{domain}": {
       "get": {
         "tags": [
           "Authentication"
@@ -1532,6 +1722,15 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "domain",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/Domain"
             }
           },
           {
@@ -2285,6 +2484,40 @@
         },
         "additionalProperties": false
       },
+      "DealsRegistrationRequest": {
+        "required": [
+          "email",
+          "password",
+          "termsAccepted"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "termsAccepted": {
+            "type": "boolean"
+          },
+          "newsletterAccepted": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Domain": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "ForgotPasswordByEmailRequest": {
         "required": [
           "email"
@@ -2345,19 +2578,6 @@
             "type": "string",
             "format": "uuid",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Int32ActionResult": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "$ref": "#/components/schemas/ActionResult"
-          },
-          "value": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2746,15 +2966,28 @@
         },
         "additionalProperties": false
       },
-      "StringActionResult": {
+      "SportsRegistrationRequest": {
+        "required": [
+          "email",
+          "password",
+          "termsAccepted"
+        ],
         "type": "object",
         "properties": {
-          "result": {
-            "$ref": "#/components/schemas/ActionResult"
-          },
-          "value": {
+          "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "termsAccepted": {
+            "type": "boolean"
+          },
+          "newsletterAccepted": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

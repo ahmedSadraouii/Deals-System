@@ -10,17 +10,20 @@ export default async function Page({
   params: { path: string };
 }) {
   const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
-  const pageContent = await contentApi.getContent20({
-    filter: ['contentType:contentPage'],
-  });
-  const matchingElement = pageContent.items.find(
-    (element) => element.route?.path === `/content/${path}/`,
-  );
-  if (!matchingElement) {
+  try {
+    const pageContent = await contentApi.getContentItemByPath20({
+      path: `/content/${path}/`,
+    });
+    if (!pageContent) {
+      return <NotFound />;
+    }
+    const umbracoContentPage = pageContent.properties as UmbracoContentPage;
+    return (
+      <div id="umbracooo">
+        <UmbracoRenderer type="contentPage" contentPage={umbracoContentPage} />
+      </div>
+    );
+  } catch (error) {
     return <NotFound />;
   }
-  const umbracoContentPage = matchingElement.properties as UmbracoContentPage;
-  return (
-    <UmbracoRenderer type="contentPage" contentPage={umbracoContentPage} />
-  );
 }

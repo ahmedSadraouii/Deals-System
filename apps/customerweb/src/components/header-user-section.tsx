@@ -24,7 +24,7 @@ export async function HeaderUserSection() {
           Deal einlösen
         </AldiButton>
         <HeaderUserProfileButton>
-          <span>Hey {session.user.profile.firstName}!</span>
+          <span>Hey {session.user.profile.emailAddress}!</span>
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-default/40">
             <IconProfile className="text-2xl text-secondary" />
           </div>

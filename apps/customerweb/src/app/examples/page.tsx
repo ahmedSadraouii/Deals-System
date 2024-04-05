@@ -78,6 +78,8 @@ export default async function Page() {
           <h2 className="text-xl font-bold">CMS Content</h2>
           <p className="text-sm">Fetched directly from Umbraco Delivery API</p>
           <pre>{JSON.stringify(landingPage, null, 2)}</pre>
+          <pre>{JSON.stringify(deals, null, 2)}</pre>
+          <pre>{JSON.stringify(suppliers, null, 2)}</pre>
         </div>
 
         <div className="mb-8">

@@ -1,7 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": [
-    "API_HOST"
+    "API_HOST",
+    "__NEXT_IMAGE_OPTS"
   ],
   "pipeline": {
     "build": {

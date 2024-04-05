@@ -86,6 +86,10 @@
   src: local('HvDTrial Brandon Grotesque'), url(/font/Brandon-Grotesque-Black-Italic.otf);
 }
 
+.umbraco-content-page-content-item-section {
+  @apply m-4
+}
+
 .swiper-button-next {
   @apply bg-black rounded-full !w-10 !h-10 !right-0
 }
