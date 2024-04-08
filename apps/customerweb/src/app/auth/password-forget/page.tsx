@@ -109,6 +109,7 @@ export default function Page() {
                 onClick={onClickProceed}
                 color="secondary"
                 fullWidth={true}
+                isLoading={isLoading}
               >
                 Passwort zurücksetzen
               </AldiButton>

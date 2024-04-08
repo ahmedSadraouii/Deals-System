@@ -238,7 +238,7 @@ export default function Page() {
               <h1 className="mb-3 text-xl font-bold">
                 Gesamtpreis inkl. MwSt.
               </h1>
-              <Price price={45} discountedPrice={0} uvp={false} textSize={1} />
+              <Price oldPrice={45} actualPrice={0} uvp={false} textSize={1} />
             </div>
             <hr />
             <div className="mt-5 flex">

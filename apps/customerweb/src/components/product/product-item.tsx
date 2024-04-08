@@ -50,8 +50,8 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
           </a>
           <div className="mt-5 flex items-center justify-between">
             <Price
-              price={price}
-              discountedPrice={discountPrice}
+              oldPrice={price}
+              actualPrice={discountPrice}
               textSize={1}
               uvp={false}
             />

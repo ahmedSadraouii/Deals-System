@@ -3,15 +3,17 @@ import { tv } from '@nextui-org/react';
 import { formatCurrency } from '@/utils/format-currency';
 
 export interface PriceProps {
-  price: number;
-  discountedPrice: number;
+  oldPrice?: number;
+  actualPrice: number;
+  showDigits?: boolean;
   uvp: boolean;
   textSize?: 'default' | 1 | 2;
 }
 
 export function Price({
-  price,
-  discountedPrice,
+  oldPrice,
+  actualPrice,
+  showDigits = true,
   uvp,
   textSize = 'default',
 }: PriceProps) {
@@ -44,27 +46,25 @@ export function Price({
   });
 
   const savingsPercentage = useMemo(
-    () => Math.ceil(((price - discountedPrice) / price) * 100),
-    [price, discountedPrice],
+    () =>
+      oldPrice !== undefined
+        ? Math.ceil(((oldPrice - actualPrice) / oldPrice) * 100)
+        : undefined,
+    [oldPrice, actualPrice],
   );
 
   return (
     <div>
       <span className={priceText({ textSize })}>
-        <small className={uvpText({ textSize })}>
-          {uvp ? 'UVP' : ''}{' '}
-          {discountedPrice > 0
-            ? price
-              ? formatCurrency(price)
-              : formatCurrency(discountedPrice)
-            : ''}
-        </small>
-        {discountedPrice
-          ? formatCurrency(discountedPrice)
-          : formatCurrency(price)}
-        {discountedPrice > 0 && (
-          <small className="ml-2 text-xs font-extralight">
-            Sie sparen {savingsPercentage}%
+        {oldPrice !== undefined && (
+          <small className={uvpText({ textSize })}>
+            {uvp ? 'UVP' : ''} {formatCurrency(oldPrice, showDigits)}
+          </small>
+        )}
+        {formatCurrency(actualPrice, showDigits)}
+        {actualPrice > 0 && (
+          <small className="ml-2 text-sm font-light">
+            Du sparst {savingsPercentage}%
           </small>
         )}
       </span>

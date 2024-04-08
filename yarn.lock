@@ -3135,6 +3135,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/humanize-duration@npm:^3.27.4":
+  version: 3.27.4
+  resolution: "@types/humanize-duration@npm:3.27.4"
+  checksum: 10c0/0d92b036ac284c4ae248dca6efa826f9d397e7369f2d5e11de1813e05b32fd44e3d696f999acdc5a7eb412efc33668b8a68f6ad671392c0bbcf797a6329d674f
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.11, @types/json-schema@npm:^7.0.12, @types/json-schema@npm:^7.0.6, @types/json-schema@npm:^7.0.9":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -3146,6 +3153,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 10c0/6bf5337bc447b706bb5b4431d37686aa2ea6d07cfd6f79cc31de80170d6ff9b1c7384a9c0ccbc45b3f512bae9e9f75c2e12109806a15331dc94e8a8db6dbb4ac
+  languageName: node
+  linkType: hard
+
+"@types/luxon@npm:3.4.2":
+  version: 3.4.2
+  resolution: "@types/luxon@npm:3.4.2"
+  checksum: 10c0/d835467de3daf7e17ba78b50bb5a14efd94272439ca067990d71332a54b311544459c69623eddd243b511b28d70194c9591a9ee8cf9c038962c965f991affd7e
   languageName: node
   linkType: hard
 
@@ -4421,6 +4435,8 @@ __metadata:
     "@microsoft/signalr": "npm:8.0.0"
     "@nextui-org/react": "npm:2.2.10"
     "@tailwindcss/aspect-ratio": "npm:0.4.2"
+    "@types/humanize-duration": "npm:^3.27.4"
+    "@types/luxon": "npm:3.4.2"
     "@types/node": "npm:20.11.28"
     "@types/react": "npm:18.2.66"
     "@types/react-dom": "npm:18.2.22"
@@ -4430,7 +4446,9 @@ __metadata:
     eslint: "npm:8.57.0"
     eslint-config-custom: "npm:*"
     framer-motion: "npm:11.0.14"
+    humanize-duration: "npm:^3.32.0"
     interweave: "npm:13.1.0"
+    luxon: "npm:3.4.4"
     next: "npm:14.1.3"
     next-auth: "npm:4.24.7"
     postcss: "npm:8.4.36"
@@ -6137,6 +6155,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"humanize-duration@npm:^3.32.0":
+  version: 3.32.0
+  resolution: "humanize-duration@npm:3.32.0"
+  checksum: 10c0/baf27a35c1cd55da8a83ea9fce1b63b5bb09715e5652ef49bc321c6faf469a934291afe9bb7266c595c4cc8a70f918a6a78e589bd396d0e6e2c58e9d3ded032f
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:^0.4.24":
   version: 0.4.24
   resolution: "iconv-lite@npm:0.4.24"
@@ -7067,6 +7092,13 @@ __metadata:
   dependencies:
     es5-ext: "npm:~0.10.2"
   checksum: 10c0/83517032b46843601c4528be65e8aaf85f5a7860a9cfa3e4f2b5591da436e7cd748d95b450c91434c4ffb75d3ae4c069ddbdd9f71ada56a99a00c03088c51b4d
+  languageName: node
+  linkType: hard
+
+"luxon@npm:3.4.4":
+  version: 3.4.4
+  resolution: "luxon@npm:3.4.4"
+  checksum: 10c0/02e26a0b039c11fd5b75e1d734c8f0332c95510f6a514a9a0991023e43fb233884da02d7f966823ffb230632a733fc86d4a4b1e63c3fbe00058b8ee0f8c728af
   languageName: node
   linkType: hard
 

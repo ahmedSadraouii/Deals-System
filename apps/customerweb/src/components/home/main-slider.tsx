@@ -99,8 +99,8 @@ export default function MainSlider() {
                         </dl>
                         <div className="mt-10 w-full">
                           <Price
-                            price={90}
-                            discountedPrice={45}
+                            oldPrice={90}
+                            actualPrice={45}
                             uvp={true}
                           ></Price>
 

@@ -61,8 +61,8 @@ export function SliderCard({
           </a>
           <div className="mt-5 flex items-center justify-between">
             <Price
-              price={price}
-              discountedPrice={discountPrice}
+              oldPrice={price}
+              actualPrice={discountPrice}
               textSize={1}
               uvp={false}
             />

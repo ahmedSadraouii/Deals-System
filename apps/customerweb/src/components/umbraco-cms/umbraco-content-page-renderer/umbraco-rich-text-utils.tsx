@@ -30,7 +30,7 @@ export function convertToHtml(
 ): string {
   const elementArray = Array.isArray(elements) ? elements : [elements];
   return elementArray
-    .map((element, index) => {
+    .map((element) => {
       if (element.tag === '#root') {
         if (!element.elements || element.elements.length === 0) {
           throw new Error('Expected elements on #root element');
@@ -45,7 +45,9 @@ export function convertToHtml(
           const actualValue = interceptAttributeValue(key, value);
           return `${acc} ${key}="${actualValue}"`;
         }, '');
-        return `<${element.tag}${attributesString}>${convertToHtml(element.elements || [])}</${element.tag}>`;
+        return `<${element.tag}${attributesString}>${convertToHtml(
+          element.elements || [],
+        )}</${element.tag}>`;
       }
     })
     .join('');

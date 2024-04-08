@@ -154,12 +154,7 @@ export default function Page() {
                 </div>
               )}
               <div className="flex justify-between">
-                <Price
-                  price={90}
-                  discountedPrice={45}
-                  uvp={true}
-                  textSize={2}
-                />
+                <Price oldPrice={90} actualPrice={45} uvp={true} textSize={2} />
               </div>
               <div className="mt-10 flex justify-between">
                 <div className="flex items-center justify-between gap-4 text-4xl font-bold">

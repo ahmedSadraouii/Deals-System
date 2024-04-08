@@ -50,8 +50,8 @@ export interface UmbracoDeal {
 export interface UmbracoSupplier {
   contentType: 'supplier';
   name: string;
-  createDate: string; // iso-date
-  updateDate: string; // iso-date
+  createDate: Date | string; // iso-date
+  updateDate: Date | string; // iso-date
   route: {
     path: string;
     startItem: {
@@ -60,7 +60,17 @@ export interface UmbracoSupplier {
     };
   };
   id: string;
-  properties: unknown;
+  properties: {
+    nameFrontend: string;
+    nameSystem: string;
+    phone: string;
+    email: string;
+    emailForCustomerSupport: string;
+    emailTechnicalSupport: string;
+    comment: string;
+    availability: 'yes' | 'no';
+    picture: Array<UmbracoImage>;
+  };
 }
 
 export interface UmbracoRichTextElement {
@@ -90,8 +100,8 @@ export type UmbracoContentPageContentItem =
       contentType: 'dealsListBlock';
       properties: {
         title: string;
-        dataHint: string;
-        uiHint: 'Hero' | 'Grid';
+        dataHint: 'Hand Picked' | 'All Deals' | 'Best Sellers';
+        uiHint: 'Grid' | 'Small Slider' | 'Hero Slider';
         deals?: Array<UmbracoDeal>;
       };
     }

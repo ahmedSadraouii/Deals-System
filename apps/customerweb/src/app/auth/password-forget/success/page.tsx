@@ -3,11 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AldiButton } from '@/components/nextui/aldi-button';
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams?: Record<string, string>;
-}) {
+export default function Page() {
   return (
     <>
       <Image
