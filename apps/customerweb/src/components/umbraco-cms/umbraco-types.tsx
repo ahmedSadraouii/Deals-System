@@ -20,7 +20,7 @@ export interface UmbracoDeal {
     outdoorActivity: boolean;
     ourRecommendation: boolean;
     perfectGift: boolean;
-    pictures: Array<UmbracoImage>;
+    pictures?: Array<UmbracoImage>;
     redeemable: boolean;
     sapArticleNo: string;
     legacyArticleNo: string;
@@ -69,7 +69,7 @@ export interface UmbracoSupplier {
     emailTechnicalSupport: string;
     comment: string;
     availability: 'yes' | 'no';
-    picture: Array<UmbracoImage>;
+    picture?: Array<UmbracoImage>;
   };
 }
 

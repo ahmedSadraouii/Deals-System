@@ -40,33 +40,41 @@ export async function DealsListItem({ deal, display }: DealsListItemProps) {
   });
   const fullSupplier = supplierContent as UmbracoSupplier;
 
-  const primaryImage = fullDeal.properties?.pictures![0].url;
-  const supplierImage = fullSupplier.properties?.picture![0].url;
+  const primaryImage = fullDeal.properties?.pictures?.[0]?.url;
+  const supplierImage = fullSupplier.properties?.picture?.[0]?.url;
 
-  const productImageUrl = defaultLoader({
-    src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
-    width: 768,
-    config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-  });
+  const productImageUrl =
+    primaryImage &&
+    defaultLoader({
+      src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
+      width: 768,
+      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
+    });
 
-  const supplierImageUrl = defaultLoader({
-    src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
-    width: 256,
-    config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-  });
+  const supplierImageUrl =
+    supplierImage &&
+    defaultLoader({
+      src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
+      width: 256,
+      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
+    });
 
   if (display === 'Grid') {
     return (
       <div className="flex flex-col overflow-hidden rounded-lg bg-white">
         <div
           className="h-72 bg-cover bg-center"
-          style={{ backgroundImage: `url(${productImageUrl})` }}
+          style={{
+            backgroundImage: productImageUrl && `url(${productImageUrl})`,
+          }}
         />
         <div className="flex flex-col gap-4 p-6">
           <div className="flex flex-row items-center justify-between">
             <div
               className="h-10 w-48 bg-contain bg-left bg-no-repeat"
-              style={{ backgroundImage: `url(${supplierImageUrl})` }}
+              style={{
+                backgroundImage: supplierImageUrl && `url(${supplierImageUrl})`,
+              }}
             />
             {deal.properties?.availabilityEnd && (
               <div className="flex items-center space-x-2 rounded-md border border-secondary/10 p-2 text-primary">
