@@ -1,6 +1,9 @@
+@import 'swiper/swiper-bundle.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @font-face {
   font-family: hvdtrial brandon grotesque;

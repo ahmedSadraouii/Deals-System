@@ -7,7 +7,7 @@ export interface PriceProps {
   actualPrice: number;
   showDigits?: boolean;
   uvp: boolean;
-  textSize?: 'default' | 1 | 2;
+  textSize?: 'default' | 1 | 2 | 3;
 }
 
 export function Price({
@@ -24,6 +24,7 @@ export function Price({
         default: 'text-3xl',
         1: 'text-2xl',
         2: 'text-5xl',
+        3: 'text-[80px] mr-6',
       },
     },
     defaultVariants: {
@@ -38,10 +39,23 @@ export function Price({
         default: 'text-lg',
         1: 'text-lg',
         2: 'text-xl',
+        3: 'text-4xl mr-6',
       },
     },
     defaultVariants: {
       textSize: 'default',
+    },
+  });
+
+  const savingsText = tv({
+    base: 'font-light ml-2',
+    variants: {
+      textSize: {
+        default: 'text-sm',
+        1: 'text-md',
+        2: 'text-lg',
+        3: 'text-xl font-normal ml-6',
+      },
     },
   });
 
@@ -63,7 +77,7 @@ export function Price({
         )}
         {formatCurrency(actualPrice, showDigits)}
         {actualPrice > 0 && (
-          <small className="ml-2 text-sm font-light">
+          <small className={savingsText({ textSize })}>
             Du sparst {savingsPercentage}%
           </small>
         )}

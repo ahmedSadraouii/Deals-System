@@ -97,7 +97,11 @@ export async function UmbracoContentPageContentItemRenderer({
 
     return (
       <section className="umbraco-content-page-content-item-section umbraco-content-page-content-item-section--dealsListBlock">
-        <DealsListBlock deals={deals} display={item.properties.uiHint} />
+        <DealsListBlock
+          title={item.properties.title}
+          deals={deals}
+          display={item.properties.uiHint}
+        />
       </section>
     );
   }

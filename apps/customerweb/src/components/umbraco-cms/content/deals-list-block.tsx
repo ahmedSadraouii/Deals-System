@@ -1,33 +1,27 @@
-import { DealsListItem } from '@/components/deal/deals-list-item';
+import { DealsListBlockGrid } from '@/components/umbraco-cms/content/deals-list-block-grid';
+import { DealsListBlockHeroSlider } from '@/components/umbraco-cms/content/deals-list-block-hero-slider';
+import { DealsListBlockSmallSlider } from '@/components/umbraco-cms/content/deals-list-block-small-slider';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 
 export interface DealsListBlockProps {
   deals: Array<UmbracoDeal>;
+  title: string;
   display: 'Grid' | 'Small Slider' | 'Hero Slider';
 }
-export function DealsListBlock({ deals, display }: DealsListBlockProps) {
+export function DealsListBlock({ title, deals, display }: DealsListBlockProps) {
   if (display === 'Grid') {
-    return (
-      <div className="bg-default-100">
-        <div className="container mx-auto px-4 py-20">
-          <h2 className="pb-10 text-5xl font-bold text-secondary">
-            Alle Deals im Überblick
-          </h2>
-          <div className="grid grid-cols-3 gap-10">
-            {deals.map((deal, index) => (
-              <DealsListItem key={index} deal={deal} display={display} />
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+    return <DealsListBlockGrid title={title} deals={deals} />;
+  } else if (display === 'Hero Slider') {
+    return <DealsListBlockHeroSlider title={title} deals={deals} />;
+  } else if (display === 'Small Slider') {
+    return <DealsListBlockSmallSlider title={title} deals={deals} />;
   }
 
   return (
-    <div>
-      {deals.map((deal, index) => (
-        <DealsListItem key={index} deal={deal} display={display} />
-      ))}
-    </div>
+    <pre className="whitespace-pre-wrap">
+      DealsListBLock unknown display: {display}
+      <br />
+      Deals: {JSON.stringify(deals, null, 2)}
+    </pre>
   );
 }

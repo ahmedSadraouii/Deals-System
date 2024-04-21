@@ -9,13 +9,13 @@ import { IconCart } from '@/components/svg/icon-cart';
 export function Header() {
   return (
     <header className="border-b-1 p-4">
-      <nav className="container mx-auto flex flex-wrap xl:flex-nowrap xl:space-x-16">
+      <nav className="container mx-auto flex flex-wrap space-x-2 xl:flex-nowrap xl:space-x-16">
         <div className="shrink-0">
           <Link href="/">
             <img width={112} height={64} src="/logo.svg" alt="logo" />
           </Link>
         </div>
-        <ul className="flex grow items-center space-x-2">
+        <ul className="hidden grow items-center space-x-2 lg:flex">
           <AldiButton as={Link} size="lg" variant="light" href="/">
             Start
           </AldiButton>
@@ -29,7 +29,7 @@ export function Header() {
             </AldiButton>
           </HeaderCategoryButton>
           <AldiButton as={Link} size="lg" variant="light" href="/faq">
-            FAQ
+            FAQ|
           </AldiButton>
           <AldiButton as={Link} size="lg" variant="light" href="/examples">
             Examples
