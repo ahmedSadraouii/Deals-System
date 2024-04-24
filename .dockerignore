@@ -3,7 +3,6 @@
 .idea
 node_modules
 .next
-.yarn
 dist
 generated
 /out
