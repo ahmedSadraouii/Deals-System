@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build:api-gen": "rimraf ./dist/ ./generated/ && openapi-generator-cli generate -i api-spec.json -g typescript-fetch -o generated",
+    "build:api-gen": "openapi-generator-cli generate -i api-spec.json -g typescript-fetch -o generated",
     "build:tsc": "tsc -d --declarationMap",
     "build": "run-s build:api-gen build:tsc",
     "dev": "run-s build:api-gen dev:watch",
