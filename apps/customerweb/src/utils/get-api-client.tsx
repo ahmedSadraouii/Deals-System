@@ -6,6 +6,7 @@ import {
   ContentApi,
   Configuration as ApiContentConfiguration,
 } from 'api-content';
+import { DealsApi, Configuration as ApiDealsConfiguration } from 'api-deals';
 
 export type GetApiClientParams = {
   ssr?: boolean;
@@ -16,6 +17,10 @@ export type GetApiClientParams = {
     }
   | {
       type: 'content';
+    }
+  | {
+      type: 'deals';
+      accessToken?: string;
     }
 );
 
@@ -35,6 +40,14 @@ export function getApiClient<TApiClient>(
     });
 
     return new AuthenticationApi(apiConfiguration) as TApiClient;
+  }
+
+  if (params.type === 'deals') {
+    const apiConfiguration = new ApiDealsConfiguration({
+      basePath: 'https://dev.api.aldi.amplicade.com/ad-be',
+    });
+
+    return new DealsApi(apiConfiguration) as TApiClient;
   }
 
   const apiConfiguration = new ApiContentConfiguration({

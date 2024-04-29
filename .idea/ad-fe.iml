@@ -15,6 +15,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/api-content/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/packages/api-content/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/api-content/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-deals/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-deals/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/api-deals/generated" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
