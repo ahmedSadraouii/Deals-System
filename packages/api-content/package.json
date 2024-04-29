@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "private": true,
   "license": "UNLICENSED",
-  "scripts": {    
+  "scripts": {
     "build:api-gen": "openapi-generator-cli generate -i api-spec.json -g typescript-fetch -o generated",
     "build:tsc": "tsc -d --declarationMap",
     "build": "run-s build:api-gen build:tsc",

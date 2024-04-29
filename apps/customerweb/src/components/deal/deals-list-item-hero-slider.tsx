@@ -116,6 +116,7 @@ export async function DealsListItemHeroSlider({
             color="secondary"
             endContent={<IconArrowRight />}
             href={`/deal/${dealLinkSegment || deal.route.path}`}
+            size="lg"
           >
             Jetzt Deal sichern
           </AldiButton>

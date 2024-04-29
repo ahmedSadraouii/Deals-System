@@ -2,6 +2,11 @@ const { nextui } = require('@nextui-org/theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  safelist: [
+    ...Array(12).fill(0).map((_, i) => `grid-cols-${i + 1}`),
+    ...Array(12).fill(0).map((_, i) => `col-span-${i + 1}`),
+    ...Array(12).fill(0).map((_, i) => `row-span-${i + 1}`)
+  ],
   darkMode: 'class',
   content: [
     // customerweb
@@ -33,6 +38,7 @@ module.exports = {
           colors: {
             primary: '#f05322',
             secondary: '#0B102F',
+            divider: '#0B102F'
           },
         },
       },

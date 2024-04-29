@@ -1,5 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import NextLink from 'next/link';
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from '@nextui-org/react';
 import { HeaderCategoryButton } from '@/components/header-category-button';
 import { HeaderUserSection } from '@/components/header-user-section';
 import { AldiButton } from '@/components/nextui/aldi-button';
@@ -8,46 +18,77 @@ import { IconCart } from '@/components/svg/icon-cart';
 
 export function Header() {
   return (
-    <header className="border-b-1 p-4">
-      <nav className="container mx-auto flex flex-wrap space-x-2 xl:flex-nowrap xl:space-x-16">
-        <div className="shrink-0">
-          <Link href="/">
+    <>
+      <Navbar
+        isBordered={true}
+        maxWidth="full"
+        classNames={{
+          wrapper: '!container mx-auto',
+          toggleIcon: 'bg-secondary/10 rounded-full h-auto aspect-square p-6',
+        }}
+        height="96px"
+      >
+        <NavbarContent className="space-x-4 lg:hidden" justify="start">
+          <NavbarMenuToggle />
+          <NavbarBrand as={NextLink} href="/" className="shrink-0">
             <img width={112} height={64} src="/logo.svg" alt="logo" />
-          </Link>
-        </div>
-        <ul className="hidden grow items-center space-x-2 lg:flex">
-          <AldiButton as={Link} size="lg" variant="light" href="/">
-            Start
-          </AldiButton>
-          <HeaderCategoryButton>
-            <AldiButton
-              variant="light"
-              endContent={<IconArrowDown className="text-2xl" />}
-              size="lg"
-            >
-              Kategorien
+          </NavbarBrand>
+        </NavbarContent>
+
+        <NavbarContent
+          className="hidden shrink-0 gap-0 lg:flex"
+          justify="center"
+        >
+          <NavbarBrand as={NextLink} href="/" className="mr-4 shrink-0">
+            <img width={112} height={64} src="/logo.svg" alt="logo" />
+          </NavbarBrand>
+          <NavbarItem>
+            <AldiButton as={Link} size="lg" variant="light" href="/">
+              Start
             </AldiButton>
-          </HeaderCategoryButton>
-          <AldiButton as={Link} size="lg" variant="light" href="/faq">
-            FAQ|
-          </AldiButton>
-          <AldiButton as={Link} size="lg" variant="light" href="/examples">
-            Examples
-          </AldiButton>
-        </ul>
-        <div className="flex items-center space-x-2">
-          <HeaderUserSection />
-          <AldiButton
-            as={Link}
-            size="lg"
-            variant="flat"
-            isIconOnly={true}
-            href="/cart"
-          >
-            <IconCart className="text-2xl" />
-          </AldiButton>
-        </div>
-      </nav>
-    </header>
+          </NavbarItem>
+          <NavbarItem>
+            <HeaderCategoryButton>
+              <AldiButton
+                variant="light"
+                endContent={<IconArrowDown className="text-2xl" />}
+                size="lg"
+              >
+                Kategorien
+              </AldiButton>
+            </HeaderCategoryButton>
+          </NavbarItem>
+          <NavbarItem>
+            <AldiButton as={Link} size="lg" variant="light" href="/faq">
+              FAQ
+            </AldiButton>
+          </NavbarItem>
+        </NavbarContent>
+
+        <NavbarContent className="flex gap-4" justify="end">
+          <NavbarItem className="flex flex-row items-center gap-4">
+            <HeaderUserSection />
+          </NavbarItem>
+          <NavbarItem>
+            <AldiButton
+              as={Link}
+              size="lg"
+              variant="flat"
+              isIconOnly={true}
+              href="/cart"
+            >
+              <IconCart className="text-2xl" />
+            </AldiButton>
+          </NavbarItem>
+        </NavbarContent>
+
+        <NavbarMenu>
+          <NavbarMenuItem>Cheese!</NavbarMenuItem>
+          <NavbarMenuItem>Cheese!</NavbarMenuItem>
+          <NavbarMenuItem>Cheese!</NavbarMenuItem>
+          <NavbarMenuItem>Cheese!</NavbarMenuItem>
+        </NavbarMenu>
+      </Navbar>
+    </>
   );
 }
