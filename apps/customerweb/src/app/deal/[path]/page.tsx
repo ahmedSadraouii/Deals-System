@@ -1,3 +1,6 @@
+import type { Metadata } from 'next';
+import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
+import defaultLoader from 'next/dist/shared/lib/image-loader';
 import type { ContentApi } from 'api-content';
 import { DealDetailPage } from '@/app/deal/[path]/deal-detail-page';
 import NotFound from '@/app/not-found';
@@ -7,11 +10,47 @@ import type {
 } from '@/components/umbraco-cms/umbraco-types';
 import { getApiClient } from '@/utils/get-api-client';
 
-export default async function Page({
-  params: { path },
-}: {
+type Props = {
   params: { path: string };
-}) {
+};
+
+export async function generateMetadata({
+  params: { path },
+}: Props): Promise<Metadata> {
+  const contentApi = getApiClient<ContentApi>({
+    ssr: true,
+    type: 'content',
+  });
+  try {
+    const deal = (await contentApi.getContentItemByPath20({
+      path: `/content/deals/${path}/`,
+    })) as UmbracoDeal;
+
+    const productImages =
+      deal.properties?.pictures
+        ?.filter((picture) => !!picture.url)
+        ?.map((picture) =>
+          defaultLoader({
+            src: `https://dev.api.aldi.amplicade.com/umbraco${picture.url}`,
+            width: 1280,
+            config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
+          }),
+        ) ?? [];
+
+    return {
+      title: `ALDI Deals - ${deal.name}`,
+      description: deal.properties?.description,
+      openGraph: {
+        images: productImages,
+      },
+    };
+  } catch (error) {
+    console.error('Unable to generate Deal Metadata', error);
+    return {};
+  }
+}
+
+export default async function Page({ params: { path } }: Props) {
   const contentApi = getApiClient<ContentApi>({
     ssr: true,
     type: 'content',

@@ -36,6 +36,7 @@ export async function HeaderUserSection() {
     <>
       <AldiButton
         as={Link}
+        size="lg"
         variant="ghost"
         href="/activate-coupon"
         endContent={<IconTicket className="text-2xl" />}
@@ -45,6 +46,7 @@ export async function HeaderUserSection() {
       </AldiButton>
       <AldiButton
         as={Link}
+        size="lg"
         variant="solid"
         href="/auth"
         endContent={<IconUser className="text-2xl" />}

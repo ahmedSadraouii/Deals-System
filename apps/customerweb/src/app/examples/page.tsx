@@ -2,7 +2,7 @@ import type { ContentApi, IApiContentResponseModel } from 'api-content';
 import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
-import { getApiClient } from '@/utils/get-api-client';
+import { getApiClient, getDealsApiClient } from '@/utils/get-api-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,19 +32,25 @@ function getSupplierLogo(supplier?: IApiContentResponseModel) {
 
 export default async function Page() {
   const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
+  const session = await getServerSession(authOptions);
+  const dealsApi = getDealsApiClient({ accessToken: session?.accessToken });
 
-  const [session, landingPage, deals, suppliers] = await Promise.all([
-    getServerSession(authOptions),
-    contentApi.getContentItemByPath({
-      path: '/content/landing-page',
-    }),
-    contentApi.getContent20({
-      fetch: 'children:/content/deals/',
-    }),
-    contentApi.getContent20({
-      fetch: 'children:/content/suppliers/',
-    }),
-  ]);
+  const [landingPageContent, dealsContent, suppliersContent, deals] =
+    await Promise.all([
+      contentApi.getContentItemByPath({
+        path: '/content/landing-page',
+      }),
+      contentApi.getContent20({
+        fetch: 'children:/content/deals/',
+      }),
+      contentApi.getContent20({
+        fetch: 'children:/content/suppliers/',
+      }),
+      dealsApi.getDeals({
+        take: 100,
+        skip: 0,
+      }),
+    ]);
 
   // console.log(JSON.stringify(deals, null, 2));
   // console.log(JSON.stringify(suppliers, null, 2));
@@ -76,21 +82,25 @@ export default async function Page() {
 
         <div className="mb-8">
           <h2 className="text-xl font-bold">CMS Content</h2>
-          <p className="text-sm">Fetched directly from Umbraco Delivery API</p>
-          <pre>{JSON.stringify(landingPage, null, 2)}</pre>
+
+          <p className="text-sm">Fetched from Deals API</p>
           <pre>{JSON.stringify(deals, null, 2)}</pre>
-          <pre>{JSON.stringify(suppliers, null, 2)}</pre>
+
+          <p className="text-sm">Fetched from Umbraco Delivery API</p>
+          <pre>{JSON.stringify(landingPageContent, null, 2)}</pre>
+          <pre>{JSON.stringify(dealsContent, null, 2)}</pre>
+          <pre>{JSON.stringify(suppliersContent, null, 2)}</pre>
         </div>
 
         <div className="mb-8">
           <h2 className="text-xl font-bold">Deals</h2>
           <p className="text-sm">Fetched from deals API</p>
 
-          {deals && deals.items && (
+          {dealsContent && dealsContent.items && (
             <Slider
               name="Last minute deals"
               bg="gray"
-              data={deals.items.map((s: any) => ({
+              data={dealsContent.items.map((s: any) => ({
                 id: s.id,
                 name: s.name,
                 image:
@@ -100,7 +110,7 @@ export default async function Page() {
                 logo: getSupplierLogo(
                   supplierByPath(
                     s.properties?.supplier?.route.path,
-                    suppliers.items,
+                    suppliersContent.items,
                   ),
                 ),
                 price: s.properties.regularPrice,

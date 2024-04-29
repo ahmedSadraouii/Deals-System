@@ -14,7 +14,7 @@ export interface UmbracoDeal {
   properties?: {
     htmlTags: unknown;
     description: string;
-    details: unknown;
+    details?: string;
     greatOffer: boolean;
     forFamily: boolean;
     outdoorActivity: boolean;

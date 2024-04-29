@@ -58,3 +58,20 @@ export function getApiClient<TApiClient>(
 
   return new ContentApi(apiConfiguration) as TApiClient;
 }
+
+export interface getDealsApiClientProps {
+  accessToken?: string;
+}
+
+export function getDealsApiClient({
+  accessToken,
+}: getDealsApiClientProps): DealsApi {
+  const apiConfiguration = new ApiDealsConfiguration({
+    basePath: 'https://dev.api.aldi.amplicade.com/ad-be',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return new DealsApi(apiConfiguration);
+}

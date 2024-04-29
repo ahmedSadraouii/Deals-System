@@ -19,7 +19,7 @@ export type DealsListItemHeroSliderProps = Omit<
   supplier: UmbracoSupplier;
 };
 
-export async function DealsListItemHeroSlider({
+export function DealsListItemHeroSlider({
   deal,
   supplier,
 }: DealsListItemHeroSliderProps) {
@@ -116,6 +116,7 @@ export async function DealsListItemHeroSlider({
             color="secondary"
             endContent={<IconArrowRight />}
             href={`/deal/${dealLinkSegment || deal.route.path}`}
+            size="lg"
           >
             Jetzt Deal sichern
           </AldiButton>

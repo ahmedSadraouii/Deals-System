@@ -14,10 +14,7 @@ export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
   supplier: UmbracoSupplier;
 };
 
-export async function DealsListItemGrid({
-  deal,
-  supplier,
-}: DealsListItemGridProps) {
+export function DealsListItemGrid({ deal, supplier }: DealsListItemGridProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
 
