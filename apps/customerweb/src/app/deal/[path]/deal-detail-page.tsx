@@ -71,7 +71,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
           <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-8">
             <div className="relative shrink-0 grow">
               <div
-                className="h-full overflow-hidden rounded-[20px] bg-cover bg-center"
+                className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto"
                 style={{
                   backgroundImage:
                     productImages.length > 0
@@ -126,7 +126,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                 </Tooltip>
               </div>
               {deal.properties?.availabilityEnd && (
-                <div className="flex flex-row items-center gap-2 text-secondary/50">
+                <div className="hidden flex-row items-center gap-2 text-secondary/50 lg:flex">
                   <span>Deal läuft ab in</span>
                   <div className="flex items-center space-x-2 rounded-md border border-secondary/10 p-2 text-primary">
                     <IconClock className="text-2xl" />{' '}

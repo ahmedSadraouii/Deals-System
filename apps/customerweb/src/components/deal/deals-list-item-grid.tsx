@@ -8,13 +8,20 @@ import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { IconClock } from '@/components/svg/icon-clock';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
+import { cn } from '@/utils/cn';
 import { formatAvailability } from '@/utils/format-availability';
 
 export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
   supplier: UmbracoSupplier;
+  ctaType?: 'inline' | 'button';
 };
 
-export function DealsListItemGrid({ deal, supplier }: DealsListItemGridProps) {
+export async function DealsListItemGrid({
+  deal,
+  supplier,
+  className,
+  ctaType = 'inline',
+}: DealsListItemGridProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
 
@@ -40,7 +47,12 @@ export function DealsListItemGrid({ deal, supplier }: DealsListItemGridProps) {
   );
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg bg-white">
+    <div
+      className={cn(
+        'flex flex-col overflow-hidden rounded-lg bg-white',
+        className,
+      )}
+    >
       <div
         className="h-72 bg-cover bg-center"
         style={{
@@ -73,15 +85,29 @@ export function DealsListItemGrid({ deal, supplier }: DealsListItemGridProps) {
             uvp={false}
             textSize={2}
           />
+          {ctaType === 'inline' && (
+            <AldiButton
+              as={Link}
+              variant="ghost"
+              isIconOnly={true}
+              href={`/deal/${dealLinkSegment || deal.route.path}`}
+            >
+              <IconArrowRight className="text-xl text-secondary/10" />
+            </AldiButton>
+          )}
+        </div>
+        {ctaType === 'button' && (
           <AldiButton
             as={Link}
-            variant="ghost"
-            isIconOnly={true}
+            variant="solid"
+            color="secondary"
             href={`/deal/${dealLinkSegment || deal.route.path}`}
+            fullWidth={true}
+            endContent={<IconArrowRight className="text-xl text-white" />}
           >
-            <IconArrowRight className="text-xl text-secondary/10" />
+            Jetzt deal sichern
           </AldiButton>
-        </div>
+        )}
       </div>
     </div>
   );

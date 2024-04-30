@@ -3,6 +3,7 @@
 import React from 'react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 
 export function PartnersBlock() {
   const data = [
@@ -41,26 +42,23 @@ export function PartnersBlock() {
         <div className="container mx-auto">
           <div className="mb-5 flex w-full items-center justify-between">
             <h1 className="mb-4 text-4xl font-bold">Unsere Partner</h1>
-            <div className="flex !w-20 justify-between text-3xl font-medium">
+            <div className="flex justify-between gap-2">
               <button
                 type="button"
-                className="prev rounded-full bg-black px-3 py-3 text-xs"
+                className="prev rounded-full bg-black p-2 text-lg"
               >
-                <img src="/icons/left-icon.svg" alt="left icon" />
+                <ChevronRightSvg className="rotate-180 text-white" />
               </button>
               <button
                 type="button"
-                className="next rounded-full bg-black px-3 py-3 text-xs"
+                className="next rounded-full bg-black p-2 text-lg"
               >
-                <img src="/icons/right-icon.svg" alt="right icon" />
+                <ChevronRightSvg className="text-white" />
               </button>
             </div>
           </div>
-          <div className="mb-10 h-1 w-full rounded-full bg-orange-200">
-            <div
-              className="h-1 rounded-full bg-amber-500"
-              style={{ width: '5%' }}
-            />
+          <div className="mb-10 flex h-1 w-full items-center rounded-full bg-aldi-key/20">
+            <div className="h-1.5 w-16 rounded-full bg-aldi-key" />
           </div>
           <Swiper
             loop={true}

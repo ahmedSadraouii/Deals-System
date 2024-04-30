@@ -147,3 +147,9 @@
   visibility: visible;
   border: 2px solid white;
 }
+
+@media(max-width: 1024px) {
+  .navbar-height-proxy {
+    --navbar-height-injected: 152px;
+  }
+}

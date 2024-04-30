@@ -10,9 +10,14 @@ import { getApiClient } from '@/utils/get-api-client';
 export interface DealsListItemProps {
   deal: UmbracoDeal;
   display: 'Grid' | 'Small Slider' | 'Hero Slider';
+  className?: string;
 }
 
-export async function DealsListItem({ deal, display }: DealsListItemProps) {
+export async function DealsListItem({
+  deal,
+  display,
+  ...otherProps
+}: DealsListItemProps) {
   const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
   const dealContent = await contentApi.getContentItemById20({
     id: deal.id,
@@ -25,9 +30,21 @@ export async function DealsListItem({ deal, display }: DealsListItemProps) {
   const fullSupplier = supplierContent as UmbracoSupplier;
 
   if (display === 'Grid' || display === 'Small Slider') {
-    return <DealsListItemGrid deal={fullDeal} supplier={fullSupplier} />;
+    return (
+      <DealsListItemGrid
+        deal={fullDeal}
+        supplier={fullSupplier}
+        {...otherProps}
+      />
+    );
   } else if (display === 'Hero Slider') {
-    return <DealsListItemHeroSlider deal={fullDeal} supplier={fullSupplier} />;
+    return (
+      <DealsListItemHeroSlider
+        deal={fullDeal}
+        supplier={fullSupplier}
+        {...otherProps}
+      />
+    );
   }
 
   return (

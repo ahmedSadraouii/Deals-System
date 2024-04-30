@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth';
 import { HeaderUserProfileButton } from '@/components/header-user-profile-button';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconProfile } from '@/components/svg/icon-profile';
-import { IconTicket } from '@/components/svg/icon-ticket';
 import { IconUser } from '@/components/svg/icon-user';
 import { authOptions } from '@/utils/auth';
 
@@ -13,16 +12,6 @@ export async function HeaderUserSection() {
   if (session !== null) {
     return (
       <>
-        <AldiButton
-          as={Link}
-          size="lg"
-          variant="solid"
-          href="/activate-coupon"
-          endContent={<IconTicket className="text-2xl" />}
-          color="secondary"
-        >
-          Deal einlösen
-        </AldiButton>
         <HeaderUserProfileButton>
           <span>Hey {session.user.profile.emailAddress}!</span>
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-default/40">
@@ -34,16 +23,6 @@ export async function HeaderUserSection() {
   }
   return (
     <>
-      <AldiButton
-        as={Link}
-        size="lg"
-        variant="ghost"
-        href="/activate-coupon"
-        endContent={<IconTicket className="text-2xl" />}
-        color="secondary"
-      >
-        Deal einlösen
-      </AldiButton>
       <AldiButton
         as={Link}
         size="lg"

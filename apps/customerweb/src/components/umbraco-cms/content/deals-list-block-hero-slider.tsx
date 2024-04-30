@@ -13,7 +13,7 @@ export async function DealsListBlockHeroSlider({
 }: DealsListBlockHeroSliderProps) {
   return (
     <div>
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 pb-40 pt-10">
         <HeroCarousel title={title}>
           {deals.map((deal, index) => (
             <DealsListItem key={index} deal={deal} display="Hero Slider" />
