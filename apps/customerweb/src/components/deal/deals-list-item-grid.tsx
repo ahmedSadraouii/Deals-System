@@ -16,7 +16,7 @@ export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
   ctaType?: 'inline' | 'button';
 };
 
-export async function DealsListItemGrid({
+export function DealsListItemGrid({
   deal,
   supplier,
   className,
