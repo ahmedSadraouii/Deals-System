@@ -18,7 +18,7 @@ export function Price({
   textSize = 'default',
 }: PriceProps) {
   const priceText = tv({
-    base: 'font-bold text-aldi-text flex items-center text-aldi-text',
+    base: 'font-bold text-aldi-key flex items-center text-aldi-key',
     variants: {
       textSize: {
         default: 'text-3xl',

@@ -42,7 +42,7 @@ export function SliderCard({
               />
             </span>
             <div className="ms-3 flex items-center space-x-1 rtl:space-x-reverse">
-              <div className="flex items-center rounded border-1 px-4 py-2 font-extralight text-aldi-text">
+              <div className="flex items-center rounded border-1 px-4 py-2 font-extralight text-aldi-key">
                 <Image
                   src="/icons/clock-icon.svg"
                   width={20}

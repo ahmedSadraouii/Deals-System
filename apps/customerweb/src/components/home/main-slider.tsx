@@ -75,7 +75,7 @@ export default function MainSlider() {
                             </div>
                           </div>
                           <div>
-                            <div className="flex items-center justify-center rounded border px-6 py-6 text-xl text-aldi-text">
+                            <div className="flex items-center justify-center rounded border px-6 py-6 text-xl text-aldi-key">
                               <IconClock className="mr-2" />
                               13:32:16
                             </div>

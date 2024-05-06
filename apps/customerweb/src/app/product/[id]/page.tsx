@@ -130,7 +130,7 @@ export default function Page() {
                   </h1>
                   <h2 className="mt-2 flex items-center text-base leading-7 text-gray-500">
                     Deal läuft ab in{' '}
-                    <span className="ml-2 mr-2 flex items-center rounded-xl border bg-transparent p-2 text-aldi-text">
+                    <span className="ml-2 mr-2 flex items-center rounded-xl border bg-transparent p-2 text-aldi-key">
                       <IconClock className="mr-2" /> noch 5 Tage
                     </span>{' '}
                     oder bis ausverkauft
@@ -146,7 +146,7 @@ export default function Page() {
               </p>
               <hr className="mb-5 mt-5" />
               {isAlert && (
-                <div className="mb-5 rounded-xl bg-aldi-bg p-5 text-aldi-text">
+                <div className="mb-5 rounded-xl bg-aldi-bg p-5 text-aldi-key">
                   Aufgrund deines Standorts kannst du diesen Deal leider nicht
                   erwerben. Weitere Deals kannst du in deiner Aldi Nord Filiale
                   entdecken! Hier gehts zum Filialfinder:

@@ -11,10 +11,10 @@ import {
   NavbarMenuToggle,
 } from '@nextui-org/react';
 import type { Variants } from 'framer-motion';
-import { HeaderCategoryButton } from '@/components/header-category-button';
 import { HeaderUserSection } from '@/components/header-user-section';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { IconArrowDown } from '@/components/svg/icon-arrow-down';
+import { AldiDealsSvg } from '@/components/svg/aldi-deals-svg';
+import { AldiSuedSvg } from '@/components/svg/aldi-sued-svg';
 import { IconCart } from '@/components/svg/icon-cart';
 import { IconTicket } from '@/components/svg/icon-ticket';
 import { cn } from '@/utils/cn';
@@ -34,24 +34,18 @@ export function Header() {
       height="var(--navbar-height-injected, 96px)"
     >
       <NavbarContent className="hidden shrink-0 gap-0 lg:flex" justify="center">
-        <NavbarBrand as={NextLink} href="/" className="mr-4 shrink-0">
-          <img width={111} height={58} src="/logo.svg" alt="ALDI Deals" />
+        <NavbarBrand
+          as={NextLink}
+          href="/"
+          className="mr-4 h-full shrink-0 space-x-4 py-4"
+        >
+          <AldiSuedSvg className="h-full" />
+          <AldiDealsSvg className="h-full" />
         </NavbarBrand>
         <NavbarItem>
           <AldiButton as={Link} size="lg" variant="light" href="/">
             Start
           </AldiButton>
-        </NavbarItem>
-        <NavbarItem>
-          <HeaderCategoryButton>
-            <AldiButton
-              variant="light"
-              endContent={<IconArrowDown className="text-2xl" />}
-              size="lg"
-            >
-              Kategorien
-            </AldiButton>
-          </HeaderCategoryButton>
         </NavbarItem>
         <NavbarItem>
           <AldiButton as={Link} size="lg" variant="light" href="/faq">
@@ -89,8 +83,13 @@ export function Header() {
       >
         <div className="flex w-full gap-4">
           <NavbarMenuToggle />
-          <NavbarBrand as={NextLink} href="/" className="ml-4 shrink-0">
-            <img width={100} src="/logo.svg" alt="ALDI Deals" />
+          <NavbarBrand
+            as={NextLink}
+            href="/"
+            className="ml-4 shrink-0 space-x-4"
+          >
+            <AldiSuedSvg className="h-10 lg:h-auto" />
+            <AldiDealsSvg className="h-10 lg:h-auto" />
           </NavbarBrand>
           <HeaderUserSection />
           <AldiButton

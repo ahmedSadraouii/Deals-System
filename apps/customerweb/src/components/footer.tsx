@@ -4,7 +4,7 @@ import Link from 'next/link';
 export function Footer() {
   return (
     <>
-      <div className="bg-gray-100">
+      <div className="border-t border-secondary/10 bg-gray-100">
         <div className="container mx-auto w-full p-4 py-16">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex items-center">
@@ -42,7 +42,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <footer className="bg-[#0B102F]">
+      <footer className="bg-secondary text-white">
         <div className="container mx-auto w-full p-4 py-16">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
@@ -58,11 +58,9 @@ export function Footer() {
             </div>
             <div className="grid grid-cols-2">
               <div>
-                <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                  Sitemap
-                </h2>
-                <ul className="font-medium text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
+                <h2 className="mb-6 text-xl font-bold">Navigation</h2>
+                <ul>
+                  <li className="mb-4 text-gray-50">
                     <a href="#" className="hover:underline">
                       Start
                     </a>
@@ -85,9 +83,9 @@ export function Footer() {
                 </ul>
               </div>
               <div>
-                <ul className="mt-11 font-medium text-gray-500 dark:text-gray-400">
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline ">
+                <ul className="mt-12">
+                  <li className="mb-4 text-gray-50">
+                    <a href="#" className="hover:underline">
                       Warenkorb
                     </a>
                   </li>
@@ -107,33 +105,6 @@ export function Footer() {
                     </a>
                   </li>
                 </ul>
-              </div>
-            </div>
-            <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                Jetzt zum Newsletter anmelden
-              </h2>
-              <div>
-                <form>
-                  <label className="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Search
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="search"
-                      id="default-search"
-                      className="block w-full rounded-full bg-[#232743] p-3 ps-5 text-sm text-white focus:border-blue-500 focus:ring-blue-500"
-                      placeholder="E-mail Adresse"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="absolute -bottom-0 -end-1 rounded-full bg-amber-500 px-7 py-3 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-                    >
-                      Abonnieren
-                    </button>
-                  </div>
-                </form>
               </div>
             </div>
           </div>
