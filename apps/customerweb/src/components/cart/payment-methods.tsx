@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Card, CardBody } from '@nextui-org/react';
 
-export default function PaymentMethods() {
+export function PaymentMethods() {
   return (
     <div className="hidden md:block">
       <Card className="bg-gray-100">
