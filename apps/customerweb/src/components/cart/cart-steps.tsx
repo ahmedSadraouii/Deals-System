@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { DoneIconSvg } from '@/components/svg/done-svg';
 
-function Stepper() {
+export function Stepper() {
   const steps = ['Warenkorb', 'Checkout', 'Bezahlung', 'Deal erhalten'];
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
@@ -52,5 +52,3 @@ function Stepper() {
     </div>
   );
 }
-
-export default Stepper;

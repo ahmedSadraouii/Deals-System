@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Counter from './cart-counter';
+import { CartCounter } from './cart-counter';
 import { Card, CardHeader, CardBody, Divider } from '@nextui-org/react';
 
-export default function CartItems() {
+export function CartItems() {
   // Fake array of items
   const items = [
     {
@@ -65,7 +65,7 @@ export default function CartItems() {
                 </h1>
               </div>
               <div>
-                <Counter />
+                <CartCounter />
               </div>
             </div>
           </div>

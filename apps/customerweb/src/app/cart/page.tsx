@@ -1,5 +1,5 @@
-import CartItems from '@/components/cart/cart-items';
-import Stepper from '@/components/cart/cart-steps';
+import {CartItems} from '@/components/cart/cart-items';
+import {Stepper} from '@/components/cart/cart-steps';
 import PaymentMethods from '@/components/cart/payment-methods';
 
 export default function Page() {
