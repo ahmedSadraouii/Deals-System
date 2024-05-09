@@ -41,6 +41,7 @@ export function CostOverview({ expired }: CostOverviewProps) {
           variant="solid"
           href="/"
           color="secondary"
+          isDisabled={expired}
         >
           Zur Kasse
         </AldiButton>
