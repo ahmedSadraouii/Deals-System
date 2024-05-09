@@ -1,7 +1,10 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { AldiButton } from '@/components/nextui/aldi-button';
 
-export function CostOverview() {
+interface CostOverviewProps {
+  expired: boolean;
+}
+export function CostOverview({ expired }: CostOverviewProps) {
   const subtotal = '225,00';
   const discount = '45,00';
   const total = '180,00';
