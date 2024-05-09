@@ -7,6 +7,7 @@ export const AldiButton = extendVariants(Button, {
     variant: {
       ghost: 'border-secondary/10 border-1',
       solid: 'font-light',
+      outline: 'border-orange-600 border-1',
     },
     size: {
       lg: 'py-7 text-xl',
@@ -16,6 +17,9 @@ export const AldiButton = extendVariants(Button, {
     },
     isIconOnly: {
       true: 'w-10 h-10',
+    },
+    color: {
+      orange: 'text-orange-600',
     },
   },
   compoundVariants: [
