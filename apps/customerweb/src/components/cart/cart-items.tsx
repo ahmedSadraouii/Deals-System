@@ -1,8 +1,12 @@
 import Image from 'next/image';
 import { CartCounter } from './cart-counter';
-import { Card, CardHeader, CardBody, Divider } from '@nextui-org/react';
-import { NotAvailableCartItem } from './not-available-deal'; 
+import { NotAvailableCartItem } from './not-available-deal';
+import { Card, CardHeader, CardBody } from '@nextui-org/react';
 
+interface CartItemsProps {
+  expired: boolean;
+}
+export function CartItems({ expired }: CartItemsProps) {
   // Fake array of items
   const items = [
     {
@@ -10,32 +14,26 @@ import { NotAvailableCartItem } from './not-available-deal';
       name: 'Mud Masters Arnsberg 2024 (2 Tickets zum Preis von 1)',
       quantity: 4,
       imageSrc: '/img_1.png',
-      imageAlt: 'Description of your image',
+      imageAlt: 'cart item',
       originalPrice: '1200,00€',
       discountedPrice: '900,00€',
-      available:true
+      available: true,
     },
-
     {
       id: 2,
       name: 'Mud Masters Arnsberg 2024 (2 Tickets zum Preis von 1)',
       quantity: 4,
       imageSrc: '/img_1.png',
-      imageAlt: 'Description of your image',
+      imageAlt: 'cart item',
       originalPrice: '1200,00€',
       discountedPrice: '900,00€',
-      available:false
+      available: true,
     },
   ];
-  interface CartItemsProps {
-    expired: boolean;
-  }
-  
-  export function CartItems({ expired }: CartItemsProps) {
   return (
-    <Card className="bg-gray-100">
-      <CardHeader className='border-b pb-4'>
-        <h1 className="pl-5 text-2xl font-bold leading-10">Dein Warenkorb</h1>
+    <Card className=" bg-gray-100 ">
+      <CardHeader className="border-b pb-4">
+        <h1 className="pl-5 text-2xl font-bold leading-10 ">Dein Warenkorb</h1>
       </CardHeader>
       <CardBody className={`${expired ? 'opacity-10' : ''}`}>
         {items.map((item, index) => (
@@ -57,13 +55,30 @@ import { NotAvailableCartItem } from './not-available-deal';
                 />
               </div>
               <div>
-                <h1 className="text-lg font-bold leading-10">{item.name}</h1>
-                <p>Anzahl insgesamt: {item.quantity}</p>
-                <p className="underline">Entfernen</p>
+                <div className="flex justify-between">
+                  <h1 className="text-lg font-bold leading-10">{item.name}</h1>
+                  <div className="md:hidden">
+                    <CartCounter />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p>Anzahl insgesamt: {item.quantity}</p>
+                    <p className="underline">Entfernen</p>
+                  </div>
+                  <div className="md:hidden">
+                    <p className="flex justify-end line-through">
+                      {item.originalPrice}
+                    </p>
+                    <h1 className="text-2xl font-bold text-orange-600">
+                      {item.discountedPrice}
+                    </h1>
+                  </div>
+                </div>
               </div>
             </div>
             {item.available ? (
-              <div className="flex flex-col items-center gap-10 md:flex-row">
+              <div className="hidden flex-col items-center gap-10 md:flex md:flex-row">
                 <div>
                   <p className="flex justify-end line-through">
                     {item.originalPrice}
@@ -84,7 +99,6 @@ import { NotAvailableCartItem } from './not-available-deal';
           </div>
         ))}
       </CardBody>
-   
     </Card>
   );
 }

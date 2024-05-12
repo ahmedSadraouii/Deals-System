@@ -1,15 +1,24 @@
+'use client';
+
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
+import { useCart } from '@/app/contexts/cart/cart-context';
 import { AldiButton } from '@/components/nextui/aldi-button';
 
 interface CostOverviewProps {
   expired: boolean;
+  subtotal: string;
+  discount: string;
+  total: string;
 }
-export function CostOverview({ expired }: CostOverviewProps) {
-  const subtotal = '225,00';
-  const discount = '45,00';
-  const total = '180,00';
+export function CostOverview({
+  expired,
+  subtotal,
+  discount,
+  total,
+}: CostOverviewProps) {
+  const { currentStep, setCurrentStep } = useCart();
   return (
-    <Card className="min-w-96 bg-gray-100 ">
+    <Card className="bg-gray-100 lg:min-w-96">
       <CardHeader className="border-b pb-4">
         <h1 className="pl-5 text-3xl font-bold leading-10">kostenübersicht</h1>
       </CardHeader>
@@ -40,8 +49,11 @@ export function CostOverview({ expired }: CostOverviewProps) {
           size="lg"
           variant="solid"
           href="/"
-          color="secondary"
+          onClick={() => {
+            setCurrentStep(currentStep + 1);
+          }}
           isDisabled={expired}
+          color="secondary"
         >
           Zur Kasse
         </AldiButton>

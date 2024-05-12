@@ -1,10 +1,22 @@
 import Image from 'next/image';
-import { Card, CardBody } from '@nextui-org/react';
+import { Card, CardBody, CardHeader } from '@nextui-org/react';
 
-export function PaymentMethods() {
+interface PaymentMethodsProps {
+  isCheckoutPage: boolean;
+}
+export function PaymentMethods({ isCheckoutPage }: PaymentMethodsProps) {
   return (
-    <div className="hidden md:block">
+    <div>
       <Card className="bg-gray-100">
+        {isCheckoutPage && (
+          <CardHeader className="border-b pb-4">
+            <p className="p-5 text-center">
+              Als nächstes wirst du zum Bezahlungsprozess weitergeleitet. Dort
+              kannst du deine bevorzugte Zahlungsmethode auswählen und den Kauf
+              abschließen.
+            </p>
+          </CardHeader>
+        )}
         <CardBody>
           <p className="mb-5 text-center">
             Wir unterstützen folgende Zahlungsmethoden
