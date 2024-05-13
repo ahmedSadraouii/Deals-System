@@ -5,7 +5,6 @@ import { AldiButton } from '@/components/nextui/aldi-button';
 interface ExpiredDealsProps {
   description: string;
 }
-
 export function ExpiredDeals({ description }: ExpiredDealsProps) {
   return (
     <div>

@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import { Card, CardBody } from '@nextui-org/react';
 
-export function ReservationTime() {
-  const time = '12:30';
+interface ReservationTimeProps {
+  time: string;
+}
+export function ReservationTime({ time }: ReservationTimeProps) {
   return (
-    <Card className="min-w-96 bg-green-200">
+    <Card className="min-w-[80%] bg-green-200">
       <CardBody>
         <div className="flex items-center justify-center gap-2">
           <Image

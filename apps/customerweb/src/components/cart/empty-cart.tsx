@@ -5,13 +5,12 @@ import { authOptions } from '@/utils/auth';
 
 export async function EmptyCart() {
   const session = await getServerSession(authOptions);
-
   return (
     <div className="flex flex-col items-center justify-center gap-6">
       <div>
         <Image
           src="/empty-cart.png"
-          alt="Description of your image"
+          alt="empty cart"
           width={120}
           height={120}
         />
