@@ -14,7 +14,9 @@ export function CheckoutPage() {
   const { currentStep } = useCart();
   return (
     <div
-      className={`flex w-full flex-col gap-8 lg:flex-row  lg:justify-center ${currentStep === 2 ? 'flex' : 'hidden'}`}
+      className={`flex w-full flex-col gap-8 lg:flex-row  lg:justify-center ${
+        currentStep === 2 ? 'flex' : 'hidden'
+      }`}
     >
       <div className="flex w-full flex-col gap-8 lg:w-[50%]">
         {DealNotAvailable && (

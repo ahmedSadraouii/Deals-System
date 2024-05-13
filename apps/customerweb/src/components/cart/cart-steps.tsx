@@ -14,11 +14,19 @@ export function Stepper() {
         {steps?.map((step, i) => (
           <div
             key={i}
-            className={`relative flex w-36 flex-col items-center justify-center gap-2 ${currentStep === i + 1 && 'active'} ${(i + 1 < currentStep || i + 1 !== currentStep) && 'inactive'}`}
+            className={`relative flex w-36 flex-col items-center justify-center gap-2 ${
+              currentStep === i + 1 && 'active'
+            } ${(i + 1 < currentStep || i + 1 !== currentStep) && 'inactive'}`}
           >
             {/* Step number or icon */}
             <div
-              className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full ${currentStep === i + 1 ? 'border-3 border-orange-500' : i + 1 < currentStep ? 'border-3 border-green-600' : 'border-3 border-gray-300'} font-semibold text-gray-500`}
+              className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full ${
+                currentStep === i + 1
+                  ? 'border-3 border-orange-500'
+                  : i + 1 < currentStep
+                  ? 'border-3 border-green-600'
+                  : 'border-3 border-gray-300'
+              } font-semibold text-gray-500`}
             >
               {i + 1 < currentStep ? <DoneIconSvg /> : i + 1}
             </div>
