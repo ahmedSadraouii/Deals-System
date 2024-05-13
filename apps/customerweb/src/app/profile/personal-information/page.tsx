@@ -1,11 +1,10 @@
-'use client';
-
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useSession } from 'next-auth/react';
-import { Input, Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import MenuBar from '@/components/account/menu-bar';
 import ProfileAvatar from '@/components/account/profile-avatar';
+import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiInput } from '@/components/nextui/aldi-input';
 
 export default function Page() {
   const defaultValues = {
@@ -50,7 +49,7 @@ export default function Page() {
             <div>
               <form method="post" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-5 flex">
-                  <Input
+                  <AldiInput
                     type="text"
                     label="Vorname"
                     variant="bordered"
@@ -60,7 +59,7 @@ export default function Page() {
                     errorMessage={errors.name && 'Vorname is required'}
                     {...register('name', { required: true })}
                   />
-                  <Input
+                  <AldiInput
                     className="ml-4"
                     type="text"
                     label="Nachname"
@@ -72,7 +71,7 @@ export default function Page() {
                     {...register('surname', { required: true })}
                   />
                 </div>
-                <Input
+                <AldiInput
                   className="mb-5"
                   type="email"
                   label="E-Mail"
@@ -84,7 +83,7 @@ export default function Page() {
                   {...register('email', { required: true })}
                 />
                 <div className="mb-5 flex">
-                  <Input
+                  <AldiInput
                     type="text"
                     label="Geschlecht"
                     variant="bordered"
@@ -94,7 +93,7 @@ export default function Page() {
                     errorMessage={errors.name && 'Vorname is required'}
                     {...register('name', { required: true })}
                   />
-                  <Input
+                  <AldiInput
                     className="ml-4"
                     type="text"
                     label="Geburtstag"
@@ -107,7 +106,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="mb-5 flex">
-                  <Input
+                  <AldiInput
                     type="text"
                     label="Straße"
                     variant="bordered"
@@ -117,7 +116,7 @@ export default function Page() {
                     errorMessage={errors.name && 'Vorname is required'}
                     {...register('name', { required: true })}
                   />
-                  <Input
+                  <AldiInput
                     className="ml-4"
                     type="text"
                     label="Hausnummer"
@@ -131,7 +130,7 @@ export default function Page() {
                 </div>
 
                 <div className="mb-5 flex">
-                  <Input
+                  <AldiInput
                     className="mr-5"
                     type="text"
                     label="Stadt"
@@ -142,7 +141,7 @@ export default function Page() {
                     errorMessage={errors.place && 'Ort is required'}
                     {...register('place', { required: true })}
                   />
-                  <Input
+                  <AldiInput
                     type="text"
                     label="PLZ"
                     variant="bordered"
@@ -154,19 +153,19 @@ export default function Page() {
                   />
                 </div>
 
-                <Button
+                <AldiButton
                   type="submit"
                   className="mt-5 w-full rounded-full bg-black px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                   Speichern
-                </Button>
+                </AldiButton>
 
-                <Button
+                <AldiButton
                   type="button"
                   className="mt-5 w-full rounded-full border-1 border-black bg-transparent px-5 py-7 text-center text-sm font-medium text-black hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                   Ausloggen
-                </Button>
+                </AldiButton>
               </form>
             </div>
           </div>

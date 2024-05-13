@@ -2,6 +2,8 @@ import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import type { AuthenticationApi } from 'api-auth';
 import type { NextAuthOptions, User } from 'next-auth';
+import { inspect } from 'util';
+import { tryParseApiError } from '@/utils/api-response-handling';
 import { getApiClient } from '@/utils/get-api-client';
 
 async function refreshAccessToken(
@@ -74,6 +76,7 @@ export const authOptions: NextAuthOptions = {
 
         try {
           const tokenResponse = await authenticationApi.jwtToken({
+            cookieRequired: false,
             tokenRequestModel: {
               email: credentials.email,
               password: credentials.password,
@@ -82,6 +85,9 @@ export const authOptions: NextAuthOptions = {
           const jwtToken = JSON.parse(
             atob(tokenResponse.accessToken!.split('.')[1]),
           );
+
+          console.log(inspect(jwtToken, true, 5, true));
+
           return {
             id: jwtToken.sub,
             email: credentials.email,
@@ -94,10 +100,14 @@ export const authOptions: NextAuthOptions = {
               emailAddress: credentials.email,
             },
           } satisfies User;
-        } catch (error) {
-          console.log('Login Failed', error);
-          // todo: validate error message from backend and handle it properly
-          throw new Error('invalid-credentials');
+        } catch (error: any) {
+          if (error?.response?.json) {
+            const errorResponse = await (error as any).response.json();
+            const apiErrorCode = tryParseApiError(errorResponse);
+            throw new Error(apiErrorCode);
+          }
+          console.error('Error during login:', error);
+          throw new Error('UNKNOWN_ERROR');
         }
       },
     }),

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import NextLink from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -10,10 +10,13 @@ import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiPasswordInput } from '@/components/nextui/aldi-password-input';
+import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { emailRegex } from '@/utils/email-regex';
 
 export function LoginTab() {
   const searchParams = useSearchParams();
+
+  const apiError = useMemo(() => searchParams.get('error'), [searchParams]);
 
   const defaultValues = {
     email: '',
@@ -27,14 +30,36 @@ export function LoginTab() {
     handleSubmit,
     formState: { errors },
     trigger,
+    setValue,
   } = form;
 
+  useEffect(() => {
+    if (apiError === ApiErrorCodes.REGISTRATION_COMPLETION_REQUIRED) {
+      const sessionStorageValue = sessionStorage.getItem('login-credentials');
+      if (!sessionStorageValue) return;
+      const temporaryLoginCredentials = JSON.parse(sessionStorageValue);
+      setValue('email', temporaryLoginCredentials.email);
+      setValue('password', temporaryLoginCredentials.password);
+    }
+  });
+
   const onSubmit = useCallback(async (data: typeof defaultValues) => {
+    // temporarily store email and password in sessionStorage, might be needed for TOS accept screen
+    sessionStorage.setItem(
+      'login-credentials',
+      JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    );
+
     await signIn('credentials', {
       email: data.email,
       password: data.password,
       callbackUrl: '/',
     });
+
+    console.log('Reached the end of the onSubmit function');
   }, []);
 
   const onClickProceed = useCallback(async () => {
@@ -50,7 +75,7 @@ export function LoginTab() {
           <div className="flex basis-[600px] flex-col items-center gap-6 rounded-3xl border bg-default-100 p-10">
             {searchParams.has('error') && (
               <p className="text-center text-red-500">
-                <ApiErrorTranslation apiError={searchParams.get('error')} />
+                <ApiErrorTranslation apiError={apiError} />
               </p>
             )}
 

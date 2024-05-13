@@ -12,7 +12,8 @@ export function ApiErrorTranslation({
   allowedErrors = [],
   errorOverride,
 }: ApiErrorTranslationProps) {
-  if (errorOverride) return errorOverride;
+  if (errorOverride)
+    return <span className="whitespace-pre">{errorOverride}</span>;
 
   if (
     apiError &&
@@ -41,11 +42,17 @@ export function ApiErrorTranslation({
             Das Passwort muss mindestens eine Nummer enthalten.
           </>
         );
-      case 'invalid-credentials':
+      case ApiErrorCodes.INVALID_CREDENTIALS:
         return (
           <>
             Die eingegebenen Anmeldedaten sind ungültig. Bitte versuche es
             erneut.
+          </>
+        );
+      case ApiErrorCodes.REGISTRATION_COMPLETION_REQUIRED:
+        return (
+          <>
+            Sie müssen die Registrierung abschließen, bevor Sie sich anmelden.
           </>
         );
       case null:

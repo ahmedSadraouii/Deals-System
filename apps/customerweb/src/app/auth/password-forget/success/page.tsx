@@ -1,19 +1,10 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { AldiButton } from '@/components/nextui/aldi-button';
 
 export default function Page() {
   return (
     <>
-      <Image
-        src="/img-celebration.png"
-        alt="Vielen Dank"
-        width={120}
-        height={120}
-        priority
-      />
-
       <h1 className="mb-4 mt-10 text-5xl font-bold text-secondary">
         Passwort erfolgreich geändert!
       </h1>

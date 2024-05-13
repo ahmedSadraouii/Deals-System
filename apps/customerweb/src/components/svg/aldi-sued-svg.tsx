@@ -8,7 +8,7 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
       fill="none"
       {...props}
     >
-      <g clip-path="url(#clip0_2578_23327)">
+      <g clipPath="url(#clip0_2578_23327)">
         <path
           d="M52.8889 61.8645C52.8889 63.0293 51.9261 64 50.7708 64H2.11812C0.962783 64 0 63.0293 0 61.8645V2.13549C0 0.970677 0.962783 0 2.11812 0H50.7708C51.9261 0 52.8889 0.970677 52.8889 2.13549V61.8645Z"
           fill="#FFC800"
@@ -63,24 +63,24 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
           y2="9.61863"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1482AF" />
-          <stop offset="0.02" stop-color="#3798BF" />
-          <stop offset="0.054" stop-color="#6EB9D8" />
-          <stop offset="0.083" stop-color="#95D1EA" />
-          <stop offset="0.106" stop-color="#AEE0F5" />
-          <stop offset="0.12" stop-color="#B7E5F9" />
-          <stop offset="0.2" stop-color="#97DAF6" />
-          <stop offset="0.334" stop-color="#67CAF2" />
-          <stop offset="0.4" stop-color="#55C3F0" />
-          <stop offset="0.6" stop-color="#55C3F0" />
-          <stop offset="0.666" stop-color="#67CAF2" />
-          <stop offset="0.8" stop-color="#97DAF6" />
-          <stop offset="0.88" stop-color="#B7E5F9" />
-          <stop offset="0.894" stop-color="#AEE0F5" />
-          <stop offset="0.917" stop-color="#95D1EA" />
-          <stop offset="0.947" stop-color="#6EB9D8" />
-          <stop offset="0.98" stop-color="#3798BF" />
-          <stop offset="1" stop-color="#1482AF" />
+          <stop stopColor="#1482AF" />
+          <stop offset="0.02" stopColor="#3798BF" />
+          <stop offset="0.054" stopColor="#6EB9D8" />
+          <stop offset="0.083" stopColor="#95D1EA" />
+          <stop offset="0.106" stopColor="#AEE0F5" />
+          <stop offset="0.12" stopColor="#B7E5F9" />
+          <stop offset="0.2" stopColor="#97DAF6" />
+          <stop offset="0.334" stopColor="#67CAF2" />
+          <stop offset="0.4" stopColor="#55C3F0" />
+          <stop offset="0.6" stopColor="#55C3F0" />
+          <stop offset="0.666" stopColor="#67CAF2" />
+          <stop offset="0.8" stopColor="#97DAF6" />
+          <stop offset="0.88" stopColor="#B7E5F9" />
+          <stop offset="0.894" stopColor="#AEE0F5" />
+          <stop offset="0.917" stopColor="#95D1EA" />
+          <stop offset="0.947" stopColor="#6EB9D8" />
+          <stop offset="0.98" stopColor="#3798BF" />
+          <stop offset="1" stopColor="#1482AF" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2578_23327"
@@ -90,24 +90,24 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
           y2="9.57916"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1482AF" />
-          <stop offset="0.02" stop-color="#3798BF" />
-          <stop offset="0.054" stop-color="#6EB9D8" />
-          <stop offset="0.083" stop-color="#95D1EA" />
-          <stop offset="0.106" stop-color="#AEE0F5" />
-          <stop offset="0.12" stop-color="#B7E5F9" />
-          <stop offset="0.2" stop-color="#97DAF6" />
-          <stop offset="0.334" stop-color="#67CAF2" />
-          <stop offset="0.4" stop-color="#55C3F0" />
-          <stop offset="0.6" stop-color="#55C3F0" />
-          <stop offset="0.666" stop-color="#67CAF2" />
-          <stop offset="0.8" stop-color="#97DAF6" />
-          <stop offset="0.88" stop-color="#B7E5F9" />
-          <stop offset="0.894" stop-color="#AEE0F5" />
-          <stop offset="0.917" stop-color="#95D1EA" />
-          <stop offset="0.947" stop-color="#6EB9D8" />
-          <stop offset="0.98" stop-color="#3798BF" />
-          <stop offset="1" stop-color="#1482AF" />
+          <stop stopColor="#1482AF" />
+          <stop offset="0.02" stopColor="#3798BF" />
+          <stop offset="0.054" stopColor="#6EB9D8" />
+          <stop offset="0.083" stopColor="#95D1EA" />
+          <stop offset="0.106" stopColor="#AEE0F5" />
+          <stop offset="0.12" stopColor="#B7E5F9" />
+          <stop offset="0.2" stopColor="#97DAF6" />
+          <stop offset="0.334" stopColor="#67CAF2" />
+          <stop offset="0.4" stopColor="#55C3F0" />
+          <stop offset="0.6" stopColor="#55C3F0" />
+          <stop offset="0.666" stopColor="#67CAF2" />
+          <stop offset="0.8" stopColor="#97DAF6" />
+          <stop offset="0.88" stopColor="#B7E5F9" />
+          <stop offset="0.894" stopColor="#AEE0F5" />
+          <stop offset="0.917" stopColor="#95D1EA" />
+          <stop offset="0.947" stopColor="#6EB9D8" />
+          <stop offset="0.98" stopColor="#3798BF" />
+          <stop offset="1" stopColor="#1482AF" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_2578_23327"
@@ -117,24 +117,24 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
           y2="9.64166"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1482AF" />
-          <stop offset="0.02" stop-color="#3798BF" />
-          <stop offset="0.054" stop-color="#6EB9D8" />
-          <stop offset="0.083" stop-color="#95D1EA" />
-          <stop offset="0.106" stop-color="#AEE0F5" />
-          <stop offset="0.12" stop-color="#B7E5F9" />
-          <stop offset="0.2" stop-color="#97DAF6" />
-          <stop offset="0.334" stop-color="#67CAF2" />
-          <stop offset="0.4" stop-color="#55C3F0" />
-          <stop offset="0.6" stop-color="#55C3F0" />
-          <stop offset="0.666" stop-color="#67CAF2" />
-          <stop offset="0.8" stop-color="#97DAF6" />
-          <stop offset="0.88" stop-color="#B7E5F9" />
-          <stop offset="0.894" stop-color="#AEE0F5" />
-          <stop offset="0.917" stop-color="#95D1EA" />
-          <stop offset="0.947" stop-color="#6EB9D8" />
-          <stop offset="0.98" stop-color="#3798BF" />
-          <stop offset="1" stop-color="#1482AF" />
+          <stop stopColor="#1482AF" />
+          <stop offset="0.02" stopColor="#3798BF" />
+          <stop offset="0.054" stopColor="#6EB9D8" />
+          <stop offset="0.083" stopColor="#95D1EA" />
+          <stop offset="0.106" stopColor="#AEE0F5" />
+          <stop offset="0.12" stopColor="#B7E5F9" />
+          <stop offset="0.2" stopColor="#97DAF6" />
+          <stop offset="0.334" stopColor="#67CAF2" />
+          <stop offset="0.4" stopColor="#55C3F0" />
+          <stop offset="0.6" stopColor="#55C3F0" />
+          <stop offset="0.666" stopColor="#67CAF2" />
+          <stop offset="0.8" stopColor="#97DAF6" />
+          <stop offset="0.88" stopColor="#B7E5F9" />
+          <stop offset="0.894" stopColor="#AEE0F5" />
+          <stop offset="0.917" stopColor="#95D1EA" />
+          <stop offset="0.947" stopColor="#6EB9D8" />
+          <stop offset="0.98" stopColor="#3798BF" />
+          <stop offset="1" stopColor="#1482AF" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_2578_23327"
@@ -144,15 +144,15 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
           y2="18.0145"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.2" stop-color="#55C3F0" />
-          <stop offset="0.316" stop-color="#67CAF2" />
-          <stop offset="0.549" stop-color="#97DAF6" />
-          <stop offset="0.69" stop-color="#B7E5F9" />
-          <stop offset="0.727" stop-color="#AEE0F5" />
-          <stop offset="0.786" stop-color="#95D1EA" />
-          <stop offset="0.862" stop-color="#6EB9D8" />
-          <stop offset="0.949" stop-color="#3798BF" />
-          <stop offset="1" stop-color="#1482AF" />
+          <stop offset="0.2" stopColor="#55C3F0" />
+          <stop offset="0.316" stopColor="#67CAF2" />
+          <stop offset="0.549" stopColor="#97DAF6" />
+          <stop offset="0.69" stopColor="#B7E5F9" />
+          <stop offset="0.727" stopColor="#AEE0F5" />
+          <stop offset="0.786" stopColor="#95D1EA" />
+          <stop offset="0.862" stopColor="#6EB9D8" />
+          <stop offset="0.949" stopColor="#3798BF" />
+          <stop offset="1" stopColor="#1482AF" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_2578_23327"
@@ -162,15 +162,15 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
           y2="22.8229"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.3" stop-color="#55C3F0" />
-          <stop offset="0.409" stop-color="#67CAF2" />
-          <stop offset="0.628" stop-color="#97DAF6" />
-          <stop offset="0.76" stop-color="#B7E5F9" />
-          <stop offset="0.788" stop-color="#AEE0F5" />
-          <stop offset="0.835" stop-color="#95D1EA" />
-          <stop offset="0.893" stop-color="#6EB9D8" />
-          <stop offset="0.961" stop-color="#3798BF" />
-          <stop offset="1" stop-color="#1482AF" />
+          <stop offset="0.3" stopColor="#55C3F0" />
+          <stop offset="0.409" stopColor="#67CAF2" />
+          <stop offset="0.628" stopColor="#97DAF6" />
+          <stop offset="0.76" stopColor="#B7E5F9" />
+          <stop offset="0.788" stopColor="#AEE0F5" />
+          <stop offset="0.835" stopColor="#95D1EA" />
+          <stop offset="0.893" stopColor="#6EB9D8" />
+          <stop offset="0.961" stopColor="#3798BF" />
+          <stop offset="1" stopColor="#1482AF" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_2578_23327"
@@ -180,18 +180,18 @@ export function AldiSuedSvg(props: SVGProps<SVGSVGElement>) {
           y2="27.6285"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#73CDF3" />
-          <stop offset="0.115" stop-color="#62C8F1" />
-          <stop offset="0.242" stop-color="#58C4F0" />
-          <stop offset="0.4" stop-color="#55C3F0" />
-          <stop offset="0.497" stop-color="#67CAF2" />
-          <stop offset="0.692" stop-color="#97DAF6" />
-          <stop offset="0.81" stop-color="#B7E5F9" />
-          <stop offset="0.832" stop-color="#AEE0F5" />
-          <stop offset="0.869" stop-color="#95D1EA" />
-          <stop offset="0.915" stop-color="#6EB9D8" />
-          <stop offset="0.969" stop-color="#3798BF" />
-          <stop offset="1" stop-color="#1482AF" />
+          <stop stopColor="#73CDF3" />
+          <stop offset="0.115" stopColor="#62C8F1" />
+          <stop offset="0.242" stopColor="#58C4F0" />
+          <stop offset="0.4" stopColor="#55C3F0" />
+          <stop offset="0.497" stopColor="#67CAF2" />
+          <stop offset="0.692" stopColor="#97DAF6" />
+          <stop offset="0.81" stopColor="#B7E5F9" />
+          <stop offset="0.832" stopColor="#AEE0F5" />
+          <stop offset="0.869" stopColor="#95D1EA" />
+          <stop offset="0.915" stopColor="#6EB9D8" />
+          <stop offset="0.969" stopColor="#3798BF" />
+          <stop offset="1" stopColor="#1482AF" />
         </linearGradient>
         <clipPath id="clip0_2578_23327">
           <rect width="52.8889" height="64" fill="white" />

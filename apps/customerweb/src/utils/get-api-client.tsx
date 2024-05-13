@@ -28,15 +28,19 @@ export function getApiClient<TApiClient>(
   params: GetApiClientParams,
 ): TApiClient {
   if (params.type === 'auth') {
+    const baseHeaders = {
+      Domain: 'ALDI_DEALS',
+    };
     const apiConfiguration = new ApiAuthConfiguration({
       // TODO: use env var as soon the http://192.168.179.20:5000/aldi/infrastructure/k8s/-/merge_requests/7 is merged
       // basePath: process.env.SHARED_API_URL,
       basePath: params.ssr ? 'https://dev.api.aldi.amplicade.com' : '/auth-api',
       headers: !!params.refreshToken
         ? {
+            ...baseHeaders,
             Cookie: `refreshToken=${params.refreshToken}`,
           }
-        : undefined,
+        : baseHeaders,
     });
 
     return new AuthenticationApi(apiConfiguration) as TApiClient;

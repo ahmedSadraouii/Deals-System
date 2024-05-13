@@ -22,10 +22,9 @@ module.exports = {
         sans: ['hvdtrial brandon grotesque', 'sans-serif'],
       },
       colors: {
-        'aldi-text': '#f05322',
-        'aldi-blue': '#0B102F',
+        'aldi-blue': '#202B77',
         'aldi-bg': '#f0dfdc',
-        'aldi-key': '#ffa300',
+        'aldi-key': '#FF4802',
       },
     },
   },
@@ -36,9 +35,9 @@ module.exports = {
         aldi: {
           extend: 'light',
           colors: {
-            primary: '#f05322',
-            secondary: '#0B102F',
-            divider: '#0B102F'
+            primary: '#FF4802',
+            secondary: '#202B77',
+            divider: '#202B77'
           },
         },
       },

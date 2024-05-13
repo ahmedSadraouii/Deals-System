@@ -24,6 +24,11 @@ export async function DealsListItem({
   });
   const fullDeal = dealContent as UmbracoDeal;
 
+  if (!fullDeal.properties?.supplier?.id) {
+    console.log('Missing supplier for deal', fullDeal);
+    return null;
+  }
+
   const supplierContent = await contentApi.getContentItemById20({
     id: fullDeal.properties?.supplier!.id!,
   });
