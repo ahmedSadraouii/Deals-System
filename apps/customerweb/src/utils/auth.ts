@@ -18,7 +18,7 @@ async function refreshAccessToken(
 
   try {
     const cardinalDirectionResponse =
-      await authenticationApi.getCardinalDirection({
+      await authenticationApi.getCardinalDirectionAuthentication({
         cardinalDirectionRequest: {
           email: emailAddress,
         },
