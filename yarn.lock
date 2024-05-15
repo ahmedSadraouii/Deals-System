@@ -3585,6 +3585,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:4.3.0"
     "@typescript-eslint/eslint-plugin": "npm:7.3.1"
     "@typescript-eslint/parser": "npm:7.3.1"
+    api-user: "workspace:^"
     eslint: "npm:8.57.0"
     eslint-config-custom: "npm:*"
     eslint-config-next: "npm:14.1.0"
@@ -3712,7 +3713,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"api-user@npm:*, api-user@workspace:packages/api-user":
+"api-user@npm:*, api-user@workspace:^, api-user@workspace:packages/api-user":
   version: 0.0.0-use.local
   resolution: "api-user@workspace:packages/api-user"
   dependencies:
