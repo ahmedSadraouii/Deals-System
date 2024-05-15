@@ -3,18 +3,18 @@
 import React, { useEffect } from 'react';
 import { useCart } from '@/app/contexts/cart/cart-context';
 import { DoneIconSvg } from '@/components/svg/done-svg';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function Stepper() {
+  const router=useRouter();
+  const path = usePathname();
   const steps = ['Warenkorb', 'Checkout', 'Bezahlung', 'Deal erhalten'];
   const { currentStep, setCurrentStep } = useCart();
-  const router=useRouter();
   useEffect(() => {
-    const path = router.pathname;
     if (path === '/cart/checkout') {
       setCurrentStep(2);
     }
-  }, [router.pathname, setCurrentStep]);
+  }, [path,setCurrentStep]);
   return (
     <div>
       {/* Step items */}

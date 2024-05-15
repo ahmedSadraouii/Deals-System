@@ -3,7 +3,7 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { useCart } from '@/app/contexts/cart/cart-context';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface CostOverviewProps {
   expired: boolean;
