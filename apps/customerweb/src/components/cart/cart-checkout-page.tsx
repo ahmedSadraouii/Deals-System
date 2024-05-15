@@ -6,17 +6,13 @@ import { ExpiredDeals } from './expired-deals';
 import { PaymentMethods } from './payment-methods';
 import { ShoppingCart } from './shopping-cart';
 import { ShoppingCartMobile } from './shopping-cart-mobile';
-import { useCart } from '@/app/contexts/cart/cart-context';
 
 export function CheckoutPage() {
   const DealNotAvailable = false;
   const ExpiredReservation = false;
-  const { currentStep } = useCart();
   return (
     <div
-      className={`flex w-full flex-col gap-8 lg:flex-row  lg:justify-center ${
-        currentStep === 2 ? 'flex' : 'hidden'
-      }`}
+      className="flex w-full flex-col gap-8 lg:flex-row  lg:justify-center"
     >
       <div className="flex w-full flex-col gap-8 lg:w-[50%]">
         {DealNotAvailable && (

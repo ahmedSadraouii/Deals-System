@@ -5,14 +5,12 @@ import { CostOverview } from './cost-overview';
 import { ExpiredDeals } from './expired-deals';
 import { PaymentMethods } from './payment-methods';
 import { ReservationTime } from './reservation-time';
-import { useCart } from '@/app/contexts/cart/cart-context';
 
 export function ShoppingCartPage() {
   const DealNotAvailable = false;
   const ExpiredReservation = false;
-  const { currentStep } = useCart();
   return (
-    <div className={`${currentStep === 1 ? '' : 'hidden'}`}>
+    <div>
       {DealNotAvailable && (
         <div className=" w-full">
           <ExpiredDeals description="Einer deiner Deals ist nicht mehr verfügbar oder abgelaufen. Entdecke weitere tolle Deals ." />
