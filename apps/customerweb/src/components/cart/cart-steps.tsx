@@ -1,12 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart } from '@/app/contexts/cart/cart-context';
 import { DoneIconSvg } from '@/components/svg/done-svg';
+import { useRouter } from 'next/router';
 
 export function Stepper() {
   const steps = ['Warenkorb', 'Checkout', 'Bezahlung', 'Deal erhalten'];
-  const { currentStep } = useCart();
+  const { currentStep, setCurrentStep } = useCart();
+  const router=useRouter();
+  useEffect(() => {
+    const path = router.pathname;
+    if (path === '/cart/checkout') {
+      setCurrentStep(2);
+    }
+  }, [router.pathname, setCurrentStep]);
   return (
     <div>
       {/* Step items */}
