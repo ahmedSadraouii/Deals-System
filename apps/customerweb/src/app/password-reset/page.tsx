@@ -41,10 +41,11 @@ export default function Page({
 
       setLoading(true);
       try {
-        await resetPasswordAction({
+        const returnValue = await resetPasswordAction({
           code,
           newPassword: data.password,
         });
+        console.log({ returnValue });
         router.push('/auth/password-forget/success');
       } catch {
         setApiError(true);

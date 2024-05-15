@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Link } from '@nextui-org/react';
-import type { AuthenticationApi } from 'api-auth';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { registerDealsAction } from '@/app/auth/actions/register-deals.action';
 import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
@@ -16,7 +16,6 @@ import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiError } from '@/utils/api-response-handling';
 import { createQueryString } from '@/utils/create-query-string';
 import { emailRegex } from '@/utils/email-regex';
-import { getApiClient } from '@/utils/get-api-client';
 
 export interface RegisterTabProps {
   onSwitchToLogin: () => void;
@@ -55,21 +54,15 @@ export function RegisterTab(props: RegisterTabProps) {
     async (data: typeof defaultValues) => {
       setLoading(true);
 
-      const authenticationApi = getApiClient<AuthenticationApi>({
-        type: 'auth',
-      });
-
       try {
-        await authenticationApi.registerCustomerEmail({
-          registerCustomerByEmailRequest: {
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            addressPostalCode: data.postalCode,
-            password: data.password,
-            termsAccepted: data.termsChecked,
-            newsletterAccepted: data.newsletterChecked,
-          },
+        await registerDealsAction({
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          addressPostalCode: data.postalCode,
+          password: data.password,
+          termsAccepted: data.termsChecked,
+          newsletterAccepted: data.newsletterChecked,
         });
 
         router.push(

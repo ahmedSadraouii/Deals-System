@@ -16,6 +16,7 @@
     "api-auth": "*",
     "api-content": "*",
     "api-deals": "*",
+    "api-user": "*",
     "framer-motion": "11.0.14",
     "humanize-duration": "3.32.0",
     "interweave": "13.1.0",

@@ -22,15 +22,7 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     CONTENT_API_URL: process.env.CONTENT_API_URL,
     SHARED_API_URL: process.env.SHARED_API_URL,
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/auth-api/:path*',
-        destination: `https://dev.api.aldi.amplicade.com/:path*`,
-      },
-    ];
-  },
+  }
 };
 
 export default nextConfig;

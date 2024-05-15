@@ -7,6 +7,7 @@ import {
   Configuration as ApiContentConfiguration,
 } from 'api-content';
 import { DealsApi, Configuration as ApiDealsConfiguration } from 'api-deals';
+import { UserApi, Configuration as ApiUserConfiguration } from 'api-user';
 
 export type GetApiClientParams = {
   ssr?: boolean;
@@ -22,12 +23,19 @@ export type GetApiClientParams = {
       type: 'deals';
       accessToken?: string;
     }
+  | {
+      type: 'user';
+    }
 );
 
 export function getApiClient<TApiClient>(
   params: GetApiClientParams,
 ): TApiClient {
   if (params.type === 'auth') {
+    if (!params.ssr) {
+      throw new Error('Authentication API is now SSR only');
+    }
+
     const baseHeaders = {
       Domain: 'ALDI_DEALS',
     };
@@ -52,6 +60,14 @@ export function getApiClient<TApiClient>(
     });
 
     return new DealsApi(apiConfiguration) as TApiClient;
+  }
+
+  if (params.type === 'user') {
+    const apiConfiguration = new ApiUserConfiguration({
+      basePath: 'https://dev.api.aldi.amplicade.com/ad-be',
+    });
+
+    return new UserApi(apiConfiguration) as TApiClient;
   }
 
   const apiConfiguration = new ApiContentConfiguration({

@@ -3712,6 +3712,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"api-user@npm:*, api-user@workspace:packages/api-user":
+  version: 0.0.0-use.local
+  resolution: "api-user@workspace:packages/api-user"
+  dependencies:
+    "@openapitools/openapi-generator-cli": "npm:2.9.0"
+    "@types/url-parse": "npm:1.4.4"
+    api: "npm:*"
+    npm-run-all: "npm:4.1.5"
+    tsc-watch: "npm:6.0.4"
+    typescript: "npm:5.3.3"
+    url-parse: "npm:1.4.3"
+    whatwg-fetch: "npm:3.6.2"
+  languageName: unknown
+  linkType: soft
+
 "api@npm:*":
   version: 6.1.1
   resolution: "api@npm:6.1.1"
@@ -4523,6 +4538,7 @@ __metadata:
     api-auth: "npm:*"
     api-content: "npm:*"
     api-deals: "npm:*"
+    api-user: "npm:*"
     autoprefixer: "npm:10.4.18"
     eslint: "npm:8.57.0"
     eslint-config-custom: "npm:*"

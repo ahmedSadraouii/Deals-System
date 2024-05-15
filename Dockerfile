@@ -7,7 +7,7 @@ RUN apk update
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune customerweb api-auth api-content api-deals --docker
+RUN turbo prune customerweb api-auth api-content api-deals api-user --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
@@ -29,6 +29,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn turbo run build --filter=api-auth...
 RUN yarn turbo run build --filter=api-content...
 RUN yarn turbo run build --filter=api-deals...
+RUN yarn turbo run build --filter=api-user...
 # build the actual app
 RUN yarn turbo run build --filter=customerweb...
 
