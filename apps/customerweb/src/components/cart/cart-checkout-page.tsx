@@ -11,9 +11,7 @@ export function CheckoutPage() {
   const DealNotAvailable = false;
   const ExpiredReservation = false;
   return (
-    <div
-      className="flex w-full flex-col gap-8 lg:flex-row  lg:justify-center"
-    >
+    <div className="flex w-full flex-col gap-8 lg:flex-row  lg:justify-center">
       <div className="flex w-full flex-col gap-8 lg:w-[50%]">
         {DealNotAvailable && (
           <div className=" w-full">

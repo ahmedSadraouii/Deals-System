@@ -1,20 +1,21 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useCart } from '@/app/contexts/cart/cart-context';
 import { DoneIconSvg } from '@/components/svg/done-svg';
-import { usePathname, useRouter } from 'next/navigation';
 
 export function Stepper() {
-  const router=useRouter();
-  const path = usePathname();
+  const router = useRouter();
   const steps = ['Warenkorb', 'Checkout', 'Bezahlung', 'Deal erhalten'];
   const { currentStep, setCurrentStep } = useCart();
+
   useEffect(() => {
+    const path = router.pathname;
     if (path === '/cart/checkout') {
       setCurrentStep(2);
     }
-  }, [path,setCurrentStep]);
+  }, [router.pathname, setCurrentStep]);
   return (
     <div>
       {/* Step items */}
@@ -22,13 +23,14 @@ export function Stepper() {
         {steps?.map((step, i) => (
           <div
             key={i}
-            className={`relative flex w-36 flex-col items-center justify-center gap-2 ${
-              currentStep === i + 1 && 'active'
-            } ${(i + 1 < currentStep || i + 1 !== currentStep) && 'inactive'}`}
+            className={`relative flex w-36 flex-col items-center justify-center gap-2
+            ${currentStep === i + 1 && 'active'} 
+            ${(i + 1 < currentStep || i + 1 !== currentStep) && 'inactive'}`}
           >
             {/* Step number or icon */}
             <div
-              className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full ${
+              className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full 
+              ${
                 currentStep === i + 1
                   ? 'border-3 border-orange-500'
                   : i + 1 < currentStep
