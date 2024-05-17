@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import { ReservationTime } from './reservation-time';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
@@ -16,6 +19,19 @@ export function ShoppingCart({
   discount,
   total,
 }: CostOverviewProps) {
+  const [isCheckbox1Checked, setIsCheckbox1Checked] = useState(false);
+  const [isCheckbox2Checked, setIsCheckbox2Checked] = useState(false);
+
+  const handleCheckbox1Change = () => {
+    setIsCheckbox1Checked(!isCheckbox1Checked);
+  };
+
+  const handleCheckbox2Change = () => {
+    setIsCheckbox2Checked(!isCheckbox2Checked);
+  };
+
+  const isButtonDisabled =
+    expired || !isCheckbox1Checked || !isCheckbox2Checked;
   // Fake array of items
   const items = [
     {
@@ -111,7 +127,10 @@ export function ShoppingCart({
           <p className="text-2xl font-bold text-orange-600">{total}€</p>
         </div>
         <div className="flex gap-2">
-          <AldiCheckbox />
+          <AldiCheckbox
+            checked={isCheckbox1Checked}
+            onChange={handleCheckbox1Change}
+          />
           <p className="text-sm text-gray-500">
             Ich erkläre mich damit einverstanden, dass meine Bestellung
             rechtsverbindlich ist und dass ich die AGB sowie die
@@ -119,7 +138,10 @@ export function ShoppingCart({
           </p>
         </div>
         <div className="flex gap-2">
-          <AldiCheckbox />
+          <AldiCheckbox
+            checked={isCheckbox2Checked}
+            onChange={handleCheckbox2Change}
+          />
           <p className="text-sm text-gray-500">
             Ich erkläre mich damit einverstanden, dass meine Bestellung
             rechtsverbindlich ist und dass ich die AGB sowie die
@@ -131,7 +153,9 @@ export function ShoppingCart({
           size="lg"
           variant="solid"
           href="/"
-          isDisabled={expired}
+          form="billing-address-form"
+          type="submit"
+          isDisabled={isButtonDisabled}
           color="secondary"
         >
           Jetzt kostenpflichtig abschliessen{' '}

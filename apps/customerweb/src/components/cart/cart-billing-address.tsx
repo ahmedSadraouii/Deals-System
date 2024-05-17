@@ -35,13 +35,14 @@ export function BillingAddress() {
     <Card className=" bg-gray-100 ">
       <CardHeader>
         <h1 className="pl-5 text-2xl font-bold leading-10 ">
-          Rechnungsadresse
+          Rechnungs- und Lieferadresse
         </h1>
       </CardHeader>
       <CardBody>
         <FormProvider {...form}>
           <form
             className="flex flex-col gap-4"
+            id="billing-address-form"
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
@@ -96,39 +97,6 @@ export function BillingAddress() {
                 />
               )}
             />
-            <div className="jusify-center flex items-center gap-4 md:hidden">
-              <Controller
-                name="postalCode"
-                rules={{ required: true, pattern: /^[0-9]{5}$/ }}
-                render={({ field }) => (
-                  <AldiInput
-                    type="number"
-                    isInvalid={!!errors.postalCode}
-                    isRequired={true}
-                    label="PLZ"
-                    {...field}
-                    errorMessage={
-                      errors.postalCode &&
-                      'Die Postleitzahl muss aus 5 Ziffern bestehen. Bitte überprüfe deine Eingabe.'
-                    }
-                  />
-                )}
-              />
-              <Controller
-                name="hausnr"
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <AldiInput
-                    type="number"
-                    isInvalid={!!errors.hausnr}
-                    isRequired={true}
-                    label="Hausnr."
-                    {...field}
-                    errorMessage={errors.hausnr && 'Hausnr. wird benötigt'}
-                  />
-                )}
-              />
-            </div>
             <div className="flex gap-4">
               <Controller
                 name="city"
@@ -155,8 +123,12 @@ export function BillingAddress() {
                     label="PLZ"
                     {...field}
                     errorMessage={
-                      errors.postalCode &&
-                      'Die Postleitzahl muss aus 5 Ziffern bestehen. Bitte überprüfe deine Eingabe.'
+                      errors.postalCode && (
+                        <p className="absolute mb-1 ml-[-15rem] mt-1 whitespace-nowrap ">
+                          Die Postleitzahl muss aus 5 Ziffern bestehen. Bitte
+                          überprüfe deine Eingabe.
+                        </p>
+                      )
                     }
                   />
                 )}
@@ -192,7 +164,44 @@ export function BillingAddress() {
                 )}
               />
             </div>
-            <p>*Pflichtfeld</p>
+            <div className="jusify-center flex items-center gap-4 md:hidden">
+              <Controller
+                name="hausnr"
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <AldiInput
+                    type="number"
+                    isInvalid={!!errors.hausnr}
+                    isRequired={true}
+                    label="Hausnr."
+                    {...field}
+                    errorMessage={errors.hausnr && 'Hausnr. wird benötigt'}
+                  />
+                )}
+              />
+              <Controller
+                name="postalCode"
+                rules={{ required: true, pattern: /^[0-9]{5}$/ }}
+                render={({ field }) => (
+                  <AldiInput
+                    type="number"
+                    isInvalid={!!errors.postalCode}
+                    isRequired={true}
+                    label="PLZ"
+                    {...field}
+                    errorMessage={
+                      errors.postalCode && (
+                        <p className="absolute ml-[-8rem] mt-1 ">
+                          Die Postleitzahl muss aus 5 Ziffern bestehen. Bitte
+                          überprüfe deine Eingabe.
+                        </p>
+                      )
+                    }
+                  />
+                )}
+              />
+            </div>
+            <p className="mt-6 md:mt-2">*Pflichtfeld</p>
           </form>
         </FormProvider>
       </CardBody>
