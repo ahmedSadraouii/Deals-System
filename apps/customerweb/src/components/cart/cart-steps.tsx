@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/app/contexts/cart/cart-context';
 import { DoneIconSvg } from '@/components/svg/done-svg';
-import { useRouter } from 'next/navigation';
 
 export function Stepper() {
   const path = usePathname();
@@ -34,7 +33,7 @@ export function Stepper() {
           >
             {/* Step number or icon */}
             <div
-              className={`relative cursor-pointer z-10 flex h-10 w-10 items-center justify-center rounded-full 
+              className={`relative z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full 
               ${
                 currentStep === i + 1
                   ? 'border-3 border-orange-500'
