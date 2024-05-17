@@ -4,17 +4,23 @@ import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/app/contexts/cart/cart-context';
 import { DoneIconSvg } from '@/components/svg/done-svg';
+import { useRouter } from 'next/navigation';
 
 export function Stepper() {
   const path = usePathname();
+  const router = useRouter();
   const steps = ['Warenkorb', 'Checkout', 'Bezahlung', 'Deal erhalten'];
   const { currentStep, setCurrentStep } = useCart();
-
   useEffect(() => {
     if (path === '/cart/checkout') {
       setCurrentStep(2);
     }
   }, [path, setCurrentStep]);
+  const handleStepClick = (step: Number) => {
+    if (step === 1) {
+      router.push('/cart');
+    } else if (step === 2) router.push('/cart/checkout');
+  };
   return (
     <div>
       {/* Step items */}
@@ -28,7 +34,7 @@ export function Stepper() {
           >
             {/* Step number or icon */}
             <div
-              className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full 
+              className={`relative cursor-pointer z-10 flex h-10 w-10 items-center justify-center rounded-full 
               ${
                 currentStep === i + 1
                   ? 'border-3 border-orange-500'
@@ -36,6 +42,7 @@ export function Stepper() {
                   ? 'border-3 border-green-600'
                   : 'border-3 border-gray-300'
               } font-semibold text-gray-500`}
+              onClick={() => handleStepClick(i + 1)}
             >
               {i + 1 < currentStep ? <DoneIconSvg /> : i + 1}
             </div>
