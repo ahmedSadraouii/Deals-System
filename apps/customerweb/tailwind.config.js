@@ -1,3 +1,3 @@
 module.exports = {
-  ...require('tailwind-config/tailwind.config')
+  ...require('tailwind-config/tailwind.config'),
 };
