@@ -67,7 +67,9 @@ export function RegisterTab(props: RegisterTabProps) {
 
         if (returnValue.success) {
           router.push(
-            `/auth/register-success?${createQueryString({ email: data.email })}`,
+            `/auth/register-success?${createQueryString({
+              email: data.email,
+            })}`,
           );
         } else {
           setResponseError(returnValue.apiErrorCode || ApiErrorCodes.UNKNOWN);

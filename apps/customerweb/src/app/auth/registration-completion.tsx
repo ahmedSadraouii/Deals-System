@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import NextLink from 'next/link';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Link } from '@nextui-org/react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { registrationCompletionAction } from '@/app/auth/actions/registration-completion.action';
+import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
@@ -25,9 +26,6 @@ export function RegistrationCompletion() {
     null,
   );
 
-  // const searchParams = useSearchParams();
-  const router = useRouter();
-
   const defaultValues = {
     termsChecked: false,
     newsletterChecked: false,
@@ -43,45 +41,42 @@ export function RegistrationCompletion() {
     trigger,
   } = form;
 
-  const onSubmit = useCallback(
-    async (data: typeof defaultValues) => {
-      setLoading(true);
+  const onSubmit = useCallback(async (data: typeof defaultValues) => {
+    setLoading(true);
 
-      const credentials = sessionStorage.getItem('login-credentials');
-      if (!credentials) {
-        setResponseError(ApiErrorCodes.UNKNOWN);
-        setLoading(false);
-        return;
-      }
+    const credentials = sessionStorage.getItem('login-credentials');
+    if (!credentials) {
+      setResponseError(ApiErrorCodes.UNKNOWN);
+      setLoading(false);
+      return;
+    }
 
-      const { email, password } = JSON.parse(credentials);
+    const { email, password } = JSON.parse(credentials);
 
-      try {
-        // do this and that
-        const returnValue = await registrationCompletionAction({
+    try {
+      // do this and that
+      const returnValue = await registrationCompletionAction({
+        email,
+        password,
+        newsletterAccepted: data.newsletterChecked,
+        termsAccepted: data.termsChecked,
+      });
+
+      if (returnValue.success) {
+        await signIn('credentials', {
           email,
           password,
-          newsletterAccepted: data.newsletterChecked,
-          termsAccepted: data.termsChecked,
+          callbackUrl: '/',
         });
-
-        if (returnValue.success) {
-          await signIn('credentials', {
-            email,
-            password,
-            callbackUrl: '/',
-          });
-        } else {
-          setResponseError(returnValue.apiErrorCode || ApiErrorCodes.UNKNOWN);
-          setLoading(false);
-        }
-      } catch (error: any) {
-        setResponseError(ApiErrorCodes.UNKNOWN);
+      } else {
+        setResponseError(returnValue.apiErrorCode || ApiErrorCodes.UNKNOWN);
         setLoading(false);
       }
-    },
-    [router],
-  );
+    } catch (error: any) {
+      setResponseError(ApiErrorCodes.UNKNOWN);
+      setLoading(false);
+    }
+  }, []);
 
   const onCheckAllAndProceed = useCallback(() => {
     setValue('termsChecked', true);
@@ -111,6 +106,12 @@ export function RegistrationCompletion() {
             möchtest. Bestätige noch bitte folgende Hinweise und du bist
             startklar!
           </p>
+
+          {responseError && (
+            <p className="text-center text-red-500">
+              <ApiErrorTranslation apiError={responseError} />
+            </p>
+          )}
 
           <div className="mb-4 flex flex-col gap-6">
             <Controller
