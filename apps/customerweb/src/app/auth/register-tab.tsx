@@ -55,7 +55,7 @@ export function RegisterTab(props: RegisterTabProps) {
       setLoading(true);
 
       try {
-        await registerDealsAction({
+        const returnValue = await registerDealsAction({
           email: data.email,
           firstName: data.firstName,
           lastName: data.lastName,
@@ -65,9 +65,14 @@ export function RegisterTab(props: RegisterTabProps) {
           newsletterAccepted: data.newsletterChecked,
         });
 
-        router.push(
-          `/auth/register-success?${createQueryString({ email: data.email })}`,
-        );
+        if (returnValue.success) {
+          router.push(
+            `/auth/register-success?${createQueryString({ email: data.email })}`,
+          );
+        } else {
+          setResponseError(returnValue.apiErrorCode || ApiErrorCodes.UNKNOWN);
+          setLoading(false);
+        }
       } catch (error: any) {
         setResponseError(ApiErrorCodes.UNKNOWN);
         setLoading(false);

@@ -1,7 +1,7 @@
 'use server';
 
 import type { AuthenticationApi } from 'api-auth';
-import { ApiError } from '@/utils/api-error';
+import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 import { getApiClient } from '@/utils/get-api-client';
 
@@ -23,7 +23,11 @@ export async function registerDealsAction({
   password,
   termsAccepted,
   newsletterAccepted,
-}: RegisterDealsActionParams): Promise<void> {
+}: RegisterDealsActionParams): Promise<{
+  success: boolean;
+  apiErrorCode?: ApiErrorCodes;
+  message?: string;
+}> {
   const authApi = getApiClient<AuthenticationApi>({ ssr: true, type: 'auth' });
 
   try {
@@ -38,14 +42,19 @@ export async function registerDealsAction({
         newsletterAccepted,
       },
     });
+
+    return {
+      success: true,
+    };
   } catch (error: any) {
     if (error?.response?.json) {
       const errorResponse = await (error as any).response.json();
       const apiError = tryParseApiErrorWithFallback(errorResponse);
-      throw new ApiError(
-        `Found API errorCode: ${apiError.errorCode}, message: ${apiError.message}`,
-        error,
-      );
+      return {
+        success: false,
+        apiErrorCode: apiError.errorCode,
+        message: apiError.message,
+      };
     }
     throw error;
   }
