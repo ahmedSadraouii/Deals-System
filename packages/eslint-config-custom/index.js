@@ -3,14 +3,9 @@ module.exports = {
   plugins: [
     '@typescript-eslint/eslint-plugin',
     'no-relative-import-paths',
-    'unused-imports'
+    'unused-imports',
   ],
-  ignorePatterns: ['*.js', '*.json'],
-  extends: [
-    'plugin:prettier/recommended',
-    'next',
-    'turbo',
-  ],
+  extends: ['plugin:prettier/recommended', 'next', 'turbo'],
   rules: {
     'jsx-quotes': 'error',
     '@typescript-eslint/consistent-type-imports': [
@@ -37,9 +32,12 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'react/function-component-definition': ['error', {
-      namedComponents: 'function-declaration'
-    }],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'function-declaration',
+      },
+    ],
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-fragments': 'error',
     'unused-imports/no-unused-imports': 'error',
