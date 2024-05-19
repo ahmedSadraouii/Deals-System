@@ -2,14 +2,13 @@
 
 import { useCallback, useState } from 'react';
 import NextLink from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Link } from '@nextui-org/react';
-import type { AuthenticationApi } from 'api-auth';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { passwordForgetRequestAction } from '@/app/auth/actions/password-forget-request.action';
 import { ApiErrorTranslation } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiInput } from '@/components/nextui/aldi-input';
-import { useApiClient } from '@/hooks/use-api-client';
 import { emailRegex } from '@/utils/email-regex';
 
 export default function Page() {
@@ -20,7 +19,7 @@ export default function Page() {
     email: '',
   };
 
-  const router = useRouter();
+  const [wasSent, setWasSent] = useState(false);
 
   const form = useForm({
     defaultValues,
@@ -31,20 +30,14 @@ export default function Page() {
     trigger,
   } = form;
 
-  const authenticationApi = useApiClient<AuthenticationApi>({ type: 'auth' });
-
-  const onSubmit = useCallback(
-    async (data: typeof defaultValues) => {
-      setLoading(true);
-      await authenticationApi.forgotPassword({
-        forgotPasswordByEmailRequest: {
-          email: data.email,
-        },
-      });
-      router.push('/auth/password-forget/request-sent-success');
-    },
-    [authenticationApi, router],
-  );
+  const onSubmit = useCallback(async (data: typeof defaultValues) => {
+    setLoading(true);
+    const returnValue = await passwordForgetRequestAction({
+      email: data.email,
+    });
+    setWasSent(returnValue.success);
+    setLoading(false);
+  }, []);
 
   const onClickProceed = useCallback(async () => {
     if (await trigger()) {
@@ -54,11 +47,11 @@ export default function Page() {
 
   return (
     <>
-      <h1 className="mb-20 text-5xl font-bold text-secondary">
+      <h1 className="mb-20 text-center text-5xl font-bold text-secondary">
         Setzte jetzt dein Passwort zurück.
       </h1>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex w-full flex-col gap-10">
         <p className="text-center text-secondary/50">
           Du weißt dein Passwort? Melde dich mit deinen Accountdaten{' '}
           <Link
@@ -74,15 +67,25 @@ export default function Page() {
         </p>
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex basis-[600px] flex-col items-center gap-6 rounded-3xl border bg-default-100 p-10">
+            <div className="mx-auto flex w-full max-w-[600px] flex-col items-center gap-6 rounded-3xl border bg-default-100 p-10">
               {searchParams.has('error') && (
                 <p className="text-center text-red-500">
                   <ApiErrorTranslation apiError={searchParams.get('error')} />
                 </p>
               )}
-              <p className="font-bold">
-                Bitte trage deine E-Mail Adresse ein um dein Passwort
-                zurückzusetzen.
+              <p className="text-center font-bold text-secondary">
+                {wasSent && (
+                  <>
+                    Wir haben dir eine Mail zugesendet um dein Passwort
+                    zurückzusetzen. Bitte schau in deinem Postfach nach.
+                  </>
+                )}
+                {!wasSent && (
+                  <>
+                    Bitte trage deine E-Mail Adresse ein um dein Passwort
+                    zurückzusetzen.
+                  </>
+                )}
               </p>
               <Controller
                 render={({ field }) => (
