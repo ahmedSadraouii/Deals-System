@@ -4,6 +4,7 @@ export enum ApiErrorCodes {
   PASSWORD_INVALID = 'PASSWORD_INVALID',
   INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
   REGISTRATION_COMPLETION_REQUIRED = 'REGISTRATION_COMPLETION_REQUIRED',
+  EMAIL_VERIFICATION_REQUIRED = 'EMAIL_VERIFICATION_REQUIRED',
   UNKNOWN = 'UNKNOWN',
 }
 
@@ -39,6 +40,14 @@ export function tryParseApiError(error: any): ApiErrorCodes {
 
     if (error.message.includes('REGISTRATION_COMPLETION_REQUIRED')) {
       return ApiErrorCodes.REGISTRATION_COMPLETION_REQUIRED;
+    }
+
+    if (
+      error.message.includes(
+        'Die Registrierung für deine E-Mail-Adresse wurde nicht abgeschlossen. Bitte prüfe dein E-Mail-Postfach und klicke auf den Bestätigungslink, um fortzufahren.',
+      )
+    ) {
+      return ApiErrorCodes.EMAIL_VERIFICATION_REQUIRED;
     }
 
     console.log('Uncaught error message:', error.message);

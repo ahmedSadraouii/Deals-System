@@ -33,17 +33,17 @@ export function AuthTabs() {
 
   return (
     <>
-      <h1 className="mb-20 text-5xl font-bold text-secondary">
+      <h1 className="mb-20 text-center text-5xl font-bold text-secondary">
         {selectedTab === 'login' &&
           'Melde Dich an, um Dir tolle Deals zu sichern!'}
         {selectedTab === 'register' &&
           'Registriere Dich, um Dir tolle Deals zu sichern!'}
       </h1>
       <AldiTabs selectedKey={selectedTab} onSelectionChange={setSelectedTab}>
-        <Tab key="login" title="Ich habe bereits ein Konto">
+        <Tab key="login" title="Ich habe bereits ein Konto" className="w-full">
           <LoginTab />
         </Tab>
-        <Tab key="register" title="Ich bin neu hier">
+        <Tab key="register" title="Ich bin neu hier" className="w-full">
           <RegisterTab onSwitchToLogin={onSwitchToLogin} />
         </Tab>
       </AldiTabs>
