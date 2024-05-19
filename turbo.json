@@ -11,7 +11,8 @@
         "!.next/cache/**",
         "dist/**",
         "generated/**"
-      ]
+      ],
+      "dependsOn": ["^build"]
     },
     "dev": {
       "cache": false
