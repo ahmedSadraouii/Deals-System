@@ -46,7 +46,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
     supplierImage &&
     defaultLoader({
       src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
-      width: 512,
+      width: 256,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
 
@@ -171,7 +171,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
             </div>
             <div className="flex flex-row items-center gap-4 rounded-[20px] border border-secondary/10 p-10">
               <Image
-                src={supplierImageUrl}
+                src={supplierImageUrl!}
                 alt={supplier.name}
                 width={64}
                 height={64}

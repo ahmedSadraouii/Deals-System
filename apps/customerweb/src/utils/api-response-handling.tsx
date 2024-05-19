@@ -45,3 +45,27 @@ export function tryParseApiError(error: any): ApiErrorCodes {
   }
   return ApiErrorCodes.UNKNOWN;
 }
+
+export function tryParseApiErrorWithFallback(error: any): {
+  errorCode: ApiErrorCodes;
+  message: string;
+} {
+  const apiError = tryParseApiError(error);
+
+  function getApiErrorMessage(error: any): string {
+    if ('message' in error && !!error.message) {
+      return `message: ${error.message}`;
+    }
+
+    if ('errorCode' in error && !!error.errorCode) {
+      return `errorCode: ${error.message}`;
+    }
+
+    return String(error) || 'Unknown error';
+  }
+
+  return {
+    errorCode: apiError,
+    message: getApiErrorMessage(error),
+  };
+}

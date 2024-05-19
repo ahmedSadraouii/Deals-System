@@ -6,6 +6,8 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { getApiClient } from '@/utils/get-api-client';
+import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
+import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
 export interface DealsListItemProps {
   deal: UmbracoDeal;
@@ -24,8 +26,8 @@ export async function DealsListItem({
   });
   const fullDeal = dealContent as UmbracoDeal;
 
-  if (!fullDeal.properties?.supplier?.id) {
-    console.log('Missing supplier for deal', fullDeal);
+  if (!verifyDealIsCorrect(fullDeal)) {
+    console.log('Deal is incorrect', fullDeal);
     return null;
   }
 
@@ -33,6 +35,11 @@ export async function DealsListItem({
     id: fullDeal.properties?.supplier!.id!,
   });
   const fullSupplier = supplierContent as UmbracoSupplier;
+
+  if (!verifySupplierIsCorrect(fullSupplier)) {
+    console.log('Supplier is incorrect', fullSupplier);
+    return null;
+  }
 
   if (display === 'Grid' || display === 'Small Slider') {
     return (

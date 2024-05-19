@@ -13,9 +13,9 @@ import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiPasswordInput } from '@/components/nextui/aldi-password-input';
 import { IconCircleCheck } from '@/components/svg/icon-circle-check';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
-import { tryParseApiError } from '@/utils/api-response-handling';
 import { createQueryString } from '@/utils/create-query-string';
 import { emailRegex } from '@/utils/email-regex';
+import { validateAldiPassword } from '@/utils/validate-aldi-password';
 
 export interface RegisterTabProps {
   onSwitchToLogin: () => void;
@@ -69,10 +69,7 @@ export function RegisterTab(props: RegisterTabProps) {
           `/auth/register-success?${createQueryString({ email: data.email })}`,
         );
       } catch (error: any) {
-        if (!('body' in error && error.body instanceof Response)) {
-          throw error;
-        }
-        setResponseError(tryParseApiError(error.body));
+        setResponseError(ApiErrorCodes.UNKNOWN);
         setLoading(false);
       }
     },
@@ -209,7 +206,8 @@ export function RegisterTab(props: RegisterTabProps) {
                     errorMessage={
                       <ApiErrorTranslation
                         errorOverride={
-                          errors.password && 'Password wird benötigt'
+                          errors.password?.message ||
+                          (errors.password && 'Passwort wird benötigt')
                         }
                         allowedErrors={[
                           ApiErrorCodes.PASSWORD_INVALID,
@@ -222,7 +220,7 @@ export function RegisterTab(props: RegisterTabProps) {
                   />
                 )}
                 name="password"
-                rules={{ required: true }}
+                rules={{ required: true, validate: validateAldiPassword }}
               />
 
               <Controller
