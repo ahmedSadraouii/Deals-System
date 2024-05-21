@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
@@ -46,14 +46,9 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
     supplierImage &&
     defaultLoader({
       src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
-      width: 512,
+      width: 256,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
-
-  const dealLinkSegment = useMemo(
-    () => deal.route.path.split('/')[3],
-    [deal.route.path],
-  );
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -176,7 +171,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
             </div>
             <div className="flex flex-row items-center gap-4 rounded-[20px] border border-secondary/10 p-10">
               <Image
-                src={`https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`}
+                src={supplierImageUrl!}
                 alt={supplier.name}
                 width={64}
                 height={64}

@@ -55,6 +55,14 @@ export function ApiErrorTranslation({
             Sie müssen die Registrierung abschließen, bevor Sie sich anmelden.
           </>
         );
+      case ApiErrorCodes.EMAIL_VERIFICATION_REQUIRED:
+        return (
+          <>
+            Die Registrierung für deine E-Mail-Adresse wurde nicht
+            abgeschlossen. Bitte prüfe dein E-Mail-Postfach und klicke auf den
+            Bestätigungslink, um fortzufahren.
+          </>
+        );
       case null:
       case undefined:
         return null;

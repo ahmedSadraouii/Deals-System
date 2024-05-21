@@ -11,15 +11,17 @@
         "!.next/cache/**",
         "dist/**",
         "generated/**"
-      ]
+      ],
+      "dependsOn": ["^build"]
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "dependsOn": ["^build"]
     },
     "lint": {
       "cache": false
     },
-    "format": {
+    "lint:fix": {
       "cache": false
     }
   }

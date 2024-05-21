@@ -1,7 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
-import { useCart } from '@/app/contexts/cart/cart-context';
 import { AldiButton } from '@/components/nextui/aldi-button';
 
 interface CostOverviewProps {
@@ -16,7 +16,7 @@ export function CostOverview({
   discount,
   total,
 }: CostOverviewProps) {
-  const { currentStep, setCurrentStep } = useCart();
+  const router = useRouter();
   return (
     <Card className="bg-gray-100 lg:min-w-96">
       <CardHeader className="border-b pb-4">
@@ -48,9 +48,8 @@ export function CostOverview({
           className="mb-6"
           size="lg"
           variant="solid"
-          href="/"
           onClick={() => {
-            setCurrentStep(currentStep + 1);
+            router.push('/cart/checkout');
           }}
           isDisabled={expired}
           color="secondary"

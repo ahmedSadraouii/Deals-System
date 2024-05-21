@@ -12,7 +12,7 @@ export default async function Page() {
     return redirect('/');
   }
 
-  const authenticationApi = getApiClient<AuthenticationApi>({
+  const _authenticationApi = getApiClient<AuthenticationApi>({
     ssr: true,
     type: 'auth',
   });

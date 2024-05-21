@@ -9,6 +9,8 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { getApiClient } from '@/utils/get-api-client';
+import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
+import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
 type Props = {
   params: { path: string };
@@ -60,9 +62,19 @@ export default async function Page({ params: { path } }: Props) {
       path: `/content/deals/${path}/`,
     })) as UmbracoDeal;
 
+    if (!verifyDealIsCorrect(deal)) {
+      console.log('Deal is incorrect, showing NotFound page');
+      return <NotFound />;
+    }
+
     const supplier = (await contentApi.getContentItemById20({
       id: deal.properties?.supplier!.id!,
     })) as UmbracoSupplier;
+
+    if (!verifySupplierIsCorrect(supplier)) {
+      console.log('Supplier is incorrect, showing NotFound page');
+      return <NotFound />;
+    }
 
     return <DealDetailPage deal={deal} supplier={supplier} />;
   } catch (error) {

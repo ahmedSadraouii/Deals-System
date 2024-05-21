@@ -4,6 +4,7 @@ export enum ApiErrorCodes {
   PASSWORD_INVALID = 'PASSWORD_INVALID',
   INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
   REGISTRATION_COMPLETION_REQUIRED = 'REGISTRATION_COMPLETION_REQUIRED',
+  EMAIL_VERIFICATION_REQUIRED = 'EMAIL_VERIFICATION_REQUIRED',
   UNKNOWN = 'UNKNOWN',
 }
 
@@ -41,7 +42,39 @@ export function tryParseApiError(error: any): ApiErrorCodes {
       return ApiErrorCodes.REGISTRATION_COMPLETION_REQUIRED;
     }
 
+    if (
+      error.message.includes(
+        'Die Registrierung für deine E-Mail-Adresse wurde nicht abgeschlossen. Bitte prüfe dein E-Mail-Postfach und klicke auf den Bestätigungslink, um fortzufahren.',
+      )
+    ) {
+      return ApiErrorCodes.EMAIL_VERIFICATION_REQUIRED;
+    }
+
     console.log('Uncaught error message:', error.message);
   }
   return ApiErrorCodes.UNKNOWN;
+}
+
+export function tryParseApiErrorWithFallback(error: any): {
+  errorCode: ApiErrorCodes;
+  message: string;
+} {
+  const apiError = tryParseApiError(error);
+
+  function getApiErrorMessage(error: any): string {
+    if ('message' in error && !!error.message) {
+      return `message: ${error.message}`;
+    }
+
+    if ('errorCode' in error && !!error.errorCode) {
+      return `errorCode: ${error.message}`;
+    }
+
+    return String(error) || 'Unknown error';
+  }
+
+  return {
+    errorCode: apiError,
+    message: getApiErrorMessage(error),
+  };
 }

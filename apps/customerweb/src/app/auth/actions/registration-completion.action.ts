@@ -5,25 +5,19 @@ import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 import { getApiClient } from '@/utils/get-api-client';
 
-export interface RegisterDealsActionParams {
+export interface RegistrationCompletionActionParams {
   email: string;
-  firstName: string;
-  lastName: string;
-  addressPostalCode: string;
   password: string;
   termsAccepted: boolean;
   newsletterAccepted: boolean;
 }
 
-export async function registerDealsAction({
+export async function registrationCompletionAction({
   email,
-  firstName,
-  lastName,
-  addressPostalCode,
   password,
   termsAccepted,
   newsletterAccepted,
-}: RegisterDealsActionParams): Promise<{
+}: RegistrationCompletionActionParams): Promise<{
   success: boolean;
   apiErrorCode?: ApiErrorCodes;
   message?: string;
@@ -31,12 +25,9 @@ export async function registerDealsAction({
   const authApi = getApiClient<AuthenticationApi>({ ssr: true, type: 'auth' });
 
   try {
-    await authApi.registerCustomerEmail({
-      registerCustomerByEmailRequest: {
+    await authApi.registerOnDealsAsync({
+      dealsRegistrationRequest: {
         email,
-        firstName,
-        lastName,
-        addressPostalCode,
         password,
         termsAccepted,
         newsletterAccepted,
