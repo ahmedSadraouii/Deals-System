@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -16,6 +18,7 @@ export default function Page() {
     password: '',
     phone: '',
   };
+
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ export default function Page() {
   } = useForm({
     defaultValues,
   });
+
   const onSubmit = useCallback(
     (data: typeof defaultValues) => {
       console.log(data);
@@ -37,7 +41,6 @@ export default function Page() {
   return (
     <div className="container mx-auto py-14">
       <MenuBar />
-
       <div className="mx-auto mt-10 max-w-4xl">
         <div className="rounded-xl bg-gray-100 p-5">
           <div className="mx-auto max-w-xl">
@@ -128,7 +131,6 @@ export default function Page() {
                     {...register('surname', { required: true })}
                   />
                 </div>
-
                 <div className="mb-5 flex">
                   <AldiInput
                     className="mr-5"
@@ -152,14 +154,12 @@ export default function Page() {
                     {...register('postCode', { required: true })}
                   />
                 </div>
-
                 <AldiButton
                   type="submit"
                   className="mt-5 w-full rounded-full bg-black px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                   Speichern
                 </AldiButton>
-
                 <AldiButton
                   type="button"
                   className="mt-5 w-full rounded-full border-1 border-black bg-transparent px-5 py-7 text-center text-sm font-medium text-black hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
