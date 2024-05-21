@@ -1,434 +1,543 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-      "title": "AdBe.Application",
-      "version": "1.0"
-  },
-  "paths": {
-      "/deals": {
-          "get": {
-              "tags": [
-                  "Deals"
-              ],
-              "operationId": "GetDeals",
-              "parameters": [
-                  {
-                      "name": "SortBy",
-                      "in": "query",
-                      "schema": {
-                          "$ref": "#/components/schemas/SortBy"
-                      }
-                  },
-                  {
-                      "name": "Take",
-                      "in": "query",
-                      "schema": {
-                          "maximum": 1000,
-                          "minimum": 1,
-                          "type": "integer",
-                          "format": "int32",
-                          "default": 50
-                      }
-                  },
-                  {
-                      "name": "Skip",
-                      "in": "query",
-                      "schema": {
-                          "maximum": 999,
-                          "minimum": 0,
-                          "type": "integer",
-                          "format": "int32",
-                          "default": 0
-                      }
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          },
-          "post": {
-              "tags": [
-                  "Deals"
-              ],
-              "operationId": "CreateOrUpdateDeal",
-              "requestBody": {
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
-                          }
-                      },
-                      "text/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
-                          }
-                      },
-                      "application/*+json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
-                          }
-                      }
-                  }
-              },
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          }
-      },
-      "/users/{userId}/favorites": {
-          "get": {
-              "tags": [
-                  "Favorites"
-              ],
-              "operationId": "GetUserFavorites",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  },
-                  {
-                      "name": "Take",
-                      "in": "query",
-                      "schema": {
-                          "maximum": 1000,
-                          "minimum": 1,
-                          "type": "integer",
-                          "format": "int32",
-                          "default": 50
-                      }
-                  },
-                  {
-                      "name": "Skip",
-                      "in": "query",
-                      "schema": {
-                          "maximum": 999,
-                          "minimum": 0,
-                          "type": "integer",
-                          "format": "int32",
-                          "default": 0
-                      }
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          },
-          "post": {
-              "tags": [
-                  "Favorites"
-              ],
-              "operationId": "AddUserFavorite",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  }
-              ],
-              "requestBody": {
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/AddFavoriteInputModel"
-                          }
-                      },
-                      "text/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/AddFavoriteInputModel"
-                          }
-                      },
-                      "application/*+json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/AddFavoriteInputModel"
-                          }
-                      }
-                  }
-              },
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          }
-      },
-      "/users/{userId}/favorites/{favoriteId}": {
-          "delete": {
-              "tags": [
-                  "Favorites"
-              ],
-              "operationId": "DeleteUserFavorite",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  },
-                  {
-                      "name": "favoriteId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          }
-      },
-      "/users/{userId}/orders": {
-          "get": {
-              "tags": [
-                  "Orders"
-              ],
-              "operationId": "GetUserOrders",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  },
-                  {
-                      "name": "Take",
-                      "in": "query",
-                      "schema": {
-                          "maximum": 1000,
-                          "minimum": 1,
-                          "type": "integer",
-                          "format": "int32",
-                          "default": 50
-                      }
-                  },
-                  {
-                      "name": "Skip",
-                      "in": "query",
-                      "schema": {
-                          "maximum": 999,
-                          "minimum": 0,
-                          "type": "integer",
-                          "format": "int32",
-                          "default": 0
-                      }
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          },
-          "post": {
-              "tags": [
-                  "Orders"
-              ],
-              "operationId": "CreateUserOrder",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  }
-              ],
-              "requestBody": {
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/CreateOrderInputModel"
-                          }
-                      },
-                      "text/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/CreateOrderInputModel"
-                          }
-                      },
-                      "application/*+json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/CreateOrderInputModel"
-                          }
-                      }
-                  }
-              },
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          }
-      },
-      "/users/{userId}/orders/{orderId}/items": {
-          "post": {
-              "tags": [
-                  "Orders"
-              ],
-              "operationId": "UpdateOrderItem",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  },
-                  {
-                      "name": "orderId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  }
-              ],
-              "requestBody": {
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/UpdateOrderItem"
-                          }
-                      },
-                      "text/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/UpdateOrderItem"
-                          }
-                      },
-                      "application/*+json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/UpdateOrderItem"
-                          }
-                      }
-                  }
-              },
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          },
-          "delete": {
-              "tags": [
-                  "Orders"
-              ],
-              "operationId": "DeleteOrderItem",
-              "parameters": [
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  },
-                  {
-                      "name": "orderId",
-                      "in": "path",
-                      "required": true,
-                      "schema": {
-                          "type": "string",
-                          "format": "uuid"
-                      }
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "Success"
-                  }
-              }
-          }
-      }
-  },
-  "components": {
-      "schemas": {
-          "AddFavoriteInputModel": {
-              "type": "object",
-              "properties": {
-                  "dealId": {
-                      "type": "string",
-                      "format": "uuid"
-                  }
-              },
-              "additionalProperties": false
-          },
-          "CreateOrUpdateDealInputModel": {
-              "type": "object",
-              "properties": {
-                  "dealId": {
-                      "type": "string",
-                      "format": "uuid"
-                  },
-                  "name": {
-                      "type": "string",
-                      "nullable": true
-                  }
-              },
-              "additionalProperties": false
-          },
-          "CreateOrderInputModel": {
-              "type": "object",
-              "properties": {
-                  "dealId": {
-                      "type": "string",
-                      "format": "uuid"
-                  }
-              },
-              "additionalProperties": false
-          },
-          "SortBy": {
-              "enum": [
-                  0,
-                  1,
-                  2
-              ],
-              "type": "integer",
-              "format": "int32"
-          },
-          "UpdateOrderItem": {
-              "type": "object",
-              "properties": {
-                  "itemId": {
-                      "type": "string",
-                      "format": "uuid"
-                  },
-                  "amount": {
-                      "type": "integer",
-                      "format": "int32"
-                  }
-              },
-              "additionalProperties": false
-          }
-      }
-  }
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ALDI Deals API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/ad-be/deals": {
+            "get": {
+                "tags": [
+                    "Deals"
+                ],
+                "operationId": "GetDeals",
+                "parameters": [
+                    {
+                        "name": "SortBy",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/SortBy"
+                        }
+                    },
+                    {
+                        "name": "Take",
+                        "in": "query",
+                        "schema": {
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "Skip",
+                        "in": "query",
+                        "schema": {
+                            "maximum": 999,
+                            "minimum": 0,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Deals"
+                ],
+                "operationId": "CreateOrUpdateDeal",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ad-be/favorites": {
+            "get": {
+                "tags": [
+                    "Favorites"
+                ],
+                "operationId": "GetUserFavorites",
+                "parameters": [
+                    {
+                        "name": "Take",
+                        "in": "query",
+                        "schema": {
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 1000
+                        }
+                    },
+                    {
+                        "name": "Skip",
+                        "in": "query",
+                        "schema": {
+                            "maximum": 999,
+                            "minimum": 0,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Favorites"
+                ],
+                "operationId": "AddUserFavorite",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddFavoriteInputModel"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddFavoriteInputModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddFavoriteInputModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ad-be/favorites/{dealId}": {
+            "delete": {
+                "tags": [
+                    "Favorites"
+                ],
+                "operationId": "DeleteUserFavorite",
+                "parameters": [
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ad-be/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "operationId": "GetUserOrders",
+                "parameters": [
+                    {
+                        "name": "Kind",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/OrderKind"
+                        }
+                    },
+                    {
+                        "name": "Take",
+                        "in": "query",
+                        "schema": {
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "Skip",
+                        "in": "query",
+                        "schema": {
+                            "maximum": 999,
+                            "minimum": 0,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "operationId": "CreateOrder",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrderInputModel"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrderInputModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrderInputModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ad-be/orders/{orderId}/items": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "operationId": "UpdateOrderItem",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateOrderItem"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateOrderItem"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateOrderItem"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ad-be/orders/{orderId}/items/{dealId}": {
+            "delete": {
+                "tags": [
+                    "Orders"
+                ],
+                "operationId": "DeleteOrderItem",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/ad-be/redeem-code": {
+            "post": {
+                "tags": [
+                    "Redeem"
+                ],
+                "operationId": "RedeemCode",
+                "parameters": [
+                    {
+                        "name": "Code",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AddFavoriteInputModel": {
+                "required": [
+                    "dealId"
+                ],
+                "type": "object",
+                "properties": {
+                    "dealId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CreateOrUpdateDealInputModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "promotionStart": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "promotionEnd": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "maxOrderQuantity": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CreateOrderInputModel": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderItemModel"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OrderItemModel": {
+                "type": "object",
+                "properties": {
+                    "dealId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OrderKind": {
+                "enum": [
+                    "cart",
+                    "oder"
+                ],
+                "type": "string"
+            },
+            "SortBy": {
+                "enum": [
+                    "recentlyAdded",
+                    "mostFavorited",
+                    "mostSold"
+                ],
+                "type": "string"
+            },
+            "UpdateOrderItem": {
+                "required": [
+                    "dealId",
+                    "quantity"
+                ],
+                "type": "object",
+                "properties": {
+                    "dealId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "quantity": {
+                        "maximum": 100,
+                        "minimum": 1,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                "scheme": "Bearer"
+            }
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ]
 }

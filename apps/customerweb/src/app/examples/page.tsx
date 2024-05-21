@@ -47,6 +47,7 @@ export default async function Page() {
         fetch: 'children:/content/suppliers/',
       }),
       dealsApi.getDeals({
+        sortBy: 'mostSold',
         take: 100,
         skip: 0,
       }),
