@@ -37,6 +37,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "api-user": "workspace:^"
+    "api-user": "workspace:^",
+    "sharp": "^0.33.4"
   }
 }
