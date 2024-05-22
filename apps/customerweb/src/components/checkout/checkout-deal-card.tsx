@@ -53,7 +53,9 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
           height={378}
         />
         <div
-          className={`flex flex-1 flex-col gap-6 ${item.code !== '' ? 'justify-between' : ''}`}
+          className={`flex flex-1 flex-col gap-6 ${
+            item.code !== '' ? 'justify-between' : ''
+          }`}
         >
           <div className="flex flex-col gap-4">
             <div className="flex gap-4">
