@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { Card, CardBody } from '@nextui-org/react';
 
 interface CheckoutCardProps {
-  imgUrl: String;
-  title: String;
-  description: String;
+  imgUrl: string;
+  title: string;
+  description: string;
 }
 export default function CheckoutCard({
   imgUrl,

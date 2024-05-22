@@ -2,13 +2,7 @@
 
 import Image from 'next/image';
 import { AldiButton } from '../nextui/aldi-button';
-import { AldiSelect } from '../nextui/aldi-select';
-import { ChevronRightSvg } from '../svg/chevron-right-svg';
-import { IconArrowDown } from '../svg/icon-arrow-down';
-import { IconArrowRight } from '../svg/icon-arrow-right';
 import { IconArrowUpRight } from '../svg/icon-arrow-up-right';
-import { IconTicket } from '../svg/icon-ticket';
-import { IconUser } from '../svg/icon-user';
 import { Card, CardBody, Input, Select, SelectItem } from '@nextui-org/react';
 
 // interface for the item
@@ -105,10 +99,10 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
             </AldiButton>
           ) : (
             <div>
-              <AldiSelect
+              <Select
                 label="Herunterladen"
                 items={options}
-                color="aldiblue"
+                color="primary"
                 className="max-w-56"
               >
                 {(option) => (
@@ -125,7 +119,7 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
                     </div>
                   </SelectItem>
                 )}
-              </AldiSelect>
+              </Select>
             </div>
           )}
         </div>
