@@ -1,6 +1,7 @@
 import CheckoutCard from '@/components/checkout/checkout-card';
 import Celebration from '@/components/checkout/checkout-celebration';
 import DealCheckoutCard from '@/components/checkout/checkout-deal-card';
+import DiscoverCard from '@/components/discover/discover-card';
 
 export default function Page() {
   // Fake array of items
@@ -48,10 +49,13 @@ export default function Page() {
           description="Willkommen zu einem unvergleichlichen Abenteuer voller Nervenkitzel, Ausdauer und Gemeinschaftssinn..."
         />
       </div>
-      <div className="flex flex-col gap-8 lg:min-w-[80%]">
+      <div className="flex w-full flex-col gap-8 lg:w-[80%] lg:min-w-[80%]">
         {items.map((item) => (
           <DealCheckoutCard key={item.id} item={item} />
         ))}
+      </div>
+      <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
+        <DiscoverCard />
       </div>
     </div>
   );

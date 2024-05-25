@@ -7,6 +7,7 @@ export const AldiInput = extendVariants(Input, {
     variant: {
       bordered: {
         inputWrapper: 'border-1 border-secondary/50 h-unit-14',
+        input: 'text-aldi-blue',
       },
     },
   },

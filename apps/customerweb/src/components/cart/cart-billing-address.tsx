@@ -34,7 +34,7 @@ export function BillingAddress() {
   return (
     <Card className=" bg-gray-100 ">
       <CardHeader>
-        <h1 className="pl-5 text-2xl font-bold leading-10 ">
+        <h1 className="pl-5 text-2xl font-bold leading-10 text-aldi-blue ">
           Rechnungs- und Lieferadresse
         </h1>
       </CardHeader>
@@ -201,7 +201,7 @@ export function BillingAddress() {
                 )}
               />
             </div>
-            <p className="mt-6 md:mt-2">*Pflichtfeld</p>
+            <p className="mt-6 text-aldi-blue md:mt-2">*Pflichtfeld</p>
           </form>
         </FormProvider>
       </CardBody>

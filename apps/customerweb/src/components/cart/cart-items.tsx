@@ -33,7 +33,9 @@ export function CartItems({ expired }: CartItemsProps) {
   return (
     <Card className=" bg-gray-100 ">
       <CardHeader className="border-b pb-4">
-        <h1 className="pl-5 text-2xl font-bold leading-10 ">Dein Warenkorb</h1>
+        <h1 className="pl-5 text-2xl font-bold leading-10 text-aldi-blue ">
+          Dein Warenkorb
+        </h1>
       </CardHeader>
       <CardBody className={`${expired ? 'opacity-10' : ''}`}>
         {items.map((item, index) => (
@@ -56,18 +58,22 @@ export function CartItems({ expired }: CartItemsProps) {
               </div>
               <div>
                 <div className="flex justify-between">
-                  <h1 className="text-lg font-bold leading-10">{item.name}</h1>
+                  <h1 className="text-lg font-bold leading-10 text-aldi-blue ">
+                    {item.name}
+                  </h1>
                   <div className="md:hidden">
                     <CartCounter />
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p>Anzahl insgesamt: {item.quantity}</p>
-                    <p className="underline">Entfernen</p>
+                    <p className="text-aldi-blue">
+                      Anzahl insgesamt: {item.quantity}
+                    </p>
+                    <p className="text-aldi-blue underline">Entfernen</p>
                   </div>
                   <div className="md:hidden">
-                    <p className="flex justify-end line-through">
+                    <p className="flex justify-end text-aldi-blue line-through ">
                       {item.originalPrice}
                     </p>
                     <h1 className="text-2xl font-bold text-orange-600">
@@ -80,7 +86,7 @@ export function CartItems({ expired }: CartItemsProps) {
             {item.available ? (
               <div className="hidden flex-col items-center gap-10 md:flex md:flex-row">
                 <div>
-                  <p className="flex justify-end line-through">
+                  <p className="flex justify-end text-aldi-blue line-through">
                     {item.originalPrice}
                   </p>
                   <h1 className="text-2xl font-bold text-orange-600">

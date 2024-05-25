@@ -10,7 +10,7 @@ export function PaymentMethods({ isCheckoutPage }: PaymentMethodsProps) {
       <Card className="bg-gray-100">
         {isCheckoutPage && (
           <CardHeader className="border-b pb-4">
-            <p className="p-5 text-center">
+            <p className="p-5 text-center text-aldi-blue">
               Als nächstes wirst du zum Bezahlungsprozess weitergeleitet. Dort
               kannst du deine bevorzugte Zahlungsmethode auswählen und den Kauf
               abschließen.
@@ -18,7 +18,7 @@ export function PaymentMethods({ isCheckoutPage }: PaymentMethodsProps) {
           </CardHeader>
         )}
         <CardBody>
-          <p className="mb-5 text-center">
+          <p className="mb-5 text-center text-aldi-blue">
             Wir unterstützen folgende Zahlungsmethoden
           </p>
           <div className="mx-auto mb-5 flex items-center gap-3">

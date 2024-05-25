@@ -1,9 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { AldiButton } from '../nextui/aldi-button';
-import { IconArrowUpRight } from '../svg/icon-arrow-up-right';
-import { Card, CardBody, Input, Select, SelectItem } from '@nextui-org/react';
+import { Card, CardBody, SelectItem } from '@nextui-org/react';
+import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiInput } from '@/components/nextui/aldi-input';
+import { AldiSelect } from '@/components/nextui/aldi-select';
+import { CopyIconSvg } from '@/components/svg/aldi-copy-svg';
+import { IconArrowUpRight } from '@/components/svg/icon-arrow-up-right';
 
 // interface for the item
 interface Item {
@@ -21,8 +24,15 @@ interface Item {
 interface DealCheckoutCardProps {
   item: Item;
 }
+// Interface for the select options
+interface SelectOption {
+  id: number;
+  text: string;
+  icon: string;
+  alt: string;
+}
 export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
-  const options = [
+  const options: SelectOption[] = [
     {
       id: 1,
       text: 'Apple Wallet',
@@ -47,6 +57,7 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
     <Card className="bg-gray-100">
       <CardBody className="flex flex-col gap-8 p-8 md:flex-row">
         <Image
+          className="w-full md:w-1/3"
           src={item.mainImgUrl}
           alt="deal-image"
           width={420}
@@ -78,7 +89,13 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
               </div>
             </div>
             {item.code !== '' ? (
-              <Input label="Dein Code" readOnly value={item.code} />
+              <AldiInput
+                label="Dein Code"
+                className="w-full md:w-96"
+                readOnly
+                value={item.code}
+                endContent={<CopyIconSvg />}
+              />
             ) : (
               ''
             )}
@@ -93,7 +110,7 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
               size="lg"
               variant="solid"
               href="/auth"
-              className="max-w-72"
+              className="w-full md:max-w-72"
               endContent={<IconArrowUpRight className="text-2xl" />}
               color="secondary"
             >
@@ -101,13 +118,13 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
             </AldiButton>
           ) : (
             <div>
-              <Select
+              <AldiSelect
                 label="Herunterladen"
                 items={options}
-                color="primary"
-                className="max-w-56"
+                color="aldiblue"
+                className="w-full md:max-w-56"
               >
-                {(option) => (
+                {(option: any) => (
                   <SelectItem key={option.id} textValue={option.text}>
                     <div className="flex gap-2">
                       <Image
@@ -121,7 +138,7 @@ export default function DealCheckoutCard({ item }: DealCheckoutCardProps) {
                     </div>
                   </SelectItem>
                 )}
-              </Select>
+              </AldiSelect>
             </div>
           )}
         </div>

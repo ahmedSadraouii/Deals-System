@@ -46,7 +46,9 @@ export function Stepper() {
               {i + 1 < currentStep ? <DoneIconSvg /> : i + 1}
             </div>
             {/* Step label */}
-            <p className={`whitespace-nowrap font-semibold `}>{step}</p>
+            <p className={`whitespace-nowrap font-semibold text-aldi-blue `}>
+              {step}
+            </p>
             {/* Step connector line */}
             {i !== 0 && (
               <div

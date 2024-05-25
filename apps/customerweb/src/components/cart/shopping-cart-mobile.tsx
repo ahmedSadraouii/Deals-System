@@ -30,8 +30,10 @@ export function ShoppingCartMobile() {
     <Card className="bg-gray-100">
       <CardHeader>
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-3xl font-bold leading-10">Warenkorb</h1>
-          <p className="underline">Bearbeiten</p>
+          <h1 className="text-3xl font-bold leading-10 text-aldi-blue">
+            Warenkorb
+          </h1>
+          <p className="text-aldi-blue underline">Bearbeiten</p>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col gap-6">
@@ -48,13 +50,15 @@ export function ShoppingCartMobile() {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="flex justify-between">
-                    <h1 className="text-lg font-bold leading-10">
+                    <h1 className="text-lg font-bold leading-10 text-aldi-blue">
                       {item.name}
                     </h1>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p>Anzahl insgesamt: {item.quantity}</p>
+                      <p className="text-aldi-blue">
+                        Anzahl insgesamt: {item.quantity}
+                      </p>
                     </div>
                     <div>
                       <h1 className="text-2xl font-bold text-orange-600">

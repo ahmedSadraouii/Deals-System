@@ -32,25 +32,27 @@ export function CostOverviewMobile({
     <Card className="bg-gray-100">
       <CardHeader className="border-b">
         <div>
-          <h1 className="text-3xl font-bold leading-10">Übersicht</h1>
+          <h1 className="text-3xl font-bold leading-10 text-aldi-blue">
+            Übersicht
+          </h1>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 border-b pb-6">
           <div className="flex items-center justify-between">
-            <p className="text-lg">
+            <p className="text-lg text-aldi-blue">
               Zwischensumme{' '}
               <span className="text-sm text-gray-500"> inkl. MwSt.</span>
             </p>
             <p className="text-lg">{subtotal}€</p>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-lg">Du sparst</p>
+            <p className="text-lg text-aldi-blue">Du sparst</p>
             <p className="text-lg text-orange-600">-{discount}€</p>
           </div>
         </div>
         <div className="flex items-center justify-between border-b pb-6">
-          <p className="text-xl font-semibold">
+          <p className="text-xl font-semibold text-aldi-blue">
             Gesamtpreis{' '}
             <span className="text-sm text-gray-500">inkl. MwSt.</span>
           </p>

@@ -60,8 +60,10 @@ export function ShoppingCart({
     <Card className="bg-gray-100 p-6 ">
       <CardHeader>
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-3xl font-bold leading-10">Warenkorb</h1>
-          <p className="underline">Bearbeiten</p>
+          <h1 className="text-3xl font-bold leading-10 text-aldi-blue">
+            Warenkorb
+          </h1>
+          <p className="text-aldi-blue underline">Bearbeiten</p>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col gap-6">
@@ -86,14 +88,16 @@ export function ShoppingCart({
               <div className="flex w-full items-center justify-between">
                 <div>
                   <div className="flex justify-between">
-                    <h1 className="text-lg font-bold leading-10">
+                    <h1 className="text-lg font-bold leading-10 text-aldi-blue">
                       {item.name}
                     </h1>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p>Anzahl insgesamt: {item.quantity}</p>
-                      <p className="underline">Entfernen</p>
+                      <p className="text-aldi-blue">
+                        Anzahl insgesamt: {item.quantity}
+                      </p>
+                      <p className="text-aldi-blue underline">Entfernen</p>
                     </div>
                   </div>
                 </div>
@@ -108,19 +112,19 @@ export function ShoppingCart({
         ))}
         <div className="flex flex-col gap-4 border-b pb-6">
           <div className="flex items-center justify-between">
-            <p className="text-lg">
+            <p className="text-lg text-aldi-blue">
               Zwischensumme{' '}
-              <span className="text-sm text-gray-500"> inkl. MwSt.</span>
+              <span className="text-sm  text-gray-500"> inkl. MwSt.</span>
             </p>
             <p className="text-lg">{subtotal}€</p>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-lg">Du sparst</p>
+            <p className="text-lg text-aldi-blue">Du sparst</p>
             <p className="text-lg text-orange-600">-{discount}€</p>
           </div>
         </div>
         <div className="flex items-center justify-between border-b pb-6">
-          <p className="text-xl font-semibold">
+          <p className="text-xl font-semibold text-aldi-blue">
             Gesamtpreis{' '}
             <span className="text-sm text-gray-500">inkl. MwSt.</span>
           </p>
