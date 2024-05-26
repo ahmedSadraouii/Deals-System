@@ -1,6 +1,6 @@
 {
   "name": "aldi-deals",
-  "packageManager": "yarn@4.1.1",
+  "packageManager": "yarn@4.2.2",
   "engineStrict": true,
   "version": "0.0.0",
   "private": true,
