@@ -41,8 +41,8 @@ export function RedemptionStepper() {
                 currentStep === i + 1
                   ? 'border-3 border-orange-500'
                   : i + 1 < currentStep
-                    ? 'border-3 border-green-600'
-                    : 'border-3 border-gray-300'
+                  ? 'border-3 border-green-600'
+                  : 'border-3 border-gray-300'
               } font-semibold text-gray-500`}
               onClick={() => handleStepClick(i + 1)}
             >
