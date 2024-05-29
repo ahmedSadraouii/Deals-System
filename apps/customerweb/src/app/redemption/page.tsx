@@ -11,7 +11,7 @@ export default function Page() {
           Gib folgend die 16-stellige PIN auf deinem Kassenbon ein.
         </p>
       </div>
-      <RedemptionPinForm />
+      <RedemptionPinForm guest={true} />
     </div>
   );
 }

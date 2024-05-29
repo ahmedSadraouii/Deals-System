@@ -6,9 +6,14 @@ import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
-export function RedemptionPinForm() {
+interface RedemptionPinFormProps {
+  guest: boolean;
+}
+
+export function RedemptionPinForm({ guest }: RedemptionPinFormProps) {
   const defaultValues = {
     pinCode: '',
+    email: '',
   };
   const form = useForm({
     defaultValues,
@@ -46,6 +51,25 @@ export function RedemptionPinForm() {
                 />
               )}
             />
+            {guest && (
+              <Controller
+                name="e-mail"
+                rules={{
+                  required: true,
+                }}
+                render={({ field }) => (
+                  <AldiInput
+                    className="w-full"
+                    label="E-Mail"
+                    type="email"
+                    isRequired={true}
+                    {...field}
+                    isInvalid={!!errors.email}
+                    errorMessage={errors.email && 'Pin wird benötigt'}
+                  />
+                )}
+              />
+            )}
             <AldiButton
               size="lg"
               variant="solid"
