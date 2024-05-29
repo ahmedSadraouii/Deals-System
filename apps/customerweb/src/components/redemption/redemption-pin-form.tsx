@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { AldiButton } from '../nextui/aldi-button';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
@@ -11,6 +12,7 @@ interface RedemptionPinFormProps {
 }
 
 export function RedemptionPinForm({ guest }: RedemptionPinFormProps) {
+  const router = useRouter();
   const defaultValues = {
     pinCode: '',
     email: '',
@@ -24,6 +26,7 @@ export function RedemptionPinForm({ guest }: RedemptionPinFormProps) {
   } = form;
   const onSubmit = useCallback(async (data: typeof defaultValues) => {
     console.log(data);
+    router.push('/redemption/activate');
   }, []);
 
   return (
