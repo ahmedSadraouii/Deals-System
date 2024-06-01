@@ -2,6 +2,10 @@ import CheckoutCard from '@/components/checkout/checkout-card';
 import Celebration from '@/components/checkout/checkout-celebration';
 import DealCheckoutCard from '@/components/checkout/checkout-deal-card';
 import DiscoverCard from '@/components/discover/discover-card';
+import { DealsSlider } from '@/components/product/deals-slider';
+import { ProductItem } from '@/components/product/product-item';
+import ProductSlider from '@/components/product/product-slider';
+import { PartnersBlock } from '@/components/umbraco-cms/content/partners-block';
 
 export default function Page() {
   // Fake array of items
@@ -57,6 +61,8 @@ export default function Page() {
       <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
         <DiscoverCard />
       </div>
+      <PartnersBlock />
+      <DealsSlider />
     </div>
   );
 }
