@@ -61,7 +61,6 @@ export default function Page() {
       <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
         <DiscoverCard />
       </div>
-      <PartnersBlock />
       <DealsSlider />
     </div>
   );

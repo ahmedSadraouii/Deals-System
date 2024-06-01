@@ -21,7 +21,7 @@ export function Price({
     base: 'font-bold text-aldi-key flex items-center text-aldi-key',
     variants: {
       textSize: {
-        default: 'text-3xl',
+        default: 'text-4xl',
         1: 'text-2xl',
         2: 'text-5xl',
         3: 'text-[80px] mr-6',
@@ -33,7 +33,7 @@ export function Price({
   });
 
   const uvpText = tv({
-    base: 'font-light text-black line-through mr-2',
+    base: 'font-light text-aldi-blue line-through mr-2',
     variants: {
       textSize: {
         default: 'text-lg',

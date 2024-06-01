@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { IconOnline } from '../svg/icon-nur-online';
 import { Price } from '@/components/price';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconLastMinute } from '@/components/svg/icon-last-minute';
@@ -16,12 +17,16 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
       <div className="w-full rounded-lg border border-gray-200 bg-gray-100 shadow">
         <a href="#">
           <div
-            className="relative h-[300px] rounded-lg !bg-cover !bg-center md:h-[300px]"
+            className="relative h-[250px] rounded-lg !bg-cover !bg-center md:h-[250px]"
             style={{ background: `url('${image}')` }}
           >
             <span className="absolute right-5 top-5 flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
               <IconLastMinute className="mr-2 text-base" />
               <span>Last minute!</span>
+            </span>
+            <span className="absolute left-5 top-5 flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+              <IconOnline className="mr-2 text-base" />
+              <span className="text-aldi-blue">Nur Online</span>
             </span>
           </div>
         </a>
@@ -44,7 +49,7 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
             </div>
           </div>
           <a href="#">
-            <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+            <h5 className="text-xl font-semibold tracking-tight text-aldi-blue">
               Köln - Hamburg für 2 Personen – 2 für 1 Tickets!
             </h5>
           </a>
