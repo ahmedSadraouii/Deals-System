@@ -4,7 +4,6 @@ import { IconHeart } from '../svg/icon-heart';
 import { IconOnline } from '../svg/icon-nur-online';
 import { Price } from '@/components/price';
 import { IconClock } from '@/components/svg/icon-clock';
-import { IconLastMinute } from '@/components/svg/icon-last-minute';
 
 export interface ProductItemProps {
   price: number;
