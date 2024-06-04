@@ -97,6 +97,10 @@ export interface UmbracoImage {
 
 export type UmbracoContentPageContentItem =
   | {
+      contentType: 'heroBanner';
+      properties: unknown;
+    }
+  | {
       contentType: 'dealsListBlock';
       properties: {
         title: string;
