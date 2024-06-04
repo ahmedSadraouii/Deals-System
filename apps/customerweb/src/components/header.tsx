@@ -28,8 +28,9 @@ export function Header() {
       classNames={{
         base: 'navbar-height-proxy bg-white !border-solid',
         menu: 'navbar-height-proxy',
-        wrapper: cn('!container mx-auto'),
+        wrapper: cn('px-4 !container mx-auto'),
         toggleIcon: 'bg-secondary/10 rounded-full h-auto aspect-square p-6',
+        toggle: 'block',
       }}
       height="var(--navbar-height-injected, 96px)"
     >
@@ -63,7 +64,7 @@ export function Header() {
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
         >
-          Deal einlösen
+          Deal aktivieren
         </AldiButton>
         <HeaderUserSection />
         <AldiButton
@@ -72,6 +73,7 @@ export function Header() {
           variant="flat"
           isIconOnly={true}
           href="/cart"
+          className="h-12 w-12 text-secondary"
         >
           <IconCart className="text-2xl" />
         </AldiButton>
@@ -81,7 +83,7 @@ export function Header() {
         className="flex w-full flex-col gap-2 lg:hidden"
         justify="center"
       >
-        <div className="flex w-full gap-4">
+        <div className="flex w-full items-center gap-4">
           <NavbarMenuToggle />
           <NavbarBrand
             as={NextLink}
@@ -94,10 +96,10 @@ export function Header() {
           <HeaderUserSection />
           <AldiButton
             as={Link}
-            size="lg"
             variant="flat"
             isIconOnly={true}
             href="/cart"
+            className="h-12 w-12 text-secondary"
           >
             <IconCart className="text-2xl" />
           </AldiButton>
@@ -112,7 +114,7 @@ export function Header() {
             color="secondary"
             fullWidth={true}
           >
-            Deal einlösen
+            Deal aktivieren
           </AldiButton>
         </div>
       </NavbarContent>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { IconHeart } from '../svg/icon-heart';
-import { IconOnline } from '../svg/icon-nur-online';
+import { IconHeart } from 'src/components/svg/icon-heart';
+import { IconOnline } from 'src/components/svg/icon-nur-online';
 import { Price } from '@/components/price';
 import { IconClock } from '@/components/svg/icon-clock';
 

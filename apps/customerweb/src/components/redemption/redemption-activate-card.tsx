@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { AldiButton } from '../nextui/aldi-button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
+import { AldiButton } from 'src/components/nextui/aldi-button';
 
 export default function CardActivation() {
   const router = useRouter();

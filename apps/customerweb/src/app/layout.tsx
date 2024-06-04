@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Providers from '@/app/providers';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
+import { AldiSuedDefsSvg } from '@/components/svg/aldi-sued-defs-svg';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <Header />
           <main>
+            <AldiSuedDefsSvg />
             <div>{children}</div>
           </main>
           <Footer />

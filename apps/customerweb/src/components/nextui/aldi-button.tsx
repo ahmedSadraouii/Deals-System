@@ -21,6 +21,9 @@ export const AldiButton = extendVariants(Button, {
     color: {
       orange: 'text-orange-600',
     },
+    isUserButton: {
+      true: 'min-w-0 px-0 !gap-0 space-x-0 lg:space-x-4',
+    },
   },
   compoundVariants: [
     {
@@ -32,6 +35,7 @@ export const AldiButton = extendVariants(Button, {
   defaultVariants: {
     base: 'base',
     size: 'lg',
+    isUserButton: false,
   },
 });
 AldiButton.displayName = 'AldiButton';

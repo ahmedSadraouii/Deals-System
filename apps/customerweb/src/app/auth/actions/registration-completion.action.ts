@@ -22,7 +22,7 @@ export async function registrationCompletionAction({
   apiErrorCode?: ApiErrorCodes;
   message?: string;
 }> {
-  const authApi = getApiClient<AuthenticationApi>({ ssr: true, type: 'auth' });
+  const authApi = getApiClient<AuthenticationApi>({ type: 'auth' });
 
   try {
     await authApi.registerOnDealsAsync({

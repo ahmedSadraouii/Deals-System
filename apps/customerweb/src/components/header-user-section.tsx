@@ -13,10 +13,17 @@ export async function HeaderUserSection() {
     return (
       <>
         <HeaderUserProfileButton>
-          <span>Hey {session.user.profile.emailAddress}!</span>
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-default/40">
-            <IconProfile className="text-2xl text-secondary" />
-          </div>
+          <AldiButton
+            size="lg"
+            variant="light"
+            className="cursor-pointer items-center !bg-transparent py-0"
+            isUserButton={true}
+          >
+            <span className="hidden pl-4 lg:block">Hey User!</span>
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-default/40">
+              <IconProfile className="text-2xl text-secondary" />
+            </div>
+          </AldiButton>
         </HeaderUserProfileButton>
       </>
     );

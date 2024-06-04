@@ -20,7 +20,7 @@ export async function DealsListItem({
   display,
   ...otherProps
 }: DealsListItemProps) {
-  const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
+  const contentApi = getApiClient<ContentApi>({ type: 'content' });
   const dealContent = await contentApi.getContentItemById20({
     id: deal.id,
   });

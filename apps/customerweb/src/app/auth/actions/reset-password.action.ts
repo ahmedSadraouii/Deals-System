@@ -13,7 +13,7 @@ export async function resetPasswordAction({
   code,
   newPassword,
 }: ResetPasswordActionParams): Promise<{ error?: string }> {
-  const authApi = getApiClient<AuthenticationApi>({ ssr: true, type: 'auth' });
+  const authApi = getApiClient<AuthenticationApi>({ type: 'auth' });
   console.log('Trying to reset password', code, newPassword);
   try {
     const result = await authApi.updateUserPassword({

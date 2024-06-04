@@ -2,9 +2,9 @@
 
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { AldiButton } from '../nextui/aldi-button';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
+import { AldiButton } from 'src/components/nextui/aldi-button';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
 interface RedemptionPinFormProps {

@@ -11,7 +11,6 @@ async function refreshAccessToken(
   refreshToken: string,
 ): Promise<JWT> {
   const authenticationApi = getApiClient<AuthenticationApi>({
-    ssr: true,
     type: 'auth',
     refreshToken,
   });
@@ -70,7 +69,6 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) return null;
 
         const authenticationApi = getApiClient<AuthenticationApi>({
-          ssr: true,
           type: 'auth',
         });
 

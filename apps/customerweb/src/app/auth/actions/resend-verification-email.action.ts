@@ -10,7 +10,7 @@ export interface ResendVerificationEmailActionParams {
 export async function resendVerificationEmailAction({
   emailAddress,
 }: ResendVerificationEmailActionParams): Promise<void> {
-  const authApi = getApiClient<AuthenticationApi>({ ssr: true, type: 'auth' });
+  const authApi = getApiClient<AuthenticationApi>({ type: 'auth' });
 
   await authApi.resendEmailVerificationAsync({
     resendVerificationEmailRequest: {

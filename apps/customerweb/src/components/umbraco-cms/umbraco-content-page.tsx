@@ -10,7 +10,6 @@ export interface UmbracoContentPageProps {
 
 export async function UmbracoContentPage({ path }: UmbracoContentPageProps) {
   const contentApi = getApiClient<ContentApi>({
-    ssr: true,
     type: 'content',
   });
   try {

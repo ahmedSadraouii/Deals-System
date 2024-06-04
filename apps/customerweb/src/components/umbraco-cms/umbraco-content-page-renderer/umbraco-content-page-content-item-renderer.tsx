@@ -34,7 +34,7 @@ async function getDeals(
 export async function UmbracoContentPageContentItemRenderer({
   item,
 }: UmbracoContentPageContentItemRendererProps) {
-  const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
+  const contentApi = getApiClient<ContentApi>({ type: 'content' });
   const contentType = item.contentType;
   if (contentType === 'richTextBlock') {
     return (

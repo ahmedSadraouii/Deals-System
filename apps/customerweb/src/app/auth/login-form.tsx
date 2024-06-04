@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import NextLink from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -15,6 +15,7 @@ import { emailRegex } from '@/utils/email-regex';
 export function LoginForm() {
   const searchParams = useSearchParams();
 
+  const [isLoggingIn, setLoggingIn] = useState(false);
   const apiError = useMemo(() => searchParams.get('error'), [searchParams]);
 
   const defaultValues = {
@@ -31,22 +32,29 @@ export function LoginForm() {
     trigger,
   } = form;
 
-  const onSubmit = useCallback(async (data: typeof defaultValues) => {
-    // temporarily store email and password in sessionStorage, might be needed for TOS accept screen
-    sessionStorage.setItem(
-      'login-credentials',
-      JSON.stringify({
+  const onSubmit = useCallback(
+    async (data: typeof defaultValues) => {
+      if (isLoggingIn) return;
+
+      setLoggingIn(true);
+
+      // temporarily store email and password in sessionStorage, might be needed for TOS accept screen
+      sessionStorage.setItem(
+        'login-credentials',
+        JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      );
+
+      await signIn('credentials', {
         email: data.email,
         password: data.password,
-      }),
-    );
-
-    await signIn('credentials', {
-      email: data.email,
-      password: data.password,
-      callbackUrl: '/',
-    });
-  }, []);
+        callbackUrl: '/',
+      });
+    },
+    [isLoggingIn],
+  );
 
   const onClickProceed = useCallback(async () => {
     if (await trigger()) {
@@ -113,6 +121,8 @@ export function LoginForm() {
             onClick={onClickProceed}
             color="secondary"
             fullWidth={true}
+            type="submit"
+            isLoading={isLoggingIn}
           >
             Anmelden
           </AldiButton>

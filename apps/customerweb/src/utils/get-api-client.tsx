@@ -9,9 +9,7 @@ import {
 import { DealsApi, Configuration as ApiDealsConfiguration } from 'api-deals';
 import { UserApi, Configuration as ApiUserConfiguration } from 'api-user';
 
-export type GetApiClientParams = {
-  ssr?: boolean;
-} & (
+export type GetApiClientParams =
   | {
       type: 'auth';
       refreshToken?: string;
@@ -25,24 +23,19 @@ export type GetApiClientParams = {
     }
   | {
       type: 'user';
-    }
-);
+    };
 
 export function getApiClient<TApiClient>(
   params: GetApiClientParams,
 ): TApiClient {
   if (params.type === 'auth') {
-    if (!params.ssr) {
-      throw new Error('Authentication API is now SSR only');
-    }
-
     const baseHeaders = {
       Domain: 'ALDI_DEALS',
     };
     const apiConfiguration = new ApiAuthConfiguration({
       // TODO: use env var as soon the http://192.168.179.20:5000/aldi/infrastructure/k8s/-/merge_requests/7 is merged
       // basePath: process.env.SHARED_API_URL,
-      basePath: params.ssr ? 'https://dev.api.aldi.amplicade.com' : '/auth-api',
+      basePath: 'https://dev.api.aldi.amplicade.com',
       headers: !!params.refreshToken
         ? {
             ...baseHeaders,
@@ -64,7 +57,7 @@ export function getApiClient<TApiClient>(
 
   if (params.type === 'user') {
     const apiConfiguration = new ApiUserConfiguration({
-      basePath: 'https://dev.api.aldi.amplicade.com/ad-be',
+      basePath: 'https://dev.api.aldi.amplicade.com/',
     });
 
     return new UserApi(apiConfiguration) as TApiClient;

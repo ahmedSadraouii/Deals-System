@@ -31,7 +31,7 @@ function getSupplierLogo(supplier?: IApiContentResponseModel) {
 }
 
 export default async function Page() {
-  const contentApi = getApiClient<ContentApi>({ ssr: true, type: 'content' });
+  const contentApi = getApiClient<ContentApi>({ type: 'content' });
   const session = await getServerSession(authOptions);
   const dealsApi = getDealsApiClient({ accessToken: session?.accessToken });
 

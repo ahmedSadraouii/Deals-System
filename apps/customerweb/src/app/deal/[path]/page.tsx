@@ -20,7 +20,6 @@ export async function generateMetadata({
   params: { path },
 }: Props): Promise<Metadata> {
   const contentApi = getApiClient<ContentApi>({
-    ssr: true,
     type: 'content',
   });
   try {
@@ -54,7 +53,6 @@ export async function generateMetadata({
 
 export default async function Page({ params: { path } }: Props) {
   const contentApi = getApiClient<ContentApi>({
-    ssr: true,
     type: 'content',
   });
   try {
