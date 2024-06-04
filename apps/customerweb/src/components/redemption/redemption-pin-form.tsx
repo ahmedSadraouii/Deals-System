@@ -24,10 +24,13 @@ export function RedemptionPinForm({ guest }: RedemptionPinFormProps) {
     handleSubmit,
     formState: { errors },
   } = form;
-  const onSubmit = useCallback(async (data: typeof defaultValues) => {
-    console.log(data);
-    router.push('/redemption/activate');
-  }, []);
+  const onSubmit = useCallback(
+    async (data: typeof defaultValues) => {
+      console.log(data);
+      router.push('/redemption/activate');
+    },
+    [router],
+  );
 
   return (
     <Card className=" bg-gray-100 py-4 md:p-8">
