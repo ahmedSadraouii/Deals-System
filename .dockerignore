@@ -29,7 +29,6 @@ junit-testresults.xml
 .lock-wscript
 
 # Dependency directories
-node_modules
 jspm_packages
 test
 
@@ -59,8 +58,18 @@ vercel.json
 .idea
 node_modules
 .next
+.turbo
 dist
 generated
 /out
-/gitlab-ci
+/.gitlab-ci
 .gitlab-ci.yml
+
+.gitlab-ci/
+packages/*/node_modules
+packages/*/generated
+packages/*/dist
+apps/*/node_modules
+apps/*/dist
+apps/*/.next
+**/.turbo

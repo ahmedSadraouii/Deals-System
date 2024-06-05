@@ -27,7 +27,7 @@ COPY --from=builder /app/out/full/ .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV TURBO_TELEMETRY_DISABLED 1
 # build the actual app
-RUN yarn turbo run build --filter=customerweb...
+RUN yarn dlx turbo run build --filter=customerweb...
 
 FROM base AS runner
 WORKDIR /app

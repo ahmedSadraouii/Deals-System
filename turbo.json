@@ -4,7 +4,7 @@
     "API_HOST",
     "__NEXT_IMAGE_OPTS"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "outputs": [
         ".next/**",
@@ -12,11 +12,15 @@
         "dist/**",
         "generated/**"
       ],
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "dev": {
       "cache": false,
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "lint": {
       "cache": false
