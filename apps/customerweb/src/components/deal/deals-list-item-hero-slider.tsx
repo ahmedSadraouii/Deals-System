@@ -8,7 +8,7 @@ import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { IconClock } from '@/components/svg/icon-clock';
-import { IconShare } from '@/components/svg/icon-share';
+import { IconHeart } from '@/components/svg/icon-heart';
 import { IconTag } from '@/components/svg/icon-tag';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
@@ -74,14 +74,13 @@ export function DealsListItemHeroSlider({
             }}
           />
           <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
-            <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-secondary">
+            <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-aldi-key">
               <IconTag className="mr-2 text-base" />
               <span>Stark nachgefragt</span>
             </span>
 
-            <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-secondary">
-              <IconShare className="mr-2 text-base" />
-              <span>Teilen</span>
+            <span className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center  rounded-full bg-orange-100 text-xs font-light text-black">
+              <IconHeart fill="orange-500" />
             </span>
           </div>
         </div>
@@ -97,7 +96,7 @@ export function DealsListItemHeroSlider({
                   }}
                 />
               </div>
-              <h1 className="text-5xl font-bold text-secondary">
+              <h1 className="text-4xl font-bold text-secondary">
                 {supplier.name}
               </h1>
             </div>
@@ -130,7 +129,7 @@ export function DealsListItemHeroSlider({
             <AldiButton
               as={Link}
               variant="solid"
-              color="secondary"
+              color="primary"
               endContent={<IconArrowRight />}
               href={`/deal/${dealLinkSegment || deal.route.path}`}
               size="lg"
