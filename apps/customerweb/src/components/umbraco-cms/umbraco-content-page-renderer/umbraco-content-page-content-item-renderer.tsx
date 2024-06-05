@@ -11,7 +11,7 @@ import type {
   UmbracoContentPageContentItem,
   UmbracoDeal,
 } from '@/components/umbraco-cms/umbraco-types';
-import { getApiClient } from '@/utils/get-api-client';
+import { getContentApiClient } from '@/utils/content-api-client';
 
 export interface UmbracoContentPageContentItemRendererProps {
   item: UmbracoContentPageContentItem;
@@ -26,16 +26,19 @@ async function getDeals(
     const deals = await contentApi.getContent20({
       filter: ['contentType:deal'],
     });
+
     return deals.items as Array<UmbracoDeal>;
   }
+
   return contentItemDeals; // by default
 }
 
 export async function UmbracoContentPageContentItemRenderer({
   item,
 }: UmbracoContentPageContentItemRendererProps) {
-  const contentApi = getApiClient<ContentApi>({ type: 'content' });
+  const contentApi = getContentApiClient();
   const contentType = item.contentType;
+
   if (contentType === 'richTextBlock') {
     return (
       <section className="umbraco-content-page-content-item-section umbraco-content-page-content-item-section--richTextBlock">
@@ -89,6 +92,7 @@ export async function UmbracoContentPageContentItemRenderer({
     );
   } else if (contentType === 'dealsListBlock') {
     const dataHint = item.properties.dataHint;
+
     const deals = await getDeals(
       dataHint,
       item.properties.deals || [],

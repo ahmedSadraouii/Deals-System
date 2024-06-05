@@ -10,6 +10,7 @@
                 "tags": [
                     "Deals"
                 ],
+                "summary": "Retrieves a list of deals based on the provided input model.",
                 "operationId": "GetDeals",
                 "parameters": [
                     {
@@ -22,6 +23,7 @@
                     {
                         "name": "Take",
                         "in": "query",
+                        "description": "Number of items to retrieve",
                         "schema": {
                             "maximum": 1000,
                             "minimum": 1,
@@ -33,6 +35,7 @@
                     {
                         "name": "Skip",
                         "in": "query",
+                        "description": "Number of items to skip",
                         "schema": {
                             "maximum": 999,
                             "minimum": 0,
@@ -51,7 +54,14 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Returns the list of deals.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DealModelPagedList"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -59,6 +69,7 @@
                 "tags": [
                     "Deals"
                 ],
+                "summary": "Creates or updates a deal based on the provided input model.",
                 "operationId": "CreateOrUpdateDeal",
                 "parameters": [
                     {
@@ -70,13 +81,9 @@
                     }
                 ],
                 "requestBody": {
+                    "description": "The input model containing deal details.",
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
-                            }
-                        },
-                        "text/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
                             }
@@ -90,7 +97,30 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Deal updated successfully."
+                    },
+                    "201": {
+                        "description": "Deal created successfully."
+                    },
+                    "400": {
+                        "description": "Invalid input data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized request.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -100,11 +130,13 @@
                 "tags": [
                     "Favorites"
                 ],
+                "summary": "Retrieves the list of user's favorite deals.",
                 "operationId": "GetUserFavorites",
                 "parameters": [
                     {
                         "name": "Take",
                         "in": "query",
+                        "description": "Number of items to retrieve",
                         "schema": {
                             "maximum": 1000,
                             "minimum": 1,
@@ -116,6 +148,7 @@
                     {
                         "name": "Skip",
                         "in": "query",
+                        "description": "Number of items to skip",
                         "schema": {
                             "maximum": 999,
                             "minimum": 0,
@@ -134,7 +167,34 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Returns the list of user's favorite deals.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FavoriteModelPagedList"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "If the user context is not loaded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -142,6 +202,7 @@
                 "tags": [
                     "Favorites"
                 ],
+                "summary": "Adds a deal to user's favorites.",
                 "operationId": "AddUserFavorite",
                 "parameters": [
                     {
@@ -153,13 +214,9 @@
                     }
                 ],
                 "requestBody": {
+                    "description": "The input model containing the deal ID to add to favorites.",
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AddFavoriteInputModel"
-                            }
-                        },
-                        "text/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/AddFavoriteInputModel"
                             }
@@ -172,8 +229,28 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Success"
+                    "201": {
+                        "description": "If the deal is added to favorites successfully."
+                    },
+                    "400": {
+                        "description": "If the user context is not loaded, the input model is invalid, or the deal is already in favorites.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -183,11 +260,13 @@
                 "tags": [
                     "Favorites"
                 ],
+                "summary": "Deletes a deal from user's favorites.",
                 "operationId": "DeleteUserFavorite",
                 "parameters": [
                     {
                         "name": "dealId",
                         "in": "path",
+                        "description": "The ID of the deal to delete from favorites.",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -204,7 +283,117 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "If the deal is deleted from favorites successfully."
+                    },
+                    "400": {
+                        "description": "If the user context is not loaded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "If the deal is not found in user's favorites."
+                    }
+                }
+            }
+        },
+        "/ad-be/orders/{orderId}/checkout": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Creates checkout....",
+                "operationId": "CreateCheckout",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "redirect",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/ad-be/orders/{orderId}/callback": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "operationId": "Callback",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "ReturnMac",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "HostedCheckoutId",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -214,11 +403,13 @@
                 "tags": [
                     "Orders"
                 ],
+                "summary": "",
                 "operationId": "GetUserOrders",
                 "parameters": [
                     {
                         "name": "Kind",
                         "in": "query",
+                        "description": "Gets or sets the kind of order to retrieve.",
                         "schema": {
                             "$ref": "#/components/schemas/OrderKind"
                         }
@@ -226,6 +417,7 @@
                     {
                         "name": "Take",
                         "in": "query",
+                        "description": "Gets or sets the number of items to retrieve.",
                         "schema": {
                             "maximum": 1000,
                             "minimum": 1,
@@ -237,6 +429,7 @@
                     {
                         "name": "Skip",
                         "in": "query",
+                        "description": "Gets or sets the number of items to skip.",
                         "schema": {
                             "maximum": 999,
                             "minimum": 0,
@@ -255,7 +448,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "OK"
                     }
                 }
             },
@@ -280,11 +473,6 @@
                                 "$ref": "#/components/schemas/CreateOrderInputModel"
                             }
                         },
-                        "text/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateOrderInputModel"
-                            }
-                        },
                         "application/*+json": {
                             "schema": {
                                 "$ref": "#/components/schemas/CreateOrderInputModel"
@@ -294,7 +482,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "OK"
                     }
                 }
             }
@@ -330,11 +518,6 @@
                                 "$ref": "#/components/schemas/UpdateOrderItem"
                             }
                         },
-                        "text/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateOrderItem"
-                            }
-                        },
                         "application/*+json": {
                             "schema": {
                                 "$ref": "#/components/schemas/UpdateOrderItem"
@@ -344,7 +527,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "OK"
                     }
                 }
             }
@@ -384,25 +567,242 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "OK"
                     }
                 }
             }
         },
-        "/ad-be/redeem-code": {
+        "/ad-be/redeem": {
             "post": {
                 "tags": [
                     "Redeem"
                 ],
-                "operationId": "RedeemCode",
+                "summary": "Redeems the PIN and creates a honored deal",
+                "operationId": "Redeem",
                 "parameters": [
                     {
-                        "name": "Code",
-                        "in": "query",
+                        "name": "x-api-version",
+                        "in": "header",
                         "schema": {
                             "type": "string"
                         }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input model containing pin details.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RedeemInputModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RedeemInputModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pin was redeemed successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DealModelPagedList"
+                                }
+                            }
+                        }
                     },
+                    "400": {
+                        "description": "Invalid input data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DealModelPagedList"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/bad-request-empty": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Returns a 400 Bad Request response with no additional details.",
+                "operationId": "BadRequestEmpty",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/bad-request-string": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Returns a 400 Bad Request response with a specific error message.",
+                "operationId": "BadRequestString",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/bad-request-model-state-filter": {
+            "post": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Validates the model state and returns a 400 Bad Request if the model is invalid.",
+                "operationId": "BadRequestModelStateFilter",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input model to validate.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TestInputModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TestInputModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/bad-request-model-state-manual": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Manually adds model errors and returns a 400 Bad Request response with those errors.",
+                "operationId": "BadRequestModelStateManual",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/server-error": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Throws a NotImplementedException resulting in a 500 Server Error response.",
+                "operationId": "ServerError",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/unauthorized": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Requires authorization and returns a 401 Unauthorized response if access is denied.",
+                "operationId": "Unautorized",
+                "parameters": [
                     {
                         "name": "x-api-version",
                         "in": "header",
@@ -413,7 +813,39 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/test/authority": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "operationId": "Authority",
+                "parameters": [
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -435,34 +867,51 @@
                 "additionalProperties": false
             },
             "CreateOrUpdateDealInputModel": {
+                "required": [
+                    "id",
+                    "maxOrderQuantity",
+                    "name",
+                    "price",
+                    "promotionEnd",
+                    "promotionStart"
+                ],
                 "type": "object",
                 "properties": {
                     "id": {
                         "type": "string",
+                        "description": "Gets or sets the unique identifier of the deal.",
                         "format": "uuid"
                     },
                     "name": {
+                        "minLength": 1,
                         "type": "string",
-                        "nullable": true
+                        "description": "Gets or sets the name of the deal."
                     },
                     "price": {
-                        "type": "number",
-                        "format": "double"
+                        "maximum": 4294967295,
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Gets or sets the price of the deal.",
+                        "format": "int32"
                     },
                     "promotionStart": {
                         "type": "string",
+                        "description": "Gets or sets the start date of the promotion.",
                         "format": "date-time"
                     },
                     "promotionEnd": {
                         "type": "string",
+                        "description": "Gets or sets the end date of the promotion.",
                         "format": "date-time"
                     },
                     "maxOrderQuantity": {
                         "type": "integer",
+                        "description": "Gets or sets the maximum order quantity for the deal.",
                         "format": "int32"
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "Represents the input model for creating or updating a deal."
             },
             "CreateOrderInputModel": {
                 "type": "object",
@@ -477,6 +926,114 @@
                 },
                 "additionalProperties": false
             },
+            "DealModel": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Gets or sets the unique identifier for the deal.",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "Gets or sets the name of the deal."
+                    },
+                    "price": {
+                        "maximum": 4294967295,
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Gets or sets the price of the deal.",
+                        "format": "uint32"
+                    },
+                    "promotionStart": {
+                        "type": "string",
+                        "description": "Gets or sets the start date of the promotional period.",
+                        "format": "date-time"
+                    },
+                    "promotionEnd": {
+                        "type": "string",
+                        "description": "Gets or sets the end date of the promotional period.",
+                        "format": "date-time"
+                    },
+                    "maxOrderQuantity": {
+                        "maximum": 65535,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "Gets or sets the maximum quantity that can be ordered.",
+                        "format": "uint16"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents a deal for a promotional offer."
+            },
+            "DealModelPagedList": {
+                "type": "object",
+                "properties": {
+                    "take": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DealModel"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "FavoriteModel": {
+                "type": "object",
+                "properties": {
+                    "dealId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "FavoriteModelPagedList": {
+                "type": "object",
+                "properties": {
+                    "take": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "skip": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/FavoriteModel"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "OrderItemModel": {
                 "type": "object",
                 "properties": {
@@ -485,6 +1042,8 @@
                         "format": "uuid"
                     },
                     "quantity": {
+                        "maximum": 2147483647,
+                        "minimum": 1,
                         "type": "integer",
                         "format": "int32"
                     }
@@ -494,9 +1053,59 @@
             "OrderKind": {
                 "enum": [
                     "cart",
-                    "oder"
+                    "order"
                 ],
                 "type": "string"
+            },
+            "ProblemDetails": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "detail": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "instance": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": {}
+            },
+            "RedeemInputModel": {
+                "required": [
+                    "email",
+                    "pin"
+                ],
+                "type": "object",
+                "properties": {
+                    "pin": {
+                        "maxLength": 19,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The PIN code of a voucher to be validated."
+                    },
+                    "email": {
+                        "maxLength": 320,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "Optional email address in case the user is not authenticated then the redemeed code will be send to this email \r\naddress",
+                        "format": "email"
+                    }
+                },
+                "additionalProperties": false
             },
             "SortBy": {
                 "enum": [
@@ -505,6 +1114,24 @@
                     "mostSold"
                 ],
                 "type": "string"
+            },
+            "TestInputModel": {
+                "required": [
+                    "bar",
+                    "foo"
+                ],
+                "type": "object",
+                "properties": {
+                    "foo": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "bar": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
             },
             "UpdateOrderItem": {
                 "required": [
@@ -525,6 +1152,43 @@
                     }
                 },
                 "additionalProperties": false
+            },
+            "ValidationProblemDetails": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "detail": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "instance": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "errors": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": {}
             }
         },
         "securitySchemes": {

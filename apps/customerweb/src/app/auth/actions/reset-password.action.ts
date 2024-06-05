@@ -1,8 +1,7 @@
 'use server';
 
-import type { AuthenticationApi } from 'api-auth';
 import { inspect } from 'util';
-import { getApiClient } from '@/utils/get-api-client';
+import { getAuthApiClient } from '@/utils/auth-api-client';
 
 export interface ResetPasswordActionParams {
   code: string;
@@ -13,7 +12,7 @@ export async function resetPasswordAction({
   code,
   newPassword,
 }: ResetPasswordActionParams): Promise<{ error?: string }> {
-  const authApi = getApiClient<AuthenticationApi>({ type: 'auth' });
+  const authApi = getAuthApiClient();
   console.log('Trying to reset password', code, newPassword);
   try {
     const result = await authApi.updateUserPassword({

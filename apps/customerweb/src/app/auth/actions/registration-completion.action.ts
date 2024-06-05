@@ -1,9 +1,8 @@
 'use server';
 
-import type { AuthenticationApi } from 'api-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
-import { getApiClient } from '@/utils/get-api-client';
+import { getAuthApiClient } from '@/utils/auth-api-client';
 
 export interface RegistrationCompletionActionParams {
   email: string;
@@ -22,7 +21,7 @@ export async function registrationCompletionAction({
   apiErrorCode?: ApiErrorCodes;
   message?: string;
 }> {
-  const authApi = getApiClient<AuthenticationApi>({ type: 'auth' });
+  const authApi = getAuthApiClient();
 
   try {
     await authApi.registerOnDealsAsync({

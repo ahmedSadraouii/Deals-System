@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
-import type { ContentApi } from 'api-content';
 import { DealDetailPage } from '@/app/deal/[path]/deal-detail-page';
 import NotFound from '@/app/not-found';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
-import { getApiClient } from '@/utils/get-api-client';
+import { getContentApiClient } from '@/utils/content-api-client';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
@@ -19,9 +18,8 @@ type Props = {
 export async function generateMetadata({
   params: { path },
 }: Props): Promise<Metadata> {
-  const contentApi = getApiClient<ContentApi>({
-    type: 'content',
-  });
+  const contentApi = getContentApiClient();
+
   try {
     const deal = (await contentApi.getContentItemByPath20({
       path: `/content/deals/${path}/`,
@@ -31,6 +29,7 @@ export async function generateMetadata({
       deal.properties?.pictures
         ?.filter((picture) => !!picture.url)
         ?.map((picture) =>
+          // TODO: use config here....
           defaultLoader({
             src: `https://dev.api.aldi.amplicade.com/umbraco${picture.url}`,
             width: 1280,
@@ -52,9 +51,8 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params: { path } }: Props) {
-  const contentApi = getApiClient<ContentApi>({
-    type: 'content',
-  });
+  const contentApi = getContentApiClient();
+
   try {
     const deal = (await contentApi.getContentItemByPath20({
       path: `/content/deals/${path}/`,

@@ -1,8 +1,9 @@
-import type { ContentApi, IApiContentResponseModel } from 'api-content';
+import type { IApiContentResponseModel } from 'api-content';
 import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
-import { getApiClient, getDealsApiClient } from '@/utils/get-api-client';
+import { getContentApiClient } from '@/utils/content-api-client';
+import { getDealsApiClient } from '@/utils/deals-api-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,7 +32,7 @@ function getSupplierLogo(supplier?: IApiContentResponseModel) {
 }
 
 export default async function Page() {
-  const contentApi = getApiClient<ContentApi>({ type: 'content' });
+  const contentApi = getContentApiClient();
   const session = await getServerSession(authOptions);
   const dealsApi = getDealsApiClient({ accessToken: session?.accessToken });
 

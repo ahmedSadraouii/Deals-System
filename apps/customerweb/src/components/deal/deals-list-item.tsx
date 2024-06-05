@@ -1,11 +1,10 @@
-import type { ContentApi } from 'api-content';
 import { DealsListItemGrid } from '@/components/deal/deals-list-item-grid';
 import { DealsListItemHeroSlider } from '@/components/deal/deals-list-item-hero-slider';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
-import { getApiClient } from '@/utils/get-api-client';
+import { getContentApiClient } from '@/utils/content-api-client';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
@@ -20,7 +19,8 @@ export async function DealsListItem({
   display,
   ...otherProps
 }: DealsListItemProps) {
-  const contentApi = getApiClient<ContentApi>({ type: 'content' });
+  const contentApi = getContentApiClient();
+
   const dealContent = await contentApi.getContentItemById20({
     id: deal.id,
   });
@@ -34,6 +34,7 @@ export async function DealsListItem({
   const supplierContent = await contentApi.getContentItemById20({
     id: fullDeal.properties?.supplier!.id!,
   });
+
   const fullSupplier = supplierContent as UmbracoSupplier;
 
   if (!verifySupplierIsCorrect(fullSupplier)) {

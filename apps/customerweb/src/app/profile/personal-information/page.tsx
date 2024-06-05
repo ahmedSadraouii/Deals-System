@@ -1,12 +1,10 @@
 import { redirect } from 'next/navigation';
-import type { AuthenticationApi } from 'api-auth';
-import type { UserApi } from 'api-user';
 import { getServerSession } from 'next-auth';
 import MenuBar from '@/components/account/menu-bar';
 import ProfileAvatar from '@/components/account/profile-avatar';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';
-import { getApiClient } from '@/utils/get-api-client';
+import { getUserApiClient } from '@/utils/user-api-client';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -15,15 +13,9 @@ export default async function Page() {
     return redirect('/');
   }
 
-  const _authenticationApi = getApiClient<AuthenticationApi>({
-    type: 'auth',
-  });
+  const userApi = getUserApiClient();
 
-  const userApi = getApiClient<UserApi>({
-    type: 'user',
-  });
-
-  const userDetails = await userApi
+  const _userDetails = await userApi
     .getAsync({
       ciamId: session.user.id,
     })

@@ -18,7 +18,7 @@ export interface HeaderUserProfileButtonProps {
 export function HeaderUserProfileButton({
   children,
 }: HeaderUserProfileButtonProps) {
-  const onClickSignOut = useCallback(async () => {
+  const _onClickSignOut = useCallback(async () => {
     await signOut({
       redirect: true,
     });

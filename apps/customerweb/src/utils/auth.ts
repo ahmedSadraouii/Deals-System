@@ -1,17 +1,15 @@
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import type { AuthenticationApi } from 'api-auth';
+import { getAuthApiClient } from './auth-api-client';
 import type { NextAuthOptions, User } from 'next-auth';
 import { inspect } from 'util';
 import { tryParseApiError } from '@/utils/api-response-handling';
-import { getApiClient } from '@/utils/get-api-client';
 
 async function refreshAccessToken(
   emailAddress: string,
   refreshToken: string,
 ): Promise<JWT> {
-  const authenticationApi = getApiClient<AuthenticationApi>({
-    type: 'auth',
+  const authenticationApi = getAuthApiClient({
     refreshToken,
   });
 
@@ -26,6 +24,7 @@ async function refreshAccessToken(
     const tokenResponse = await authenticationApi.renewJwtToken({
       cardinalDirection: cardinalDirectionResponse.data?.cardinalDirection || 1,
     });
+
     const jwtToken = JSON.parse(atob(tokenResponse.accessToken!.split('.')[1]));
 
     const user: User = {
@@ -68,9 +67,7 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials) => {
         if (!credentials) return null;
 
-        const authenticationApi = getApiClient<AuthenticationApi>({
-          type: 'auth',
-        });
+        const authenticationApi = getAuthApiClient();
 
         try {
           const tokenResponse = await authenticationApi.jwtToken({
@@ -170,6 +167,7 @@ export const authOptions: NextAuthOptions = {
       session.accessTokenExpires = token.accessTokenExpires;
       session.refreshToken = token.refreshToken;
       session.refreshTokenExpires = token.refreshTokenExpires;
+
       session.user = {
         id: jwtToken.sub,
         name: jwtToken.preferred_username,
