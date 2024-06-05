@@ -25,6 +25,7 @@ RUN yarn install
 # Build the project
 COPY --from=builder /app/out/full/ .
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV TURBO_TELEMETRY_DISABLED 1
 # build the actual app
 RUN yarn turbo run build --filter=customerweb...
 
@@ -36,6 +37,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV TURBO_TELEMETRY_DISABLED 1
 
 COPY --from=installer /app/apps/customerweb/next.config.mjs .
 COPY --from=installer /app/apps/customerweb/package.json .
