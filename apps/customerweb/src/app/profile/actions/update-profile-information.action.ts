@@ -47,21 +47,6 @@ export async function updateProfileInformationAction({
   const userApi = getUserApiClient();
 
   try {
-    const elRequest = {
-      userUpdateRequest: {
-        ciamId: session.user.profile.ciamUserId!,
-        firstName,
-        lastName,
-        addressCity,
-        addressStreet,
-        addressHouseNumber,
-        dateOfBirth:
-          dateOfBirth !== null ? new Date(Date.parse(dateOfBirth)) : undefined,
-        cardinalDirection: session.user.profile.cardinalDirection!,
-      },
-    };
-    console.log(elRequest);
-
     await userApi.updateAsync({
       userUpdateRequest: {
         ciamId: session.user.profile.ciamUserId!,
@@ -71,9 +56,7 @@ export async function updateProfileInformationAction({
         addressStreet,
         addressHouseNumber,
         dateOfBirth:
-          dateOfBirth !== undefined
-            ? new Date(Date.parse(dateOfBirth))
-            : undefined,
+          dateOfBirth !== null ? new Date(Date.parse(dateOfBirth)) : undefined,
         cardinalDirection: session.user.profile.cardinalDirection!,
       },
     });

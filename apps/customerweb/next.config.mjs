@@ -17,6 +17,9 @@ const nextConfig = {
   sassOptions: {
     includePaths: ['node_modules', 'styles'],
   },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   env: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,

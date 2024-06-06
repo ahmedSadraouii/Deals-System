@@ -26,6 +26,12 @@ module.exports = {
       'warn',
       { allowSameFolder: true },
     ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'react/function-component-definition': [
       'error',
       {

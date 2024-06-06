@@ -17,6 +17,7 @@
     "api-content": "*",
     "api-deals": "*",
     "api-user": "*",
+    "clsx": "2.1.1",
     "framer-motion": "11.0.14",
     "humanize-duration": "3.32.0",
     "interweave": "13.1.0",

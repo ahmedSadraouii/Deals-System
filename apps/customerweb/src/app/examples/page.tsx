@@ -3,7 +3,10 @@ import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
 import { getContentApiClient } from '@/utils/content-api-client';
-import { getDealsApiClient, getFavoritesApiClient } from '@/utils/deals-api-client';
+import {
+  getDealsApiClient,
+  getFavoritesApiClient,
+} from '@/utils/deals-api-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,7 +39,7 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
   const dealsApi = getDealsApiClient({ accessToken: session?.accessToken });
   const favoritesApi = getFavoritesApiClient();
-  
+
   const [landingPageContent, dealsContent, suppliersContent, deals] =
     await Promise.all([
       contentApi.getContentItemByPath({
@@ -55,8 +58,8 @@ export default async function Page() {
       }),
       favoritesApi.getUserFavorites({
         take: 100,
-        skip: 0, 
-      })
+        skip: 0,
+      }),
     ]);
 
   // console.log(JSON.stringify(deals, null, 2));
