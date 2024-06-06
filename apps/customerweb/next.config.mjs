@@ -20,8 +20,9 @@ const nextConfig = {
   env: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    CONTENT_API_URL: process.env.CONTENT_API_URL,
-    SHARED_API_URL: process.env.SHARED_API_URL,
+    CONTENT_API_BASE_URL: process.env.CONTENT_API_BASE_URL,
+    AUTH_API_BASE_URL: process.env.AUTH_API_BASE_URL,
+    ADBE_API_BASE_URL: process.env.ADBE_API_BASE_URL,
   }
 };
 
