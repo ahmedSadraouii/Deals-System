@@ -14,7 +14,6 @@ import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 import { HeartSvg } from '@/components/svg/heart-svg';
 import { IconCart } from '@/components/svg/icon-cart';
 import { IconClock } from '@/components/svg/icon-clock';
-import { IconShare } from '@/components/svg/icon-share';
 import { IconTag } from '@/components/svg/icon-tag';
 import type {
   UmbracoDeal,
@@ -76,17 +75,17 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
               />
               <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
                 <Tooltip content="TODO: Das kommt später von unserem Backend">
-                  <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-secondary">
+                  <span className="flex items-center rounded bg-white p-4 text-xs text-secondary">
                     <IconTag className="mr-2 text-base" />
-                    <span>Stark nachgefragt</span>
+                    <span className="text-aldi-key">Stark nachgefragt</span>
                   </span>
                 </Tooltip>
 
                 <Tooltip content="TODO: Welche Funktion steckt hier hinter?">
-                  <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-secondary">
-                    <IconShare className="mr-2 text-base" />
-                    <span>Teilen</span>
-                  </span>
+                  <div className="flex items-center rounded-lg border-1 bg-white px-4 py-2 font-normal text-aldi-key">
+                    <IconClock className="mr-2" />
+                    <span className="mr-1 hidden md:block">Noch</span> 13:32:16
+                  </div>
                 </Tooltip>
               </div>
             </div>

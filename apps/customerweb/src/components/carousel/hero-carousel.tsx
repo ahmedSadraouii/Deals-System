@@ -45,6 +45,7 @@ export function HeroCarousel({
       </div>
       <Carousel
         {...carouselProps}
+        itemsPerPage={1}
         itemStart={itemStart}
         onItemChange={setItemStart}
       >
