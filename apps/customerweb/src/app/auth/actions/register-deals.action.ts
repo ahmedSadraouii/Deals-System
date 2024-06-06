@@ -2,7 +2,7 @@
 
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
-import { getAuthApiClient } from '@/utils/auth-api-client';
+import { getAuthApiClient } from '@/utils/get-auth-api-client';
 
 export interface RegisterDealsActionParams {
   email: string;

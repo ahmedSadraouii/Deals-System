@@ -1,7 +1,7 @@
 'use server';
 
 import { inspect } from 'util';
-import { getAuthApiClient } from '@/utils/auth-api-client';
+import { getAuthApiClient } from '@/utils/get-auth-api-client';
 
 export interface ResetPasswordActionParams {
   code: string;

@@ -4,9 +4,12 @@ import type { ReactNode } from 'react';
 import { useCallback } from 'react';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import { DropdownItem, DropdownTrigger } from '@nextui-org/react';
-import { AldiDropdown } from '@/components/nextui/aldi-dropdown';
-import { AldiDropdownMenu } from '@/components/nextui/aldi-dropdown-menu';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from '@nextui-org/react';
 import { BagOutlineSvg } from '@/components/svg/bag-outline-svg';
 import { BookmarkOutlineSvg } from '@/components/svg/bookmark-outline-svg';
 import { IconUser } from '@/components/svg/icon-user';
@@ -25,7 +28,7 @@ export function HeaderUserProfileButton({
   }, []);
 
   return (
-    <AldiDropdown
+    <Dropdown
       triggerScaleOnOpen={false}
       placement="bottom-end"
       classNames={{
@@ -33,7 +36,7 @@ export function HeaderUserProfileButton({
       }}
     >
       <DropdownTrigger>{children}</DropdownTrigger>
-      <AldiDropdownMenu
+      <DropdownMenu
         itemClasses={{
           base: 'p-4 rounded-none data-[hover=true]:bg-default/20 data-[hover=true]:text-white',
           wrapper: 'p-0',
@@ -49,7 +52,7 @@ export function HeaderUserProfileButton({
           href="/profile/personal-information"
           startContent={<IconUser className="text-xl" />}
         >
-          Mein Profilsss
+          Mein Profil
         </DropdownItem>
         <DropdownItem
           as={Link}
@@ -68,7 +71,7 @@ export function HeaderUserProfileButton({
         {/*<DropdownItem key="logout" onClick={onClickSignOut}>
           Ausloggen
         </DropdownItem>*/}
-      </AldiDropdownMenu>
-    </AldiDropdown>
+      </DropdownMenu>
+    </Dropdown>
   );
 }

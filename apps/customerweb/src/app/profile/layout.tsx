@@ -5,7 +5,7 @@ import { ProfileDesktopHeader } from '@/app/profile/profile-desktop-header';
 import { ProfileMobileHeader } from '@/app/profile/profile-mobile-header';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';
-import { getUserApiClient } from '@/utils/user-api-client';
+import { getUserApiClient } from '@/utils/get-user-api-client';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -24,11 +24,13 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="container mx-auto flex flex-col">
-      <div className="block lg:hidden">
-        <ProfileMobileHeader userDetails={userDetails} />
-      </div>
-      <div className="hidden lg:block">
-        <ProfileDesktopHeader />
+      <div className="m-4">
+        <div className="block lg:hidden">
+          <ProfileMobileHeader userDetails={userDetails} />
+        </div>
+        <div className="hidden lg:block">
+          <ProfileDesktopHeader />
+        </div>
       </div>
 
       {children}

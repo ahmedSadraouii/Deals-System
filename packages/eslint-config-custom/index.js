@@ -5,7 +5,7 @@ module.exports = {
     'no-relative-import-paths',
     'unused-imports',
   ],
-  extends: ['plugin:prettier/recommended', 'next', 'turbo'],
+  extends: ['plugin:prettier/recommended', 'turbo', 'next/core-web-vitals'],
   rules: {
     'jsx-quotes': 'error',
     '@typescript-eslint/consistent-type-imports': [
@@ -25,12 +25,6 @@ module.exports = {
     'no-relative-import-paths/no-relative-import-paths': [
       'warn',
       { allowSameFolder: true },
-    ],
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
     ],
     'react/function-component-definition': [
       'error',

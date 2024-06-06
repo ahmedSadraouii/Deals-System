@@ -1,13 +1,15 @@
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getAuthApiClient } from './auth-api-client';
+import { getAuthApiClient } from './get-auth-api-client';
+import type { UserDetailsDto } from 'api-user';
 import type { NextAuthOptions, User } from 'next-auth';
-import { inspect } from 'util';
 import { tryParseApiError } from '@/utils/api-response-handling';
+import { getUserApiClient } from '@/utils/get-user-api-client';
 
 async function refreshAccessToken(
   emailAddress: string,
   refreshToken: string,
+  profile: UserDetailsDto,
 ): Promise<JWT> {
   const authenticationApi = getAuthApiClient({
     refreshToken,
@@ -32,17 +34,14 @@ async function refreshAccessToken(
       name: jwtToken.preferred_username,
       rawTokenResponse: tokenResponse,
       // todo: retrieve profile data from backend
-      profile: {
-        firstName: 'John',
-        lastName: 'Doe',
-        emailAddress: emailAddress,
-      },
+      profile,
     };
 
     const now = Math.floor(Date.now() / 1000);
 
     return {
       ...user,
+      profile,
 
       accessToken: user.rawTokenResponse.accessToken,
       accessTokenExpires: now + (user.rawTokenResponse.expiresIn ?? 0),
@@ -68,6 +67,7 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) return null;
 
         const authenticationApi = getAuthApiClient();
+        const userApi = getUserApiClient();
 
         try {
           const tokenResponse = await authenticationApi.jwtToken({
@@ -81,19 +81,15 @@ export const authOptions: NextAuthOptions = {
             atob(tokenResponse.accessToken!.split('.')[1]),
           );
 
-          console.log(inspect(jwtToken, true, 5, true));
-
           return {
             id: jwtToken.sub,
             email: credentials.email,
             name: jwtToken.preferred_username,
             rawTokenResponse: tokenResponse,
             // todo: retrieve profile data from backend
-            profile: {
-              firstName: 'John',
-              lastName: 'Doe',
-              emailAddress: credentials.email,
-            },
+            profile: await userApi.getAsync({
+              ciamId: jwtToken.sub,
+            }),
           } satisfies User;
         } catch (error: any) {
           if (error?.response?.json) {
@@ -116,8 +112,10 @@ export const authOptions: NextAuthOptions = {
     error: '/auth',
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, trigger }) => {
+      const userApi = getUserApiClient();
       if (user?.id) {
+        // fresh sign in
         const now = Math.floor(Date.now() / 1000);
         return {
           ...token,
@@ -127,6 +125,9 @@ export const authOptions: NextAuthOptions = {
           refreshToken: user.rawTokenResponse.refreshToken,
           refreshTokenExpires:
             now + (user.rawTokenResponse.refreshExpiresIn ?? 0),
+          profile: await userApi.getAsync({
+            ciamId: user.id,
+          }),
         } as JWT;
       }
 
@@ -140,10 +141,22 @@ export const authOptions: NextAuthOptions = {
           );
         }
 
+        if (!token.email) throw new Error('No email address found in token');
         return await refreshAccessToken(
-          token.profile.emailAddress,
+          token.email,
           token.refreshToken,
+          await userApi.getAsync({
+            ciamId: token.sub,
+          }),
         );
+      }
+
+      if (trigger === 'update') {
+        const user = await userApi.getAsync({
+          ciamId: token.sub,
+        });
+
+        return { ...token, ...user, profile: user };
       }
 
       return { ...token, ...user };

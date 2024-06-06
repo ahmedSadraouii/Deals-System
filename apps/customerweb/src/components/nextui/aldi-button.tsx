@@ -10,7 +10,7 @@ export const AldiButton = extendVariants(Button, {
       outline: 'border-orange-600 border-1',
     },
     size: {
-      lg: 'py-7 text-xl',
+      lg: 'px-4 py-7 text-xl',
     },
     base: {
       base: 'rounded-full',
@@ -21,7 +21,7 @@ export const AldiButton = extendVariants(Button, {
     color: {
       orange: 'text-orange-600',
     },
-    isUserButton: {
+    'data-is-user-button': {
       true: 'min-w-0 px-0 !gap-0 space-x-0 lg:space-x-4',
     },
   },
@@ -35,7 +35,6 @@ export const AldiButton = extendVariants(Button, {
   defaultVariants: {
     base: 'base',
     size: 'lg',
-    isUserButton: false,
   },
 });
 AldiButton.displayName = 'AldiButton';

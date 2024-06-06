@@ -10,6 +10,12 @@ export const AldiInput = extendVariants(Input, {
         input: 'text-aldi-blue',
       },
     },
+    readOnly: {
+      true: {
+        inputWrapper: 'border-gray-900/40 bg-gray-900/5',
+        input: 'text-gray-900/80',
+      },
+    },
   },
   defaultVariants: {
     variant: 'bordered',
