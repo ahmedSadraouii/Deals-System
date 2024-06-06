@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { SessionProvider } from 'next-auth/react';
+import { FavoritesProvider } from './contexts/favorite/favorite-context';
 import { NextUIProvider } from '@nextui-org/react';
 
 export interface ProvidersProps {
@@ -14,7 +15,9 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <SessionProvider>
-      <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+      <NextUIProvider navigate={router.push}>
+        <FavoritesProvider>{children}</FavoritesProvider>
+      </NextUIProvider>
     </SessionProvider>
   );
 }
