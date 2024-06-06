@@ -3,7 +3,10 @@ import { getServerSession } from 'next-auth';
 import { Slider } from '@/components/home/slider';
 import { authOptions } from '@/utils/auth';
 import { getContentApiClient } from '@/utils/content-api-client';
-import { getDealsApiClient } from '@/utils/deals-api-client';
+import {
+  getDealsApiClient,
+  getFavoritesApiClient,
+} from '@/utils/deals-api-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,6 +38,7 @@ export default async function Page() {
   const contentApi = getContentApiClient();
   const session = await getServerSession(authOptions);
   const dealsApi = getDealsApiClient({ accessToken: session?.accessToken });
+  const favoritesApi = getFavoritesApiClient();
 
   const [landingPageContent, dealsContent, suppliersContent, deals] =
     await Promise.all([
@@ -49,6 +53,10 @@ export default async function Page() {
       }),
       dealsApi.getDeals({
         sortBy: 'mostSold',
+        take: 100,
+        skip: 0,
+      }),
+      favoritesApi.getUserFavorites({
         take: 100,
         skip: 0,
       }),

@@ -28,12 +28,12 @@ export function Stepper() {
           <div
             key={i}
             className={`relative flex w-36 flex-col items-center justify-center gap-2
-            ${currentStep === i + 1 && 'active'} 
+            ${currentStep === i + 1 && 'active'}
             ${(i + 1 < currentStep || i + 1 !== currentStep) && 'inactive'}`}
           >
             {/* Step number or icon */}
             <div
-              className={`relative z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full 
+              className={`relative z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full
               ${
                 currentStep === i + 1
                   ? 'border-3 border-orange-500'

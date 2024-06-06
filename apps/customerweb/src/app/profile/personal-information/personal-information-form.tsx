@@ -1,9 +1,16 @@
-import { useCallback } from 'react';
+'use client';
+
+import React, { useCallback, useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
+import { fromDate, getLocalTimeZone } from '@internationalized/date';
+import { Link } from '@nextui-org/react';
 import type { UserDetailsDto } from 'api-user';
-import { useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { updateProfileInformationAction } from '@/app/profile/actions/update-profile-information.action';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiDatePicker } from '@/components/nextui/aldi-date-picker';
 import { AldiInput } from '@/components/nextui/aldi-input';
-import { emailRegex } from '@/utils/email-regex';
+import { IconProfile } from '@/components/svg/icon-profile';
 
 export interface PersonalInformationFormProps {
   initialFormValues: UserDetailsDto;
@@ -12,153 +19,198 @@ export interface PersonalInformationFormProps {
 export function PersonalInformationForm({
   initialFormValues,
 }: PersonalInformationFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: initialFormValues,
+  const [isSaving, setIsSaving] = useState(false);
+  const session = useSession({ required: true });
+
+  const _initialFormValues = {
+    ...initialFormValues,
+    dateOfBirth: !!initialFormValues.dateOfBirth
+      ? fromDate(initialFormValues.dateOfBirth, getLocalTimeZone())
+      : undefined,
+  };
+
+  const form = useForm({
+    defaultValues: _initialFormValues,
   });
 
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
   const onSubmit = useCallback(
-    (data: typeof initialFormValues) => {
-      console.log(data);
-      console.log(errors);
+    async (data: typeof _initialFormValues) => {
+      setIsSaving(true);
+      const response = await updateProfileInformationAction({
+        firstName: data.firstName || '',
+        lastName: data.lastName || '',
+        addressStreet: !!data.addressStreet ? data.addressStreet : null,
+        addressCity: !!data.addressCity ? data.addressCity : null,
+        addressHouseNumber: !!data.addressHouseNumber
+          ? data.addressHouseNumber
+          : null,
+        dateOfBirth: data.dateOfBirth?.toDate()?.toISOString() || '',
+      });
+
+      await session.update();
+
+      if (!response.success) {
+        console.error(
+          'Failed to update profile information',
+          response.message,
+          response,
+        );
+      }
+      setIsSaving(false);
     },
-    [errors],
+    [session],
   );
 
+  const onClickSignOut = useCallback(async () => {
+    await signOut({
+      redirect: true,
+    });
+  }, []);
+
+  if (!session.data) return null;
+
   return (
-    <div>
-      <form method="post" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-5 flex">
-          <AldiInput
-            type="text"
-            label="Vorname"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.firstName}
-            radius="full"
-            errorMessage={errors.firstName && 'Vorname is required'}
-            {...register('firstName', { required: true })}
-          />
-          <AldiInput
-            className="ml-4"
-            type="text"
-            label="Nachname"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.lastName}
-            radius="full"
-            errorMessage={errors.lastName && 'Nachname is required'}
-            {...register('lastName', { required: true })}
-          />
+    <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-xl">
+      <div className="flex w-full flex-col space-y-6 divide-y rounded-large bg-default-100 p-4 lg:p-10">
+        <div className="flex flex-row items-center gap-4 text-secondary">
+          <div className="shrink-0 items-center rounded-full border border-secondary/10 bg-white p-5">
+            <IconProfile className="text-3xl" />
+          </div>
+          <div className="flex flex-col leading-snug">
+            <h2 className="text-3xl font-bold">
+              {session.data.user.profile.firstName}{' '}
+              {session.data.user.profile.lastName}
+            </h2>
+          </div>
         </div>
-        <AldiInput
-          className="mb-5"
-          type="email"
-          label="E-Mail"
-          variant="bordered"
-          isRequired={true}
-          isInvalid={!!errors.email}
-          radius="full"
-          errorMessage={
-            errors.email && 'Eine korrekte E-Mail Adresse wird benötigt'
-          }
-          {...register('email', {
-            required: true,
-            validate: (value) => !!value && emailRegex.test(value),
-          })}
-        />
-        <div className="mb-5 flex">
-          <AldiInput
-            type="text"
-            label="Geschlecht"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.gender}
-            radius="full"
-            errorMessage={errors.gender && 'Geschlecht wird benötigt'}
-            {...register('gender', { required: true })}
-          />
-          <AldiInput
-            className="ml-4"
-            type="text"
-            label="Geburtstag"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.dateOfBirth}
-            radius="full"
-            errorMessage={errors.dateOfBirth && 'Geburtsdatum wird benötigt'}
-            {...register('dateOfBirth', { required: true })}
-          />
+        <div className="pt-6">
+          <h1 className="mb-6 text-3xl font-bold text-secondary">
+            Persönliche Informationen
+          </h1>
+          <FormProvider {...form}>
+            <form method="post" onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4 grid grid-cols-4 gap-4">
+                <Controller
+                  name="firstName"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <AldiInput
+                      className="col-span-2"
+                      label="Vorname"
+                      isRequired={true}
+                      {...field}
+                      isInvalid={!!errors.firstName}
+                      errorMessage={errors.firstName && 'Vorname wird benötigt'}
+                    />
+                  )}
+                />
+                <Controller
+                  name="lastName"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <AldiInput
+                      className="col-span-2"
+                      label="Nachname"
+                      isRequired={true}
+                      {...field}
+                      isInvalid={!!errors.lastName}
+                      errorMessage={errors.lastName && 'Nachname wird benötigt'}
+                    />
+                  )}
+                />
+
+                <AldiInput
+                  className="col-span-4"
+                  label="E-Mail Adresse"
+                  value={String(session.data.user.profile.email)}
+                  readOnly={true}
+                />
+
+                <Controller
+                  name="dateOfBirth"
+                  render={({ field }) => (
+                    <AldiDatePicker
+                      className="col-span-4"
+                      label="Geburtstag"
+                      granularity="day"
+                      {...field}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="addressStreet"
+                  render={({ field }) => (
+                    <AldiInput
+                      className="col-span-3"
+                      label="Straße"
+                      {...field}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="addressHouseNumber"
+                  render={({ field }) => (
+                    <AldiInput
+                      className="col-span-1"
+                      label="Hausnummer"
+                      {...field}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="addressCity"
+                  render={({ field }) => (
+                    <AldiInput
+                      className="col-span-2"
+                      label="Stadt"
+                      {...field}
+                    />
+                  )}
+                />
+
+                <AldiInput
+                  className="col-span-2"
+                  label="PLZ"
+                  value={String(session.data.user.profile.addressPostalCode)}
+                  readOnly={true}
+                />
+              </div>
+              <AldiButton
+                type="submit"
+                variant="solid"
+                color="secondary"
+                fullWidth={true}
+                isLoading={isSaving}
+              >
+                Speichern
+              </AldiButton>
+            </form>
+          </FormProvider>
         </div>
-        <div className="mb-5 flex">
-          <AldiInput
-            type="text"
-            label="Straße"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.addressStreet}
-            radius="full"
-            errorMessage={errors.addressStreet && 'Straße wird benötigt'}
-            {...register('addressStreet', { required: true })}
-          />
-          <AldiInput
-            className="ml-4"
-            type="text"
-            label="Hausnummer"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.addressHouseNumber}
-            radius="full"
-            errorMessage={
-              errors.addressHouseNumber && 'Hausnummer wird benötigt'
-            }
-            {...register('addressHouseNumber', { required: true })}
-          />
-        </div>
-        <div className="mb-5 flex">
-          <AldiInput
-            className="mr-5"
-            type="text"
-            label="Stadt"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.addressCity}
-            radius="full"
-            errorMessage={errors.addressCity && 'Ort wird benötigt'}
-            {...register('addressCity', { required: true })}
-          />
-          <AldiInput
-            type="number"
-            label="PLZ"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.addressPostalCode}
-            radius="full"
-            errorMessage={
-              errors.addressPostalCode && 'Postleitzahl wird benötigt'
-            }
-            {...register('addressPostalCode', {
-              required: true,
-              validate: (value) => !!value && value.toString().length === 5,
-            })}
-          />
-        </div>
-        <AldiButton
-          type="submit"
-          className="mt-5 w-full rounded-full bg-black px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
-        >
-          Speichern
-        </AldiButton>
-        <AldiButton
-          type="button"
-          className="mt-5 w-full rounded-full border-1 border-black bg-transparent px-5 py-7 text-center text-sm font-medium text-black hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
-        >
-          Ausloggen
-        </AldiButton>
-      </form>
+      </div>
+
+      <Link
+        href="#"
+        onClick={onClickSignOut}
+        size="lg"
+        color="secondary"
+        underline="always"
+        className="mt-10 hidden lg:block"
+      >
+        Ausloggen
+      </Link>
     </div>
   );
 }

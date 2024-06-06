@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useState } from 'react';
-import type { InputProps } from '@nextui-org/input/dist/input';
+import type { InputProps } from '@nextui-org/react';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { IconEyeFilled } from '@/components/svg/icon-eye-filled';
 import { IconEyeSlashFilled } from '@/components/svg/icon-eye-slash-filled';

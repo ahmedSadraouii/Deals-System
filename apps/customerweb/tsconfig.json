@@ -2,21 +2,12 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": [
     "node_modules"
   ]

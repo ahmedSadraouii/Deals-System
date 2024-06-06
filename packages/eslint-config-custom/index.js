@@ -5,7 +5,7 @@ module.exports = {
     'no-relative-import-paths',
     'unused-imports',
   ],
-  extends: ['plugin:prettier/recommended', 'next', 'turbo'],
+  extends: ['plugin:prettier/recommended', 'turbo', 'next/core-web-vitals'],
   rules: {
     'jsx-quotes': 'error',
     '@typescript-eslint/consistent-type-imports': [

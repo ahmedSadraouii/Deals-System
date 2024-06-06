@@ -1,13 +1,10 @@
 import type { KeycloakJwtModel } from 'api-auth';
+import type { UserDetailsDto } from 'api-user';
 import type { DefaultSession, DefaultUser } from 'next-auth';
 
 interface TokenSessionShared {
   rawTokenResponse: KeycloakJwtModel;
-  profile: {
-    firstName: string;
-    lastName: string;
-    emailAddress: string;
-  };
+  profile: UserDetailsDto;
 }
 
 declare module 'next-auth' {
