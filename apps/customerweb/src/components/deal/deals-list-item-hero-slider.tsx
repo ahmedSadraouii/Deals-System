@@ -1,14 +1,16 @@
+'use client';
+
 import React, { useMemo } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Link from 'next/link';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
 import { DealsListItemGrid } from '@/components/deal/deals-list-item-grid';
+import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { IconClock } from '@/components/svg/icon-clock';
-import { IconHeart } from '@/components/svg/icon-heart';
 import { IconTag } from '@/components/svg/icon-tag';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
@@ -28,7 +30,6 @@ export function DealsListItemHeroSlider({
 }: DealsListItemHeroSliderProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
-
   const productImageUrl =
     primaryImage &&
     defaultLoader({
@@ -49,7 +50,6 @@ export function DealsListItemHeroSlider({
     () => deal.route.path.split('/')[3],
     [deal.route.path],
   );
-
   return (
     <>
       <div className="lg:hidden">
@@ -78,10 +78,7 @@ export function DealsListItemHeroSlider({
               <IconTag className="mr-2 text-base" />
               <span>Stark nachgefragt</span>
             </span>
-
-            <span className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center  rounded-full bg-orange-100 text-xs font-light text-black">
-              <IconHeart fill="orange-500" />
-            </span>
+            <HeartFavorite dealId={deal.id} />
           </div>
         </div>
         <div className="flex grow flex-col gap-4">

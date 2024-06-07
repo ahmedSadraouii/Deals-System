@@ -13,7 +13,7 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
 
   return (
     <span
-      className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-light text-black"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-light text-black"
       onClick={() => toggleFavorite(dealId)}
     >
       <IconHeart fill={filled ? 'orange' : 'orange-500'} />
