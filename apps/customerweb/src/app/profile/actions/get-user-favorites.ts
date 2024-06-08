@@ -1,6 +1,8 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
+import type { ApiErrorCodes } from '@/utils/api-response-handling';
+import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
 import { getFavoritesApiClient } from '@/utils/deals-api-client';
 
@@ -14,6 +16,7 @@ export async function getFavoritesAction({
   skip = 0,
 }: GetFavoritesActionParams): Promise<{
   success: boolean;
+  apiErrorCode?: ApiErrorCodes;
   favorites?: any[];
   message?: string;
 }> {
@@ -43,11 +46,11 @@ export async function getFavoritesAction({
   } catch (error: any) {
     if (error?.response?.json) {
       const errorResponse = await (error as any).response.json();
+      const apiError = tryParseApiErrorWithFallback(errorResponse);
       return {
         success: false,
-        message:
-          errorResponse.message ||
-          'An error occurred while fetching the favorites',
+        apiErrorCode: apiError.errorCode,
+        message: apiError.message,
       };
     }
     throw error;

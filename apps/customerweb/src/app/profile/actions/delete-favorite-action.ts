@@ -1,6 +1,8 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
+import type { ApiErrorCodes } from '@/utils/api-response-handling';
+import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
 import { getFavoritesApiClient } from '@/utils/deals-api-client';
 
@@ -12,6 +14,7 @@ export async function deleteFavoriteAction({
   dealId,
 }: DeleteFavoriteActionParams): Promise<{
   success: boolean;
+  apiErrorCode?: ApiErrorCodes;
   message?: string;
 }> {
   const session = await getServerSession(authOptions);
@@ -35,11 +38,11 @@ export async function deleteFavoriteAction({
   } catch (error: any) {
     if (error?.response?.json) {
       const errorResponse = await (error as any).response.json();
+      const apiError = tryParseApiErrorWithFallback(errorResponse);
       return {
         success: false,
-        message:
-          errorResponse.message ||
-          'An error occurred while deleting the favorite',
+        apiErrorCode: apiError.errorCode,
+        message: apiError.message,
       };
     }
     throw error;
