@@ -1,12 +1,16 @@
+'use client';
+
 import { useMemo } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Link from 'next/link';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
+import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { IconClock } from '@/components/svg/icon-clock';
+import { IconOnline } from '@/components/svg/icon-nur-online';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { formatAvailability } from '@/utils/format-availability';
@@ -58,7 +62,16 @@ export function DealsListItemGrid({
         style={{
           backgroundImage: productImageUrl && `url(${productImageUrl})`,
         }}
-      />
+      >
+        <div className="flex items-center justify-between p-4">
+          <span className="flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+            <IconOnline className="mr-2 text-base" />
+            <span className="text-aldi-key">Nur Online</span>
+          </span>
+          <HeartFavorite dealId={deal.id} />
+        </div>
+      </div>
+
       <div className="flex flex-col gap-4 p-6">
         <div className="flex flex-row items-center justify-between">
           <div

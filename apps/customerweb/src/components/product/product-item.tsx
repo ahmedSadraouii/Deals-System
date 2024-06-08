@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { IconHeart } from 'src/components/svg/icon-heart';
 import { IconOnline } from 'src/components/svg/icon-nur-online';
+import { HeartFavorite } from '@/components/heart-favorite';
 import { Price } from '@/components/price';
 import { IconClock } from '@/components/svg/icon-clock';
 
@@ -20,13 +20,13 @@ export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
             className="relative h-[250px] rounded-lg !bg-cover !bg-center md:h-[250px]"
             style={{ background: `url('${image}')` }}
           >
-            <span className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center  rounded-full bg-orange-100 text-xs font-light text-black">
-              <IconHeart fill="orange-500" />
-            </span>
-            <span className="absolute left-5 top-5 flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
-              <IconOnline className="mr-2 text-base" />
-              <span className="text-aldi-blue">Nur Online</span>
-            </span>
+            <div className="flex items-center justify-between p-4">
+              <span className="flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+                <IconOnline className="mr-2 text-base" />
+                <span className="text-aldi-key">Nur Online</span>
+              </span>
+              <HeartFavorite dealId={'1'} />
+            </div>
           </div>
         </a>
         <div className="px-5 pb-5">

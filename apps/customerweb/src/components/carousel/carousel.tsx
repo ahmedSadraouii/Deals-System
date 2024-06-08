@@ -44,7 +44,9 @@ export function Carousel({
 
   return (
     <div className="relative">
-      <div className={cn('grid gap-4', `grid-cols-${itemsPerPage}`)}>
+      <div
+        className={cn('grid grid-cols-1 gap-4', `lg:grid-cols-${itemsPerPage}`)}
+      >
         {items.map((item, index) => {
           if (index < _itemStart || index >= _itemStart + itemsPerPage) {
             return (
