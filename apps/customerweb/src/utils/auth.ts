@@ -1,10 +1,10 @@
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getAuthApiClient } from './get-auth-api-client';
+import { getAuthApiClient } from './auth-api-client';
 import type { UserDetailsDto } from 'api-user';
 import type { NextAuthOptions, User } from 'next-auth';
 import { tryParseApiError } from '@/utils/api-response-handling';
-import { getUserApiClient } from '@/utils/get-user-api-client';
+import { getUserApiClient } from '@/utils/user-api-client';
 
 async function refreshAccessToken(
   emailAddress: string,

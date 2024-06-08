@@ -1,6 +1,6 @@
 'use server';
 
-import { getAuthApiClient } from '@/utils/get-auth-api-client';
+import { getAuthApiClient } from '@/utils/auth-api-client';
 
 export interface ResendVerificationEmailActionParams {
   emailAddress: string;

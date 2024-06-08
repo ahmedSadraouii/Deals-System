@@ -5,7 +5,7 @@ import { ProfileDesktopHeader } from '@/app/profile/profile-desktop-header';
 import { ProfileMobileHeader } from '@/app/profile/profile-mobile-header';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';
-import { getUserApiClient } from '@/utils/get-user-api-client';
+import { getUserApiClient } from '@/utils/user-api-client';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);

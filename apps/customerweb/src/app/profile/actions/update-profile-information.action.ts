@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
-import { getUserApiClient } from '@/utils/get-user-api-client';
+import { getUserApiClient } from '@/utils/user-api-client';
 
 export interface UpdateProfileInformationActionParams {
   firstName: string;
