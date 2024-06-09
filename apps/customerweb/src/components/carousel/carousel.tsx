@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useMemo, useState } from 'react';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
-import { cn } from '@/utils/cn';
 
 export interface CarouselProps {
   children: Iterable<ReactNode>;
@@ -45,7 +44,11 @@ export function Carousel({
   return (
     <div className="relative">
       <div
-        className={cn('grid grid-cols-1 gap-4', `lg:grid-cols-${itemsPerPage}`)}
+        className={
+          itemsPerPage === 5
+            ? `grid-cols-${itemsPerPage} grid gap-4`
+            : `grid grid-cols-1 gap-4 md:grid-cols-${itemsPerPage}`
+        }
       >
         {items.map((item, index) => {
           if (index < _itemStart || index >= _itemStart + itemsPerPage) {
