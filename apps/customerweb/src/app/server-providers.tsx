@@ -21,8 +21,8 @@ async function getOptionalFavoriteDealIdsFromSession(): Promise<Array<string>> {
 
   const response = await favoritesApi
     .getUserFavorites({
-      take: 0,
-      skip: 100,
+      take: 1000,
+      skip: 0,
     })
     .catch(catchApiError);
 

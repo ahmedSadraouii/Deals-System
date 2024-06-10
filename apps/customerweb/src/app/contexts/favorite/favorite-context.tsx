@@ -1,7 +1,7 @@
 'use client';
 
-import type { Dispatch, ReactNode } from 'react';
 import { createContext, useReducer } from 'react';
+import type { Dispatch, ReactNode } from 'react';
 
 export enum FavoriteContextActionKind {
   AddFavorite = 'addFavorite',
