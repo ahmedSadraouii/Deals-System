@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import type { CardinalDirection } from 'api-user';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';
@@ -16,6 +17,7 @@ export default async function Page() {
   const userDetails = await userApi
     .getAsync({
       ciamId: session.user.id,
+      cardinalDirection: session.user.cardinalDirection as CardinalDirection,
     })
     .catch(catchApiError);
 

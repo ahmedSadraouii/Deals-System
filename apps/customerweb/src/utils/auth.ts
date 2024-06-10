@@ -33,7 +33,7 @@ async function refreshAccessToken(
       id: jwtToken.sub,
       name: jwtToken.preferred_username,
       rawTokenResponse: tokenResponse,
-      // todo: retrieve profile data from backend
+      cardinalDirection: cardinalDirectionResponse.data?.cardinalDirection || 1,
       profile,
     };
 
@@ -81,14 +81,25 @@ export const authOptions: NextAuthOptions = {
             atob(tokenResponse.accessToken!.split('.')[1]),
           );
 
+          const cardinalDirectionResponse =
+            await authenticationApi.getCardinalDirectionAuthentication({
+              cardinalDirectionRequest: {
+                email: credentials.email,
+              },
+            });
+
           return {
             id: jwtToken.sub,
             email: credentials.email,
             name: jwtToken.preferred_username,
             rawTokenResponse: tokenResponse,
             // todo: retrieve profile data from backend
+            cardinalDirection:
+              cardinalDirectionResponse.data?.cardinalDirection || 1,
             profile: await userApi.getAsync({
               ciamId: jwtToken.sub,
+              cardinalDirection:
+                cardinalDirectionResponse.data!.cardinalDirection,
             }),
           } satisfies User;
         } catch (error: any) {
@@ -113,6 +124,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     jwt: async ({ token, user, trigger }) => {
+      const authenticationApi = getAuthApiClient();
       const userApi = getUserApiClient();
       if (user?.id) {
         // fresh sign in
@@ -125,9 +137,6 @@ export const authOptions: NextAuthOptions = {
           refreshToken: user.rawTokenResponse.refreshToken,
           refreshTokenExpires:
             now + (user.rawTokenResponse.refreshExpiresIn ?? 0),
-          profile: await userApi.getAsync({
-            ciamId: user.id,
-          }),
         } as JWT;
       }
 
@@ -142,18 +151,38 @@ export const authOptions: NextAuthOptions = {
         }
 
         if (!token.email) throw new Error('No email address found in token');
+
+        const cardinalDirectionResponse =
+          await authenticationApi.getCardinalDirectionAuthentication({
+            cardinalDirectionRequest: {
+              email: token.email,
+            },
+          });
+
         return await refreshAccessToken(
           token.email,
           token.refreshToken,
           await userApi.getAsync({
             ciamId: token.sub,
+            cardinalDirection:
+              cardinalDirectionResponse.data!.cardinalDirection,
           }),
         );
       }
 
       if (trigger === 'update') {
+        if (!token.email) throw new Error('No email address found in token');
+
+        const cardinalDirectionResponse =
+          await authenticationApi.getCardinalDirectionAuthentication({
+            cardinalDirectionRequest: {
+              email: token.email,
+            },
+          });
+
         const user = await userApi.getAsync({
           ciamId: token.sub,
+          cardinalDirection: cardinalDirectionResponse.data!.cardinalDirection,
         });
 
         return { ...token, ...user, profile: user };
@@ -188,6 +217,7 @@ export const authOptions: NextAuthOptions = {
         profile: {
           ...token.profile,
         },
+        cardinalDirection: token.cardinalDirection,
       } satisfies User;
 
       return Promise.resolve(session);

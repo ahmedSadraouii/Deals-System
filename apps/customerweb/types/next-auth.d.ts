@@ -5,6 +5,7 @@ import type { DefaultSession, DefaultUser } from 'next-auth';
 interface TokenSessionShared {
   rawTokenResponse: KeycloakJwtModel;
   profile: UserDetailsDto;
+  cardinalDirection: number;
 }
 
 declare module 'next-auth' {

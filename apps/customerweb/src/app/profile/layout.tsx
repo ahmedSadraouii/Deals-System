@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { redirect } from 'next/navigation';
+import type { CardinalDirection } from 'api-user';
 import { getServerSession } from 'next-auth';
 import { ProfileDesktopHeader } from '@/app/profile/profile-desktop-header';
 import { ProfileMobileHeader } from '@/app/profile/profile-mobile-header';
@@ -19,6 +20,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
   const userDetails = await userApi
     .getAsync({
       ciamId: session.user.id,
+      cardinalDirection: session.user.cardinalDirection as CardinalDirection,
     })
     .catch(catchApiError);
 

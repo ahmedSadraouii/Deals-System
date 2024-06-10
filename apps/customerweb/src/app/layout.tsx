@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import Providers from '@/app/providers';
+import ClientProviders from '@/app/client-providers';
+import ServerProviders from '@/app/server-providers';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import { AldiSuedDefsSvg } from '@/components/svg/aldi-sued-defs-svg';
@@ -19,14 +20,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="de" className="aldi">
       <body className="bg-white">
-        <Providers>
-          <Header />
-          <main>
-            <AldiSuedDefsSvg />
-            <div>{children}</div>
-          </main>
-          <Footer />
-        </Providers>
+        <ServerProviders>
+          <ClientProviders>
+            <Header />
+            <main>
+              <AldiSuedDefsSvg />
+              <div>{children}</div>
+            </main>
+            <Footer />
+          </ClientProviders>
+        </ServerProviders>
       </body>
     </html>
   );

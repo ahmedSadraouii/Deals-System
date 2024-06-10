@@ -13,9 +13,9 @@ export function IconArrowUpRight(props: SVGProps<SVGSVGElement>) {
       <path
         d="M18.3646 5.63281H11.2939M18.3646 5.63281L18.3643 12.7039M18.3646 5.63281L5.63672 18.3607"
         stroke="white"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

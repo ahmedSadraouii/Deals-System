@@ -1,65 +1,84 @@
-import type { ReactNode } from 'react';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { addFavoriteAction } from '@/app/profile/actions/add-favorite-action';
-import { deleteFavoriteAction } from '@/app/profile/actions/delete-favorite-action';
-import { getFavoritesAction } from '@/app/profile/actions/get-user-favorites';
+'use client';
 
-interface FavoritesContextProps {
-  favorites: Set<string>;
-  toggleFavorite: (dealId: string) => Promise<void>;
-  isFavorite: (dealId: string) => boolean;
+import type { Dispatch, ReactNode } from 'react';
+import { createContext, useReducer } from 'react';
+
+export enum FavoriteContextActionKind {
+  AddFavorite = 'addFavorite',
+  RemoveFavorite = 'removeFavorite',
 }
 
-const FavoritesContext = createContext<FavoritesContextProps | undefined>(
-  undefined,
-);
-
-export function FavoritesProvider({ children }: { children: ReactNode }) {
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
-
-  const fetchFavorites = async () => {
-    const response = await getFavoritesAction({ take: 100, skip: 0 });
-    if (response.success && response.favorites) {
-      const favoriteIds = response.favorites.map((fav: any) => fav.dealId);
-      setFavorites(new Set(favoriteIds));
+export type FavoriteContextAction =
+  | {
+      type: FavoriteContextActionKind.AddFavorite;
+      dealId: string;
     }
-  };
+  | {
+      type: FavoriteContextActionKind.RemoveFavorite;
+      dealId: string;
+    };
 
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
+export interface FavoriteContextState {
+  favoredDealIds: Array<string>;
+}
 
-  const toggleFavorite = async (dealId: string) => {
-    if (favorites.has(dealId)) {
-      await deleteFavoriteAction({ dealId });
-      setFavorites((prev) => {
-        const newFavorites = new Set(prev);
-        newFavorites.delete(dealId);
-        return newFavorites;
-      });
-    } else {
-      await addFavoriteAction({ dealId });
-      setFavorites((prev) => new Set(prev).add(dealId));
-    }
-  };
+export interface FavoriteContextInterface extends FavoriteContextState {
+  dispatch: Dispatch<FavoriteContextAction>;
+}
 
-  const isFavorite = (dealId: string) => {
-    return favorites.has(dealId);
-  };
+export const FavoriteContext = createContext<FavoriteContextInterface>({
+  favoredDealIds: [],
+  dispatch: () => {
+    throw new Error('FavoriteContext not initialized');
+  },
+});
+
+interface FavoriteContextProviderProps {
+  children: ReactNode;
+  initialFavoredDealIds: Array<string>;
+}
+
+export function FavoriteContextProvider({
+  children,
+  initialFavoredDealIds = [],
+}: FavoriteContextProviderProps) {
+  const [state, dispatch] = useReducer(
+    (state: FavoriteContextState, action: FavoriteContextAction) => {
+      switch (action.type) {
+        case FavoriteContextActionKind.AddFavorite:
+          return {
+            ...state,
+            favoredDealIds: state.favoredDealIds.includes(action.dealId)
+              ? state.favoredDealIds
+              : [...state.favoredDealIds, action.dealId],
+          };
+        case FavoriteContextActionKind.RemoveFavorite:
+          const index = state.favoredDealIds.indexOf(action.dealId);
+          if (index === -1) {
+            return state;
+          }
+          return {
+            ...state,
+            favoredDealIds: [
+              ...state.favoredDealIds.slice(0, index),
+              ...state.favoredDealIds.slice(index + 1),
+            ],
+          };
+      }
+    },
+    {
+      favoredDealIds: initialFavoredDealIds,
+    },
+  );
 
   return (
-    <FavoritesContext.Provider
-      value={{ favorites, toggleFavorite, isFavorite }}
+    <FavoriteContext.Provider
+      value={{
+        ...state,
+        dispatch,
+      }}
     >
       {children}
-    </FavoritesContext.Provider>
+    </FavoriteContext.Provider>
   );
 }
-
-export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
-  if (context === undefined) {
-    throw new Error('useFavorites must be used within a FavoritesProvider');
-  }
-  return context;
-};

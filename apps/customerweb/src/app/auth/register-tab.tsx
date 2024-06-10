@@ -117,7 +117,7 @@ export function RegisterTab(props: RegisterTabProps) {
           an.
         </span>
       </p>
-      <div className="flex flex-col gap-12 lg:flex-row">
+      <div className="flex flex-col gap-12 lg:flex-row lg:justify-center">
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex shrink-0 basis-[600px] flex-col gap-6 rounded-3xl border bg-default-100 p-10">
