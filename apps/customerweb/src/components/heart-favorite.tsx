@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { IconHeart } from './svg/icon-heart';
 import {
@@ -42,22 +42,28 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
     }
   }
 
-  const toggleFavorite = async (dealId: string) => {
-    const isDealFavored = favoriteContext.favoredDealIds.includes(dealId);
+  const toggleFavorite = useCallback(
+    async (dealId: string) => {
+      const isDealFavored = favoriteContext.favoredDealIds.includes(dealId);
 
-    // Optimistically update the context state
-    favoriteContext.dispatch({
-      type: isDealFavored
-        ? FavoriteContextActionKind.RemoveFavorite
-        : FavoriteContextActionKind.AddFavorite,
-      dealId,
-    });
+      // Optimistically update the context state
+      favoriteContext.dispatch({
+        type: isDealFavored
+          ? FavoriteContextActionKind.RemoveFavorite
+          : FavoriteContextActionKind.AddFavorite,
+        dealId,
+      });
 
-    // Call the API to update the backend
-    handleFavoriteChange(dealId, !isDealFavored);
-  };
+      // Call the API to update the backend
+      handleFavoriteChange(dealId, !isDealFavored);
+    },
+    [favoriteContext],
+  );
 
-  const isFavored = favoriteContext.favoredDealIds.includes(dealId);
+  const isFavored = useMemo(
+    () => favoriteContext.favoredDealIds.includes(dealId),
+    [dealId, favoriteContext.favoredDealIds],
+  );
   return (
     <span
       className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-light text-black"
