@@ -19,45 +19,51 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
   const favoritesApi = getFavoritesApiClient({
     accessToken: session?.accessToken,
   });
-  async function addFavorite(dealId: string) {
-    await favoritesApi.addUserFavorite({
-      addFavoriteInputModel: { dealId },
-    });
-  }
-  async function removeFavorite(dealId: string) {
-    await favoritesApi.deleteUserFavorite({ dealId });
+
+  async function handleFavoriteChange(dealId: string, isAdding: boolean) {
+    try {
+      if (isAdding) {
+        await favoritesApi.addUserFavorite({
+          addFavoriteInputModel: { dealId },
+        });
+      } else {
+        await favoritesApi.deleteUserFavorite({ dealId });
+      }
+    } catch (error) {
+      console.error('Error updating favorite status:', error);
+
+      // Revert the context state if the API call fails
+      favoriteContext.dispatch({
+        type: isAdding
+          ? FavoriteContextActionKind.RemoveFavorite
+          : FavoriteContextActionKind.AddFavorite,
+        dealId,
+      });
+    }
   }
 
   const toggleFavorite = async (dealId: string) => {
     const isDealFavored = favoriteContext.favoredDealIds.includes(dealId);
 
-    try {
-      if (isDealFavored) {
-        await removeFavorite(dealId);
-        favoriteContext.dispatch({
-          type: FavoriteContextActionKind.RemoveFavorite,
-          dealId,
-        });
-      } else {
-        await addFavorite(dealId);
-        favoriteContext.dispatch({
-          type: FavoriteContextActionKind.AddFavorite,
-          dealId,
-        });
-      }
-    } catch (error) {
-      console.error('Error updating favorite status:', error);
-    }
+    // Optimistically update the context state
+    favoriteContext.dispatch({
+      type: isDealFavored
+        ? FavoriteContextActionKind.RemoveFavorite
+        : FavoriteContextActionKind.AddFavorite,
+      dealId,
+    });
+
+    // Call the API to update the backend
+    handleFavoriteChange(dealId, !isDealFavored);
   };
 
   const isFavored = favoriteContext.favoredDealIds.includes(dealId);
-
   return (
     <span
       className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-light text-black"
       onClick={() => toggleFavorite(dealId)}
     >
-      <IconHeart fill={isFavored ? 'orange' : 'orange-500'} />
+      <IconHeart fill={isFavored ? '#ff4802' : '#ffcd73'} />
     </span>
   );
 }
