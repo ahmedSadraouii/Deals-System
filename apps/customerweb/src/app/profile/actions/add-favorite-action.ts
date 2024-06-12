@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
@@ -31,7 +32,7 @@ export async function addFavoriteAction({
       xApiVersion: '1.0',
       addFavoriteInputModel: { dealId },
     });
-
+    revalidatePath('/saved-deals');
     return {
       success: true,
     };

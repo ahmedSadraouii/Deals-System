@@ -23,7 +23,7 @@ export function ProfileDesktopHeader() {
     },
     {
       title: 'Merkliste',
-      startContent: <IconHeart />,
+      startContent: <IconHeart fill="#ffffff" />,
       link: '/profile/saved-deals',
     },
   ];

@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useCallback, useContext, useMemo } from 'react';
-import { useSession } from 'next-auth/react';
 import { IconHeart } from './svg/icon-heart';
 import {
   FavoriteContext,
   FavoriteContextActionKind,
 } from '@/app/contexts/favorite/favorite-context';
-import { getFavoritesApiClient } from '@/utils/deals-api-client';
+import { addFavoriteAction } from '@/app/profile/actions/add-favorite-action';
+import { deleteFavoriteAction } from '@/app/profile/actions/delete-favorite-action';
 
 interface HeartFavoriteProps {
   dealId: string;
@@ -15,23 +15,18 @@ interface HeartFavoriteProps {
 
 export function HeartFavorite({ dealId }: HeartFavoriteProps) {
   const favoriteContext = useContext(FavoriteContext);
-  const { data: session } = useSession();
-  const favoritesApi = getFavoritesApiClient({
-    accessToken: session?.accessToken,
-  });
 
   async function handleFavoriteChange(dealId: string, isAdding: boolean) {
     try {
       if (isAdding) {
-        await favoritesApi.addUserFavorite({
-          addFavoriteInputModel: { dealId },
+        await addFavoriteAction({
+          dealId,
         });
       } else {
-        await favoritesApi.deleteUserFavorite({ dealId });
+        await deleteFavoriteAction({ dealId });
       }
     } catch (error) {
       console.error('Error updating favorite status:', error);
-
       // Revert the context state if the API call fails
       favoriteContext.dispatch({
         type: isAdding

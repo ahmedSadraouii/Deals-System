@@ -31,16 +31,20 @@ export default async function Page() {
     return [];
   }
 
-  const deals = await getDeals(1000, 0);
+  const deals = await getDeals(100, 0);
 
   return (
-    <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+    <div
+      className={`mb-10 grid min-h-[50vh] gap-10 bg-gray-100   ${deals.length > 0 ? ' grid-cols-1 p-10 md:grid-cols-2 lg:grid-cols-3' : 'grid-col-1'}`}
+    >
       {deals.length > 0 ? (
         deals.map((deal, index) => (
           <DealsListItem key={index} deal={deal} display="Grid" />
         ))
       ) : (
-        <div>you have no saved deals yet</div>
+        <div className="flex h-full w-full items-center justify-center  text-3xl font-semibold text-aldi-blue">
+          You have no saved deals yet
+        </div>
       )}
     </div>
   );
