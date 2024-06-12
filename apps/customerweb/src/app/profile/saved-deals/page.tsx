@@ -35,7 +35,12 @@ export default async function Page() {
 
   return (
     <div
-      className={`mb-10 grid min-h-[50vh] gap-10 bg-gray-100   ${deals.length > 0 ? ' grid-cols-1 p-10 md:grid-cols-2 lg:grid-cols-3' : 'grid-col-1'}`}
+      className={`mb-10 grid min-h-[50vh] gap-10 bg-gray-100
+                ${
+                  deals.length > 0
+                    ? 'grid-cols-1 p-10 md:grid-cols-2 lg:grid-cols-3'
+                    : 'grid-col-1'
+                }`}
     >
       {deals.length > 0 ? (
         deals.map((deal, index) => (
