@@ -1,6 +1,5 @@
 import CheckoutCard from '@/components/checkout/checkout-card';
 import Celebration from '@/components/checkout/checkout-celebration';
-import DealCheckoutCard from '@/components/checkout/checkout-deal-card';
 import DiscoverCard from '@/components/discover/discover-card';
 import { DealsSlider } from '@/components/product/deals-slider';
 
@@ -49,11 +48,6 @@ export default function Page() {
           title="3. Spaß haben mit deinem ALDI Deal"
           description="Willkommen zu einem unvergleichlichen Abenteuer voller Nervenkitzel, Ausdauer und Gemeinschaftssinn..."
         />
-      </div>
-      <div className="flex w-full flex-col gap-8 lg:w-[80%] lg:min-w-[80%]">
-        {items.map((item) => (
-          <DealCheckoutCard key={item.id} item={item} />
-        ))}
       </div>
       <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
         <DiscoverCard />

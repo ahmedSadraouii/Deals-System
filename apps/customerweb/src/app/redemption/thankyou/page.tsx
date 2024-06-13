@@ -1,32 +1,31 @@
+import { getServerSession } from 'next-auth';
 import CheckoutCard from '@/components/checkout/checkout-card';
 import Celebration from '@/components/checkout/checkout-celebration';
 import DealCheckoutCard from '@/components/checkout/checkout-deal-card';
 import DiscoverCard from '@/components/discover/discover-card';
+import { authOptions } from '@/utils/auth';
+import { getHonoredDealsApiClient } from '@/utils/redeem-api-client';
 
-export default function Page() {
-  // Fake array of items
-  const items = [
-    {
-      id: 2,
-      name: 'Deutsche Bahn',
-      description: '2 Tickets zum Preis von 12 Tickets zum Preis von 1',
-      imageSrc: '/db-img.png',
-      imageAlt: 'cart item',
-      validDate: 'Gültig ab: 10.05.2024 - Gültig bis: 10.02.2025',
-      mainImgUrl: '/train-img.png',
-      code: 'GS8S-NVZW-26LO-98LP',
-    },
-    {
-      id: 1,
-      name: 'Mud Masters',
-      description: 'Mud Masters Arnsberg 2024 (2 Tickets zum Preis von 1)',
-      imageSrc: '/img_1.png',
-      imageAlt: 'cart item',
-      validDate: 'Gültig ab: 10.05.2024 - Gültig bis: 10.02.2025',
-      mainImgUrl: '/img.png',
-      code: '',
-    },
-  ];
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+  const honoredApi = getHonoredDealsApiClient({
+    accessToken: session?.accessToken,
+  });
+
+  const getHonoredDeals = async (take = 100, skip = 0) => {
+    try {
+      const honoredDeals = await honoredApi.honoredDeals({ take, skip });
+      return (
+        honoredDeals.items?.filter((deal) => deal.dealId !== undefined) ?? []
+      );
+    } catch (error) {
+      console.error('Error fetching honored deals:', error);
+      return [];
+    }
+  };
+
+  const deals = await getHonoredDeals(100, 0);
+
   return (
     <div className="container mx-auto flex flex-col items-center justify-center gap-8 px-4 py-14 md:px-0">
       <div>
@@ -50,13 +49,15 @@ export default function Page() {
         />
       </div>
       <div className="flex w-full flex-col gap-8 lg:w-[80%] lg:min-w-[80%]">
-        {items.map((item) => (
-          <DealCheckoutCard key={item.id} item={item} />
+        {deals.map((deal) => (
+          <DealCheckoutCard key={deal.id} deal={deal} />
         ))}
       </div>
-      <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
-        <DiscoverCard />
-      </div>
+      {!session && (
+        <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
+          <DiscoverCard />
+        </div>
+      )}
     </div>
   );
 }
