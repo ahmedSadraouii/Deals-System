@@ -40,7 +40,7 @@ interface FavoriteContextProviderProps {
 
 export function FavoriteContextProvider({
   children,
-  initialFavoredDealIds = [],
+  initialFavoredDealIds,
 }: FavoriteContextProviderProps) {
   const [state, dispatch] = useReducer(
     (state: FavoriteContextState, action: FavoriteContextAction) => {
