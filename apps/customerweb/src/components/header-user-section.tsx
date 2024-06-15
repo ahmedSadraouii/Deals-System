@@ -1,17 +1,16 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 import { HeaderUserProfileButton } from '@/components/header-user-profile-button';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconProfile } from '@/components/svg/icon-profile';
 import { IconUser } from '@/components/svg/icon-user';
+import { authOptions } from '@/utils/auth';
 
-export function HeaderUserSection() {
-  const session = useSession();
+export async function HeaderUserSection() {
+  const session = await getServerSession(authOptions);
 
-  if (session.data) {
+  if (session) {
     return (
       <>
         <HeaderUserProfileButton>
@@ -22,7 +21,7 @@ export function HeaderUserSection() {
             data-is-user-button={true}
           >
             <span className="hidden pl-4 lg:block">
-              Hey {session.data.user.profile.firstName}!
+              Hey {session.user.profile.firstName}!
             </span>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-default/40">
               <IconProfile className="text-2xl text-secondary" />

@@ -1,6 +1,9 @@
 import React from 'react';
+import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { DealsListItem } from '@/components/deal/deals-list-item';
+import { AldiButton } from '@/components/nextui/aldi-button';
+import { IconArrowLeft } from '@/components/svg/icon-arrow-left';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { authOptions } from '@/utils/auth';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -31,26 +34,35 @@ export default async function Page() {
     return [];
   }
 
-  const deals = await getDeals(100, 0);
+  const deals = (await getDeals(100, 0)).splice(0, 0);
 
   return (
-    <div
-      className={`mb-10 grid min-h-[50vh] gap-10 bg-gray-100
-                ${
-                  deals.length > 0
-                    ? 'grid-cols-1 p-10 md:grid-cols-2 lg:grid-cols-3'
-                    : 'grid-col-1'
-                }`}
-    >
-      {deals.length > 0 ? (
-        deals.map((deal, index) => (
-          <DealsListItem key={index} deal={deal} display="Grid" />
-        ))
-      ) : (
-        <div className="flex h-full w-full items-center justify-center  text-3xl font-semibold text-aldi-blue">
-          You have no saved deals yet
-        </div>
-      )}
+    <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
+      <div className="w-full rounded-large bg-default-100 p-4 lg:p-10">
+        {deals.length > 0 && (
+          <div className="grid grid-cols-2 gap-8">
+            {deals.map((deal, index) => (
+              <DealsListItem key={index} deal={deal} display="Grid" />
+            ))}
+          </div>
+        )}
+        {deals.length === 0 && (
+          <div className="flex flex-col items-center gap-4 text-secondary/50">
+            <span>Du hast noch keine Deals gemerkt.</span>
+
+            <AldiButton
+              as={Link}
+              size="lg"
+              variant="ghost"
+              href="/"
+              startContent={<IconArrowLeft className="text-2xl" />}
+              color="secondary"
+            >
+              Zurück zur Startseite
+            </AldiButton>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

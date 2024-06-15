@@ -44,6 +44,7 @@ module.exports = {
             primary: '#FF4802',
             secondary: '#202B77',
             divider: '#202B77',
+            focus: '#202B77',
           },
         },
       },

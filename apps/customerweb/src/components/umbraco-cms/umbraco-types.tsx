@@ -26,7 +26,7 @@ export interface UmbracoDeal {
     legacyArticleNo: string;
     initialDealStock: number;
     currentDealStock: number;
-    comment: unknown;
+    comment: string | unknown;
     ageRestriction: number;
     maxCustomerOrderQuantity: number;
     returnPeriod: number;

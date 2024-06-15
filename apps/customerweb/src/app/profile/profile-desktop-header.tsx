@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { IconHeart } from '@/components/svg/icon-heart';
+import { HeartOutlineSvg } from '@/components/svg/heart-outline-svg';
 import { IconUser } from '@/components/svg/icon-user';
 
 export function ProfileDesktopHeader() {
@@ -23,21 +23,22 @@ export function ProfileDesktopHeader() {
     },
     {
       title: 'Merkliste',
-      startContent: <IconHeart fill="#ffffff" />,
+      startContent: <HeartOutlineSvg />,
       link: '/profile/saved-deals',
     },
   ];
 
   return (
-    <div className="flex flex-row justify-center space-x-4">
+    <div className="flex flex-row items-center justify-center space-x-4">
       {routes.map((route) => (
         <AldiButton
-          key={route.link}
-          variant={pathname === route.link ? 'solid' : 'ghost'}
+          key={`${pathname}-${route.link}`}
+          variant={pathname.startsWith(route.link) ? 'solid' : 'ghost'}
           startContent={route.startContent}
           as={Link}
-          color="secondary"
+          color={pathname.startsWith(route.link) ? 'secondary' : 'default'}
           href={route.link}
+          size="lg"
         >
           {route.title}
         </AldiButton>

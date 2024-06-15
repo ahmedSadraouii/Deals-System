@@ -15,16 +15,12 @@ export default async function Page() {
 
   const userApi = getUserApiClient();
 
-  console.log('ciam id', session.user.id);
-
   const userDetails = await userApi
     .getAsync({
       ciamId: session.user.id,
       cardinalDirection: session.user.cardinalDirection as CardinalDirection,
     })
     .catch(catchApiError);
-
-  console.log(userDetails);
 
   return <PersonalInformationForm initialFormValues={userDetails} />;
 }

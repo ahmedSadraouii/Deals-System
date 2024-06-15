@@ -32,6 +32,7 @@ async function refreshAccessToken(
     const user: User = {
       id: jwtToken.sub,
       name: jwtToken.preferred_username,
+      email: jwtToken.email,
       rawTokenResponse: tokenResponse,
       cardinalDirection: cardinalDirectionResponse.data?.cardinalDirection || 1,
       profile,

@@ -22,12 +22,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="bg-white">
         <ServerProviders>
           <ClientProviders>
-            <Header />
-            <main>
+            <div className="flex min-h-screen flex-col">
               <AldiSuedDefsSvg />
-              <div>{children}</div>
-            </main>
-            <Footer />
+              <Header />
+              <main className="flex grow flex-col">{children}</main>
+              <Footer />
+            </div>
           </ClientProviders>
         </ServerProviders>
       </body>

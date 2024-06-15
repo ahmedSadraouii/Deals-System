@@ -1,4 +1,10 @@
-import { DealsApi, Configuration, FavoritesApi } from 'api-deals';
+import {
+  DealsApi,
+  Configuration,
+  FavoritesApi,
+  OrdersApi,
+  HonoredDealsApi,
+} from 'api-deals';
 
 export interface AdBeApiClientProps {
   accessToken?: string;
@@ -21,6 +27,16 @@ export function getAdBeApiConfiguration(
 
 export function getDealsApiClient(params: AdBeApiClientProps): DealsApi {
   return new DealsApi(getAdBeApiConfiguration(params));
+}
+
+export function getOrdersApiClient(params: AdBeApiClientProps): OrdersApi {
+  return new OrdersApi(getAdBeApiConfiguration(params));
+}
+
+export function getHonoredDealsApiClient(
+  params: AdBeApiClientProps,
+): HonoredDealsApi {
+  return new HonoredDealsApi(getAdBeApiConfiguration(params));
 }
 
 export function getFavoritesApiClient(

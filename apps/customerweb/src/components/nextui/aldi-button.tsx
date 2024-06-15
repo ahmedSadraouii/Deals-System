@@ -6,7 +6,7 @@ export const AldiButton = extendVariants(Button, {
   variants: {
     variant: {
       ghost: 'border-secondary/10 border-1',
-      solid: 'font-light',
+      solid: 'border-1 border-transparent',
       outline: 'border-orange-600 border-1',
     },
     size: {
