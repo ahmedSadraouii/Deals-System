@@ -34,7 +34,7 @@ export default async function Page() {
     return [];
   }
 
-  const deals = (await getDeals(100, 0)).splice(0, 0);
+  const deals = await getDeals(100, 0);
 
   return (
     <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
