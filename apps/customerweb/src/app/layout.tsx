@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { Settings } from 'luxon';
 import ClientProviders from '@/app/client-providers';
 import ServerProviders from '@/app/server-providers';
 import { Footer } from '@/components/footer';
@@ -15,6 +16,9 @@ export const metadata: Metadata = {
 export interface RootLayoutProps {
   children: ReactNode;
 }
+
+// set the default locale on the server side
+Settings.defaultLocale = 'de';
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (

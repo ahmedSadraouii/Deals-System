@@ -32,8 +32,6 @@ export default async function Page() {
     );
   }
 
-  console.log({ deals: dealsResponse.items });
-
   const uniqueSupplierIds = Array.from(
     new Set(deals.map((deal) => deal.properties?.supplier!.id!)),
   );
@@ -72,7 +70,11 @@ export default async function Page() {
       // todo: SUPER HACKY TEMPORARY WORKAROUND, REMOVE THIS IMMEDIATELY
       // use the first deal if the deal was not found
       const dealToUse = deal || deals[0];
-      console.log(`Danger. Using deal ${dealToUse?.id} instead of ${deal?.id}`);
+      if (dealToUse !== deal) {
+        console.log(
+          `Danger. Using deal ${dealToUse?.id} instead of ${deal?.id}`,
+        );
+      }
 
       const supplier = suppliers.find(
         (supplier) => supplier.id === dealToUse?.properties?.supplier?.id,

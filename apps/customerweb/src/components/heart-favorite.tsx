@@ -15,26 +15,30 @@ interface HeartFavoriteProps {
 
 export function HeartFavorite({ dealId }: HeartFavoriteProps) {
   const favoriteContext = useContext(FavoriteContext);
-  async function handleFavoriteChange(dealId: string, isAdding: boolean) {
-    try {
-      if (isAdding) {
-        await addFavoriteAction({
+
+  const handleFavoriteChange = useCallback(
+    async (dealId: string, isAdding: boolean) => {
+      try {
+        if (isAdding) {
+          await addFavoriteAction({
+            dealId,
+          });
+        } else {
+          await deleteFavoriteAction({ dealId });
+        }
+      } catch (error) {
+        console.error('Error updating favorite status:', error);
+        // Revert the context state if the API call fails
+        favoriteContext.dispatch({
+          type: isAdding
+            ? FavoriteContextActionKind.RemoveFavorite
+            : FavoriteContextActionKind.AddFavorite,
           dealId,
         });
-      } else {
-        await deleteFavoriteAction({ dealId });
       }
-    } catch (error) {
-      console.error('Error updating favorite status:', error);
-      // Revert the context state if the API call fails
-      favoriteContext.dispatch({
-        type: isAdding
-          ? FavoriteContextActionKind.RemoveFavorite
-          : FavoriteContextActionKind.AddFavorite,
-        dealId,
-      });
-    }
-  }
+    },
+    [favoriteContext],
+  );
 
   const toggleFavorite = useCallback(
     async (dealId: string) => {
@@ -49,9 +53,9 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
       });
 
       // Call the API to update the backend
-      handleFavoriteChange(dealId, !isDealFavored);
+      await handleFavoriteChange(dealId, !isDealFavored);
     },
-    [favoriteContext],
+    [favoriteContext, handleFavoriteChange],
   );
 
   const isFavored = useMemo(

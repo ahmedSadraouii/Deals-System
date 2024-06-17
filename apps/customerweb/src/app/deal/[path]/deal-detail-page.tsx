@@ -170,8 +170,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                 alt={supplier.name}
                 width={64}
                 height={64}
-                objectFit="contain"
-                className="shrink-0"
+                className="shrink-0 object-contain"
               />
               <div className="flex flex-col">
                 <div className="text-sm font-medium text-secondary/50">

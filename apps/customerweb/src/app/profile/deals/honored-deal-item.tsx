@@ -23,15 +23,7 @@ export function HonoredDealItem({
   supplier,
   honoredDeal,
 }: HonoredDealItemProps) {
-  const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
 
   const supplierImageUrl =
     supplierImage &&
@@ -55,8 +47,7 @@ export function HonoredDealItem({
           alt={supplier.name}
           width={88}
           height={88}
-          objectFit="contain"
-          className="shrink-0"
+          className="shrink-0 object-contain"
         />
       </div>
       <div className="flex grow flex-col gap-2">

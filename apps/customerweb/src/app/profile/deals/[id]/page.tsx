@@ -133,8 +133,7 @@ export default async function Page({
                   alt={dealSupplier.name}
                   width={88}
                   height={88}
-                  objectFit="contain"
-                  className="shrink-0"
+                  className="shrink-0 object-contain"
                 />
               </div>
               <h2 className="text-lg font-medium text-secondary">

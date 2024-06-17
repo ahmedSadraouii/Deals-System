@@ -32,7 +32,7 @@ async function refreshAccessToken(
     const user: User = {
       id: jwtToken.sub,
       name: jwtToken.preferred_username,
-      email: jwtToken.email,
+      email: emailAddress,
       rawTokenResponse: tokenResponse,
       cardinalDirection: cardinalDirectionResponse.data?.cardinalDirection || 1,
       profile,
@@ -43,7 +43,7 @@ async function refreshAccessToken(
     return {
       ...user,
       profile,
-
+      email: emailAddress,
       accessToken: user.rawTokenResponse.accessToken,
       accessTokenExpires: now + (user.rawTokenResponse.expiresIn ?? 0),
       refreshToken: user.rawTokenResponse.refreshToken,
@@ -131,8 +131,8 @@ export const authOptions: NextAuthOptions = {
         // fresh sign in
         const now = Math.floor(Date.now() / 1000);
         return {
-          ...token,
           ...user,
+          ...token,
           accessToken: user.rawTokenResponse.accessToken,
           accessTokenExpires: now + (user.rawTokenResponse.expiresIn ?? 0),
           refreshToken: user.rawTokenResponse.refreshToken,
