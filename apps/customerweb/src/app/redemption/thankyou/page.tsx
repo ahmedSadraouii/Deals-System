@@ -18,7 +18,7 @@ export default async function Page() {
 
   const getHonoredDeals = async (take = 100, skip = 0) => {
     try {
-      const honoredDeals = await honoredApi.honoredDeals({ take, skip });
+      const honoredDeals = await honoredApi.getHonoredDeals({ take, skip });
       return (
         honoredDeals.items?.filter((deal) => deal.dealId !== undefined) ?? []
       );
