@@ -1,5 +1,5 @@
 import type { HonoredDealModel } from 'api-deals';
-import { HonoredDealItem } from '@/app/profile/orders/honored-deal-item';
+import { HonoredDealItem } from '@/app/profile/deals/honored-deal-item';
 import type {
   UmbracoDeal,
   UmbracoSupplier,

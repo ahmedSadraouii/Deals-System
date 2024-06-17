@@ -8,13 +8,16 @@ import { getHonoredDealsApiClient } from '@/utils/redeem-api-client';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  const honoredApi = getHonoredDealsApiClient({
+  const honoredDealsApi = getHonoredDealsApiClient({
     accessToken: session?.accessToken,
   });
 
   const getHonoredDeals = async (take = 100, skip = 0) => {
     try {
-      const honoredDeals = await honoredApi.honoredDeals({ take, skip });
+      const honoredDeals = await honoredDealsApi.getHonoredDeals({
+        take,
+        skip,
+      });
       return (
         honoredDeals.items?.filter((deal) => deal.dealId !== undefined) ?? []
       );

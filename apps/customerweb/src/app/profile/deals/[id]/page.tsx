@@ -7,7 +7,7 @@ import { Link } from '@nextui-org/react';
 import { DateTime } from 'luxon';
 import { getServerSession } from 'next-auth';
 import NotFound from '@/app/not-found';
-import { CodeField } from '@/app/profile/orders/code-field';
+import { CodeField } from '@/app/profile/deals/code-field';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { ArrowUpRightSvg } from '@/components/svg/arrow-up-right-svg';
 import { EmailSvg } from '@/components/svg/email-svg';
@@ -35,7 +35,7 @@ export default async function Page({
     accessToken: session?.accessToken,
   });
 
-  const honoredDealsResponse = await honoredDealsApi.honoredDeals();
+  const honoredDealsResponse = await honoredDealsApi.getHonoredDeals();
   const honoredDealsList = honoredDealsResponse.items || [];
 
   const matchingHonoredDeal = honoredDealsList.find((deal) => deal.id === id);
@@ -108,7 +108,7 @@ export default async function Page({
       <div className="flex w-full flex-col rounded-large bg-default-100 p-4 lg:p-10">
         <div className="mb-4 flex flex-row items-center gap-4 border-b border-gray-200 pb-4">
           <AldiButton
-            href="/profile/orders"
+            href="/profile/deals"
             variant="ghost"
             isIconOnly={true}
             size="lg"

@@ -48,11 +48,11 @@ export function Header() {
             Start
           </AldiButton>
         </NavbarItem>
-        <NavbarItem>
+        {/*<NavbarItem>
           <AldiButton as={Link} size="lg" variant="light" href="/faq">
             FAQ
           </AldiButton>
-        </NavbarItem>
+        </NavbarItem>*/}
       </NavbarContent>
 
       <NavbarContent className="hidden shrink-0 gap-4 lg:flex" justify="end">
@@ -60,7 +60,7 @@ export function Header() {
           as={Link}
           size="lg"
           variant="ghost"
-          href="/activate-coupon"
+          href="/redeem"
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
         >
@@ -109,7 +109,7 @@ export function Header() {
             as={Link}
             size="lg"
             variant="ghost"
-            href="/activate-coupon"
+            href="/redeem"
             endContent={<IconTicket className="text-2xl" />}
             color="secondary"
             fullWidth={true}
@@ -141,10 +141,10 @@ export function Header() {
         className="bg-secondary/80 p-0 backdrop-blur-sm"
       >
         <div className="flex h-full w-[280px] flex-col gap-4 bg-white p-4">
-          <NavbarMenuItem>Cheese!</NavbarMenuItem>
-          <NavbarMenuItem>Cheese!</NavbarMenuItem>
-          <NavbarMenuItem>Cheese!</NavbarMenuItem>
-          <NavbarMenuItem>Cheese!</NavbarMenuItem>
+          <NavbarMenuItem>Item 1</NavbarMenuItem>
+          <NavbarMenuItem>Item 2</NavbarMenuItem>
+          <NavbarMenuItem>Item 3</NavbarMenuItem>
+          <NavbarMenuItem>Item 4</NavbarMenuItem>
         </div>
       </NavbarMenu>
     </Navbar>

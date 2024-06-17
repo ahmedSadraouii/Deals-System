@@ -49,21 +49,21 @@ export function HeaderUserProfileButton({
       >
         <DropdownItem
           as={Link}
-          href="/profile/personal-information"
+          href="/profile/general"
           startContent={<IconUser className="text-xl" />}
         >
           Mein Profil
         </DropdownItem>
         <DropdownItem
           as={Link}
-          href="/profile/orders"
+          href="/profile/deals"
           startContent={<BagOutlineSvg className="text-xl" />}
         >
           Meine Deals
         </DropdownItem>
         <DropdownItem
           as={Link}
-          href="/profile/saved-deals"
+          href="/profile/favorites"
           startContent={<BookmarkOutlineSvg className="text-xl" />}
         >
           Merkliste

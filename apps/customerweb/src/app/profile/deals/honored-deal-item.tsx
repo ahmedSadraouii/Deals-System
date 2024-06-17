@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { HonoredDealModel } from 'api-deals';
 import { DateTime } from 'luxon';
-import { CodeField } from '@/app/profile/orders/code-field';
+import { CodeField } from '@/app/profile/deals/code-field';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import type {
@@ -78,7 +78,7 @@ export function HonoredDealItem({
           size="lg"
           color="secondary"
           as={Link}
-          href={`/profile/orders/${honoredDeal.id}`}
+          href={`/profile/deals/${honoredDeal.id}`}
         >
           Details{' '}
         </AldiButton>
