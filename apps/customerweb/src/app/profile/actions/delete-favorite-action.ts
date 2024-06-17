@@ -32,7 +32,7 @@ export async function deleteFavoriteAction({
       dealId,
       xApiVersion: '1.0',
     });
-    revalidatePath('/saved-deals');
+    revalidatePath('/favorites');
     return {
       success: true,
     };

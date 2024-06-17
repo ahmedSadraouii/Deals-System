@@ -32,7 +32,7 @@ export async function addFavoriteAction({
       xApiVersion: '1.0',
       addFavoriteInputModel: { dealId },
     });
-    revalidatePath('/saved-deals');
+    revalidatePath('/favorites');
     return {
       success: true,
     };
