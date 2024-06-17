@@ -68,7 +68,7 @@ export function DealsListItemGrid({
             <IconOnline className="mr-2 text-base" />
             <span className="text-aldi-key">Nur Online</span>
           </span>
-          <HeartFavorite dealId={deal.id} />
+          <HeartFavorite dealId={deal.properties?.dealId || deal.id} />
         </div>
       </div>
 

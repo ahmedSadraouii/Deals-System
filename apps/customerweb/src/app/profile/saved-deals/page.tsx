@@ -25,15 +25,12 @@ export default async function Page() {
           .map((item) => item.dealId)
           .filter((id): id is string => id !== undefined),
       );
-
       return (await contentApi.getContentItem({
         id: dealIds,
       })) as UmbracoDeal[];
     }
-
     return [];
   }
-
   const deals = await getDeals(100, 0);
 
   return (

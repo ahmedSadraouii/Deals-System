@@ -13,6 +13,7 @@ export interface UmbracoDeal {
   id: string;
   properties?: {
     htmlTags: unknown;
+    dealId: string;
     description: string;
     details?: string;
     greatOffer: boolean;
