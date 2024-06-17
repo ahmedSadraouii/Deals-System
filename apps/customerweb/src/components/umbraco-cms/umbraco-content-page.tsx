@@ -1,6 +1,7 @@
 import NotFound from '@/app/not-found';
 import { UmbracoRenderer } from '@/components/umbraco-cms/umbraco-renderer';
 import type { UmbracoContentPage as UmbracoTypesUmbracoContentPage } from '@/components/umbraco-cms/umbraco-types';
+import { authOptions } from '@/utils/auth';
 import { getContentApiClient } from '@/utils/content-api-client';
 import { getServerSession } from 'next-auth';
 
@@ -9,9 +10,9 @@ export interface UmbracoContentPageProps {
 }
 
 export async function UmbracoContentPage({ path }: UmbracoContentPageProps) {
-  const session = getServerSession(); 
+  const session = getServerSession(authOptions); 
   const contentApi = getContentApiClient();
-  const isGuest = !!session; 
+  const isGuest = false; // session == null 
 
   try {
     const pageContent = await contentApi.getContentItemByPath20({
