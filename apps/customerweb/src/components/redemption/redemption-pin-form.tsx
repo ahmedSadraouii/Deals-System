@@ -28,7 +28,9 @@ export function RedemptionPinForm({
   const {
     handleSubmit,
     formState: { errors },
+    setError,
   } = form;
+
   const onSubmit = useCallback(
     async (data: typeof defaultValues) => {
       try {
@@ -36,17 +38,20 @@ export function RedemptionPinForm({
           pin: data.pinCode,
           email: guest ? data.email : userEmail,
         });
-
         if (result.success) {
-          router.push('/redemption/activate');
+          const dealId = result.dealId;
+          router.push(`/redemption/activate/${dealId}`);
         } else {
-          console.error(result.message);
+          setError('pinCode', {
+            type: 'manual',
+            message: result.message,
+          });
         }
       } catch (error) {
         console.error('Error submitting the form', error);
       }
     },
-    [router],
+    [router, setError, guest, userEmail],
   );
 
   return (
@@ -61,7 +66,7 @@ export function RedemptionPinForm({
             <Controller
               name="pinCode"
               rules={{
-                required: true,
+                required: 'Pin wird benötigt',
               }}
               render={({ field }) => (
                 <AldiInput
@@ -70,15 +75,15 @@ export function RedemptionPinForm({
                   isRequired={true}
                   {...field}
                   isInvalid={!!errors.pinCode}
-                  errorMessage={errors.pinCode && 'Pin wird benötigt'}
+                  errorMessage={errors.pinCode?.message}
                 />
               )}
             />
             {guest && (
               <Controller
-                name="e-mail"
+                name="email"
                 rules={{
-                  required: true,
+                  required: 'E-Mail wird benötigt',
                 }}
                 render={({ field }) => (
                   <AldiInput
@@ -88,7 +93,7 @@ export function RedemptionPinForm({
                     isRequired={true}
                     {...field}
                     isInvalid={!!errors.email}
-                    errorMessage={errors.email && 'Pin wird benötigt'}
+                    errorMessage={errors.email?.message}
                   />
                 )}
               />

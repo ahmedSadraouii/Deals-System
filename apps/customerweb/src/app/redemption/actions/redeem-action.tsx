@@ -3,7 +3,6 @@
 import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
-import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
 import { redeemApiClient } from '@/utils/redeem-api-client';
 
@@ -19,6 +18,7 @@ export async function addHonoredDeal({
   success: boolean;
   apiErrorCode?: ApiErrorCodes;
   message?: string;
+  dealId?: string;
 }> {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -30,23 +30,27 @@ export async function addHonoredDeal({
   });
 
   try {
-    await honoredApi.redeem({
+    const response = await honoredApi.redeem({
       xApiVersion: '1.0',
       redeemInputModel: { pin, email },
     });
+
+    const { dealId } = response;
+
     revalidatePath('/redemption/thankyou');
     return {
       success: true,
+      dealId,
     };
   } catch (error: any) {
     if (error?.response?.json) {
-      const errorResponse = await (error as any).response.json();
-      const apiError = tryParseApiErrorWithFallback(errorResponse);
-      return {
-        success: false,
-        apiErrorCode: apiError.errorCode,
-        message: apiError.message,
-      };
+      const errorResponse = await error.response.json();
+      if (errorResponse.errors && errorResponse.errors.pin) {
+        return {
+          success: false,
+          message: errorResponse.errors.pin.join(', '), // Join multiple error messages if any
+        };
+      }
     }
     throw error;
   }

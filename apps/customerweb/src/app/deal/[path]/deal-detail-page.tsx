@@ -8,10 +8,10 @@ import Link from 'next/link';
 import { Divider, Tooltip } from '@nextui-org/react';
 import { DealPerkCard } from '@/app/deal/[path]/deal-perk-card';
 import { Carousel } from '@/components/carousel/carousel';
+import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
-import { HeartSvg } from '@/components/svg/heart-svg';
 import { IconCart } from '@/components/svg/icon-cart';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
@@ -113,11 +113,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                 <h1 className="text-2xl font-bold text-secondary">
                   {deal.name}
                 </h1>
-                <Tooltip content="TODO: Welche Funktion steckt hier hinter?">
-                  <div className="h-16 w-16 rounded-full border border-[#F05321]/10 bg-[#F05321]/10 p-6">
-                    <HeartSvg className="text-[#F05321]" />
-                  </div>
-                </Tooltip>
+                <HeartFavorite dealId={deal.properties?.dealId || deal.id} />
               </div>
               {deal.properties?.availabilityEnd && (
                 <div className="hidden flex-row items-center gap-2 text-secondary/50 lg:flex">

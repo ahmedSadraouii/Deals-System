@@ -15,7 +15,6 @@ interface HeartFavoriteProps {
 
 export function HeartFavorite({ dealId }: HeartFavoriteProps) {
   const favoriteContext = useContext(FavoriteContext);
-
   async function handleFavoriteChange(dealId: string, isAdding: boolean) {
     try {
       if (isAdding) {
