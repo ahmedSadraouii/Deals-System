@@ -20,7 +20,7 @@ export type FavoriteContextAction =
 
 export interface FavoriteContextState {
   favoredDealIds: Array<string>;
-  favsEnabled: boolean; 
+  favsEnabled: boolean;
 }
 
 export interface FavoriteContextInterface extends FavoriteContextState {

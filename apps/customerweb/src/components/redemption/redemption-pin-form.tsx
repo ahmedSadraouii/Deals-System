@@ -51,7 +51,7 @@ export function RedemptionPinForm({
         console.error('Error submitting the form', error);
       }
     },
-    [router, setError, guest, userEmail],
+    [router, setError, isGuest, userEmail],
   );
 
   return (
@@ -79,7 +79,7 @@ export function RedemptionPinForm({
                 />
               )}
             />
-            {guest && (
+            {isGuest && (
               <Controller
                 name="email"
                 rules={{
