@@ -1,6 +1,6 @@
 import React from 'react';
 import { getServerSession } from 'next-auth';
-import { HonoredDealsList } from '@/app/profile/orders/honored-deals-list';
+import { HonoredDealsList } from '@/app/profile/deals/honored-deals-list';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
@@ -57,7 +57,7 @@ export default async function Page() {
     );
   }
 
-  const honoredDealsResponse = await honoredDealsApi.honoredDeals();
+  const honoredDealsResponse = await honoredDealsApi.getHonoredDeals();
   const honoredDealsList = honoredDealsResponse.items || [];
 
   const dealsItems = honoredDealsList

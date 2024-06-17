@@ -14,17 +14,17 @@ export function ProfileDesktopHeader() {
     {
       title: 'Profil',
       startContent: <IconUser />,
-      link: '/profile/personal-information',
+      link: '/profile/general',
     },
     {
       title: 'Meine Deals',
       startContent: <IconUser />,
-      link: '/profile/orders',
+      link: '/profile/deals',
     },
     {
       title: 'Merkliste',
       startContent: <HeartOutlineSvg />,
-      link: '/profile/saved-deals',
+      link: '/profile/favorites',
     },
   ];
 

@@ -9,12 +9,12 @@ import { addHonoredDeal } from '@/app/redemption/actions/redeem-action';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
 interface RedemptionPinFormProps {
-  guest: boolean;
+  isGuest: boolean;
   userEmail: string;
 }
 
 export function RedemptionPinForm({
-  guest,
+  isGuest,
   userEmail,
 }: RedemptionPinFormProps) {
   const router = useRouter();
@@ -36,7 +36,7 @@ export function RedemptionPinForm({
       try {
         const result = await addHonoredDeal({
           pin: data.pinCode,
-          email: guest ? data.email : userEmail,
+          email: isGuest ? data.email : userEmail,
         });
         if (result.success) {
           const dealId = result.dealId;

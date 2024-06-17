@@ -4,6 +4,7 @@ import type { UmbracoContentPage } from '@/components/umbraco-cms/umbraco-types'
 export interface UmbracoContentPageRendererProps {
   contentPage: UmbracoContentPage;
 }
+
 export function UmbracoContentPageRenderer({
   contentPage,
 }: UmbracoContentPageRendererProps) {

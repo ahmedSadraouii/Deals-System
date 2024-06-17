@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import type { CardinalDirection } from 'api-user';
 import { getServerSession } from 'next-auth';
-import { PersonalInformationForm } from '@/app/profile/personal-information/personal-information-form';
+import { PersonalInformationForm } from '@/app/profile/general/personal-information-form';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';
 import { getUserApiClient } from '@/utils/user-api-client';

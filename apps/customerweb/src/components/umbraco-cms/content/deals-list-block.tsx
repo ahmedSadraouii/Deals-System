@@ -8,6 +8,7 @@ export interface DealsListBlockProps {
   title: string;
   display: 'Grid' | 'Small Slider' | 'Hero Slider';
 }
+
 export function DealsListBlock({ title, deals, display }: DealsListBlockProps) {
   if (display === 'Grid') {
     return <DealsListBlockGrid title={title} deals={deals} />;

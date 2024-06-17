@@ -1,7 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/utils/auth';
 
-export function Footer() {
+export async function Footer() {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <div className="border-t border-secondary/10 bg-gray-100">
@@ -27,7 +31,7 @@ export function Footer() {
                 />{' '}
                 kontakt@kundenservice.aldi-sued.de
               </a>
-              <a
+              {/*<a
                 href="mailto:kundenservice@aldideals.de"
                 className="mt-5 flex items-center rounded-full bg-slate-900 px-6 py-3 text-white hover:underline md:ml-4 md:mt-0"
               >
@@ -37,7 +41,7 @@ export function Footer() {
                   className="float-left mr-3 fill-white stroke-white text-white"
                 />{' '}
                 Häufig gestellte Fragen
-              </a>
+              </a>*/}
             </div>
           </div>
         </div>
@@ -61,37 +65,18 @@ export function Footer() {
                 <h2 className="mb-6 text-xl font-bold">Navigation</h2>
                 <ul>
                   <li className="mb-4 text-gray-50">
-                    <a href="#" className="hover:underline">
+                    <a href="/" className="hover:underline">
                       Start
                     </a>
                   </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Kategorien
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Anmelden
-                    </a>
-                  </li>
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Registrieren
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul className="mt-12">
                   <li className="mb-4 text-gray-50">
-                    <a href="#" className="hover:underline">
+                    <a href="/cart" className="hover:underline">
                       Warenkorb
                     </a>
                   </li>
-                  <li className="mb-4">
+                  {/*<li className="mb-4">
                     <a href="#" className="hover:underline">
-                      Profil
+                      Kategorien
                     </a>
                   </li>
                   <li className="mb-4">
@@ -103,14 +88,53 @@ export function Footer() {
                     <a href="#" className="hover:underline">
                       Hilfe & Support
                     </a>
-                  </li>
+                  </li>*/}
+                </ul>
+              </div>
+              <div>
+                <ul className="mt-12">
+                  {session ? (
+                    <>
+                      <li className="mb-4">
+                        <a href="/profile/general" className="hover:underline">
+                          Profil
+                        </a>
+                      </li>
+                      <li className="mb-4">
+                        <a href="/profile/deals" className="hover:underline">
+                          Meine Deals
+                        </a>
+                      </li>
+                      <li className="mb-4">
+                        <a
+                          href="/profile/favorites"
+                          className="hover:underline"
+                        >
+                          Meine Favoriten
+                        </a>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="mb-4">
+                        <a href="#" className="hover:underline">
+                          Anmelden
+                        </a>
+                      </li>
+                      <li className="mb-4">
+                        <a href="#" className="hover:underline">
+                          Registrieren
+                        </a>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
           </div>
           <div className="mt-10 justify-center sm:flex sm:items-center">
             <span className="text-sm text-gray-600">
-              &copy; 2023{' '}
+              &copy; 2024{' '}
               <Link href="/" className="hover:underline">
                 Aldi-Deals&trade;
               </Link>

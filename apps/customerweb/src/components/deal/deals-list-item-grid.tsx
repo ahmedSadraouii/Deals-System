@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Link from 'next/link';
+import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
 import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
@@ -28,6 +29,7 @@ export function DealsListItemGrid({
 }: DealsListItemGridProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
+  const favoriteContext = useContext(FavoriteContext);
 
   const productImageUrl =
     primaryImage &&
@@ -68,7 +70,7 @@ export function DealsListItemGrid({
             <IconOnline className="mr-2 text-base" />
             <span className="text-aldi-key">Nur Online</span>
           </span>
-          <HeartFavorite dealId={deal.properties?.dealId || deal.id} />
+          {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
         </div>
       </div>
 

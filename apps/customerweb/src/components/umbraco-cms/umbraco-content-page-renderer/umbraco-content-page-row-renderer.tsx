@@ -4,6 +4,7 @@ import type { UmbracoContentPageRowItem } from '@/components/umbraco-cms/umbraco
 export interface UmbracoContentPageRowRendererProps {
   item: UmbracoContentPageRowItem;
 }
+
 export function UmbracoContentPageRowRenderer({
   item,
 }: UmbracoContentPageRowRendererProps) {
