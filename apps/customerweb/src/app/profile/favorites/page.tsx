@@ -42,7 +42,7 @@ export default async function Page() {
         {deals.length > 0 && (
           <div className="grid grid-cols-2 gap-8">
             {deals.map((deal, index) => (
-              <DealsListItem key={index} deal={deal} display="Grid" />
+              <DealsListItem key={index} deal={deal} display="Grid"/>
             ))}
           </div>
         )}

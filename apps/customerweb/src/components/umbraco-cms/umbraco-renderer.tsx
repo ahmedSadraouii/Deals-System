@@ -4,12 +4,13 @@ import type { UmbracoContentPage } from '@/components/umbraco-cms/umbraco-types'
 export type UmbracoRendererProps = {
   type: 'contentPage';
   contentPage: UmbracoContentPage;
+  isGuest?: boolean;
 };
 
 export function UmbracoRenderer(props: UmbracoRendererProps) {
   // todo: render the content page
   if (props.type === 'contentPage') {
-    return <UmbracoContentPageRenderer contentPage={props.contentPage} />;
+    return <UmbracoContentPageRenderer contentPage={props.contentPage} isGuest={props.isGuest} />;
   }
   return (
     <pre className="whitespace-pre-wrap">

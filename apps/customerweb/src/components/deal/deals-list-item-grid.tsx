@@ -18,6 +18,7 @@ import { formatAvailability } from '@/utils/format-availability';
 export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
   supplier: UmbracoSupplier;
   ctaType?: 'inline' | 'button';
+  isGuest?: boolean;
 };
 
 export function DealsListItemGrid({
@@ -25,6 +26,7 @@ export function DealsListItemGrid({
   supplier,
   className,
   ctaType = 'inline',
+  isGuest = false,
 }: DealsListItemGridProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
@@ -68,7 +70,7 @@ export function DealsListItemGrid({
             <IconOnline className="mr-2 text-base" />
             <span className="text-aldi-key">Nur Online</span>
           </span>
-          <HeartFavorite dealId={deal.id} />
+          {!isGuest && <HeartFavorite dealId={deal.id} />}
         </div>
       </div>
 

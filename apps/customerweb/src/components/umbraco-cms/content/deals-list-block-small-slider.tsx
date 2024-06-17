@@ -10,6 +10,7 @@ export type DealsListBlockHeroSliderProps = Omit<
 export async function DealsListBlockSmallSlider({
   title,
   deals,
+  isGuest,
 }: DealsListBlockHeroSliderProps) {
   return (
     <div className="bg-default-100">
@@ -19,7 +20,7 @@ export async function DealsListBlockSmallSlider({
         </h2>
         <Carousel itemsPerPage={3}>
           {deals.map((deal, index) => (
-            <DealsListItem key={index} deal={deal} display="Small Slider" />
+            <DealsListItem key={index} deal={deal} display="Small Slider" isGuest={isGuest} />
           ))}
         </Carousel>
       </div>
