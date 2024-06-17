@@ -7,15 +7,15 @@ export interface DealsListBlockProps {
   deals: Array<UmbracoDeal>;
   title: string;
   display: 'Grid' | 'Small Slider' | 'Hero Slider';
-  isGuest?: boolean;
 }
-export function DealsListBlock({ title, deals, display, isGuest }: DealsListBlockProps) {
+
+export function DealsListBlock({ title, deals, display }: DealsListBlockProps) {
   if (display === 'Grid') {
-    return <DealsListBlockGrid title={title} deals={deals} isGuest={isGuest}/>;
+    return <DealsListBlockGrid title={title} deals={deals} />;
   } else if (display === 'Hero Slider') {
-    return <DealsListBlockHeroSlider title={title} deals={deals} isGuest={isGuest}/>;
+    return <DealsListBlockHeroSlider title={title} deals={deals} />;
   } else if (display === 'Small Slider') {
-    return <DealsListBlockSmallSlider title={title} deals={deals} isGuest={isGuest} />;
+    return <DealsListBlockSmallSlider title={title} deals={deals} />;
   }
 
   return (

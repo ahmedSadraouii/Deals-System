@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { getServerSession } from 'next-auth';
+import { Session, getServerSession } from 'next-auth';
 import { FavoriteContextProvider } from '@/app/contexts/favorite/favorite-context';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';
@@ -13,8 +13,7 @@ interface FavoriteItem {
   createdAt: string;
 }
 
-async function getOptionalFavoriteDealIdsFromSession(): Promise<Array<string>> {
-  const session = await getServerSession(authOptions);
+async function getOptionalFavoriteDealIdsFromSession(session: Session | null): Promise<Array<string>> {
   if (!session) {
     return [];
   }
@@ -40,11 +39,12 @@ async function getOptionalFavoriteDealIdsFromSession(): Promise<Array<string>> {
 }
 
 export default async function ServerProviders({ children }: ProvidersProps) {
-  const favoredDealIds = await getOptionalFavoriteDealIdsFromSession();
+  const session = await getServerSession(authOptions);
+  const favoredDealIds = await getOptionalFavoriteDealIdsFromSession(session);
 
   return (
     <>
-      <FavoriteContextProvider initialFavoredDealIds={favoredDealIds}>
+      <FavoriteContextProvider initialFavoredDealIds={favoredDealIds} favsEnabled={!!session}>
         {children}
       </FavoriteContextProvider>
     </>

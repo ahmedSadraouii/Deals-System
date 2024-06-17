@@ -3,16 +3,15 @@ import type { UmbracoContentPageRowItem } from '@/components/umbraco-cms/umbraco
 
 export interface UmbracoContentPageRowRendererProps {
   item: UmbracoContentPageRowItem;
-  isGuest?: boolean;
 }
+
 export function UmbracoContentPageRowRenderer({
   item,
-  isGuest,
 }: UmbracoContentPageRowRendererProps) {
   return (
     <div className={`grid grid-cols-${item.gridColumns}`}>
       {item.items.map((item, index) => (
-        <UmbracoContentPageColumnRenderer item={item} key={index} isGuest={isGuest}/>
+        <UmbracoContentPageColumnRenderer item={item} key={index} />
       ))}
     </div>
   );

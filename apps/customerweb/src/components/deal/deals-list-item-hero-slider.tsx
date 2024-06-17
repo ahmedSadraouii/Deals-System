@@ -27,7 +27,6 @@ export function DealsListItemHeroSlider({
   deal,
   supplier,
   className,
-  isGuest
 }: DealsListItemHeroSliderProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
@@ -59,7 +58,6 @@ export function DealsListItemHeroSlider({
           deal={deal}
           supplier={supplier}
           ctaType="button"
-          isGuest={isGuest}
         />
       </div>
       <div

@@ -5,6 +5,7 @@ import { authOptions } from '@/utils/auth';
 export default async function Page() {
   const session = await getServerSession(authOptions);
   const email = session?.user?.profile?.email ?? '';
+
   return (
     <div className="w-full lg:w-[70%] xl:w-[50%]">
       <div className="mb-6">

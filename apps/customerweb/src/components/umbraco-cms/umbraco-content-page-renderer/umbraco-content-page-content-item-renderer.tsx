@@ -15,7 +15,6 @@ import { getContentApiClient } from '@/utils/content-api-client';
 
 export interface UmbracoContentPageContentItemRendererProps {
   item: UmbracoContentPageContentItem;
-  isGuest?: boolean;
 }
 
 async function getDeals(
@@ -36,11 +35,10 @@ async function getDeals(
 
 export async function UmbracoContentPageContentItemRenderer({
   item,
-  isGuest
 }: UmbracoContentPageContentItemRendererProps) {
   const contentApi = getContentApiClient();
   const contentType = item.contentType;
-  
+
   if (contentType === 'richTextBlock') {
     return (
       <section className="umbraco-content-page-content-item-section umbraco-content-page-content-item-section--richTextBlock">
@@ -107,7 +105,6 @@ export async function UmbracoContentPageContentItemRenderer({
           title={item.properties.title}
           deals={deals}
           display={item.properties.uiHint}
-          isGuest={isGuest}
         />
       </section>
     );

@@ -20,6 +20,7 @@ export type FavoriteContextAction =
 
 export interface FavoriteContextState {
   favoredDealIds: Array<string>;
+  favsEnabled: boolean; 
 }
 
 export interface FavoriteContextInterface extends FavoriteContextState {
@@ -28,6 +29,7 @@ export interface FavoriteContextInterface extends FavoriteContextState {
 
 export const FavoriteContext = createContext<FavoriteContextInterface>({
   favoredDealIds: [],
+  favsEnabled: false,
   dispatch: () => {
     throw new Error('FavoriteContext not initialized');
   },
@@ -36,11 +38,13 @@ export const FavoriteContext = createContext<FavoriteContextInterface>({
 interface FavoriteContextProviderProps {
   children: ReactNode;
   initialFavoredDealIds: Array<string>;
+  favsEnabled: boolean;
 }
 
 export function FavoriteContextProvider({
   children,
   initialFavoredDealIds,
+  favsEnabled,
 }: FavoriteContextProviderProps) {
   const [state, dispatch] = useReducer(
     (state: FavoriteContextState, action: FavoriteContextAction) => {
@@ -68,6 +72,7 @@ export function FavoriteContextProvider({
     },
     {
       favoredDealIds: initialFavoredDealIds,
+      favsEnabled: favsEnabled,
     },
   );
 

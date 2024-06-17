@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Link from 'next/link';
@@ -14,11 +14,11 @@ import { IconOnline } from '@/components/svg/icon-nur-online';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { formatAvailability } from '@/utils/format-availability';
+import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
 
 export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
   supplier: UmbracoSupplier;
   ctaType?: 'inline' | 'button';
-  isGuest?: boolean;
 };
 
 export function DealsListItemGrid({
@@ -26,11 +26,11 @@ export function DealsListItemGrid({
   supplier,
   className,
   ctaType = 'inline',
-  isGuest = false,
 }: DealsListItemGridProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
-
+  const favoriteContext = useContext(FavoriteContext);
+  
   const productImageUrl =
     primaryImage &&
     defaultLoader({
@@ -70,7 +70,7 @@ export function DealsListItemGrid({
             <IconOnline className="mr-2 text-base" />
             <span className="text-aldi-key">Nur Online</span>
           </span>
-          {!isGuest && <HeartFavorite dealId={deal.id} />}
+          {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
         </div>
       </div>
 

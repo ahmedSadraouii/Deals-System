@@ -9,13 +9,13 @@ import { addHonoredDeal } from '@/app/redemption/actions/redeem-action';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
 interface RedemptionPinFormProps {
+  isGuest: boolean;
   userEmail: string;
-  isGuest?: boolean;
 }
 
 export function RedemptionPinForm({
+  isGuest,
   userEmail,
-  isGuest = false,
 }: RedemptionPinFormProps) {
   const router = useRouter();
   const defaultValues = {

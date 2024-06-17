@@ -3,15 +3,13 @@ import type { UmbracoContentPageColumnItem } from '@/components/umbraco-cms/umbr
 
 export interface UmbracoContentPageColumnRendererProps {
   item: UmbracoContentPageColumnItem;
-  isGuest?: boolean;
 }
 export function UmbracoContentPageColumnRenderer({
   item,
-  isGuest,
 }: UmbracoContentPageColumnRendererProps) {
   return (
     <div className={`col-span-${item.columnSpan} row-span-${item.rowSpan}`}>
-      <UmbracoContentPageContentItemRenderer item={item.content} isGuest={isGuest}/>
+      <UmbracoContentPageContentItemRenderer item={item.content} />
     </div>
   );
 }

@@ -12,7 +12,6 @@ export interface DealsListItemProps {
   deal: UmbracoDeal;
   display: 'Grid' | 'Small Slider' | 'Hero Slider';
   className?: string;
-  isGuest?: boolean
 }
 
 export async function DealsListItem({

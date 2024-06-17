@@ -10,14 +10,13 @@ export type DealsListBlockHeroSliderProps = Omit<
 export async function DealsListBlockHeroSlider({
   title,
   deals,
-  isGuest
 }: DealsListBlockHeroSliderProps) {
   return (
     <div>
       <div className="container mx-auto px-4 pb-40 pt-10">
         <HeroCarousel title={title}>
           {deals.map((deal, index) => (
-            <DealsListItem key={index} deal={deal} display="Hero Slider" isGuest={isGuest}/>
+            <DealsListItem key={index} deal={deal} display="Hero Slider" />
           ))}
         </HeroCarousel>
       </div>
