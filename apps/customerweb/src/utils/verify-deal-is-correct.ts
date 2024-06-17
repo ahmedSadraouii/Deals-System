@@ -7,7 +7,6 @@ export function verifyDealIsCorrect(deal: UmbracoDeal): boolean {
     deal.name,
     deal.createDate,
     deal.route.path,
-    deal.properties?.dealId,
     deal.properties?.price,
     deal.properties?.supplier,
     deal.properties?.supplier?.id,
