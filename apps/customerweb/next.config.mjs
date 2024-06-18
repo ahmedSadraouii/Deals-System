@@ -26,7 +26,8 @@ const nextConfig = {
     CONTENT_API_BASE_URL: process.env.CONTENT_API_BASE_URL,
     AUTH_API_BASE_URL: process.env.AUTH_API_BASE_URL,
     ADBE_API_BASE_URL: process.env.ADBE_API_BASE_URL,
-  }
+  },
+  skipTrailingSlashRedirect: true
 };
 
 export default nextConfig;
