@@ -20,7 +20,7 @@ function checkBasicAuth(req: NextRequest) {
 }
 
 export const config = {
-  matcher: '/',
+  matcher: null,
 };
 
 export function middleware(request: NextRequest) {
