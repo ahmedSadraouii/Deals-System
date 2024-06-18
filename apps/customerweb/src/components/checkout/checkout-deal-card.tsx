@@ -2,11 +2,10 @@ import { Suspense } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
+import CopyableInput from '../redemption/copy-input';
 import { Card, CardBody, SelectItem } from '@nextui-org/react';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiSelect } from '@/components/nextui/aldi-select';
-import { CopyIconSvg } from '@/components/svg/aldi-copy-svg';
 import { IconArrowUpRight } from '@/components/svg/icon-arrow-up-right';
 import type {
   UmbracoDeal,
@@ -36,6 +35,12 @@ interface SelectOption {
   icon: string;
   alt: string;
 }
+const formatDate = (date: Date): string => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+};
 export default async function DealCheckoutCard({
   deal,
 }: DealCheckoutCardProps) {
@@ -56,6 +61,7 @@ export default async function DealCheckoutCard({
   }
 
   const fullDeal = dealContent as UmbracoDeal;
+  console.log('deal', fullDeal);
 
   if (!verifyDealIsCorrect(fullDeal)) {
     console.log('Deal is incorrect', fullDeal);
@@ -123,53 +129,52 @@ export default async function DealCheckoutCard({
   return (
     <Suspense>
       <Card className="bg-gray-100">
-        <CardBody className="flex flex-col gap-8 p-8 md:flex-row">
-          <div
-            className="h-72 bg-cover bg-center"
-            style={{
-              backgroundImage: productImageUrl && `url(${productImageUrl})`,
-            }}
+        <CardBody className="flex flex-col gap-8 p-10 md:flex-row">
+          <Image
+            className="w-full rounded-lg md:w-1/3"
+            src={productImageUrl!}
+            alt={fullDeal.name}
+            width={500}
+            height={420}
           />
           <div
             className={`flex flex-1 flex-col gap-6 ${
               deal.code !== '' ? 'justify-between' : ''
             }`}
           >
-            <div className="flex flex-col gap-4">
-              <div
-                className="h-72 bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    supplierImageUrl && `url(${supplierImageUrl})`,
-                }}
-              >
+            <div className="flex flex-col gap-4 md:flex-row">
+              <Image
+                className="md:max-h-72 lg:h-full"
+                src={supplierImageUrl!}
+                alt={fullSupplier.name}
+                width={85}
+                height={85}
+              />
+              <div>
                 <div>
-                  <div>
-                    <h1 className="text-2xl font-bold text-secondary ">
-                      {fullDeal.name}
-                    </h1>
-                    <p className="max-w-[300px] text-lg leading-5 text-aldi-blue">
-                      {description}
-                    </p>
-                  </div>
+                  <h1 className="text-2xl font-bold text-secondary ">
+                    {fullDeal.name}
+                  </h1>
+                  <p className="max-w-[300px] text-lg leading-5 text-aldi-blue">
+                    {description}
+                  </p>
                 </div>
               </div>
-              {deal.code !== '' ? (
-                <AldiInput
-                  label="Dein Code"
-                  className="w-full md:w-96"
-                  readOnly
-                  value={deal.code || ''}
-                  endContent={<CopyIconSvg />}
-                />
-              ) : (
-                ''
-              )}
-              <div>
-                <p className="border-b-2 border-t-2 pb-4 pt-4 text-aldi-blue opacity-50">
-                  createdAt
-                </p>
-              </div>
+            </div>
+            {deal.code !== '' ? <CopyableInput value={deal.code || ''} /> : ''}
+            <div>
+              <p className=" border-t-2 pb-2 pt-4 text-aldi-blue opacity-50">
+                Gültig ab:{' '}
+                {fullDeal.properties?.promotionStart
+                  ? formatDate(new Date(fullDeal.properties.promotionStart))
+                  : 'N/A'}
+              </p>
+              <p className="border-b-2 pb-4 text-aldi-blue opacity-50">
+                Gültig bis:{' '}
+                {fullDeal.properties?.promotionEnd
+                  ? formatDate(new Date(fullDeal.properties.promotionEnd))
+                  : 'N/A'}
+              </p>
             </div>
             {deal.code !== '' ? (
               <AldiButton

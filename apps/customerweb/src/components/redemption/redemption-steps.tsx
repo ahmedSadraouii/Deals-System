@@ -11,17 +11,21 @@ export function RedemptionStepper() {
   const steps = ['Kassenbon-PIN', 'Aktivieren', 'Dein Deal'];
 
   useEffect(() => {
-    if (path === '/redemption/activate') {
+    if (
+      path === '/redemption/activate' ||
+      /\/redemption\/activate\/\w+/.test(path)
+    ) {
       setCurrentStep(2);
     } else if (path === '/redemption/thankyou') {
       setCurrentStep(3);
     }
   }, [path, setCurrentStep]);
-  const handleStepClick = (step: Number) => {
-    if (step === 1) {
-      router.push('/redemption');
-    } else if (step === 2) router.push('/redemption/activate');
-    else if (step === 3) router.push('/redemption/thankyou');
+  const handleStepClick = (step: number) => {
+    if (step < currentStep) {
+      if (step === 1) {
+        router.push('/redemption');
+      }
+    }
   };
   return (
     <div>
