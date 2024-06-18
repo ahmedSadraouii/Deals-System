@@ -21,16 +21,13 @@ export async function addHonoredDeal({
   dealId?: string;
 }> {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    throw new Error('User is not authenticated');
-  }
 
   const honoredApi = redeemApiClient({
-    accessToken: session.accessToken,
+    accessToken: session?.accessToken,
   });
 
   try {
-    const response = await honoredApi.redeem({
+    const response = await honoredApi.redeemVoucher({
       redeemInputModel: { pin, email },
     });
 

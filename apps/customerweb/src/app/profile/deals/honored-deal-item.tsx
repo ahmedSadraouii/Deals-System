@@ -39,7 +39,7 @@ export function HonoredDealItem({
   return (
     <div
       className="flex h-32 flex-row items-center gap-6 border-b border-gray-200 py-6"
-      key={honoredDeal.id}
+      key={honoredDeal.honoredDealId}
     >
       <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-gray-200">
         <Image
@@ -69,7 +69,7 @@ export function HonoredDealItem({
           size="lg"
           color="secondary"
           as={Link}
-          href={`/profile/deals/${honoredDeal.id}`}
+          href={`/profile/deals/${honoredDeal.honoredDealId}`}
         >
           Details{' '}
         </AldiButton>

@@ -56,7 +56,7 @@ export default async function Page() {
       </div>
       <div className="flex w-full flex-col gap-8 lg:w-[80%] lg:min-w-[80%]">
         {deals.map((deal) => (
-          <DealCheckoutCard key={deal.id} deal={deal} />
+          <DealCheckoutCard key={deal.dealId} deal={deal} />
         ))}
       </div>
       {!session && (

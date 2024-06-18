@@ -849,13 +849,60 @@
                 }
             }
         },
+        "/ad-be/vouchers/{pin}": {
+            "get": {
+                "tags": [
+                    "Redeem"
+                ],
+                "summary": "Retrieves voucher information based on the provided PIN code.",
+                "operationId": "GetVoucherInfo",
+                "parameters": [
+                    {
+                        "name": "pin",
+                        "in": "path",
+                        "description": "The PIN code of a voucher to be validated.",
+                        "required": true,
+                        "schema": {
+                            "maxLength": 19,
+                            "type": "string",
+                            "description": "The PIN code of a voucher to be validated."
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the voucher information if found and valid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VoucherInfoModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Returns if the PIN code is invalid or has a validation error."
+                    },
+                    "404": {
+                        "description": "Returns if no voucher is found for the provided PIN code."
+                    }
+                }
+            }
+        },
         "/ad-be/redeem": {
             "post": {
                 "tags": [
                     "Redeem"
                 ],
                 "summary": "Redeems the PIN and creates a honored deal",
-                "operationId": "Redeem",
+                "operationId": "RedeemVoucher",
                 "parameters": [
                     {
                         "name": "x-api-version",
@@ -978,7 +1025,7 @@
             },
             "CreateOrUpdateDealInputModel": {
                 "required": [
-                    "id",
+                    "dealId",
                     "maxOrderQuantity",
                     "name",
                     "price",
@@ -987,7 +1034,7 @@
                 ],
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "dealId": {
                         "type": "string",
                         "description": "Gets or sets the unique identifier of the deal.",
                         "format": "uuid"
@@ -1056,7 +1103,7 @@
             },
             "DealModel": {
                 "required": [
-                    "id",
+                    "dealId",
                     "maxOrderQuantity",
                     "name",
                     "price",
@@ -1065,7 +1112,7 @@
                 ],
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "dealId": {
                         "type": "string",
                         "description": "Gets or sets the unique identifier of the deal.",
                         "format": "uuid"
@@ -1211,9 +1258,16 @@
                 "description": "Represents a paginated list of items."
             },
             "HonoredDealModel": {
+                "required": [
+                    "code",
+                    "createdAt",
+                    "dealId",
+                    "honoredDealId",
+                    "serial"
+                ],
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "honoredDealId": {
                         "type": "string",
                         "description": "Gets or sets the unique identifier of the honored deal.",
                         "format": "uuid"
@@ -1237,15 +1291,15 @@
                         "example": "NK32 F6D6 GVE7 6I4R"
                     },
                     "code": {
+                        "minLength": 1,
                         "type": "string",
                         "description": "Gets or sets the code of the honored deal.",
-                        "nullable": true,
                         "example": "12345-12345-122318"
                     },
                     "serial": {
+                        "minLength": 1,
                         "type": "string",
                         "description": "Gets or sets the serial number of the honored deal.",
-                        "nullable": true,
                         "example": "7326885455254538"
                     },
                     "createdAt": {
@@ -1380,7 +1434,7 @@
             "OrderModel": {
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "orderId": {
                         "type": "string",
                         "description": "Gets or sets the unique identifier of the order.",
                         "format": "uuid"
@@ -1484,7 +1538,6 @@
             },
             "RedeemInputModel": {
                 "required": [
-                    "email",
                     "pin"
                 ],
                 "type": "object",
@@ -1498,10 +1551,10 @@
                     },
                     "email": {
                         "maxLength": 320,
-                        "minLength": 1,
                         "type": "string",
                         "description": "Gets or sets the optional email address.",
                         "format": "email",
+                        "nullable": true,
                         "example": "john.doe@aldi-deals.de"
                     }
                 },
@@ -1578,6 +1631,30 @@
                     }
                 },
                 "additionalProperties": {}
+            },
+            "VoucherInfoModel": {
+                "type": "object",
+                "properties": {
+                    "state": {
+                        "$ref": "#/components/schemas/VoucherState"
+                    },
+                    "dealId": {
+                        "type": "string",
+                        "description": "Gets or sets the ID of the deal associated with the voucher, if any.",
+                        "format": "uuid",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Model representing information about a voucher."
+            },
+            "VoucherState": {
+                "enum": [
+                    "available",
+                    "redeemed"
+                ],
+                "type": "string",
+                "description": "Represents the state of a voucher."
             }
         },
         "securitySchemes": {

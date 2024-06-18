@@ -19,9 +19,10 @@ export function getAdBeApiConfiguration(
   });
 }
 
-export function redeemApiClient(params: AdBeApiClientProps): RedeemApi {
+export function redeemApiClient(params?: AdBeApiClientProps): RedeemApi {
   return new RedeemApi(getAdBeApiConfiguration(params));
 }
+
 export function getHonoredDealsApiClient(
   params?: AdBeApiClientProps,
 ): HonoredDealsApi {
