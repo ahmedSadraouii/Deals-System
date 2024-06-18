@@ -2,8 +2,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const USERNAME = 'admin';
-const PASSWORD = 'password';
+const USERNAME = 'demo';
+const PASSWORD = 'DealsDemo420!';
 
 function checkBasicAuth(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
@@ -24,9 +24,6 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
-  console.log(
-    'checking basic auth ...-................................................',
-  );
   if (!checkBasicAuth(request)) {
     const response = new NextResponse('Unauthorized', { status: 401 });
     response.headers.set('WWW-Authenticate', 'Basic realm="Secure Area"');
