@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Link } from '@nextui-org/react';
+import { Link, SelectItem } from '@nextui-org/react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { registerDealsAction } from '@/app/auth/actions/register-deals.action';
 import { ApiErrorTranslation } from '@/components/api-error-translation';
@@ -11,6 +11,7 @@ import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiPasswordInput } from '@/components/nextui/aldi-password-input';
+import { AldiSelect } from '@/components/nextui/aldi-select';
 import { IconCircleCheck } from '@/components/svg/icon-circle-check';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { createQueryString } from '@/utils/create-query-string';
@@ -36,17 +37,30 @@ export function RegisterTab(props: RegisterTabProps) {
     lastName: '',
     postalCode: '',
     password: '',
+    countryCode: 'DE',
     termsChecked: false,
     newsletterChecked: false,
   };
 
+  const countries = [
+    { value: 'DE', label: 'Deutschland' },
+    { value: 'AT', label: 'Österreich' },
+    { value: 'CH', label: 'Schweiz' },
+    { value: 'NL', label: 'Niederlande' },
+    { value: 'BE', label: 'Belgien' },
+    { value: 'LU', label: 'Luxemburg' },
+    { value: 'FR', label: 'Frankreich' },
+  ];
+
   const form = useForm({
     defaultValues,
   });
+
   const {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
     trigger,
   } = form;
 
@@ -61,6 +75,7 @@ export function RegisterTab(props: RegisterTabProps) {
           lastName: data.lastName,
           addressPostalCode: data.postalCode,
           password: data.password,
+          countryCode: data.countryCode,
           termsAccepted: data.termsChecked,
           newsletterAccepted: data.newsletterChecked,
         });
@@ -179,17 +194,35 @@ export function RegisterTab(props: RegisterTabProps) {
                   rules={{ required: true }}
                 />
               </div>
+              <Controller
+                render={({ field }) => (
+                  <AldiSelect
+                    selectedKeys={[field.value]}
+                    defaultSelectedKeys={['DE']}
+                    {...field}
+                  >
+                    {countries.map((country) => (
+                      <SelectItem key={country.value} value={country.value}>
+                        {country.label}
+                      </SelectItem>
+                    ))}
+                  </AldiSelect>
+                )}
+                name="countryCode"
+                rules={{
+                  required: true,
+                }}
+              />
 
               <Controller
                 render={({ field }) => (
                   <AldiInput
-                    type="number"
                     placeholder="PLZ*"
                     isRequired={true}
                     isInvalid={!!errors.postalCode}
                     errorMessage={
                       errors.postalCode &&
-                      'Die Postleitzahl muss aus 5 Ziffern bestehen. Bitte überprüfe deine Eingabe.'
+                      'Die Postleitzahl ist ungültig. Bitte überprüfe deine Eingabe.'
                     }
                     {...field}
                   />
@@ -197,9 +230,28 @@ export function RegisterTab(props: RegisterTabProps) {
                 name="postalCode"
                 rules={{
                   required: true,
-                  validate: (value) => value.toString().length === 5,
+                  validate: (value) => {
+                    const code = getValues('countryCode');
+
+                    if (code === 'FR') {
+                      return /^\d{4}\s[A-Za-z]{2}$/.test(value.toString());
+                    } else if (code === 'DE' || code === 'FR') {
+                      return /^\d{5}$/.test(value.toString());
+                    } else if (
+                      code === 'LU' ||
+                      code === 'BE' ||
+                      code === 'CH' ||
+                      code === 'AT'
+                    ) {
+                      return /^\d{4}$/.test(value.toString());
+                    }
+
+                    // at least something...
+                    return !!code;
+                  },
                 }}
               />
+
               <Controller
                 render={({ field }) => (
                   <AldiPasswordInput

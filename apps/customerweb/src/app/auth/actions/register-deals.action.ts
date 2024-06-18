@@ -10,6 +10,7 @@ export interface RegisterDealsActionParams {
   lastName: string;
   addressPostalCode: string;
   password: string;
+  countryCode: string;
   termsAccepted: boolean;
   newsletterAccepted: boolean;
 }
@@ -20,6 +21,7 @@ export async function registerDealsAction({
   lastName,
   addressPostalCode,
   password,
+  countryCode,
   termsAccepted,
   newsletterAccepted,
 }: RegisterDealsActionParams): Promise<{
@@ -37,6 +39,7 @@ export async function registerDealsAction({
         lastName,
         addressPostalCode,
         password,
+        countryCode,
         termsAccepted,
         newsletterAccepted,
       },
