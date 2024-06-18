@@ -17,7 +17,7 @@ async function refreshAccessToken(
 
   try {
     const cardinalDirectionResponse =
-      await authenticationApi.getCardinalDirectionAuthentication({
+      await authenticationApi.getCardinalDirectionByEmail({
         cardinalDirectionRequest: {
           email: emailAddress,
         },
@@ -83,7 +83,7 @@ export const authOptions: NextAuthOptions = {
           );
 
           const cardinalDirectionResponse =
-            await authenticationApi.getCardinalDirectionAuthentication({
+            await authenticationApi.getCardinalDirectionByEmail({
               cardinalDirectionRequest: {
                 email: credentials.email,
               },
@@ -154,7 +154,7 @@ export const authOptions: NextAuthOptions = {
         if (!token.email) throw new Error('No email address found in token');
 
         const cardinalDirectionResponse =
-          await authenticationApi.getCardinalDirectionAuthentication({
+          await authenticationApi.getCardinalDirectionByEmail({
             cardinalDirectionRequest: {
               email: token.email,
             },
@@ -175,7 +175,7 @@ export const authOptions: NextAuthOptions = {
         if (!token.email) throw new Error('No email address found in token');
 
         const cardinalDirectionResponse =
-          await authenticationApi.getCardinalDirectionAuthentication({
+          await authenticationApi.getCardinalDirectionByEmail({
             cardinalDirectionRequest: {
               email: token.email,
             },

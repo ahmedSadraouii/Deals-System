@@ -9,10 +9,8 @@ import { getServerSession } from 'next-auth';
 import NotFound from '@/app/not-found';
 import { CodeField } from '@/app/profile/deals/code-field';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { ArrowUpRightSvg } from '@/components/svg/arrow-up-right-svg';
 import { EmailSvg } from '@/components/svg/email-svg';
 import { IconArrowLeft } from '@/components/svg/icon-arrow-left';
-import { InfoSquareSvg } from '@/components/svg/info-square-svg';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
@@ -35,7 +33,7 @@ export default async function Page({
     accessToken: session?.accessToken,
   });
 
-  const honoredDeal = await honoredDealsApi.getHonoredDeal({ id : id });
+  const honoredDeal = await honoredDealsApi.getHonoredDeal({ id: id });
   if (!honoredDeal) {
     return <NotFound />;
   }
