@@ -78,7 +78,7 @@ export function DealsListItemHeroSlider({
               <IconTag className="mr-2 text-base" />
               <span>Stark nachgefragt</span>
             </span>
-            <HeartFavorite dealId={deal.properties?.dealId || deal.id} />
+            <HeartFavorite dealId={deal.id} />
           </div>
         </div>
         <div className="flex grow flex-col gap-4">

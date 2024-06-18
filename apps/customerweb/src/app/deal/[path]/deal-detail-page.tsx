@@ -113,7 +113,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                 <h1 className="text-2xl font-bold text-secondary">
                   {deal.name}
                 </h1>
-                <HeartFavorite dealId={deal.properties?.dealId || deal.id} />
+                <HeartFavorite dealId={deal.id} />
               </div>
               {deal.properties?.availabilityEnd && (
                 <div className="hidden flex-row items-center gap-2 text-secondary/50 lg:flex">

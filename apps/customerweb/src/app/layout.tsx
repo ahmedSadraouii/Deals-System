@@ -23,6 +23,9 @@ Settings.defaultLocale = 'de';
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="de" className="aldi">
+      {process.env.ADOBE_SCRIPT && (
+        <script src={process.env.ADOBE_SCRIPT} async></script>
+      )}
       <body className="bg-white">
         <ServerProviders>
           <ClientProviders>
