@@ -6,8 +6,8 @@ import {
   FavoriteContext,
   FavoriteContextActionKind,
 } from '@/app/contexts/favorite/favorite-context';
-import { addFavoriteAction } from '@/app/profile/actions/add-favorite-action';
-import { deleteFavoriteAction } from '@/app/profile/actions/delete-favorite-action';
+import { addFavoriteAction } from '@/app/profile/actions/add-favorite.action';
+import { deleteFavoriteAction } from '@/app/profile/actions/delete-favorite.action';
 
 interface HeartFavoriteProps {
   dealId: string;
@@ -20,9 +20,7 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
     async (dealId: string, isAdding: boolean) => {
       try {
         if (isAdding) {
-          await addFavoriteAction({
-            dealId,
-          });
+          await addFavoriteAction({ dealId });
         } else {
           await deleteFavoriteAction({ dealId });
         }

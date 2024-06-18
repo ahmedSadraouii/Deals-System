@@ -31,7 +31,6 @@ export async function addHonoredDeal({
 
   try {
     const response = await honoredApi.redeem({
-      xApiVersion: '1.0',
       redeemInputModel: { pin, email },
     });
 

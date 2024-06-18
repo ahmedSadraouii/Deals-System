@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { AldiButton } from 'src/components/nextui/aldi-button';
-import { addHonoredDeal } from '@/app/redemption/actions/redeem-action';
+import { addHonoredDeal } from '@/app/redemption/actions/redeem.action';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
 interface RedemptionPinFormProps {

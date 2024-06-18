@@ -9,9 +9,11 @@ import { getHonoredDealsApiClient } from '@/utils/redeem-api-client';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
+
   if (!session) {
     return redirect('/');
   }
+
   const honoredApi = getHonoredDealsApiClient({
     accessToken: session?.accessToken,
   });
