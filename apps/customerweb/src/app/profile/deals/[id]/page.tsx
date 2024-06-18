@@ -35,22 +35,14 @@ export default async function Page({
     accessToken: session?.accessToken,
   });
 
-  const honoredDealsResponse = await honoredDealsApi.getHonoredDeals();
-  const honoredDealsList = honoredDealsResponse.items || [];
-
-  const matchingHonoredDeal = honoredDealsList.find((deal) => deal.id === id);
-
-  if (!matchingHonoredDeal) {
+  const honoredDeal = await honoredDealsApi.getHonoredDeal({ id : id });
+  if (!honoredDeal) {
     return <NotFound />;
   }
 
-  // TODO: SUPER HACKY TEMPORARY WORKAROUND; REMOVE THIS
-  const dangerousAlternativeDealId = 'feb16710-a8c4-4739-950e-e315772540a0';
-
   const deal = await contentApi
     .getContentItemById20({
-      // id: matchingHonoredDeal.dealId!,
-      id: dangerousAlternativeDealId,
+      id: honoredDeal.dealId!,
     })
     .catch(catchApiError)
     .then((deal) => deal as UmbracoDeal);
@@ -141,7 +133,7 @@ export default async function Page({
               </h2>
             </div>
             <div>
-              <CodeField code={matchingHonoredDeal.code || ''} />
+              <CodeField code={honoredDeal.code || ''} />
             </div>
             <div className="border-y border-gray-200 py-4 text-secondary/50">
               Gültig ab:{' '}
@@ -153,6 +145,7 @@ export default async function Page({
                 ? promotionEnd.toLocaleString(DateTime.DATE_SHORT)
                 : 'unbekannt'}
             </div>
+            {/*
             <div className="flex flex-row gap-4">
               <AldiButton
                 variant="solid"
@@ -165,7 +158,7 @@ export default async function Page({
               <AldiButton variant="ghost" color="secondary" size="lg">
                 Im Profil ansehen
               </AldiButton>
-            </div>
+            </div>*/}
           </div>
         </div>
         <div className="mt-4 flex flex-col gap-6 border-y border-gray-200 p-4 text-lg text-secondary">
@@ -182,6 +175,7 @@ export default async function Page({
                 kontakt@kundenservice.aldi-sued.de
               </span>
             </Link>
+            {/* 
             <Link
               href="/faq"
               size="lg"
@@ -191,7 +185,7 @@ export default async function Page({
             >
               <InfoSquareSvg />
               <span className="ml-2 font-medium">Häufig gestellte Fragen</span>
-            </Link>
+            </Link>*/}
           </div>
         </div>
         <div className="mt-4">
@@ -200,7 +194,7 @@ export default async function Page({
             {deal.properties?.description || 'Keine Beschreibung vorhanden'}
           </p>
         </div>
-        <div className="mt-4">
+        {/*<div className="mt-4">
           <h1 className="text-4xl font-bold text-secondary">Einlösen</h1>
           <p className="mt-6 text-secondary/50">
             Dieser Text existiert noch nicht im Backend, daher steht hier ein
@@ -213,7 +207,7 @@ export default async function Page({
             Dieser Text existiert noch nicht im Backend, daher steht hier ein
             Platzhalter bis die Entwicklung hierzu weiter macht.
           </p>
-        </div>
+        </div>*/}
       </div>
     </div>
   );
