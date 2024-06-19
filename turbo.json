@@ -3,7 +3,8 @@
   "ui": "stream",
   "globalEnv": [
     "__NEXT_IMAGE_OPTS",
-    "ADOBE_SCRIPT"
+    "ADOBE_SCRIPT",
+    "NODE_ENV"
   ],
   "tasks": {
     "build": {
