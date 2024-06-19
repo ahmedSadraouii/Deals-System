@@ -141,10 +141,9 @@ export function Header() {
         className="bg-secondary/80 p-0 backdrop-blur-sm"
       >
         <div className="flex h-full w-[280px] flex-col gap-4 bg-white p-4">
-          <NavbarMenuItem>Item 1</NavbarMenuItem>
-          <NavbarMenuItem>Item 2</NavbarMenuItem>
-          <NavbarMenuItem>Item 3</NavbarMenuItem>
-          <NavbarMenuItem>Item 4</NavbarMenuItem>
+          <NavbarMenuItem>
+            <Link href="/">Start</Link>
+          </NavbarMenuItem>
         </div>
       </NavbarMenu>
     </Navbar>

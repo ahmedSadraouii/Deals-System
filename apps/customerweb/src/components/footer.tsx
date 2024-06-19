@@ -31,7 +31,7 @@ export async function Footer() {
                 />{' '}
                 kontakt@kundenservice.aldi-sued.de
               </a>
-              {/*<a
+              <a
                 href="mailto:kundenservice@aldideals.de"
                 className="mt-5 flex items-center rounded-full bg-slate-900 px-6 py-3 text-white hover:underline md:ml-4 md:mt-0"
               >
@@ -41,7 +41,7 @@ export async function Footer() {
                   className="float-left mr-3 fill-white stroke-white text-white"
                 />{' '}
                 Häufig gestellte Fragen
-              </a>*/}
+              </a>
             </div>
           </div>
         </div>
