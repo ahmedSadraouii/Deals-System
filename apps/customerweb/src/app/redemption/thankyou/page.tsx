@@ -5,7 +5,7 @@ import Celebration from '@/components/checkout/checkout-celebration';
 import DealCheckoutCard from '@/components/checkout/checkout-deal-card';
 import DiscoverCard from '@/components/discover/discover-card';
 import { authOptions } from '@/utils/auth';
-import { getHonoredDealsApiClient } from '@/utils/redeem-api-client';
+import { getHonoredDealsApiClient } from '@/utils/deals-api-client';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);

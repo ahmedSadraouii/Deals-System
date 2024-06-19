@@ -4,6 +4,7 @@ import {
   FavoritesApi,
   OrdersApi,
   HonoredDealsApi,
+  RedeemApi,
 } from 'api-deals';
 
 export interface AdBeApiClientProps {
@@ -43,4 +44,8 @@ export function getFavoritesApiClient(
   params?: AdBeApiClientProps,
 ): FavoritesApi {
   return new FavoritesApi(getAdBeApiConfiguration(params));
+}
+
+export function redeemApiClient(params?: AdBeApiClientProps): RedeemApi {
+  return new RedeemApi(getAdBeApiConfiguration(params));
 }

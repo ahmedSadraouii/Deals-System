@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
-import { redeemApiClient } from '@/utils/redeem-api-client';
+import { redeemApiClient } from '@/utils/deals-api-client';
 
 export interface addHonoredDealParams {
   pin: string;
@@ -22,12 +22,12 @@ export async function addHonoredDeal({
 }> {
   const session = await getServerSession(authOptions);
 
-  const honoredApi = redeemApiClient({
+  const redeemApi = redeemApiClient({
     accessToken: session?.accessToken,
   });
 
   try {
-    const response = await honoredApi.redeemVoucher({
+    const response = await redeemApi.redeemVoucher({
       redeemInputModel: { pin, email },
     });
 
