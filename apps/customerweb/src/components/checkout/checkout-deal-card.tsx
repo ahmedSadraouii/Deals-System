@@ -3,6 +3,7 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { Card, CardBody, SelectItem } from '@nextui-org/react';
+import { DateTime } from 'luxon';
 import CopyableInput from 'src/components/redemption/copy-input';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiSelect } from '@/components/nextui/aldi-select';
@@ -104,6 +105,8 @@ export default async function DealCheckoutCard({
       width: 256,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
+  const promotionStart = DateTime.fromISO(fullDeal.properties?.promotionStart!);
+  const promotionEnd = DateTime.fromISO(fullDeal.properties?.promotionEnd!);
 
   const options: SelectOption[] = [
     {
@@ -165,15 +168,15 @@ export default async function DealCheckoutCard({
             <div>
               <p className=" border-t-2 pb-2 pt-4 text-aldi-blue opacity-50">
                 Gültig ab:{' '}
-                {fullDeal.properties?.promotionStart
-                  ? formatDate(new Date(fullDeal.properties.promotionStart))
-                  : 'N/A'}
+                {promotionStart.isValid
+                  ? promotionStart.toLocaleString(DateTime.DATE_SHORT)
+                  : 'unbekannt'}{' '}
               </p>
               <p className="border-b-2 pb-4 text-aldi-blue opacity-50">
                 Gültig bis:{' '}
-                {fullDeal.properties?.promotionEnd
-                  ? formatDate(new Date(fullDeal.properties.promotionEnd))
-                  : 'N/A'}
+                {promotionEnd.isValid
+                  ? promotionEnd.toLocaleString(DateTime.DATE_SHORT)
+                  : 'unbekannt'}
               </p>
             </div>
             {deal.code !== '' ? (

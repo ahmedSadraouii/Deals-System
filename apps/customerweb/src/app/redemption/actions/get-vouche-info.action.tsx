@@ -1,24 +1,20 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
 import { redeemApiClient } from '@/utils/deals-api-client';
 
-export interface addHonoredDealParams {
+export interface getVoucherInfoParams {
   pin: string;
-  email: string;
 }
 
-export async function redeemVoucher({
-  pin,
-  email,
-}: addHonoredDealParams): Promise<{
+export async function getVoucherInfo({ pin }: getVoucherInfoParams): Promise<{
   success: boolean;
   apiErrorCode?: ApiErrorCodes;
   message?: string;
   dealId?: string;
+  state?: string;
 }> {
   const session = await getServerSession(authOptions);
 
@@ -27,16 +23,16 @@ export async function redeemVoucher({
   });
 
   try {
-    const response = await redeemApi.redeem({
-      redeemInputModel: { pin, email },
+    const response = await redeemApi.getVoucherInfo({
+      redeemInputModel: { pin },
     });
 
-    const { dealId } = response;
+    const { dealId, state } = response;
 
-    revalidatePath('/redemption/thankyou');
     return {
       success: true,
       dealId,
+      state,
     };
   } catch (error: any) {
     if (error?.response?.json) {

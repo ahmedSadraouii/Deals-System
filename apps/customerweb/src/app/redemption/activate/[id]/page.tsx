@@ -10,22 +10,24 @@ import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
 type Props = {
   params: { id: string };
+  searchParams: { email: string; pinCode: string };
 };
 
-export default async function Page({ params: { id } }: Props) {
+export default async function Page({
+  params: { id },
+  searchParams: { email, pinCode },
+}: Props) {
   const contentApi = getContentApiClient();
 
   try {
-    const deal = (await contentApi.getContentItemById({
-      id: id,
-    })) as UmbracoDeal;
+    const deal = (await contentApi.getContentItemById({ id })) as UmbracoDeal;
 
     if (!verifyDealIsCorrect(deal)) {
       console.log('Deal is incorrect, showing NotFound page');
       return <NotFound />;
     }
 
-    const supplier = (await contentApi.getContentItemById20({
+    const supplier = (await contentApi.getContentItemById({
       id: deal.properties?.supplier!.id!,
     })) as UmbracoSupplier;
 
@@ -41,7 +43,12 @@ export default async function Page({ params: { id } }: Props) {
             Deal aktivieren
           </h1>
         </div>
-        <CardActivation deal={deal} supplier={supplier} />
+        <CardActivation
+          deal={deal}
+          supplier={supplier}
+          email={email}
+          pinCode={pinCode}
+        />
       </div>
     );
   } catch (error) {

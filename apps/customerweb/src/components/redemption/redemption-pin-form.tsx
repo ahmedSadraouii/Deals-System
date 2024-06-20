@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { AldiButton } from 'src/components/nextui/aldi-button';
-import { addHonoredDeal } from '@/app/redemption/actions/redeem.action';
+import { getVoucherInfo } from '@/app/redemption/actions/get-vouche-info.action';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
 interface RedemptionPinFormProps {
@@ -34,13 +34,20 @@ export function RedemptionPinForm({
   const onSubmit = useCallback(
     async (data: typeof defaultValues) => {
       try {
-        const result = await addHonoredDeal({
-          pin: data.pinCode,
-          email: isGuest ? data.email : userEmail,
-        });
+        const result = await getVoucherInfo({ pin: data.pinCode });
         if (result.success) {
-          const dealId = result.dealId;
-          router.push(`/redemption/activate/${dealId}`);
+          if (result.state === 'available') {
+            const emailParam = isGuest
+              ? `&email=${encodeURIComponent(data.email)}`
+              : '';
+            const url = `/redemption/activate/${result.dealId}?pinCode=${encodeURIComponent(data.pinCode)}${emailParam}`;
+            router.push(url);
+          } else if (result.state === 'redeemed') {
+            setError('pinCode', {
+              type: 'manual',
+              message: 'Dieser PIN wurde bereits eingelöst.',
+            });
+          }
         } else {
           setError('pinCode', {
             type: 'manual',
@@ -53,7 +60,6 @@ export function RedemptionPinForm({
     },
     [router, setError, isGuest, userEmail],
   );
-
   return (
     <Card className=" bg-gray-100 py-4 md:p-8">
       <CardBody>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
@@ -10,17 +11,36 @@ import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from 'src/components/umbraco-cms/umbraco-types';
+import { redeemVoucher } from '@/app/redemption/actions/redeem.action';
 
 interface CardActivationProps {
   deal: UmbracoDeal;
   supplier: UmbracoSupplier;
+  email: string;
+  pinCode: string;
 }
 
 export default function CardActivation({
   deal,
   supplier,
+  email,
+  pinCode,
 }: CardActivationProps) {
   const router = useRouter();
+
+  const handleActivate = useCallback(async () => {
+    try {
+      const result = await redeemVoucher({ pin: pinCode, email });
+      if (result.success) {
+        router.push(`/redemption/thankyou`);
+      } else {
+        console.error('Failed to activate the voucher', result.message);
+      }
+    } catch (error) {
+      console.error('Error activating the voucher', error);
+    }
+  }, [pinCode, email, router]);
+
   const supplierImage = supplier.properties?.picture?.[0]?.url;
   const supplierImageUrl =
     supplierImage &&
@@ -56,7 +76,7 @@ export default function CardActivation({
           size="lg"
           variant="solid"
           color="secondary"
-          onClick={() => router.push('/redemption/thankyou')}
+          onClick={handleActivate}
         >
           Deal aktivieren
         </AldiButton>
