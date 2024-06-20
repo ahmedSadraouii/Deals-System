@@ -1,36 +1,26 @@
-import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import CheckoutCard from '@/components/checkout/checkout-card';
 import Celebration from '@/components/checkout/checkout-celebration';
 import DealCheckoutCard from '@/components/checkout/checkout-deal-card';
+import GuestDealCard from '@/components/checkout/guest-deal-card';
 import DiscoverCard from '@/components/discover/discover-card';
+import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { authOptions } from '@/utils/auth';
+import { getContentApiClient } from '@/utils/content-api-client';
 import { getHonoredDealsApiClient } from '@/utils/deals-api-client';
+import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 
-export default async function Page() {
+type Props = {
+  params: { id: string };
+};
+
+export default async function Page({ params: { id } }: Props) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return redirect('/');
-  }
-
-  const honoredApi = getHonoredDealsApiClient({
-    accessToken: session?.accessToken,
-  });
-
-  const getHonoredDeals = async (take = 100, skip = 0) => {
-    try {
-      const honoredDeals = await honoredApi.getHonoredDeals({ take, skip });
-      return (
-        honoredDeals.items?.filter((deal) => deal.dealId !== undefined) ?? []
-      );
-    } catch (error) {
-      console.error('Error fetching honored deals:', error);
-      return [];
-    }
-  };
-
-  const deals = await getHonoredDeals(100, 0);
+  const honoredDeal = session
+    ? await getHonoredDeal(id, session.accessToken)
+    : null;
+  const guestDeal = !session ? await getGuestDeal(id) : null;
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center gap-8 px-4 py-14 md:px-0">
@@ -55,9 +45,10 @@ export default async function Page() {
         />
       </div>
       <div className="flex w-full flex-col gap-8 lg:w-[80%] lg:min-w-[80%]">
-        {deals.map((deal) => (
-          <DealCheckoutCard key={deal.dealId} deal={deal} />
-        ))}
+        {honoredDeal && (
+          <DealCheckoutCard key={honoredDeal.dealId} deal={honoredDeal} />
+        )}
+        {guestDeal && <GuestDealCard deal={guestDeal} />}
       </div>
       {!session && (
         <div className="hidden w-full lg:w-[80%] lg:min-w-[80%] xl:block">
@@ -66,4 +57,34 @@ export default async function Page() {
       )}
     </div>
   );
+}
+
+async function getHonoredDeal(id: string, accessToken: string) {
+  const honoredApi = getHonoredDealsApiClient({ accessToken });
+
+  try {
+    const honoredDeal = await honoredApi.getHonoredDeal({ id });
+    return honoredDeal;
+  } catch (error) {
+    console.error('Error fetching honored deal:', error);
+    return null;
+  }
+}
+
+async function getGuestDeal(id: string) {
+  const contentApi = getContentApiClient();
+
+  try {
+    const dealContent = await contentApi.getContentItemById20({ id });
+    const fullDeal = dealContent as UmbracoDeal;
+
+    if (!verifyDealIsCorrect(fullDeal)) {
+      console.log('Deal is incorrect', fullDeal);
+      return null;
+    }
+    return fullDeal;
+  } catch (error) {
+    console.error('Error fetching deal content:', error);
+    return null;
+  }
 }

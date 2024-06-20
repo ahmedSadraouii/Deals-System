@@ -2,11 +2,10 @@ import { Suspense } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
-import { Card, CardBody, SelectItem } from '@nextui-org/react';
+import { Card, CardBody } from '@nextui-org/react';
 import { DateTime } from 'luxon';
 import CopyableInput from 'src/components/redemption/copy-input';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { AldiSelect } from '@/components/nextui/aldi-select';
 import { IconArrowUpRight } from '@/components/svg/icon-arrow-up-right';
 import type {
   UmbracoDeal,
@@ -28,13 +27,6 @@ interface HonoredDeal {
 // interface for the component props
 interface DealCheckoutCardProps {
   deal: HonoredDeal;
-}
-// Interface for the select options
-interface SelectOption {
-  id: number;
-  text: string;
-  icon: string;
-  alt: string;
 }
 export default async function DealCheckoutCard({
   deal,
@@ -101,28 +93,6 @@ export default async function DealCheckoutCard({
     });
   const promotionStart = DateTime.fromISO(fullDeal.properties?.promotionStart!);
   const promotionEnd = DateTime.fromISO(fullDeal.properties?.promotionEnd!);
-
-  const options: SelectOption[] = [
-    {
-      id: 1,
-      text: 'Apple Wallet',
-      icon: '/icons/apple-icon.svg',
-      alt: 'apple icon',
-    },
-    {
-      id: 2,
-      text: 'Android Wallet',
-      icon: '/icons/android-icon.svg',
-      alt: 'android icon',
-    },
-    {
-      id: 3,
-      text: 'PDF Dokument',
-      icon: '/icons/pdf-icon.svg',
-      alt: 'pdf icon',
-    },
-  ];
-
   return (
     <Suspense>
       <Card className="bg-gray-100">
@@ -173,42 +143,16 @@ export default async function DealCheckoutCard({
                   : 'unbekannt'}
               </p>
             </div>
-            {deal.code !== '' ? (
-              <AldiButton
-                size="lg"
-                variant="solid"
-                href="/auth"
-                className="w-full md:max-w-72"
-                endContent={<IconArrowUpRight className="text-2xl" />}
-                color="secondary"
-              >
-                Gutscheincode einlösen
-              </AldiButton>
-            ) : (
-              <div>
-                <AldiSelect
-                  label="Herunterladen"
-                  items={options}
-                  color="aldiblue"
-                  className="w-full md:max-w-56"
-                >
-                  {(option: any) => (
-                    <SelectItem key={option.id} textValue={option.text}>
-                      <div className="flex gap-2">
-                        <Image
-                          className="text-black"
-                          src={option.icon}
-                          width={20}
-                          height={20}
-                          alt={option.alt}
-                        />
-                        <p>{option.text}</p>
-                      </div>
-                    </SelectItem>
-                  )}
-                </AldiSelect>
-              </div>
-            )}
+            <AldiButton
+              size="lg"
+              variant="solid"
+              href="/auth"
+              className="w-full md:max-w-72"
+              endContent={<IconArrowUpRight className="text-2xl" />}
+              color="secondary"
+            >
+              Gutscheincode einlösen
+            </AldiButton>
           </div>
         </CardBody>
       </Card>
