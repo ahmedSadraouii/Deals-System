@@ -5,6 +5,315 @@
         "version": "1.0"
     },
     "paths": {
+        "/ad-be/carts/checkout": {
+            "post": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Creates a checkout for a specific cart.",
+                "description": "See https://developer.payone.com/de/integration/how-to-integrate/test-cases/index for example credit card info",
+                "operationId": "CreateCheckout",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "query",
+                        "description": "The ID of the cart to checkout.",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "returnUrl",
+                        "in": "query",
+                        "description": "The URL to return to after checkout.",
+                        "schema": {
+                            "type": "string",
+                            "default": "/"
+                        }
+                    },
+                    {
+                        "name": "redirect",
+                        "in": "query",
+                        "description": "Indicates whether to redirect after checkout.",
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input model containing checkout details.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CheckoutInputModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CheckoutInputModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/ad-be/carts/{cartId}/callback": {
+            "get": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Webhook for payment service",
+                "operationId": "Callback",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "path",
+                        "description": "The ID of the cart to checkout.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "returnUrl",
+                        "in": "query",
+                        "description": "Gets or sets the return return address.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "returnMac",
+                        "in": "query",
+                        "description": "Gets or sets the return MAC address.",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "hostedCheckoutId",
+                        "in": "query",
+                        "description": "Gets or sets the hosted checkout ID.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "Found"
+                    }
+                }
+            }
+        },
+        "/ad-be/carts/ensure": {
+            "post": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Ensures a cart",
+                "operationId": "EnsureCart",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "query",
+                        "description": "Cart.",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CartModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/carts/items": {
+            "post": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Creates or updates an cart item",
+                "operationId": "UpdateCartItem",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "query",
+                        "description": "The ID of the cart.",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input model containing the details of the cart to be created.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCartItem"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCartItem"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CartModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ad-be/carts/items/{dealId}": {
+            "delete": {
+                "tags": [
+                    "Carts"
+                ],
+                "summary": "Deletes an item from an cart.",
+                "operationId": "DeleteCartItem",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "in": "query",
+                        "description": "The ID of the cart from which the item will be deleted.",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "description": "The ID of the deal to be deleted from the cart.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "x-api-version",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/ad-be/deals": {
             "get": {
                 "tags": [
@@ -413,147 +722,14 @@
                 }
             }
         },
-        "/ad-be/orders/{orderId}/checkout": {
-            "post": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Creates a checkout for a specific order.",
-                "description": "See https://developer.payone.com/de/integration/how-to-integrate/test-cases/index for example credit card info",
-                "operationId": "CreateCheckout",
-                "parameters": [
-                    {
-                        "name": "orderId",
-                        "in": "path",
-                        "description": "The ID of the order to checkout.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    },
-                    {
-                        "name": "returnUrl",
-                        "in": "query",
-                        "description": "The URL to return to after checkout.",
-                        "schema": {
-                            "type": "string",
-                            "default": "/"
-                        }
-                    },
-                    {
-                        "name": "redirect",
-                        "in": "query",
-                        "description": "Indicates whether to redirect after checkout.",
-                        "schema": {
-                            "type": "boolean",
-                            "default": false
-                        }
-                    },
-                    {
-                        "name": "x-api-version",
-                        "in": "header",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "The input model containing checkout details.",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CheckoutInputModel"
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CheckoutInputModel"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/ad-be/orders/{orderId}/callback": {
-            "get": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Webhook for payment service",
-                "operationId": "Callback",
-                "parameters": [
-                    {
-                        "name": "orderId",
-                        "in": "path",
-                        "description": "The ID of the order to checkout.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    },
-                    {
-                        "name": "returnUrl",
-                        "in": "query",
-                        "description": "Gets or sets the return return address.",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "returnMac",
-                        "in": "query",
-                        "description": "Gets or sets the return MAC address.",
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    },
-                    {
-                        "name": "hostedCheckoutId",
-                        "in": "query",
-                        "description": "Gets or sets the hosted checkout ID.",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "x-api-version",
-                        "in": "header",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "302": {
-                        "description": "Found"
-                    }
-                }
-            }
-        },
         "/ad-be/orders": {
             "get": {
                 "tags": [
                     "Orders"
                 ],
                 "summary": "Retrieves the user's orders.",
-                "operationId": "GetUserOrders",
+                "operationId": "GetOrders",
                 "parameters": [
-                    {
-                        "name": "kind",
-                        "in": "query",
-                        "description": "Gets or sets the kind of order to retrieve.",
-                        "schema": {
-                            "$ref": "#/components/schemas/OrderKind"
-                        }
-                    },
                     {
                         "name": "take",
                         "in": "query",
@@ -608,59 +784,6 @@
                         }
                     }
                 }
-            },
-            "post": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Handles the creation of a new order.",
-                "operationId": "CreateOrder",
-                "parameters": [
-                    {
-                        "name": "x-api-version",
-                        "in": "header",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "The input model containing order details.",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateOrderInputModel"
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateOrderInputModel"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/OrderModel"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/ad-be/orders/{orderId}": {
@@ -668,11 +791,13 @@
                 "tags": [
                     "Orders"
                 ],
+                "summary": "",
                 "operationId": "GetOrder",
                 "parameters": [
                     {
                         "name": "orderId",
                         "in": "path",
+                        "description": "",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -694,144 +819,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/OrderModel"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProblemDetails"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/ad-be/orders/{orderId}/items": {
-            "post": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Creates or updates an cart item",
-                "operationId": "UpdateOrderItem",
-                "parameters": [
-                    {
-                        "name": "orderId",
-                        "in": "path",
-                        "description": "The ID of the order.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    },
-                    {
-                        "name": "x-api-version",
-                        "in": "header",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "The input model containing the details of the order to be created.",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateOrderItem"
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateOrderItem"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/OrderModel"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProblemDetails"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/ad-be/orders/{orderId}/items/{dealId}": {
-            "delete": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Deletes an item from an order.",
-                "operationId": "DeleteOrderItem",
-                "parameters": [
-                    {
-                        "name": "orderId",
-                        "in": "path",
-                        "description": "The ID of the order from which the item will be deleted.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    },
-                    {
-                        "name": "dealId",
-                        "in": "path",
-                        "description": "The ID of the deal to be deleted from the order.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    },
-                    {
-                        "name": "x-api-version",
-                        "in": "header",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
                                 }
                             }
                         }
@@ -852,7 +839,7 @@
         "/ad-be/vouchers/{pin}": {
             "get": {
                 "tags": [
-                    "Redeem"
+                    "Voucher"
                 ],
                 "summary": "Retrieves voucher information based on the provided PIN code.",
                 "operationId": "GetVoucherInfo",
@@ -896,10 +883,10 @@
                 }
             }
         },
-        "/ad-be/redeem": {
+        "/ad-be/vouchers/redeem": {
             "post": {
                 "tags": [
-                    "Redeem"
+                    "Voucher"
                 ],
                 "summary": "Redeems the PIN and creates a honored deal",
                 "operationId": "RedeemVoucher",
@@ -917,12 +904,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RedeemInputModel"
+                                "$ref": "#/components/schemas/RedeemVoucherInputModel"
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RedeemInputModel"
+                                "$ref": "#/components/schemas/RedeemVoucherInputModel"
                             }
                         }
                     }
@@ -964,6 +951,101 @@
                 },
                 "additionalProperties": false,
                 "description": "Represents the input model for adding a favorite deal."
+            },
+            "CartItemModel": {
+                "required": [
+                    "available",
+                    "dealId",
+                    "maxQuantity",
+                    "price",
+                    "quantity"
+                ],
+                "type": "object",
+                "properties": {
+                    "dealId": {
+                        "type": "string",
+                        "description": "Gets or sets the unique identifier of the deal associated with the cart item.",
+                        "format": "uuid"
+                    },
+                    "quantity": {
+                        "maximum": 2147483647,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "Gets or sets the quantity of the cart item.",
+                        "format": "int32",
+                        "default": 1,
+                        "example": 1
+                    },
+                    "available": {
+                        "type": "boolean",
+                        "description": "Gets or sets the availability of the cart item.",
+                        "example": true
+                    },
+                    "maxQuantity": {
+                        "maximum": 2147483647,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "Gets or sets the maximum quantity of the cart item.",
+                        "format": "int32",
+                        "default": 1,
+                        "example": 2
+                    },
+                    "price": {
+                        "maximum": 4294967295,
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Gets or sets the price of the deal in cents.",
+                        "format": "uint32",
+                        "example": 6942
+                    },
+                    "regularPrice": {
+                        "maximum": 4294967295,
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Gets or sets the price of the deal in cents.",
+                        "format": "uint32",
+                        "nullable": true,
+                        "example": 9095
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents an item in an cart."
+            },
+            "CartModel": {
+                "type": "object",
+                "properties": {
+                    "cartId": {
+                        "type": "string",
+                        "description": "Gets or sets the unique identifier of the cart.",
+                        "format": "uuid"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Gets or sets the date and time when the cart was created.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "Gets or sets the date and time when the cart was last updated.",
+                        "format": "date-time"
+                    },
+                    "availableTill": {
+                        "type": "string",
+                        "description": "Gets or sets the date and time when the cart will expire.",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CartItemModel"
+                        },
+                        "description": "Gets or sets the collection of items in the cart.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents an cart with associated details."
             },
             "CheckoutInputModel": {
                 "required": [
@@ -1083,23 +1165,6 @@
                 },
                 "additionalProperties": false,
                 "description": "Represents the input model for creating or updating a deal."
-            },
-            "CreateOrderInputModel": {
-                "required": [
-                    "items"
-                ],
-                "type": "object",
-                "properties": {
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/OrderItemInputModel"
-                        },
-                        "description": "Gets or sets the collection of items to include in the order."
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Represents the input model for creating an order."
             },
             "DealModel": {
                 "required": [
@@ -1350,34 +1415,8 @@
                 "additionalProperties": false,
                 "description": "Represents a paginated list of items."
             },
-            "OrderItemInputModel": {
-                "required": [
-                    "dealId",
-                    "quantity"
-                ],
-                "type": "object",
-                "properties": {
-                    "dealId": {
-                        "type": "string",
-                        "description": "Gets or sets the unique identifier of the deal associated with the order item.",
-                        "format": "uuid"
-                    },
-                    "quantity": {
-                        "maximum": 2147483647,
-                        "minimum": 1,
-                        "type": "integer",
-                        "description": "Gets or sets the quantity of the order item.",
-                        "format": "int32",
-                        "default": 1,
-                        "example": 1
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Represents an item in an order."
-            },
             "OrderItemModel": {
                 "required": [
-                    "available",
                     "dealId",
                     "price",
                     "quantity"
@@ -1398,11 +1437,6 @@
                         "default": 1,
                         "example": 1
                     },
-                    "available": {
-                        "type": "boolean",
-                        "description": "Gets or sets the availability of the order item.",
-                        "example": true
-                    },
                     "price": {
                         "maximum": 4294967295,
                         "minimum": 0,
@@ -1410,26 +1444,10 @@
                         "description": "Gets or sets the price of the deal in cents.",
                         "format": "uint32",
                         "example": 6942
-                    },
-                    "regularPrice": {
-                        "maximum": 4294967295,
-                        "minimum": 0,
-                        "type": "integer",
-                        "description": "Gets or sets the price of the deal in cents.",
-                        "format": "uint32",
-                        "nullable": true,
-                        "example": 9095
                     }
                 },
                 "additionalProperties": false,
                 "description": "Represents an item in an order."
-            },
-            "OrderKind": {
-                "enum": [
-                    "cart",
-                    "order"
-                ],
-                "type": "string"
             },
             "OrderModel": {
                 "type": "object",
@@ -1438,9 +1456,6 @@
                         "type": "string",
                         "description": "Gets or sets the unique identifier of the order.",
                         "format": "uuid"
-                    },
-                    "kind": {
-                        "$ref": "#/components/schemas/OrderKind"
                     },
                     "createdAt": {
                         "type": "string",
@@ -1451,12 +1466,6 @@
                         "type": "string",
                         "description": "Gets or sets the date and time when the order was last updated.",
                         "format": "date-time"
-                    },
-                    "availableTill": {
-                        "type": "string",
-                        "description": "Gets or sets the date and time when the order will expire.",
-                        "format": "date-time",
-                        "nullable": true
                     },
                     "items": {
                         "type": "array",
@@ -1536,7 +1545,7 @@
                 },
                 "additionalProperties": {}
             },
-            "RedeemInputModel": {
+            "RedeemVoucherInputModel": {
                 "required": [
                     "pin"
                 ],
@@ -1570,7 +1579,7 @@
                 "type": "string",
                 "description": "Specifies the criteria for sorting deals."
             },
-            "UpdateOrderItem": {
+            "UpdateCartItem": {
                 "required": [
                     "dealId",
                     "quantity"

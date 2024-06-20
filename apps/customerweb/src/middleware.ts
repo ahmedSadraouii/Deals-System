@@ -8,7 +8,6 @@ const PASSWORD = 'DealsDemo420!';
 function checkBasicAuth(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
   if (!authHeader) {
-    console.log('No authorization header found');
     return false;
   }
 
@@ -17,11 +16,7 @@ function checkBasicAuth(req: NextRequest) {
     .toString()
     .split(':');
 
-  const result = username === USERNAME && password === PASSWORD;
-
-  console.log('User input matched', result);
-
-  return result;
+  return username === USERNAME && password === PASSWORD;
 }
 
 export const config = {
@@ -29,10 +24,7 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
-  console.log('Basic auth middleware, start', process.env.NODE_ENV);
-
   if (process.env.NODE_ENV !== 'production') {
-    console.log('Skipping middleware...');
     return NextResponse.next();
   }
 

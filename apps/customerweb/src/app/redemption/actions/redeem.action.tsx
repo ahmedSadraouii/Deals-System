@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
-import { redeemApiClient } from '@/utils/deals-api-client';
+import { getVoucherApiClient } from '@/utils/deals-api-client';
 
 export interface RedeemVoucherParams {
   pin: string;
@@ -22,13 +22,13 @@ export async function redeemVoucher({
 }> {
   const session = await getServerSession(authOptions);
 
-  const redeemApi = redeemApiClient({
+  const voucherApi = getVoucherApiClient({
     accessToken: session?.accessToken,
   });
 
   try {
-    const response = await redeemApi.redeemVoucher({
-      redeemInputModel: { pin, email },
+    const response = await voucherApi.redeemVoucher({
+      redeemVoucherInputModel: { pin, email },
     });
 
     const { dealId } = response;
