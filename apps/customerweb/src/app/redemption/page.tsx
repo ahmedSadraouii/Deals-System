@@ -4,7 +4,6 @@ import { authOptions } from '@/utils/auth';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  console.log('token', session?.accessToken);
   const email = session?.user?.profile?.email ?? '';
 
   return (
