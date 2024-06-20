@@ -65,7 +65,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
           <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-8">
             <div className="relative shrink-0 grow">
               <div
-                className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto"
+                className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto lg:min-h-[480px]"
                 style={{
                   backgroundImage:
                     productImages.length > 0

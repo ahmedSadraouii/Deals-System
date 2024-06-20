@@ -111,12 +111,12 @@ export default async function Page({
         </div>
         <div className="grid grid-cols-5 gap-8">
           <div
-            className="col-span-2 min-h-72 overflow-hidden rounded-[20px] bg-cover bg-center"
+            className="col-span-5 min-h-72 overflow-hidden rounded-[20px] bg-cover bg-center lg:col-span-2"
             style={{
               backgroundImage: productImageUrl && `url(${productImageUrl})`,
             }}
           />
-          <div className="col-span-3 flex flex-col gap-6">
+          <div className="col-span-5 flex flex-col gap-6 lg:col-span-3">
             <div className="flex flex-row items-center gap-4">
               <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-gray-200">
                 <Image
