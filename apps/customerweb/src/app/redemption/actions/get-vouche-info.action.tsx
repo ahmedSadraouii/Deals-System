@@ -13,7 +13,7 @@ export async function getVoucherInfo({ pin }: getVoucherInfoParams): Promise<{
   success: boolean;
   apiErrorCode?: ApiErrorCodes;
   message?: string;
-  dealId?: string;
+  dealId?: string | null;
   state?: string;
 }> {
   const session = await getServerSession(authOptions);
@@ -24,7 +24,7 @@ export async function getVoucherInfo({ pin }: getVoucherInfoParams): Promise<{
 
   try {
     const response = await redeemApi.getVoucherInfo({
-      redeemInputModel: { pin },
+      pin: pin,
     });
 
     const { dealId, state } = response;

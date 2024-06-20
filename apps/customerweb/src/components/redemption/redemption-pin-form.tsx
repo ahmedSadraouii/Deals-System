@@ -40,7 +40,10 @@ export function RedemptionPinForm({
             const emailParam = isGuest
               ? `&email=${encodeURIComponent(data.email)}`
               : '';
-            const url = `/redemption/activate/${result.dealId}?pinCode=${encodeURIComponent(data.pinCode)}${emailParam}`;
+            const url = `/redemption/activate/
+            ${result.dealId}?pinCode=${encodeURIComponent(
+              data.pinCode,
+            )}${emailParam}`;
             router.push(url);
           } else if (result.state === 'redeemed') {
             setError('pinCode', {

@@ -6,15 +6,15 @@ import type { ApiErrorCodes } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
 import { redeemApiClient } from '@/utils/deals-api-client';
 
-export interface addHonoredDealParams {
+export interface RedeemVoucherParams {
   pin: string;
-  email: string;
+  email?: string;
 }
 
 export async function redeemVoucher({
   pin,
   email,
-}: addHonoredDealParams): Promise<{
+}: RedeemVoucherParams): Promise<{
   success: boolean;
   apiErrorCode?: ApiErrorCodes;
   message?: string;
@@ -44,7 +44,7 @@ export async function redeemVoucher({
       if (errorResponse.errors && errorResponse.errors.pin) {
         return {
           success: false,
-          message: errorResponse.errors.pin.join(', '), // Join multiple error messages if any
+          message: errorResponse.errors.pin.join(', '),
         };
       }
     }

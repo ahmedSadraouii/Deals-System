@@ -5,6 +5,7 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
 import { AldiButton } from 'src/components/nextui/aldi-button';
 import type {
@@ -27,19 +28,23 @@ export default function CardActivation({
   pinCode,
 }: CardActivationProps) {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleActivate = useCallback(async () => {
     try {
-      const result = await redeemVoucher({ pin: pinCode, email });
+      const isLoggedIn = !!session?.user;
+      const params = isLoggedIn ? { pin: pinCode } : { pin: pinCode, email };
+
+      const result = await redeemVoucher(params);
       if (result.success) {
-        router.push(`/redemption/thankyou`);
+        router.push(`/redemption/thankyou/${deal.id}`);
       } else {
         console.error('Failed to activate the voucher', result.message);
       }
     } catch (error) {
       console.error('Error activating the voucher', error);
     }
-  }, [pinCode, email, router]);
+  }, [pinCode, email, router, session]);
 
   const supplierImage = supplier.properties?.picture?.[0]?.url;
   const supplierImageUrl =
