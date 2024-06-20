@@ -27,7 +27,7 @@ export async function redeemVoucher({
   });
 
   try {
-    const response = await redeemApi.redeem({
+    const response = await redeemApi.redeemVoucher({
       redeemInputModel: { pin, email },
     });
 

@@ -11,6 +11,7 @@ import { CodeField } from '@/app/profile/deals/code-field';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { EmailSvg } from '@/components/svg/email-svg';
 import { IconArrowLeft } from '@/components/svg/icon-arrow-left';
+import { InfoSquareSvg } from '@/components/svg/info-square-svg';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
@@ -173,7 +174,6 @@ export default async function Page({
                 kontakt@kundenservice.aldi-sued.de
               </span>
             </Link>
-            {/* 
             <Link
               href="/faq"
               size="lg"
@@ -183,7 +183,7 @@ export default async function Page({
             >
               <InfoSquareSvg />
               <span className="ml-2 font-medium">Häufig gestellte Fragen</span>
-            </Link>*/}
+            </Link>
           </div>
         </div>
         <div className="mt-4">
