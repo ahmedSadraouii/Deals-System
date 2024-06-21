@@ -1,28 +1,63 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useReducer } from 'react';
+import type { Dispatch, ReactNode } from 'react';
+import type { OrderModel } from 'api-deals';
+import { EnsureCart } from '@/app/contexts/cart/ensure-cart';
 
-interface CartContextType {
-  currentStep: number;
-  setCurrentStep: (step: number) => void;
+export enum CartContextActionKind {
+  UpdateCart = 'updateCart',
 }
-const CartContext = createContext<CartContextType | undefined>(undefined);
-interface CartProviderProps {
+
+export type CartContextAction = {
+  type: CartContextActionKind.UpdateCart;
+  cart: OrderModel;
+};
+
+export interface CartContextState {
+  cart?: OrderModel;
+}
+
+export interface CartContextInterface extends CartContextState {
+  dispatch: Dispatch<CartContextAction>;
+}
+
+export const CartContext = createContext<CartContextInterface>({
+  cart: undefined,
+  dispatch: () => {
+    throw new Error('CartContext not initialized');
+  },
+});
+
+interface CartContextProviderProps {
   children: ReactNode;
 }
-export function CartProvider({ children }: CartProviderProps) {
-  const [currentStep, setCurrentStep] = useState<number>(1);
+
+export function CartContextProvider({ children }: CartContextProviderProps) {
+  const [state, dispatch] = useReducer(
+    (state: CartContextState, action: CartContextAction) => {
+      switch (action.type) {
+        case CartContextActionKind.UpdateCart:
+          return {
+            ...state,
+            cart: action.cart,
+          } as CartContextState;
+      }
+    },
+    {
+      cart: undefined,
+    } as CartContextState,
+  );
+
   return (
-    <CartContext.Provider value={{ currentStep, setCurrentStep }}>
+    <CartContext.Provider
+      value={{
+        ...state,
+        dispatch,
+      }}
+    >
+      <EnsureCart />
       {children}
     </CartContext.Provider>
   );
 }
-export const useCart = (): CartContextType => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
-  return context;
-};

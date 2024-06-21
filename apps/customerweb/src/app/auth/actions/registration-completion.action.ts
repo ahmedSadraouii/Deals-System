@@ -7,14 +7,12 @@ import { getAuthApiClient } from '@/utils/auth-api-client';
 export interface RegistrationCompletionActionParams {
   email: string;
   password: string;
-  termsAccepted: boolean;
   newsletterAccepted: boolean;
 }
 
 export async function registrationCompletionAction({
   email,
   password,
-  termsAccepted,
   newsletterAccepted,
 }: RegistrationCompletionActionParams): Promise<{
   success: boolean;
@@ -28,7 +26,7 @@ export async function registrationCompletionAction({
       dealsRegistrationRequest: {
         email,
         password,
-        termsAccepted,
+        termsAccepted: true,
         newsletterAccepted,
       },
     });

@@ -1,10 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import NextLink from 'next/link';
 import { redirect } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { Link } from '@nextui-org/react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { registrationCompletionAction } from '@/app/auth/actions/registration-completion.action';
 import { ApiErrorTranslation } from '@/components/api-error-translation';
@@ -27,19 +25,13 @@ export function RegistrationCompletion() {
   );
 
   const defaultValues = {
-    termsChecked: false,
     newsletterChecked: false,
   };
 
   const form = useForm({
     defaultValues,
   });
-  const {
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    trigger,
-  } = form;
+  const { handleSubmit, formState, setValue, trigger } = form;
 
   const onSubmit = useCallback(async (data: typeof defaultValues) => {
     setLoading(true);
@@ -59,7 +51,6 @@ export function RegistrationCompletion() {
         email,
         password,
         newsletterAccepted: data.newsletterChecked,
-        termsAccepted: data.termsChecked,
       });
 
       if (returnValue.success) {
@@ -79,7 +70,6 @@ export function RegistrationCompletion() {
   }, []);
 
   const onCheckAllAndProceed = useCallback(() => {
-    setValue('termsChecked', true);
     setValue('newsletterChecked', true);
     handleSubmit(onSubmit)();
   }, [handleSubmit, onSubmit, setValue]);
@@ -114,44 +104,6 @@ export function RegistrationCompletion() {
           )}
 
           <div className="mb-4 flex flex-col gap-6">
-            <Controller
-              render={({ field }) => (
-                <AldiCheckbox
-                  isRequired={true}
-                  isInvalid={!!errors.termsChecked}
-                  isSelected={field.value}
-                  {...field}
-                >
-                  <p className="text-sm">
-                    Durch das Absenden dieses Formulars stimme ich den{' '}
-                    <Link
-                      as={NextLink}
-                      isExternal={true}
-                      className="text-sm"
-                      href="/cms/privacy-policy"
-                      color="secondary"
-                      underline="always"
-                    >
-                      Datenschutzbestimmungen
-                    </Link>{' '}
-                    und{' '}
-                    <Link
-                      as={NextLink}
-                      isExternal={true}
-                      className="text-sm"
-                      href="/cms/terms-of-service"
-                      color="secondary"
-                      underline="always"
-                    >
-                      Nutzungsbedingungen
-                    </Link>{' '}
-                    zu.*
-                  </p>
-                </AldiCheckbox>
-              )}
-              name="termsChecked"
-              rules={{ required: true, validate: (value) => value === true }}
-            />
             <Controller
               render={({ field }) => (
                 <AldiCheckbox isSelected={field.value} {...field}>
