@@ -4,7 +4,7 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { Card, CardBody, SelectItem } from '@nextui-org/react';
 import { DateTime } from 'luxon';
-import { AldiSelect } from '@/components/nextui/aldi-select';
+import { AldiSelect } from 'src/components/nextui/aldi-select';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
@@ -91,55 +91,56 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
       <Card className="bg-gray-100">
         <CardBody className="flex flex-col gap-8 p-10 md:flex-row">
           <Image
-            className="w-full rounded-lg md:w-1/3"
+            className="rounded-lg"
             src={productImageUrl!}
             alt={deal.name}
             width={500}
-            height={420}
+            height={800}
           />
 
-          <div className="flex flex-col gap-4 md:flex-row">
-            <Image
-              className="md:max-h-72 lg:h-full"
-              src={supplierImageUrl!}
-              alt={fullSupplier.name}
-              width={85}
-              height={85}
-            />
-            <div>
+          <div className="flex flex-col gap-8">
+            <div className="flex items-center gap-6">
+              <Image
+                className="md:max-h-72 lg:h-full"
+                src={supplierImageUrl!}
+                alt={fullSupplier.name}
+                width={85}
+                height={85}
+              />
               <div>
-                <h1 className="text-2xl font-bold text-secondary ">
-                  {deal.name}
-                </h1>
-                <p className="max-w-[300px] text-lg leading-5 text-aldi-blue">
-                  {description}
-                </p>
+                <div>
+                  <h1 className="text-2xl font-bold text-secondary ">
+                    {deal.name}
+                  </h1>
+                  <p className="max-w-[300px] text-lg leading-5 text-aldi-blue">
+                    {description}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <p className=" border-t-2 pb-2 pt-4 text-aldi-blue opacity-50">
-              Gültig ab:{' '}
-              {promotionStart.isValid
-                ? promotionStart.toLocaleString(DateTime.DATE_SHORT)
-                : 'unbekannt'}{' '}
-            </p>
-            <p className="border-b-2 pb-4 text-aldi-blue opacity-50">
-              Gültig bis:{' '}
-              {promotionEnd.isValid
-                ? promotionEnd.toLocaleString(DateTime.DATE_SHORT)
-                : 'unbekannt'}
-            </p>
-          </div>
 
-          <div>
-            <AldiSelect
-              label="Herunterladen"
-              items={options}
-              color="aldiblue"
-              className="w-full md:max-w-56"
-            >
-              {(option: any) => (
+            <div>
+              <p className=" border-t-2 pb-2 pt-4 text-aldi-blue opacity-50">
+                Gültig ab:{' '}
+                {promotionStart.isValid
+                  ? promotionStart.toLocaleString(DateTime.DATE_SHORT)
+                  : 'unbekannt'}{' '}
+              </p>
+              <p className="border-b-2 pb-4 text-aldi-blue opacity-50">
+                Gültig bis:{' '}
+                {promotionEnd.isValid
+                  ? promotionEnd.toLocaleString(DateTime.DATE_SHORT)
+                  : 'unbekannt'}
+              </p>
+            </div>
+            <div>
+              <AldiSelect
+                label="Herunterladen"
+                items={options}
+                color="aldiblue"
+                className="w-full md:max-w-56"
+              />
+              {options.map((option) => (
                 <SelectItem key={option.id} textValue={option.text}>
                   <div className="flex gap-2">
                     <Image
@@ -152,8 +153,8 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
                     <p>{option.text}</p>
                   </div>
                 </SelectItem>
-              )}
-            </AldiSelect>
+              ))}
+            </div>
           </div>
         </CardBody>
       </Card>

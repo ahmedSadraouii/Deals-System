@@ -4,8 +4,8 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { Card, CardBody } from '@nextui-org/react';
 import { DateTime } from 'luxon';
-import CopyableInput from 'src/components/redemption/copy-input';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import CopyableInput from '@/components/redeem/copy-input';
 import { IconArrowUpRight } from '@/components/svg/icon-arrow-up-right';
 import type {
   UmbracoDeal,

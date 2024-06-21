@@ -12,7 +12,7 @@ import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from 'src/components/umbraco-cms/umbraco-types';
-import { redeemVoucher } from '@/app/redemption/actions/redeem.action';
+import { redeemVoucher } from '@/app/redeem/actions/redeem.action';
 
 interface CardActivationProps {
   deal: UmbracoDeal;
@@ -37,14 +37,16 @@ export default function CardActivation({
 
       const result = await redeemVoucher(params);
       if (result.success) {
-        router.push(`/redemption/thankyou/${deal.id}`);
+        router.push(
+          `/redemption/thankyou/${isLoggedIn ? result.honoredDealId : deal.id}`,
+        );
       } else {
         console.error('Failed to activate the voucher', result.message);
       }
     } catch (error) {
       console.error('Error activating the voucher', error);
     }
-  }, [pinCode, email, router, session]);
+  }, [pinCode, email, deal, router, session]);
 
   const supplierImage = supplier.properties?.picture?.[0]?.url;
   const supplierImageUrl =

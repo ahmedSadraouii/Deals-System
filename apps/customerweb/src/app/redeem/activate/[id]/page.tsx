@@ -1,5 +1,5 @@
 import NotFound from '@/app/not-found';
-import CardActivation from '@/components/redemption/redemption-activate-card';
+import CardActivation from '@/components/redeem/redemption-activate-card';
 import type {
   UmbracoDeal,
   UmbracoSupplier,

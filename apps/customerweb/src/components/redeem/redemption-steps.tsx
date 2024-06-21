@@ -11,12 +11,9 @@ export function RedemptionStepper() {
   const steps = ['Kassenbon-PIN', 'Aktivieren', 'Dein Deal'];
 
   useEffect(() => {
-    if (
-      path === '/redemption/activate' ||
-      /\/redemption\/activate\/\w+/.test(path)
-    ) {
+    if (/\/activate\/\w+/.test(path)) {
       setCurrentStep(2);
-    } else if (path === '/redemption/thankyou') {
+    } else if (/\/thankyou\/\w+/.test(path)) {
       setCurrentStep(3);
     }
   }, [path, setCurrentStep]);

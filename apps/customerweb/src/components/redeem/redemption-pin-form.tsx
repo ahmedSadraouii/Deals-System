@@ -5,18 +5,14 @@ import { useRouter } from 'next/navigation';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { AldiButton } from 'src/components/nextui/aldi-button';
-import { getVoucherInfo } from '@/app/redemption/actions/get-vouche-info.action';
+import { getVoucherInfo } from '@/app/redeem/actions/get-voucher-info.action';
 import { AldiInput } from '@/components/nextui/aldi-input';
 
 interface RedemptionPinFormProps {
   isGuest: boolean;
-  userEmail: string;
 }
 
-export function RedemptionPinForm({
-  isGuest,
-  userEmail,
-}: RedemptionPinFormProps) {
+export function RedemptionPinForm({ isGuest }: RedemptionPinFormProps) {
   const router = useRouter();
   const defaultValues = {
     pinCode: '',
@@ -40,10 +36,9 @@ export function RedemptionPinForm({
             const emailParam = isGuest
               ? `&email=${encodeURIComponent(data.email)}`
               : '';
-            const url = `/redemption/activate/
-            ${result.dealId}?pinCode=${encodeURIComponent(
-              data.pinCode,
-            )}${emailParam}`;
+            const url = `/redemption/activate/${
+              result.dealId
+            }?pinCode=${encodeURIComponent(data.pinCode)}${emailParam}`;
             router.push(url);
           } else if (result.state === 'redeemed') {
             setError('pinCode', {
@@ -61,7 +56,7 @@ export function RedemptionPinForm({
         console.error('Error submitting the form', error);
       }
     },
-    [router, setError, isGuest, userEmail],
+    [router, setError, isGuest],
   );
   return (
     <Card className=" bg-gray-100 py-4 md:p-8">

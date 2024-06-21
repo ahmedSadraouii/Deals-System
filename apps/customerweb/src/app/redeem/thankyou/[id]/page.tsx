@@ -18,12 +18,13 @@ export default async function Page({ params: { id } }: Props) {
   const session = await getServerSession(authOptions);
 
   const honoredDeal = session
-    ? await getHonoredDeal(id, session.accessToken)
+    ? await getHonoredDeal(id, session?.accessToken)
     : null;
   const guestDeal = !session ? await getGuestDeal(id) : null;
+  console.log('honored deal', honoredDeal);
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center gap-8 px-4 py-14 md:px-0">
+    <div className="container mx-auto flex flex-col items-center justify-center gap-16 px-4 py-14 md:px-0">
       <div>
         <Celebration />
       </div>
@@ -60,10 +61,11 @@ export default async function Page({ params: { id } }: Props) {
 }
 
 async function getHonoredDeal(id: string, accessToken: string) {
+  console.log('id', id);
   const honoredApi = getHonoredDealsApiClient({ accessToken });
 
   try {
-    const honoredDeal = await honoredApi.getHonoredDeal({ id });
+    const honoredDeal = await honoredApi.getHonoredDeal({ id: id });
     return honoredDeal;
   } catch (error) {
     console.error('Error fetching honored deal:', error);
@@ -75,7 +77,7 @@ async function getGuestDeal(id: string) {
   const contentApi = getContentApiClient();
 
   try {
-    const dealContent = await contentApi.getContentItemById20({ id });
+    const dealContent = await contentApi.getContentItemById20({ id: id });
     const fullDeal = dealContent as UmbracoDeal;
 
     if (!verifyDealIsCorrect(fullDeal)) {

@@ -1,11 +1,9 @@
 import { getServerSession } from 'next-auth';
-import { RedemptionPinForm } from '@/components/redemption/redemption-pin-form';
+import { RedemptionPinForm } from '@/components/redeem/redemption-pin-form';
 import { authOptions } from '@/utils/auth';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  console.log('token', session?.accessToken);
-  const email = session?.user?.profile?.email ?? '';
 
   return (
     <div className="w-full lg:w-[70%] xl:w-[50%]">
@@ -17,7 +15,7 @@ export default async function Page() {
           Gib folgend die 16-stellige PIN auf deinem Kassenbon ein.
         </p>
       </div>
-      <RedemptionPinForm isGuest={!session} userEmail={email} />
+      <RedemptionPinForm isGuest={!session} />
     </div>
   );
 }

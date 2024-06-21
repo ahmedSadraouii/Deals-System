@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { RedemptionStepper } from '@/components/redemption/redemption-steps';
+import { RedemptionStepper } from '@/components/redeem/redemption-steps';
 
 export interface CartLayoutProps {
   children: ReactNode;

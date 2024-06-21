@@ -19,6 +19,7 @@ export async function redeemVoucher({
   apiErrorCode?: ApiErrorCodes;
   message?: string;
   dealId?: string;
+  honoredDealId?: string;
 }> {
   const session = await getServerSession(authOptions);
 
@@ -31,12 +32,13 @@ export async function redeemVoucher({
       redeemVoucherInputModel: { pin, email },
     });
 
-    const { dealId } = response;
+    const { dealId, honoredDealId } = response;
 
     revalidatePath('/redemption/thankyou');
     return {
       success: true,
       dealId,
+      honoredDealId,
     };
   } catch (error: any) {
     if (error?.response?.json) {
