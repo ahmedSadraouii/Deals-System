@@ -87,7 +87,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                     )}
                   </div>
                   <div
-                    className="aspect-square max-h-[40vh] w-full bg-cover bg-center"
+                    className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto lg:min-h-[480px]"
                     style={{ backgroundImage: `url(${image})` }}
                   />
                 </div>
