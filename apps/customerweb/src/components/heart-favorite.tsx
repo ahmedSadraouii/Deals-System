@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { IconHeart } from './svg/icon-heart';
 import {
   FavoriteContext,
@@ -8,12 +10,16 @@ import {
 } from '@/app/contexts/favorite/favorite-context';
 import { addFavoriteAction } from '@/app/profile/actions/add-favorite.action';
 import { deleteFavoriteAction } from '@/app/profile/actions/delete-favorite.action';
+import { cn } from '@/utils/cn';
 
 interface HeartFavoriteProps {
   dealId: string;
 }
 
 export function HeartFavorite({ dealId }: HeartFavoriteProps) {
+  const session = useSession();
+  const router = useRouter();
+  const iconRef = useRef<HTMLDivElement>(null);
   const favoriteContext = useContext(FavoriteContext);
 
   const handleFavoriteChange = useCallback(
@@ -40,6 +46,20 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
 
   const toggleFavorite = useCallback(
     async (dealId: string) => {
+      if (session.status !== 'authenticated') {
+        router.push('/auth');
+        return;
+      }
+
+      if (iconRef.current?.classList) {
+        iconRef.current.classList.remove('animate-pop');
+      }
+      requestAnimationFrame(() => {
+        if (iconRef.current?.classList) {
+          iconRef.current.classList.add('animate-pop');
+        }
+      });
+
       const isDealFavored = favoriteContext.favoredDealIds.includes(dealId);
 
       // Optimistically update the context state
@@ -53,19 +73,25 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
       // Call the API to update the backend
       await handleFavoriteChange(dealId, !isDealFavored);
     },
-    [favoriteContext, handleFavoriteChange],
+    [favoriteContext, handleFavoriteChange, router, session.status],
   );
 
   const isFavored = useMemo(
     () => favoriteContext.favoredDealIds.includes(dealId),
     [dealId, favoriteContext.favoredDealIds],
   );
+
   return (
-    <span
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-xs font-light text-black"
+    <div
+      className="pointer-events-auto h-10 w-10 cursor-pointer rounded-full bg-white"
+      ref={iconRef}
       onClick={() => toggleFavorite(dealId)}
     >
-      <IconHeart fill={isFavored ? '#ff4802' : '#ffcd73'} />
-    </span>
+      <div className="flex h-full w-full items-center justify-center rounded-full bg-aldi-key/10 transition-colors hover:bg-aldi-key/20">
+        <IconHeart
+          className={cn('text-xl text-aldi-key', isFavored && 'fill-aldi-key')}
+        />
+      </div>
+    </div>
   );
 }

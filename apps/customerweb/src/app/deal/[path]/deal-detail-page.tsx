@@ -6,13 +6,12 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Divider, Tooltip } from '@nextui-org/react';
+import { AddDealToCart } from '@/app/deal/[path]/add-deal-to-cart';
 import { DealPerkCard } from '@/app/deal/[path]/deal-perk-card';
 import { DetailPageCarousel } from '@/components/carousel/detail-page-carousel';
 import { HeartFavorite } from '@/components/heart-favorite';
-import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
-import { IconCart } from '@/components/svg/icon-cart';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
 import type {
@@ -133,23 +132,8 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                   </div>
                 </Tooltip>
               </div>
-              <div className="hidden flex-row items-center gap-6 lg:flex">
-                <AldiButton variant="ghost" isIconOnly={true} size="md">
-                  -
-                </AldiButton>
-                <div className="text-3xl font-bold text-secondary">1</div>
-                <AldiButton variant="ghost" isIconOnly={true} size="md">
-                  +
-                </AldiButton>
-                <AldiButton
-                  size="md"
-                  className="grow"
-                  variant="solid"
-                  color="secondary"
-                  endContent={<IconCart className="shrink-0 text-2xl" />}
-                >
-                  In den Warenkorb
-                </AldiButton>
+              <div className="hidden flex-row items-center gap-4 lg:flex">
+                <AddDealToCart dealId={deal.id} />
               </div>
             </div>
             <div className="flex flex-row items-center gap-4 rounded-[20px] border border-secondary/10 p-10">

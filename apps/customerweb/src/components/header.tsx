@@ -11,6 +11,7 @@ import {
   NavbarMenuToggle,
 } from '@nextui-org/react';
 import type { Variants } from 'framer-motion';
+import { HeaderCartSection } from '@/components/header-cart-section';
 import { HeaderUserSection } from '@/components/header-user-section';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiDealsSvg } from '@/components/svg/aldi-deals-svg';
@@ -30,7 +31,7 @@ export function Header() {
         menu: 'navbar-height-proxy',
         wrapper: cn('px-4 !container mx-auto'),
         toggleIcon: 'bg-secondary/10 rounded-full h-auto aspect-square p-6',
-        toggle: 'block',
+        toggle: 'block w-12',
       }}
       height="var(--navbar-height-injected, 96px)"
     >
@@ -67,16 +68,18 @@ export function Header() {
           Deal aktivieren
         </AldiButton>
         <HeaderUserSection />
-        <AldiButton
-          as={Link}
-          size="lg"
-          variant="flat"
-          isIconOnly={true}
-          href="/cart"
-          className="h-12 w-12 text-secondary"
-        >
-          <IconCart className="text-2xl" />
-        </AldiButton>
+        <HeaderCartSection>
+          <AldiButton
+            as={Link}
+            size="lg"
+            variant="flat"
+            isIconOnly={true}
+            href="/cart"
+            className="h-12 w-12 text-secondary"
+          >
+            <IconCart className="text-2xl" />
+          </AldiButton>
+        </HeaderCartSection>
       </NavbarContent>
 
       <NavbarContent
@@ -94,15 +97,17 @@ export function Header() {
             <AldiDealsSvg className="h-10 lg:h-auto" />
           </NavbarBrand>
           <HeaderUserSection />
-          <AldiButton
-            as={Link}
-            variant="flat"
-            isIconOnly={true}
-            href="/cart"
-            className="h-12 w-12 text-secondary"
-          >
-            <IconCart className="text-2xl" />
-          </AldiButton>
+          <HeaderCartSection>
+            <AldiButton
+              as={Link}
+              variant="flat"
+              isIconOnly={true}
+              href="/cart"
+              className="h-12 w-12 text-secondary"
+            >
+              <IconCart className="text-2xl" />
+            </AldiButton>
+          </HeaderCartSection>
         </div>
         <div className="w-full">
           <AldiButton

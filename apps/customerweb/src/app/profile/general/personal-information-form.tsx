@@ -44,11 +44,9 @@ export function PersonalInformationForm({
       const response = await updateProfileInformationAction({
         firstName: data.firstName || '',
         lastName: data.lastName || '',
-        addressStreet: !!data.addressStreet ? data.addressStreet : null,
-        addressCity: !!data.addressCity ? data.addressCity : null,
-        addressHouseNumber: !!data.addressHouseNumber
-          ? data.addressHouseNumber
-          : null,
+        addressStreet: data.addressStreet,
+        addressCity: data.addressCity,
+        addressHouseNumber: data.addressHouseNumber,
         dateOfBirth: data.dateOfBirth?.toDate()?.toISOString() || '',
       });
 

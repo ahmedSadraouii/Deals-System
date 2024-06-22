@@ -4,6 +4,7 @@ import {
   FavoritesApi,
   OrdersApi,
   HonoredDealsApi,
+  CartsApi,
   VoucherApi,
 } from 'api-deals';
 
@@ -18,7 +19,7 @@ export function getAdBeApiConfiguration(
     // TODO: use env var as soon the http://192.168.179.20:5000/aldi/infrastructure/k8s/-/merge_requests/7 is merged
     // basePath: process.env.ADBE_API_BASE_URL,
     basePath: 'https://dev.api.aldi.amplicade.com',
-    headers: params?.accessToken
+    headers: !!params?.accessToken
       ? {
           Authorization: `Bearer ${params?.accessToken}`,
         }
@@ -32,6 +33,10 @@ export function getDealsApiClient(params: AdBeApiClientProps): DealsApi {
 
 export function getOrdersApiClient(params: AdBeApiClientProps): OrdersApi {
   return new OrdersApi(getAdBeApiConfiguration(params));
+}
+
+export function getCartsApiClient(params: AdBeApiClientProps): CartsApi {
+  return new CartsApi(getAdBeApiConfiguration(params));
 }
 
 export function getHonoredDealsApiClient(

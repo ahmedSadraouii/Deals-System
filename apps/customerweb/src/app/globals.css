@@ -148,9 +148,17 @@
   border: 2px solid white;
 }
 
+.navbar-offset {
+  margin-top: 96px;
+}
+
 @media(max-width: 1024px) {
   .navbar-height-proxy {
     --navbar-height-injected: 152px;
+  }
+
+  .navbar-offset {
+    margin-top: 152px;
   }
 }
 
