@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Settings } from 'luxon';
 import ClientProviders from '@/app/client-providers';
 import ServerProviders from '@/app/server-providers';
+import { ToasterOutlet } from '@/app/toaster-outlet';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import { AldiSuedDefsSvg } from '@/components/svg/aldi-sued-defs-svg';
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="bg-white">
         <ServerProviders>
           <ClientProviders>
+            <ToasterOutlet />
             <div className="flex min-h-screen flex-col">
               <AldiSuedDefsSvg />
               <Header />

@@ -144,7 +144,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                   </div>
                 </Tooltip>
               </div>
-              <div className="hidden flex-row items-center gap-6 lg:flex">
+              <div className="hidden flex-row items-center gap-4 lg:flex">
                 <AddDealToCart dealId={deal.id} />
               </div>
             </div>

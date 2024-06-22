@@ -66,13 +66,12 @@ export function DealsListItemHeroSlider({
           className,
         )}
       >
-        <div className="relative shrink-0 basis-1/2 overflow-hidden rounded-[20px]">
-          <div
-            className="aspect-square bg-cover bg-center"
-            style={{
-              backgroundImage: productImageUrl && `url(${productImageUrl})`,
-            }}
-          />
+        <div
+          className="relative shrink-0 basis-1/2 overflow-hidden rounded-[20px] bg-cover bg-center object-cover"
+          style={{
+            backgroundImage: productImageUrl && `url(${productImageUrl})`,
+          }}
+        >
           <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
             <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-aldi-key">
               <IconTag className="mr-2 text-base" />
@@ -84,7 +83,7 @@ export function DealsListItemHeroSlider({
         <div className="flex grow flex-col gap-4">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-6">
-              <div className="overflow-hidden rounded-[20px] bg-default-200 p-2">
+              <div className="overflow-hidden rounded-[20px]">
                 <div
                   className="h-20 w-20 bg-contain bg-center bg-no-repeat"
                   style={{

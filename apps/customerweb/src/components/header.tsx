@@ -31,7 +31,7 @@ export function Header() {
         menu: 'navbar-height-proxy',
         wrapper: cn('px-4 !container mx-auto'),
         toggleIcon: 'bg-secondary/10 rounded-full h-auto aspect-square p-6',
-        toggle: 'block',
+        toggle: 'block w-12',
       }}
       height="var(--navbar-height-injected, 96px)"
     >

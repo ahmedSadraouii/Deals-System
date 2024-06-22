@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { useCart } from '@/app/contexts/cart/use-cart';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconCart } from '@/components/svg/icon-cart';
+import { toast } from '@/utils/toast';
 
 export interface AddDealToCartProps {
   dealId: string;
@@ -24,8 +25,17 @@ export function AddDealToCart({ dealId }: AddDealToCartProps) {
   const [isLoading, setLoading] = useState(false);
   const onAddToCart = useCallback(async () => {
     setLoading(true);
-    await updateCartItem(dealId, quantity);
-    setLoading(false);
+    try {
+      await updateCartItem(dealId, quantity);
+    } catch (error) {
+      console.error('Error updating cart item:', error);
+      toast({
+        title: 'Fehler',
+        description: 'Beim Hinzufügen zum Warenkorb ist ein Fehler aufgetreten',
+      });
+    } finally {
+      setLoading(false);
+    }
   }, [dealId, quantity, updateCartItem]);
 
   return (
@@ -33,7 +43,7 @@ export function AddDealToCart({ dealId }: AddDealToCartProps) {
       <AldiButton
         variant="ghost"
         isIconOnly={true}
-        size="lg"
+        size="md"
         onClick={decrement}
       >
         -
@@ -44,13 +54,13 @@ export function AddDealToCart({ dealId }: AddDealToCartProps) {
       <AldiButton
         variant="ghost"
         isIconOnly={true}
-        size="lg"
+        size="md"
         onClick={increment}
       >
         +
       </AldiButton>
       <AldiButton
-        size="lg"
+        size="md"
         className="grow"
         variant="solid"
         color="secondary"
