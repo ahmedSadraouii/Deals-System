@@ -31,7 +31,7 @@ export function RegistrationCompletion() {
   const form = useForm({
     defaultValues,
   });
-  const { handleSubmit, formState, setValue, trigger } = form;
+  const { handleSubmit, setValue, trigger } = form;
 
   const onSubmit = useCallback(async (data: typeof defaultValues) => {
     setLoading(true);

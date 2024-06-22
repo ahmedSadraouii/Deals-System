@@ -1,10 +1,11 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import type { OrderModel } from 'api-deals/generated/models';
-import { ResponseError } from 'api-deals/generated/runtime';
+import type { OrderModel } from 'api-deals';
+import { ResponseError } from 'api-deals';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
+import { catchApiError } from '@/utils/catch-api-error';
 import { getCartsApiClient } from '@/utils/deals-api-client';
 
 export async function getCartAction(): Promise<{
@@ -17,7 +18,7 @@ export async function getCartAction(): Promise<{
     const cartsApi = getCartsApiClient({
       accessToken: session.accessToken,
     });
-    const ensureCartResponse = await cartsApi.ensureCart();
+    const ensureCartResponse = await cartsApi.ensureCart().catch(catchApiError);
     return { cart: ensureCartResponse };
   }
 
@@ -35,9 +36,11 @@ export async function getCartAction(): Promise<{
   ) {
     // retrieving the same cart id from cookies
     try {
-      const ensureCartResponse = await cartsApi.ensureCart({
-        cartId: existingCartId.value,
-      });
+      const ensureCartResponse = await cartsApi
+        .ensureCart({
+          cartId: existingCartId.value,
+        })
+        .catch(catchApiError);
 
       cookieStore.set('cart-id', ensureCartResponse.cartId!, {
         // expires in 1 hour
@@ -56,7 +59,8 @@ export async function getCartAction(): Promise<{
   }
 
   // create a new anonymous cart
-  const ensureCartResponse = await cartsApi.ensureCart();
+
+  const ensureCartResponse = await cartsApi.ensureCart().catch(catchApiError);
 
   cookieStore.set('cart-id', ensureCartResponse.cartId!, {
     // expires in 1 hour

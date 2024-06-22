@@ -20,7 +20,7 @@ export function RedemptionSteps() {
       setCurrentStep(3);
     }
   }, [path, setCurrentStep]);
-  const handleStepClick = useCallback(
+  const _handleStepClick = useCallback(
     (step: number) => {
       if (step < currentStep) {
         if (step === 1) {

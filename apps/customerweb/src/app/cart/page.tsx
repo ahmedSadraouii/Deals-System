@@ -4,7 +4,7 @@ import { CartStepIndicator } from '@/app/cart/components/cart-step-indicator';
 import { useCart } from '@/app/contexts/cart/use-cart';
 
 export default function Page() {
-  const { cartContext, updateCartItem, removeCartItem } = useCart();
+  const { cartContext } = useCart();
 
   if (!cartContext.cart) {
     return null;

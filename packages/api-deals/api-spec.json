@@ -65,8 +65,25 @@
           }
         },
         "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCheckoutModel"
+                }
+              }
+            }
           }
         }
       }
@@ -155,22 +172,22 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CartModel"
-                }
-              }
-            }
-          },
           "400": {
             "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartModel"
                 }
               }
             }
@@ -288,9 +305,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "404": {
             "description": "Not Found",
             "content": {
@@ -307,6 +321,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartModel"
                 }
               }
             }
@@ -864,6 +888,26 @@
           }
         ],
         "responses": {
+          "404": {
+            "description": "Returns if no voucher is found for the provided PIN code.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns if the PIN code is invalid or has a validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "200": {
             "description": "Returns the voucher information if found and valid.",
             "content": {
@@ -873,12 +917,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Returns if the PIN code is invalid or has a validation error."
-          },
-          "404": {
-            "description": "Returns if no voucher is found for the provided PIN code."
           }
         }
       }
@@ -915,8 +953,18 @@
           }
         },
         "responses": {
+          "400": {
+            "description": "Invalid input data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "OK",
+            "description": "Pin was redeemed successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -924,12 +972,6 @@
                 }
               }
             }
-          },
-          "201": {
-            "description": "Pin was redeemed successfully."
-          },
-          "400": {
-            "description": "Invalid input data."
           }
         }
       }
@@ -968,7 +1010,7 @@
             "format": "uuid"
           },
           "quantity": {
-            "maximum": 2147483647,
+            "maximum": 4294967295,
             "minimum": 1,
             "type": "integer",
             "description": "Gets or sets the quantity of the cart item.",
@@ -1104,6 +1146,16 @@
         },
         "additionalProperties": false,
         "description": "Represents the input model for a checkout process."
+      },
+      "CreateCheckoutModel": {
+        "type": "object",
+        "properties": {
+          "redirectUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "CreateOrUpdateDealInputModel": {
         "required": [
@@ -1429,7 +1481,7 @@
             "format": "uuid"
           },
           "quantity": {
-            "maximum": 2147483647,
+            "maximum": 4294967295,
             "minimum": 1,
             "type": "integer",
             "description": "Gets or sets the quantity of the order item.",

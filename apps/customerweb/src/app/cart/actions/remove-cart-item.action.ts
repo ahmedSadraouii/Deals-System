@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import type { OrderModel } from 'api-deals/generated/models';
+import type { OrderModel } from 'api-deals';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { catchApiError } from '@/utils/catch-api-error';

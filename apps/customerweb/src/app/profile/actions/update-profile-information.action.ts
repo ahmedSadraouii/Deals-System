@@ -9,10 +9,10 @@ import { getUserApiClient } from '@/utils/user-api-client';
 export interface UpdateProfileInformationActionParams {
   firstName: string;
   lastName: string;
-  addressCity: string | null;
-  addressStreet: string | null;
-  addressHouseNumber: string | null;
-  dateOfBirth: string | null;
+  addressCity?: string;
+  addressStreet?: string;
+  addressHouseNumber?: string;
+  dateOfBirth?: string;
 }
 
 export async function updateProfileInformationAction({
@@ -56,7 +56,9 @@ export async function updateProfileInformationAction({
         addressStreet,
         addressHouseNumber,
         dateOfBirth:
-          dateOfBirth !== null ? new Date(Date.parse(dateOfBirth)) : undefined,
+          dateOfBirth !== undefined
+            ? new Date(Date.parse(dateOfBirth))
+            : undefined,
         cardinalDirection: session.user.profile.cardinalDirection!,
       },
     });
