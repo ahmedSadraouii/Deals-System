@@ -32,6 +32,19 @@ module.exports = {
         'aldi-bg': '#f0dfdc',
         'aldi-key': '#FF4802',
       },
+      animation: {
+        pop: 'pop 0.2s ease forwards',
+      },
+      keyframes: {
+        pop: {
+          '0%, 100%': {
+            transform: 'scale(1)',
+          },
+          '50%': {
+            transform: 'scale(1.1)',
+          },
+        },
+      },
     },
   },
   plugins: [
