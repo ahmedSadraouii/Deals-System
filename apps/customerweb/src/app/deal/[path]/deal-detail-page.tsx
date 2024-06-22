@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Divider, Tooltip } from '@nextui-org/react';
 import { DealPerkCard } from '@/app/deal/[path]/deal-perk-card';
-import { Carousel } from '@/components/carousel/carousel';
+import { DetailPageCarousel } from '@/components/carousel/detail-page-carousel';
 import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
@@ -63,49 +63,37 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
       <div className="container mx-auto space-y-10 px-4 py-4 xl:py-20">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-8">
-            <div className="relative shrink-0 grow">
-              <div
-                className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto"
-                style={{
-                  backgroundImage:
-                    productImages.length > 0
-                      ? `url(${productImages[activeImageIndex]})`
-                      : undefined,
-                }}
-              />
-              <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
-                <Tooltip content="TODO: Das kommt später von unserem Backend">
-                  <span className="flex items-center rounded bg-white p-4 text-xs text-secondary">
-                    <IconTag className="mr-2 text-base" />
-                    <span className="text-aldi-key">Stark nachgefragt</span>
-                  </span>
-                </Tooltip>
-
-                <Tooltip content="TODO: Welche Funktion steckt hier hinter?">
-                  <div className="flex items-center rounded-lg border-1 bg-white px-4 py-2 font-normal text-aldi-key">
-                    <IconClock className="mr-2" />
-                    <span className="mr-1 hidden md:block">Noch</span> 13:32:16
-                  </div>
-                </Tooltip>
-              </div>
-            </div>
-            <Carousel itemStart={0} itemsPerPage={5}>
+            <DetailPageCarousel itemStart={0} itemsPerPage={5}>
               {productImages.map((image, index) => (
                 <div
                   key={index}
                   className={cn(
-                    'relative shrink-0 basis-36 cursor-pointer overflow-hidden rounded-lg border-2 border-transparent lg:rounded-[20px]',
+                    'cursor-pointer overflow-hidden rounded-lg lg:rounded-[20px]',
                     activeImageIndex === index && 'border-secondary',
                   )}
                   onClick={() => setActiveImageIndex(index)}
                 >
+                  <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
+                    <span className="flex items-center rounded bg-white px-6 py-4 text-xs text-secondary">
+                      <IconTag className="mr-2 text-base" />
+                      <span className="text-aldi-key">Stark nachgefragt</span>
+                    </span>
+                    {deal.properties?.availabilityEnd && (
+                      <div className="flex items-center space-x-2 rounded-md border border-secondary/10 p-4 text-primary">
+                        <IconClock className="text-2xl" />{' '}
+                        <span>
+                          {formatAvailability(deal.properties?.availabilityEnd)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   <div
-                    className="aspect-square bg-cover bg-center"
+                    className="aspect-square max-h-[40vh] w-full bg-cover bg-center"
                     style={{ backgroundImage: `url(${image})` }}
                   />
                 </div>
               ))}
-            </Carousel>
+            </DetailPageCarousel>
           </div>
           <div className="col-span-6 flex flex-col gap-4 2xl:col-span-4">
             <div className="flex grow flex-col gap-y-6 rounded-[20px] bg-default-100 p-10">

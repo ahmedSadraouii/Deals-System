@@ -48,7 +48,6 @@ export default async function DealCheckoutCard({
   }
 
   const fullDeal = dealContent as UmbracoDeal;
-  console.log('deal', fullDeal);
 
   if (!verifyDealIsCorrect(fullDeal)) {
     console.log('Deal is incorrect', fullDeal);

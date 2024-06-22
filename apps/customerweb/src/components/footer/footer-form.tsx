@@ -1,11 +1,17 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import { Input, Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
+import { AldiCheckbox } from 'src/components/nextui/aldi-checkbox';
 
 function FooterForm() {
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsCheckboxChecked((prev) => !prev);
+  };
   const defaultValues = {
     name: '',
     surname: '',
@@ -65,28 +71,21 @@ function FooterForm() {
           errorMessage={errors.email && 'Email is required'}
           {...register('email', { required: true })}
         />
-
-        <div className="mb-4 mt-4 flex items-center justify-center">
-          <input
-            id="default-checkbox"
-            type="checkbox"
-            value=""
-            className="h-16 w-16 rounded-2xl border-gray-300 bg-transparent !shadow-none focus:!border-none"
+        <div className="mt-6 flex gap-2">
+          <AldiCheckbox
+            checked={isCheckboxChecked}
+            onChange={handleCheckboxChange}
           />
-          <label
-            htmlFor="default-checkbox"
-            className="ms-2 text-left text-sm font-medium text-white"
-          >
+          <p className="text-sm text-white">
             Ich möchte News per E-Mail erhalten und bin mit der damit
             verbundenen Verarbeitung meiner personenbezogenen Daten gemäß der
             ALDI SÜD-Datenschutzerklärung einverstanden*. Ein Widerruf ist
             jederzeit möglich.
-          </label>
+          </p>
         </div>
-
         <Button
           type="submit"
-          className="mb-5 mt-5 w-full rounded-full bg-amber-500 px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
+          className="mb-5 mt-5 w-full rounded-full bg-aldi-blue px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
         >
           Jetzt anmelden {''}
           <Image

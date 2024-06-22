@@ -21,7 +21,6 @@ export default async function Page({ params: { id } }: Props) {
     ? await getHonoredDeal(id, session?.accessToken)
     : null;
   const guestDeal = !session ? await getGuestDeal(id) : null;
-  console.log('honored deal', honoredDeal);
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center gap-16 px-4 py-14 md:px-0">
@@ -61,7 +60,6 @@ export default async function Page({ params: { id } }: Props) {
 }
 
 async function getHonoredDeal(id: string, accessToken: string) {
-  console.log('id', id);
   const honoredApi = getHonoredDealsApiClient({ accessToken });
 
   try {
@@ -79,7 +77,6 @@ async function getGuestDeal(id: string) {
   try {
     const dealContent = await contentApi.getContentItemById20({ id: id });
     const fullDeal = dealContent as UmbracoDeal;
-
     if (!verifyDealIsCorrect(fullDeal)) {
       console.log('Deal is incorrect', fullDeal);
       return null;

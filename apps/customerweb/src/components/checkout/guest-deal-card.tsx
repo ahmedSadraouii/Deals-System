@@ -89,13 +89,13 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
   return (
     <Suspense>
       <Card className="bg-gray-100">
-        <CardBody className="flex flex-col gap-8 p-10 md:flex-row">
+        <CardBody className="flex  flex-col gap-8 p-10 md:min-h-[35vh] md:flex-row">
           <Image
             className="rounded-lg"
             src={productImageUrl!}
             alt={deal.name}
-            width={500}
-            height={800}
+            width={450}
+            height={500}
           />
 
           <div className="flex flex-col gap-8">

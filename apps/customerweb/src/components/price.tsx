@@ -8,6 +8,7 @@ export interface PriceProps {
   showDigits?: boolean;
   uvp: boolean;
   textSize?: 'default' | 1 | 2 | 3;
+  badge?: boolean;
 }
 
 export function Price({
@@ -16,6 +17,7 @@ export function Price({
   showDigits = true,
   uvp,
   textSize = 'default',
+  badge = false,
 }: PriceProps) {
   const priceText = tv({
     base: 'font-bold text-aldi-key flex items-center text-aldi-key',
@@ -59,6 +61,8 @@ export function Price({
     },
   });
 
+  const badgeClass = badge ? 'bg-orange-100 rounded-lg p-2' : '';
+
   const savingsPercentage = useMemo(
     () =>
       oldPrice !== undefined
@@ -77,7 +81,7 @@ export function Price({
         )}
         {formatCurrency(actualPrice, showDigits)}
         {actualPrice > 0 && (
-          <small className={savingsText({ textSize })}>
+          <small className={`${savingsText({ textSize })} ${badgeClass}`}>
             Du sparst {savingsPercentage}%
           </small>
         )}

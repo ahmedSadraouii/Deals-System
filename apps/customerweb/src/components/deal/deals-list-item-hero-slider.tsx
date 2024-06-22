@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Link from 'next/link';
+import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
 import { DealsListItemGrid } from '@/components/deal/deals-list-item-grid';
 import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
-import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
@@ -30,6 +30,8 @@ export function DealsListItemHeroSlider({
 }: DealsListItemHeroSliderProps) {
   const primaryImage = deal.properties?.pictures?.[0]?.url;
   const supplierImage = supplier.properties?.picture?.[0]?.url;
+  const favoriteContext = useContext(FavoriteContext);
+
   const productImageUrl =
     primaryImage &&
     defaultLoader({
@@ -74,11 +76,11 @@ export function DealsListItemHeroSlider({
             }}
           />
           <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
-            <span className="flex items-center rounded bg-gray-100 p-4 text-xs text-aldi-key">
+            <span className="flex items-center rounded bg-gray-100 px-6 py-4 text-xs text-aldi-key">
               <IconTag className="mr-2 text-base" />
               <span>Stark nachgefragt</span>
             </span>
-            <HeartFavorite dealId={deal.id} />
+            {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
           </div>
         </div>
         <div className="flex grow flex-col gap-4">
@@ -98,7 +100,7 @@ export function DealsListItemHeroSlider({
               </h1>
             </div>
             {deal.properties?.availabilityEnd && (
-              <div className="flex items-center space-x-2 rounded-md border border-secondary/10 p-2 text-primary">
+              <div className="flex items-center space-x-2 rounded-md border border-secondary/10 p-4 text-primary">
                 <IconClock className="text-2xl" />{' '}
                 <span>
                   {formatAvailability(deal.properties?.availabilityEnd)}
@@ -110,7 +112,7 @@ export function DealsListItemHeroSlider({
             <h1 className="mb-4 text-5xl font-bold text-secondary">
               {deal.name}
             </h1>
-            <p className="text-lg text-secondary/50">
+            <p className="text-lg font-[420] text-aldi-blue">
               {deal.properties?.description}
             </p>
           </div>
@@ -121,13 +123,14 @@ export function DealsListItemHeroSlider({
               showDigits={false}
               uvp={false}
               textSize={3}
+              badge={true}
             />
 
             <AldiButton
               as={Link}
+              className="px-6"
               variant="solid"
               color="primary"
-              endContent={<IconArrowRight />}
               href={`/deal/${dealLinkSegment || deal.route.path}`}
               size="lg"
             >
