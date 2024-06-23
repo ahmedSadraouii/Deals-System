@@ -49,7 +49,9 @@ export function getApiClientErrorHandler(
         ) {
           const responseJson = await response.json();
           throw new ApiError(
-            `[${hint}] ApiError (json) for '${requestContext.url}'\nStatus: ${response.status}\nResponse: ${JSON.stringify(responseJson, null, 2)}`,
+            `[${hint}] ApiError (json) for '${requestContext.url}'\nStatus: ${
+              response.status
+            }\nResponse: ${JSON.stringify(responseJson, null, 2)}`,
             responseJson,
             undefined,
             requestContext,
