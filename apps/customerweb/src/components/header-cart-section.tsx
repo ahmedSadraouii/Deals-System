@@ -15,10 +15,18 @@ export function HeaderCartSection({ children }: HeaderCartSectionProps) {
   const badgeContent = useMemo(() => {
     if (!cartContext.cart?.items) return undefined;
     if (cartContext.cart.items.length === 0) return undefined;
-    return cartContext.cart.items.length;
+    return cartContext.cart.items.flatMap((cartItem) => cartItem.quantity);
   }, [cartContext.cart?.items]);
   return (
-    <Badge content={badgeContent} color="primary">
+    <Badge
+      content={badgeContent}
+      classNames={{
+        badge: 'w-6 h-6 text-sm',
+      }}
+      color="primary"
+      placement="bottom-right"
+      suppressHydrationWarning={true}
+    >
       {children}
     </Badge>
   );

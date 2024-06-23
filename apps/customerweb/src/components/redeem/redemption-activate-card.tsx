@@ -38,7 +38,7 @@ export default function CardActivation({
       const result = await redeemVoucher(params);
       if (result.success) {
         router.push(
-          `/redemption/thankyou/${isLoggedIn ? result.honoredDealId : deal.id}`,
+          `/redeem/thankyou/${isLoggedIn ? result.honoredDealId : deal.id}`,
         );
       } else {
         console.error('Failed to activate the voucher', result.message);

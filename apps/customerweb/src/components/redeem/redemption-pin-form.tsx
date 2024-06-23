@@ -36,7 +36,7 @@ export function RedemptionPinForm({ isGuest }: RedemptionPinFormProps) {
             const emailParam = isGuest
               ? `&email=${encodeURIComponent(data.email)}`
               : '';
-            const url = `/redemption/activate/${
+            const url = `/redeem/activate/${
               result.dealId
             }?pinCode=${encodeURIComponent(data.pinCode)}${emailParam}`;
             router.push(url);

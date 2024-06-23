@@ -61,7 +61,7 @@ export function Header() {
           as={Link}
           size="lg"
           variant="ghost"
-          href="/redemption"
+          href="/redeem"
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
         >
@@ -114,7 +114,7 @@ export function Header() {
             as={Link}
             size="lg"
             variant="ghost"
-            href="/redemption"
+            href="/redeem"
             endContent={<IconTicket className="text-2xl" />}
             color="secondary"
             fullWidth={true}

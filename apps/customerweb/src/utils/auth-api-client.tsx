@@ -1,4 +1,5 @@
 import { AuthenticationApi, Configuration } from 'api-auth';
+import { getApiClientErrorHandler } from '@/utils/catch-api-error';
 
 export interface getAuthApiClientProps {
   refreshToken?: string;
@@ -21,6 +22,12 @@ export function getAuthApiClient(
           Cookie: `refreshToken=${props.refreshToken}`,
         }
       : baseHeaders,
+    middleware: [
+      {
+        onError: getApiClientErrorHandler('AuthenticationApi', 'error'),
+        post: getApiClientErrorHandler('AuthenticationApi', 'post'),
+      },
+    ],
   });
 
   return new AuthenticationApi(apiConfiguration);

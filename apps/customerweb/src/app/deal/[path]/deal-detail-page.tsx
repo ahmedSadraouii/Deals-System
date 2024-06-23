@@ -61,7 +61,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
       </div>
       <div className="container mx-auto space-y-10 px-4 py-4 xl:py-20">
         <div className="grid gap-10 lg:grid-cols-12">
-          <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-8">
+          <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-7">
             <DetailPageCarousel itemStart={0} itemsPerPage={5}>
               {productImages.map((image, index) => (
                 <div
@@ -94,7 +94,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
               ))}
             </DetailPageCarousel>
           </div>
-          <div className="col-span-6 flex flex-col gap-4 2xl:col-span-4">
+          <div className="col-span-6 flex flex-col gap-4 2xl:col-span-5">
             <div className="flex grow flex-col gap-y-6 rounded-[20px] bg-default-100 p-10">
               <div className="flex flex-row items-center justify-between gap-6">
                 <h1 className="text-2xl font-bold text-secondary">
@@ -115,11 +115,9 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                 </div>
               )}
               <Divider />
-              <p className="text-secondary/50">
-                {deal.properties?.description}
-              </p>
+              <p className="text-secondary">{deal.properties?.description}</p>
               <Divider />
-              <div className="flex grow flex-col justify-center">
+              <div className="flex grow flex-col justify-end">
                 <Tooltip content="TODO: Woher wissen wir, ob es ein UVP Preis ist?">
                   <div>
                     <Price
@@ -132,8 +130,11 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                   </div>
                 </Tooltip>
               </div>
-              <div className="hidden flex-row items-center gap-4 lg:flex">
-                <AddDealToCart dealId={deal.id} />
+              <div className="flex flex-col gap-2">
+                <AddDealToCart
+                  dealId={deal.id}
+                  maxCustomerQuantity={deal.properties?.maxOrderQuantity || 0}
+                />
               </div>
             </div>
             <div className="flex flex-row items-center gap-4 rounded-[20px] border border-secondary/10 p-10">

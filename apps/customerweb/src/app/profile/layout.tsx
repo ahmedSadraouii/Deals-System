@@ -5,7 +5,6 @@ import { getServerSession } from 'next-auth';
 import { ProfileDesktopHeader } from '@/app/profile/profile-desktop-header';
 import { ProfileMobileHeader } from '@/app/profile/profile-mobile-header';
 import { authOptions } from '@/utils/auth';
-import { catchApiError } from '@/utils/catch-api-error';
 import { getUserApiClient } from '@/utils/user-api-client';
 
 export default async function Layout({ children }: { children: ReactNode }) {
@@ -17,12 +16,10 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   const userApi = getUserApiClient();
 
-  const userDetails = await userApi
-    .getAsync({
-      ciamId: session.user.id,
-      cardinalDirection: session.user.cardinalDirection as CardinalDirection,
-    })
-    .catch(catchApiError);
+  const userDetails = await userApi.getAsync({
+    ciamId: session.user.id,
+    cardinalDirection: session.user.cardinalDirection as CardinalDirection,
+  });
 
   return (
     <div className="container mx-auto flex flex-col">

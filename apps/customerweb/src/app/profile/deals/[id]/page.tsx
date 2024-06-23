@@ -17,7 +17,6 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { authOptions } from '@/utils/auth';
-import { catchApiError } from '@/utils/catch-api-error';
 import { getContentApiClient } from '@/utils/content-api-client';
 import { getHonoredDealsApiClient } from '@/utils/deals-api-client';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
@@ -43,7 +42,6 @@ export default async function Page({
     .getContentItemById20({
       id: honoredDeal.dealId!,
     })
-    .catch(catchApiError)
     .then((deal) => deal as UmbracoDeal);
 
   if (!deal) {
@@ -60,7 +58,6 @@ export default async function Page({
     .getContentItemById20({
       id: deal.properties!.supplier!.id!,
     })
-    .catch(catchApiError)
     .then((supplier) => supplier as UmbracoSupplier);
 
   if (!dealSupplier) {

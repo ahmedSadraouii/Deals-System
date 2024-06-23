@@ -50,12 +50,12 @@ export function Price({
   });
 
   const savingsText = tv({
-    base: 'font-light ml-2',
+    base: 'font-light ml-2 p-1 rounded bg-primary/5',
     variants: {
       textSize: {
         default: 'text-sm',
-        1: 'text-md',
-        2: 'text-lg',
+        1: 'text-sm',
+        2: 'text-sm',
         3: 'text-xl font-normal ml-6',
       },
     },

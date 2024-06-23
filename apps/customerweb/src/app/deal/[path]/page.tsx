@@ -15,6 +15,9 @@ type Props = {
   params: { path: string };
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function generateMetadata({
   params: { path },
 }: Props): Promise<Metadata> {

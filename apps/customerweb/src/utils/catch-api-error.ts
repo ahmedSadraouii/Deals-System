@@ -1,34 +1,80 @@
+import type { Response } from 'next/dist/compiled/@edge-runtime/primitives';
+import type { FetchAPI } from 'api-user';
 import { ApiError } from '@/utils/api-error';
-import { tryParseApiErrorWithFallback } from '@/utils/api-response-handling';
 
-export async function catchApiError<TError = any>(
-  error: TError,
-): Promise<TError> {
-  const _error = error as any;
-  // get content length
-  if (_error?.response?.headers?.get('content-length') === '0') {
-    throw new Error(`Empty response (status = ${_error.response.status})`);
-  }
-  if (_error?.response?.json) {
-    const errorResponse = await (error as any).response.json();
+export interface UniversalErrorContext {
+  fetch: FetchAPI;
+  url: string;
+  init: RequestInit;
+  error: unknown;
+  response?: Response;
+}
 
-    if ('type' in errorResponse && 'status' in errorResponse) {
-      // this is a nice error message from the server
-      // we got type, title, status (number), detail and traceId
-      throw new ApiError(
-        `ApiError found (JSON). type = '${errorResponse.type}', title = '${errorResponse.title}', status = '${errorResponse.status}', detail = '${errorResponse.detail}', traceId = '${errorResponse.traceId}'`,
-        _error,
-      );
+export interface UniversalResponseContext {
+  fetch: FetchAPI;
+  url: string;
+  init: RequestInit;
+  response: Response;
+}
+
+export function getApiClientErrorHandler(
+  hint: string,
+  type: 'error' | 'post' = 'post',
+): (
+  context: UniversalErrorContext | UniversalResponseContext,
+) => Promise<void> {
+  return async (
+    requestContext: UniversalErrorContext | UniversalResponseContext,
+  ) => {
+    if (type === 'post') {
+      const responseContext = requestContext as UniversalResponseContext;
+      const { response } = responseContext;
+      if (!response) {
+        return;
+      }
+
+      if (response.status < 200 || response.status >= 300) {
+        // check if we have a content length
+        if (response.headers.get('content-length') === '0') {
+          throw new ApiError(
+            `[${hint}] ApiError (empty) for '${requestContext.url}'\nStatus: ${response.status}`,
+            undefined,
+            undefined,
+            requestContext,
+          );
+        }
+
+        if (
+          response.headers.get('content-type')?.includes('application/json')
+        ) {
+          const responseJson = await response.json();
+          throw new ApiError(
+            `[${hint}] ApiError (json) for '${requestContext.url}'\nStatus: ${response.status}\nResponse: ${JSON.stringify(responseJson, null, 2)}`,
+            responseJson,
+            undefined,
+            requestContext,
+          );
+        }
+
+        const responseText = await response.text();
+        throw new ApiError(
+          `[${hint}] ApiError (text) for '${requestContext.url}'\nStatus: ${response.status}\nResponse: ${responseText}`,
+          responseText,
+          undefined,
+          requestContext,
+        );
+      }
+
+      return;
     }
 
-    const apiError = tryParseApiErrorWithFallback(errorResponse);
+    const errorContext = requestContext as UniversalErrorContext;
+
     throw new ApiError(
-      `ApiError found (JSON). errorCode = '${apiError.errorCode}', message = '${apiError.message}'`,
-      _error,
+      `[${hint}] ApiError (error) for '${requestContext.url}'`,
+      undefined,
+      errorContext.error as Error,
+      requestContext,
     );
-  }
-  if (error instanceof Error) {
-    throw error;
-  }
-  throw new Error(String(error));
+  };
 }

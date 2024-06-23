@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 import type { OrderModel } from 'api-deals';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
-import { catchApiError } from '@/utils/catch-api-error';
 import { getCartsApiClient } from '@/utils/deals-api-client';
 
 export interface RemoveCartItemActionParams {
@@ -35,12 +34,10 @@ export async function removeCartItemAction({
     accessToken: session?.accessToken,
   });
 
-  const cart: OrderModel = await cartsApi
-    .deleteCartItem({
-      cartId: existingCartId.value,
-      dealId,
-    })
-    .catch(catchApiError);
+  const cart: OrderModel = await cartsApi.deleteCartItem({
+    cartId: existingCartId.value,
+    dealId,
+  });
 
   return {
     cart: cart,

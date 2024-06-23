@@ -1,17 +1,13 @@
 import type { ReactNode } from 'react';
+import type { FavoriteModel } from 'api-deals';
 import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth';
 import { FavoriteContextProvider } from '@/app/contexts/favorite/favorite-context';
 import { authOptions } from '@/utils/auth';
-import { catchApiError } from '@/utils/catch-api-error';
 import { getFavoritesApiClient } from '@/utils/deals-api-client';
 
 export interface ProvidersProps {
   children: ReactNode;
-}
-interface FavoriteItem {
-  dealId: string;
-  createdAt: string;
 }
 
 async function getOptionalFavoriteDealIdsFromSession(
@@ -25,20 +21,18 @@ async function getOptionalFavoriteDealIdsFromSession(
     accessToken: session.accessToken,
   });
 
-  const response = await favoritesApi
-    .getUserFavorites({
-      take: 1000,
-      skip: 0,
-    })
-    .catch(catchApiError);
+  const response = await favoritesApi.getUserFavorites({
+    take: 1000,
+    skip: 0,
+  });
 
   // Ensure that favorites is an empty array if it is null or undefined
   const favoriteItems = response.items ?? [];
 
   // Extract dealId from each item
-  const dealIds = favoriteItems.map((item: FavoriteItem) => item.dealId);
-
-  return dealIds;
+  return favoriteItems
+    .map((item: FavoriteModel) => item.dealId)
+    .filter((dealId) => dealId !== undefined) as Array<string>;
 }
 
 export default async function ServerProviders({ children }: ProvidersProps) {

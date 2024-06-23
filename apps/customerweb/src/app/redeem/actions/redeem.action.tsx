@@ -34,7 +34,7 @@ export async function redeemVoucher({
 
     const { dealId, honoredDealId } = response;
 
-    revalidatePath('/redemption/thankyou');
+    revalidatePath('/redeem/thankyou');
     return {
       success: true,
       dealId,

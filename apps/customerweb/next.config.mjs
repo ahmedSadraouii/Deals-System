@@ -4,6 +4,7 @@ const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   images: {
+    dangerouslyAllowSVG: true,
     // These widths are used when the next/image component uses layout="responsive" or layout="fill"
     deviceSizes: [640, 768, 1024, 1280],
     // These widths are used when the next/image component uses layout="fixed" or layout="intrinsic".
@@ -28,7 +29,13 @@ const nextConfig = {
     ADBE_API_BASE_URL: process.env.ADBE_API_BASE_URL,
     ADOBE_SCRIPT: process.env.ADOBE_SCRIPT,
   },
-  skipTrailingSlashRedirect: true
+  skipTrailingSlashRedirect: true,
+  rewrites() {
+    return [{
+      source: '/payment/callback',
+      destination: `${process.env.ADBE_API_BASE_URL}/carts/callback`
+    }]
+  }
 };
 
 export default nextConfig;
