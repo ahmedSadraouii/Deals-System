@@ -74,7 +74,7 @@ export function DealsListItemGrid({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 p-6">
+      <div className="flex grow flex-col gap-4 p-6">
         <div className="flex flex-row items-center justify-between">
           <div
             className="h-10 w-48 bg-contain bg-left bg-no-repeat"
@@ -91,7 +91,9 @@ export function DealsListItemGrid({
             </div>
           )}
         </div>
-        <div className="text-2xl font-bold text-secondary">{deal.name}</div>
+        <div className="grow text-2xl font-bold text-secondary">
+          {deal.name}
+        </div>
         <div className="flex flex-row justify-between">
           <Price
             oldPrice={deal.properties?.regularPrice}

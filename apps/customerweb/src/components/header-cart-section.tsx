@@ -15,13 +15,19 @@ export function HeaderCartSection({ children }: HeaderCartSectionProps) {
   const badgeContent = useMemo(() => {
     if (!cartContext.cart?.items) return undefined;
     if (cartContext.cart.items.length === 0) return undefined;
-    return cartContext.cart.items.flatMap((cartItem) => cartItem.quantity);
+    const cartItemQuantity = cartContext.cart.items
+      .flatMap((cartItem) => cartItem.quantity)
+      .reduce((a, b) => a + b, 0);
+    return cartItemQuantity === 0 ? undefined : cartItemQuantity;
   }, [cartContext.cart?.items]);
+
+  console.log({ badgeContent });
+
   return (
     <Badge
       content={badgeContent}
       classNames={{
-        badge: 'w-6 h-6 text-sm',
+        badge: badgeContent && 'w-6 h-6 text-sm',
       }}
       color="primary"
       placement="bottom-right"

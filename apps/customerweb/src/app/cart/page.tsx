@@ -13,9 +13,9 @@ export default function Page() {
   return (
     <div>
       <div className="mx-auto max-w-5xl">
-        <CartStepIndicator step={3} />
+        <CartStepIndicator step={1} />
       </div>
-      Pisse
+      Test Test
       <pre className="whitespace-pre-wrap bg-default-100 p-4">
         {JSON.stringify(cartContext.cart, null, 2)}
       </pre>

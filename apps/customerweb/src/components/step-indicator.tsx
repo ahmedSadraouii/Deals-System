@@ -7,8 +7,8 @@ export interface StepIndicatorProps {
   steps: Array<string>;
 }
 export function StepIndicator({ step, steps }: StepIndicatorProps) {
-  if (step < 0 || step >= steps.length) {
-    throw new Error(`Invalid step. Must be between 0 and ${steps.length}.`);
+  if (step < 0 || step > steps.length + 1) {
+    throw new Error(`Invalid step. Must be between 0 and ${steps.length + 1}.`);
   }
 
   return (
