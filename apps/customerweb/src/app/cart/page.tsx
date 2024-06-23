@@ -1,24 +1,50 @@
-'use client';
-
+import { CartItemList } from '@/app/cart/components/cart-item-list';
+import { CartRequired } from '@/app/cart/components/cart-required';
 import { CartStepIndicator } from '@/app/cart/components/cart-step-indicator';
-import { useCart } from '@/app/contexts/cart/use-cart';
+import { ReservationTimer } from '@/app/cart/components/reservation-timer';
+import { PaymentIconApple } from '@/components/svg/payment-icon-apple';
+import { PaymentIconGoogle } from '@/components/svg/payment-icon-google';
+import { PaymentIconMastercard } from '@/components/svg/payment-icon-mastercard';
+import { PaymentIconPaypal } from '@/components/svg/payment-icon-paypal';
+import { PaymentIconVisa } from '@/components/svg/payment-icon-visa';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default function Page() {
-  const { cartContext } = useCart();
-
-  if (!cartContext.cart) {
-    return null;
-  }
-
   return (
-    <div>
+    <CartRequired>
       <div className="mx-auto max-w-5xl">
         <CartStepIndicator step={1} />
       </div>
-      Test Test
-      <pre className="whitespace-pre-wrap bg-default-100 p-4">
-        {JSON.stringify(cartContext.cart, null, 2)}
-      </pre>
-    </div>
+      <div className="mt-20 grid grid-cols-12 gap-10">
+        <div className="col-span-9 flex flex-col gap-10">
+          <div className="rounded-[20px] bg-gray-100 p-10">
+            <h1 className="mb-10 text-4xl font-bold text-secondary">
+              Dein Warenkorb
+            </h1>
+            <div>
+              <CartItemList />
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-5 rounded-[20px] bg-gray-100 p-10">
+            <h2 className="text-lg font-medium text-secondary">
+              Wir unterstützen folgende Zahlungsmethoden
+            </h2>
+            <div className="flex flex-row gap-6">
+              <PaymentIconMastercard />
+              <PaymentIconPaypal />
+              <PaymentIconVisa />
+              <PaymentIconApple />
+              <PaymentIconGoogle />
+            </div>
+          </div>
+        </div>
+        <div className="col-span-3 flex flex-col">
+          <ReservationTimer />
+        </div>
+      </div>
+    </CartRequired>
   );
 }

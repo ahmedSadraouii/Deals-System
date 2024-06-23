@@ -83,7 +83,7 @@ export function AddDealToCart({
           variant="ghost"
           color="primary"
           isIconOnly={true}
-          size="md"
+          size="lg"
           onClick={decrement}
           isDisabled={quantity <= 1}
         >
@@ -96,7 +96,7 @@ export function AddDealToCart({
           variant="ghost"
           color="primary"
           isIconOnly={true}
-          size="md"
+          size="lg"
           onClick={increment}
           isDisabled={
             existingCartItemQuantity + quantity >= maxCustomerQuantity
@@ -105,7 +105,7 @@ export function AddDealToCart({
           +
         </AldiButton>
         <AldiButton
-          size="md"
+          size="lg"
           className="grow"
           variant="solid"
           color="primary"

@@ -2,20 +2,25 @@
 
 import { createContext, useReducer } from 'react';
 import type { Dispatch, ReactNode } from 'react';
-import type { OrderModel } from 'api-deals';
+import type { CartModel } from 'api-deals';
 import { EnsureCart } from '@/app/contexts/cart/ensure-cart';
 
 export enum CartContextActionKind {
   UpdateCart = 'updateCart',
+  ExpireCart = 'expireCart',
 }
 
-export type CartContextAction = {
-  type: CartContextActionKind.UpdateCart;
-  cart: OrderModel;
-};
+export type CartContextAction =
+  | {
+      type: CartContextActionKind.UpdateCart;
+      cart: CartModel;
+    }
+  | {
+      type: CartContextActionKind.ExpireCart;
+    };
 
 export interface CartContextState {
-  cart?: OrderModel;
+  cart?: CartModel;
 }
 
 export interface CartContextInterface extends CartContextState {
@@ -31,21 +36,28 @@ export const CartContext = createContext<CartContextInterface>({
 
 interface CartContextProviderProps {
   children: ReactNode;
+  initialCart?: CartModel;
 }
 
-export function CartContextProvider({ children }: CartContextProviderProps) {
+export function CartContextProvider({
+  children,
+  initialCart,
+}: CartContextProviderProps) {
   const [state, dispatch] = useReducer(
-    (state: CartContextState, action: CartContextAction) => {
+    (_state: CartContextState, action: CartContextAction) => {
       switch (action.type) {
         case CartContextActionKind.UpdateCart:
           return {
-            ...state,
             cart: action.cart,
+          } as CartContextState;
+        case CartContextActionKind.ExpireCart:
+          return {
+            cart: undefined,
           } as CartContextState;
       }
     },
     {
-      cart: undefined,
+      cart: initialCart,
     } as CartContextState,
   );
 

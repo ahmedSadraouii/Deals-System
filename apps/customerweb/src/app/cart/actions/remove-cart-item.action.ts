@@ -1,7 +1,8 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import type { OrderModel } from 'api-deals';
+import type { CartModel } from 'api-deals';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { getCartsApiClient } from '@/utils/deals-api-client';
@@ -13,7 +14,7 @@ export interface RemoveCartItemActionParams {
 export async function removeCartItemAction({
   dealId,
 }: RemoveCartItemActionParams): Promise<{
-  cart: OrderModel;
+  cart: CartModel;
 }> {
   const cookieStore = cookies();
   const session = await getServerSession(authOptions);
@@ -34,10 +35,13 @@ export async function removeCartItemAction({
     accessToken: session?.accessToken,
   });
 
-  const cart: OrderModel = await cartsApi.deleteCartItem({
+  const cart = await cartsApi.deleteCartItem({
     cartId: existingCartId.value,
     dealId,
   });
+
+  // cache bust for client cart page
+  revalidatePath('/cart');
 
   return {
     cart: cart,

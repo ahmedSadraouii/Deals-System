@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import type { FavoriteModel } from 'api-deals';
 import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth';
+import { getServerCart } from '@/app/cart/get-server-cart';
+import { CartContextProvider } from '@/app/contexts/cart/cart-context';
 import { FavoriteContextProvider } from '@/app/contexts/favorite/favorite-context';
 import { authOptions } from '@/utils/auth';
 import { getFavoritesApiClient } from '@/utils/deals-api-client';
@@ -38,6 +40,7 @@ async function getOptionalFavoriteDealIdsFromSession(
 export default async function ServerProviders({ children }: ProvidersProps) {
   const session = await getServerSession(authOptions);
   const favoredDealIds = await getOptionalFavoriteDealIdsFromSession(session);
+  const cart = await getServerCart();
 
   return (
     <>
@@ -45,7 +48,7 @@ export default async function ServerProviders({ children }: ProvidersProps) {
         initialFavoredDealIds={favoredDealIds}
         favsEnabled={!!session}
       >
-        {children}
+        <CartContextProvider initialCart={cart}>{children}</CartContextProvider>
       </FavoriteContextProvider>
     </>
   );

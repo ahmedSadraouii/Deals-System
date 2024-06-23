@@ -22,6 +22,7 @@ export function useCart(): {
 
   const ensureCart = useCallback(async () => {
     if (cartContext.cart) {
+      // set cookie on the client side
       return cartContext.cart;
     }
 
@@ -53,6 +54,9 @@ export function useCart(): {
       const removeCartItemResponse = await removeCartItemAction({
         dealId,
       });
+
+      debugger;
+
       cartContext.dispatch({
         type: CartContextActionKind.UpdateCart,
         cart: removeCartItemResponse.cart,

@@ -1,7 +1,8 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import type { OrderModel } from 'api-deals';
+import type { CartModel } from 'api-deals';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { getCartsApiClient } from '@/utils/deals-api-client';
@@ -15,7 +16,7 @@ export async function updateCartItemAction({
   dealId,
   quantity,
 }: UpdateCartItemActionParams): Promise<{
-  cart: OrderModel;
+  cart: CartModel;
 }> {
   const session = await getServerSession(authOptions);
 
@@ -24,17 +25,15 @@ export async function updateCartItemAction({
   });
 
   if (session) {
-    console.log(session.accessToken);
-    console.log('Updating cart', {
-      dealId,
-      quantity,
-    });
-    const cart: OrderModel = await cartsApi.updateCartItem({
+    const cart = await cartsApi.updateCartItem({
       updateCartItem: {
         dealId,
         quantity,
       },
     });
+
+    // cache bust for client cart page
+    revalidatePath('/cart');
 
     return {
       cart: cart,
@@ -55,18 +54,16 @@ export async function updateCartItemAction({
     cookieStore.delete('cart-id');
     throw new Error('Invalid cart ID');
   }
-  console.log('Updating cart', {
-    cartId: existingCartId.value,
-    dealId,
-    quantity,
-  });
-  const cart: OrderModel = await cartsApi.updateCartItem({
+  const cart = await cartsApi.updateCartItem({
     cartId: existingCartId.value,
     updateCartItem: {
       dealId,
       quantity,
     },
   });
+
+  // cache bust for client cart page
+  revalidatePath('/cart');
 
   return {
     cart: cart,

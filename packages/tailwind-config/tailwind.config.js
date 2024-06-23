@@ -58,6 +58,7 @@ module.exports = {
             secondary: '#202B77',
             divider: '#202B77',
             focus: '#202B77',
+            success: '#28940D',
           },
         },
       },

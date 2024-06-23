@@ -6,7 +6,6 @@ import { SessionProvider } from 'next-auth/react';
 import { NextUIProvider } from '@nextui-org/react';
 import { I18nProvider } from '@react-aria/i18n';
 import { Settings } from 'luxon';
-import { CartContextProvider } from '@/app/contexts/cart/cart-context';
 
 export interface ProvidersProps {
   children: ReactNode;
@@ -21,9 +20,7 @@ export default function ClientProviders({ children }: ProvidersProps) {
   return (
     <SessionProvider>
       <NextUIProvider navigate={router.push}>
-        <I18nProvider locale="de-DE">
-          <CartContextProvider>{children}</CartContextProvider>
-        </I18nProvider>
+        <I18nProvider locale="de-DE">{children}</I18nProvider>
       </NextUIProvider>
     </SessionProvider>
   );
