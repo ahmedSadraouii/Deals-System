@@ -11,7 +11,7 @@
     - docker build --cache-from $DOCKER_TAG --tag $DOCKER_TAG --tag $DOCKER_TAG_LATEST .
     - docker push $DOCKER_TAG
     - if [[ $CI_PIPELINE_SOURCE != 'merge_request_event' ]]; then docker push $DOCKER_TAG_LATEST; fi
-  
+
 build_prod:
   extends:
     - .build
@@ -26,3 +26,7 @@ build_dev:
   extends:
     - .build
     - .environment_dev
+  variables:
+    CONTENT_API_BASE_URL: https://dev.api.aldi.amplicade.com/umbraco
+    AUTH_API_BASE_URL: https://dev.api.aldi.amplicade.com/auth
+    ADBE_API_BASE_URL: https://dev.api.aldi.amplicade.com/ad-be

@@ -6,9 +6,6 @@ include:
 default:
   image: docker
 
-services:
-  - docker:dind
-
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
@@ -28,7 +25,7 @@ stages:
 .environment_prod:
   only:
     - main
-  environment: 
+  environment:
     name: prod
   variables:
     KUBE_CONTEXT: $PROD_KUBE_CONTEXT
@@ -39,7 +36,7 @@ stages:
 .environment_staging:
   only:
     - staging
-  environment: 
+  environment:
     name: staging
   variables:
     KUBE_CONTEXT: $STAGING_KUBE_CONTEXT
@@ -57,7 +54,7 @@ stages:
     AZURE_REGISTRY_URL: $DEV_AZURE_REGISTRY_URL
     AZURE_REGISTRY_USER: $DEV_AZURE_REGISTRY_USER
     AZURE_REGISTRY_PASSWORD: $DEV_AZURE_REGISTRY_PASSWORD
-    
+
 .environment_mr:
   only:
     - merge_requests
