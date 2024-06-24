@@ -45,7 +45,7 @@ build
 .DS_Store
 .vscode
 .env
-.env.example
+.env.*
 LICENSE
 README.md
 .dockerignore
@@ -73,3 +73,4 @@ apps/*/node_modules
 apps/*/dist
 apps/*/.next
 **/.turbo
+**/.env.*

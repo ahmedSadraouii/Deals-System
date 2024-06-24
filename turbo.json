@@ -4,7 +4,10 @@
   "globalEnv": [
     "__NEXT_IMAGE_OPTS",
     "ADOBE_SCRIPT",
-    "NODE_ENV"
+    "NODE_ENV",
+    "CONTENT_API_BASE_URL",
+    "AUTH_API_BASE_URL",
+    "ADBE_API_BASE_URL"
   ],
   "tasks": {
     "build": {

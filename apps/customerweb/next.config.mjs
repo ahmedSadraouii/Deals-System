@@ -29,13 +29,7 @@ const nextConfig = {
     ADBE_API_BASE_URL: process.env.ADBE_API_BASE_URL,
     ADOBE_SCRIPT: process.env.ADOBE_SCRIPT,
   },
-  skipTrailingSlashRedirect: true,
-  rewrites() {
-    return [{
-      source: '/payment/callback',
-      destination: `${process.env.ADBE_API_BASE_URL}/carts/callback`
-    }]
-  }
+  skipTrailingSlashRedirect: true
 };
 
 export default nextConfig;
