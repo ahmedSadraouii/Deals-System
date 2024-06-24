@@ -29,8 +29,10 @@ export function middleware(request: NextRequest) {
   }
 
   if (!checkBasicAuth(request)) {
-    const response = new NextResponse('Unauthorized', { status: 401 });
-    response.headers.set('WWW-Authenticate', 'Basic realm="Secure Area"');
+    // const response = new NextResponse('Unauthorized', { status: 401 });
+    // response.headers.set('WWW-Authenticate', 'Basic realm="Secure Area"');
+    const response = new NextResponse(null, { status: 401 });
+    response.headers.set('WWW-Authenticate', 'Basic');
     return response;
   }
 
