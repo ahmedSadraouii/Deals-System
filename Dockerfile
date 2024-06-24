@@ -27,6 +27,7 @@ COPY --from=builder /app/out/full/ .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV TURBO_TELEMETRY_DISABLED 1
 # build the actual app
+RUN yarn dlx @openapitools/openapi-generator-cli@2.9.0 version-manager set 7.6.0
 RUN yarn dlx turbo run build --filter=customerweb...
 
 FROM base AS runner
