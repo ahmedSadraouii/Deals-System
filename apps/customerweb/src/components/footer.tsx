@@ -8,7 +8,7 @@ export async function Footer() {
 
   return (
     <>
-      <div className="border-t border-secondary/10 bg-gray-100">
+      <div className="border-t border-secondary/10 bg-neutral-100">
         <div className="container mx-auto w-full p-4 py-16">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex items-center">
@@ -64,12 +64,12 @@ export async function Footer() {
               <div>
                 <h2 className="mb-6 text-xl font-bold">Navigation</h2>
                 <ul>
-                  <li className="mb-4 text-gray-50">
+                  <li className="mb-4 text-neutral-50">
                     <a href="/" className="hover:underline">
                       Start
                     </a>
                   </li>
-                  <li className="mb-4 text-gray-50">
+                  <li className="mb-4 text-neutral-50">
                     <a href="/cart" className="hover:underline">
                       Warenkorb
                     </a>
@@ -133,7 +133,7 @@ export async function Footer() {
             </div>
           </div>
           <div className="mt-10 justify-center sm:flex sm:items-center">
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-neutral-600">
               &copy; 2024{' '}
               <Link href="/" className="hover:underline">
                 Aldi-Deals&trade;

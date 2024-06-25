@@ -16,8 +16,8 @@ export default function Page() {
       </div>
       <div className="mt-20 grid grid-cols-12 gap-10">
         <div className="col-span-9 flex flex-col gap-10">
-          <div className="rounded-[20px] bg-gray-100 p-10">
-            <h1 className="mb-10 text-4xl font-bold text-secondary">
+          <div className="rounded-[20px] bg-neutral-100 p-10">
+            <h1 className="mb-6 text-3xl font-bold text-secondary">
               Dein Warenkorb
             </h1>
             <div>
@@ -25,7 +25,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-[20px] bg-gray-100 p-10">
+          <div className="flex flex-col items-center gap-5 rounded-[20px] bg-neutral-100 p-10">
             <h2 className="text-lg font-medium text-secondary">
               Wir unterstützen folgende Zahlungsmethoden
             </h2>
@@ -35,8 +35,13 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="col-span-3 flex flex-col">
+        <div className="col-span-3 flex flex-col gap-10">
           <ReservationTimer />
+          <div className="rounded-[20px] bg-neutral-100 p-10">
+            <h1 className="mb-10 text-3xl font-bold text-secondary">
+              Kostenübersicht
+            </h1>
+          </div>
         </div>
       </div>
     </CartRequired>

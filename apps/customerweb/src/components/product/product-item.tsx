@@ -14,14 +14,14 @@ export interface ProductItemProps {
 export function ProductItem({ price, discountPrice, image }: ProductItemProps) {
   return (
     <>
-      <div className="w-full rounded-lg border border-gray-200 bg-gray-100 shadow">
+      <div className="w-full rounded-lg border border-neutral-200 bg-neutral-100 shadow">
         <a href="#">
           <div
             className="relative h-[250px] rounded-lg !bg-cover !bg-center md:h-[250px]"
             style={{ background: `url('${image}')` }}
           >
             <div className="flex items-center justify-between p-4">
-              <span className="flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+              <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
                 <IconOnline className="mr-2 text-base" />
                 <span className="text-aldi-key">Nur Online</span>
               </span>

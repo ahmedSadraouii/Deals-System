@@ -14,7 +14,7 @@ export default function CheckoutCard({
 }: CheckoutCardProps) {
   return (
     <div>
-      <Card className="bg-gray-100">
+      <Card className="bg-neutral-100">
         <CardBody className="xxl:h-72 flex flex-col items-center justify-center gap-4 p-8 md:h-96 xl:h-full">
           <Image src={imgUrl} alt="image celebration" width={40} height={50} />
           <h1 className="text-center text-2xl font-bold text-secondary">

@@ -18,13 +18,13 @@ export function SliderCard({
 }: SliderCardProps) {
   return (
     <>
-      <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow">
+      <div className="w-full max-w-sm rounded-lg border border-neutral-200 bg-white shadow">
         <a href="#">
           <div
             className="relative h-[300px] rounded-lg !bg-cover !bg-center md:h-[300px]"
             style={{ background: `url('${image}')` }}
           >
-            <span className="absolute right-5 top-5 flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+            <span className="absolute right-5 top-5 flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
               <IconLastMinute className="mr-2 text-base" />
               <span>Last minute!</span>
             </span>
@@ -55,7 +55,7 @@ export function SliderCard({
             </div>
           </div>
           <a href="#">
-            <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+            <h5 className="text-xl font-semibold tracking-tight text-neutral-900">
               {name}
             </h5>
           </a>

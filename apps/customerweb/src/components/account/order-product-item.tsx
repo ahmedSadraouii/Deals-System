@@ -25,13 +25,13 @@ export function OrderProductItem({
             <Image src={image} width={100} height={20} alt="logo" />
           </div>
           <div className="ml-6 flex flex-col  items-start justify-center text-left">
-            <h1 className="text-xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-xl font-bold tracking-tight text-neutral-900">
               {name}
             </h1>
-            <h2 className="text-base font-semibold leading-7 text-gray-500">
+            <h2 className="text-base font-semibold leading-7 text-neutral-500">
               {description}
             </h2>
-            <p className="text-xs text-gray-400">Gültig bis: 10.02.2025</p>
+            <p className="text-xs text-neutral-400">Gültig bis: 10.02.2025</p>
           </div>
         </div>
         <div className="flex items-center justify-between">

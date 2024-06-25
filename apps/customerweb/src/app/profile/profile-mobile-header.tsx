@@ -33,7 +33,7 @@ export function ProfileMobileHeader({ userDetails }: ProfileMobileHeaderProps) {
   }
 
   return (
-    <div className="flex flex-row items-center gap-4 rounded-lg bg-gray-100 p-4 text-secondary lg:rounded-[20px]">
+    <div className="flex flex-row items-center gap-4 rounded-lg bg-neutral-100 p-4 text-secondary lg:rounded-[20px]">
       <div className="shrink-0 items-center rounded-full border border-secondary/10 bg-white p-3">
         <IconProfile className="text-xl" />
       </div>

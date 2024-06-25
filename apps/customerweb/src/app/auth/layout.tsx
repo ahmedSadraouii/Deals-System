@@ -6,7 +6,7 @@ export interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <section className="bg-gray-50">
+    <section className="bg-neutral-50">
       <div className="flex flex-col items-center px-6 py-8 lg:py-0">
         <div className="flex w-full flex-col items-center py-20">
           {children}

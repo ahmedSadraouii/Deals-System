@@ -10,7 +10,7 @@ export default function Page() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <h1 className="mb-3 text-2xl font-bold">Rechnungsadresse</h1>
-          <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
+          <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
             <div className="mb-4 flex">
               <Input
                 type="text"
@@ -63,13 +63,13 @@ export default function Page() {
           </div>
 
           <h1 className="mb-3 text-2xl font-bold">Zahlungsmethode</h1>
-          <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
+          <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
               <div className="mr-4 flex flex-col items-center justify-center">
                 <div className="mb-2 text-center text-sm">
                   <label
                     htmlFor="inline-radio"
-                    className="mb-4 text-sm font-medium text-gray-900"
+                    className="mb-4 text-sm font-medium text-neutral-900"
                   >
                     Mastercard
                   </label>
@@ -95,7 +95,7 @@ export default function Page() {
                 <div className="mb-2 text-center text-sm">
                   <label
                     htmlFor="inline-radio"
-                    className="mb-4 text-sm font-medium text-gray-900"
+                    className="mb-4 text-sm font-medium text-neutral-900"
                   >
                     Mastercard
                   </label>
@@ -121,7 +121,7 @@ export default function Page() {
                 <div className="mb-2 text-center text-sm">
                   <label
                     htmlFor="inline-radio"
-                    className="mb-4 text-sm font-medium text-gray-900"
+                    className="mb-4 text-sm font-medium text-neutral-900"
                   >
                     Mastercard
                   </label>
@@ -147,7 +147,7 @@ export default function Page() {
                 <div className="mb-2 text-center text-sm">
                   <label
                     htmlFor="inline-radio"
-                    className="mb-4 text-sm font-medium text-gray-900"
+                    className="mb-4 text-sm font-medium text-neutral-900"
                   >
                     Mastercard
                   </label>
@@ -176,9 +176,9 @@ export default function Page() {
               id="default-checkbox"
               type="checkbox"
               value=""
-              className="h-28 w-14 rounded border-gray-300 bg-gray-100 text-blue-600"
+              className="h-28 w-14 rounded border-neutral-300 bg-neutral-100 text-blue-600"
             />
-            <div className="ms-2 text-sm font-medium text-gray-900">
+            <div className="ms-2 text-sm font-medium text-neutral-900">
               Ich erkläre mich damit einverstanden, dass meine Bestellung
               rechtsverbindlich ist und dass ich die AGB sowie die
               Datenschutzrichtlinien von ALDI Deals gelesen und akzeptiert habe.
@@ -189,11 +189,11 @@ export default function Page() {
               id="checked-checkbox"
               type="checkbox"
               value=""
-              className="h-10 w-10 rounded border-gray-300 bg-gray-100 text-blue-600"
+              className="h-10 w-10 rounded border-neutral-300 bg-neutral-100 text-blue-600"
             />
             <label
               htmlFor="checked-checkbox"
-              className="ms-2 text-sm font-medium text-gray-900"
+              className="ms-2 text-sm font-medium text-neutral-900"
             >
               Ja, ich möchte den Newsletter erhalten und akzeptiere die
               Datenschutzrichtlinie sowie die Nutzungsbedingungen.
@@ -202,7 +202,7 @@ export default function Page() {
         </div>
         <div>
           <h1 className="mb-3 text-2xl font-bold">Warenkorb Übersicht</h1>
-          <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
+          <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
             <BasketProductItem
               name="Mud Masters Tickets"
               description="2 Tickets zum Preis von 1"
@@ -219,13 +219,13 @@ export default function Page() {
             />
           </div>
 
-          <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
+          <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
             <h1 className="mb-3 text-xl font-bold">Rabattcode eingeben</h1>
 
             <div className="flex items-center justify-between">
               <Input
                 type="text"
-                className="rounded-full border-1 border-gray-300 !bg-transparent hover:!bg-transparent"
+                className="rounded-full border-1 border-neutral-300 !bg-transparent hover:!bg-transparent"
               />
               <Button className="ml-4 rounded-full bg-slate-900 px-10 text-white">
                 Anwenden
@@ -233,7 +233,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
+          <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
             <div className="flex items-center justify-between">
               <h1 className="mb-3 text-xl font-bold">
                 Gesamtpreis inkl. MwSt.

@@ -66,7 +66,7 @@ export function DealsListItemGrid({
         }}
       >
         <div className="flex items-center justify-between p-4">
-          <span className="flex items-center rounded bg-gray-100 px-4 py-2 text-xs font-light text-black">
+          <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
             <IconOnline className="mr-2 text-base" />
             <span className="text-aldi-key">Nur Online</span>
           </span>

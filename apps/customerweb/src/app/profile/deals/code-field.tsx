@@ -13,8 +13,8 @@ export function CodeField({ code }: CodeFieldProps) {
     await navigator.clipboard.writeText(code);
   }, [code]);
   return (
-    <div className="relative inline-flex items-center gap-2 rounded-full border-1 border-gray-200 p-2 pl-6 pr-4 text-secondary">
-      <div className="absolute left-4 top-0 -translate-y-1/2 bg-gray-100 px-2 text-sm text-secondary/50">
+    <div className="relative inline-flex items-center gap-2 rounded-full border-1 border-neutral-200 p-2 pl-6 pr-4 text-secondary">
+      <div className="absolute left-4 top-0 -translate-y-1/2 bg-neutral-100 px-2 text-sm text-secondary/50">
         Dein Code
       </div>
       <span className="text-xl">{code}</span>

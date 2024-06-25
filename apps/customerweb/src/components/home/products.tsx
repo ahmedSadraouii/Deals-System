@@ -3,7 +3,7 @@ import { ProductItem } from '@/components/product/product-item';
 export default function Products() {
   return (
     <>
-      <section className="mt-10 w-full bg-gray-100 px-5 py-16">
+      <section className="mt-10 w-full bg-neutral-100 px-5 py-16">
         <div className="container mx-auto">
           <div className="mb-5 flex w-full items-center justify-between">
             <h1 className="mb-4 text-4xl font-bold">Alle Deals im Überblick</h1>

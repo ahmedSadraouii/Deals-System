@@ -59,7 +59,7 @@ export function RedemptionPinForm({ isGuest }: RedemptionPinFormProps) {
     [router, setError, isGuest],
   );
   return (
-    <Card className=" bg-gray-100 py-4 md:p-8">
+    <Card className=" bg-neutral-100 py-4 md:p-8">
       <CardBody>
         <FormProvider {...form}>
           <form

@@ -88,7 +88,7 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
 
   return (
     <Suspense>
-      <Card className="bg-gray-100">
+      <Card className="bg-neutral-100">
         <CardBody className="flex  flex-col gap-8 p-10 md:min-h-[35vh] md:flex-row">
           <Image
             className="rounded-lg"

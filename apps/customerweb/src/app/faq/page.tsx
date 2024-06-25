@@ -15,7 +15,7 @@ export default function NotFound() {
   );
 
   return (
-    <section className="bg-gray-50">
+    <section className="bg-neutral-50">
       <div className="mx-auto flex flex-col space-y-4 p-5 lg:items-center lg:justify-center lg:py-32">
         <h1 className="text-5xl">FAQ</h1>
         <p>

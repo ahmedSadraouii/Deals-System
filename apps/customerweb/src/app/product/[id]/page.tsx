@@ -23,7 +23,7 @@ export default function Page() {
               <li className="inline-flex items-center">
                 <Link
                   href="/"
-                  className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+                  className="inline-flex items-center text-sm font-medium text-neutral-700 hover:text-blue-600 dark:text-neutral-400 dark:hover:text-white"
                 >
                   Start
                 </Link>
@@ -31,7 +31,7 @@ export default function Page() {
               <li>
                 <div className="flex items-center">
                   <svg
-                    className="mx-1 h-3 w-3 text-gray-400 rtl:rotate-180"
+                    className="mx-1 h-3 w-3 text-neutral-400 rtl:rotate-180"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -41,7 +41,7 @@ export default function Page() {
                   </svg>
                   <a
                     href="#"
-                    className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ms-2"
+                    className="ms-1 text-sm font-medium text-neutral-700 hover:text-blue-600 dark:text-neutral-400 dark:hover:text-white md:ms-2"
                   >
                     Product
                   </a>
@@ -50,7 +50,7 @@ export default function Page() {
               <li aria-current="page">
                 <div className="flex items-center">
                   <svg
-                    className="mx-1 h-3 w-3 text-gray-400 rtl:rotate-180"
+                    className="mx-1 h-3 w-3 text-neutral-400 rtl:rotate-180"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -58,7 +58,7 @@ export default function Page() {
                   >
                     <path stroke="currentColor" d="m1 9 4-4-4-4" />
                   </svg>
-                  <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">
+                  <span className="ms-1 text-sm font-medium text-neutral-500 dark:text-neutral-400 md:ms-2">
                     Mud Masters Tickets
                   </span>
                 </div>
@@ -121,14 +121,14 @@ export default function Page() {
             />
           </div>
           <div>
-            <div className="mx-auto mb-10 rounded-3xl bg-gray-100 px-6 py-6 lg:px-8">
+            <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
               <div className="flex flex-auto items-center">
                 <div>
-                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                  <h1 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
                     Mud Master Tickets - Jetzt 2 Tickets zum Preis von 1
                     sichern!
                   </h1>
-                  <h2 className="mt-2 flex items-center text-base leading-7 text-gray-500">
+                  <h2 className="mt-2 flex items-center text-base leading-7 text-neutral-500">
                     Deal läuft ab in{' '}
                     <span className="ml-2 mr-2 flex items-center rounded-xl border bg-transparent p-2 text-aldi-key">
                       <IconClock className="mr-2" /> noch 5 Tage
@@ -138,7 +138,7 @@ export default function Page() {
                 </div>
               </div>
               <hr className="mb-5 mt-5" />
-              <p className="text-gray-400">
+              <p className="text-neutral-400">
                 Willkommen zu einem unvergleichlichen Abenteuer voller
                 Nervenkitzel, Ausdauer und Gemeinschaftssinn – willkommen bei
                 Mud Masters! Mit deinem Ticket erwartet dich nicht nur ein
@@ -184,10 +184,10 @@ export default function Page() {
                   <img src="/img_1.png" alt="logo" className="w-20" />
                 </div>
                 <div className="ml-6">
-                  <h1 className="text-base font-semibold text-gray-500">
+                  <h1 className="text-base font-semibold text-neutral-500">
                     Partner des Deals:
                   </h1>
-                  <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                  <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
                     MudMasters Hindernislauf
                   </h2>
                 </div>

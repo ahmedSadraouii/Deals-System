@@ -15,7 +15,7 @@ interface ErrorPageProps {
 
 export function ErrorPage({ title, description, back }: ErrorPageProps) {
   return (
-    <div className="grow bg-gray-50">
+    <div className="grow bg-neutral-50">
       <div className="mx-auto flex flex-col space-y-4 p-5 lg:items-center lg:justify-center lg:py-32">
         <h1 className="text-5xl">{title}</h1>
         <div>{description}</div>

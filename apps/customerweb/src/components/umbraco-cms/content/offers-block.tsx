@@ -79,7 +79,7 @@ export function OffersBlock() {
         >
           {data.map((data, index) => (
             <SwiperSlide key={index}>
-              <div className="grid grid-cols-1 rounded-3xl bg-gray-100 md:grid-cols-2">
+              <div className="grid grid-cols-1 rounded-3xl bg-neutral-100 md:grid-cols-2">
                 <div>
                   <Image
                     src={data.image}

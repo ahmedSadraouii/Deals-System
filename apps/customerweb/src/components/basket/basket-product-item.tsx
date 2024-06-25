@@ -25,10 +25,10 @@ export function BasketProductItem({
             <Image src={image} width={100} height={20} alt="logo" />
           </div>
           <div className="ml-6">
-            <h1 className="text-xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-xl font-bold tracking-tight text-neutral-900">
               {name}
             </h1>
-            <h2 className="text-base font-semibold leading-7 text-gray-500">
+            <h2 className="text-base font-semibold leading-7 text-neutral-500">
               {description}
             </h2>
             <Price oldPrice={price} actualPrice={0} uvp={false} textSize={1} />

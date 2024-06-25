@@ -94,7 +94,7 @@ export default async function Page({
   return (
     <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
       <div className="flex w-full flex-col rounded-large bg-default-100 p-4 lg:p-10">
-        <div className="mb-4 flex flex-row items-center gap-4 border-b border-gray-200 pb-4">
+        <div className="mb-4 flex flex-row items-center gap-4 border-b border-neutral-200 pb-4">
           <AldiButton
             href="/profile/deals"
             variant="ghost"
@@ -115,7 +115,7 @@ export default async function Page({
           />
           <div className="col-span-5 flex flex-col gap-6 lg:col-span-3">
             <div className="flex flex-row items-center gap-4">
-              <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-gray-200">
+              <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
                 <Image
                   src={supplierImageUrl!}
                   alt={dealSupplier.name}
@@ -131,7 +131,7 @@ export default async function Page({
             <div>
               <CodeField code={honoredDeal.code || ''} />
             </div>
-            <div className="border-y border-gray-200 py-4 text-secondary/50">
+            <div className="border-y border-neutral-200 py-4 text-secondary/50">
               Gültig ab:{' '}
               {promotionStart.isValid
                 ? promotionStart.toLocaleString(DateTime.DATE_SHORT)
@@ -157,7 +157,7 @@ export default async function Page({
             </div>*/}
           </div>
         </div>
-        <div className="mt-4 flex flex-col gap-6 border-y border-gray-200 p-4 text-lg text-secondary">
+        <div className="mt-4 flex flex-col gap-6 border-y border-neutral-200 p-4 text-lg text-secondary">
           <p>Du brauchst Hilfe? Unser Kundenservice hilft dir gerne!</p>
           <div className="flex flex-row gap-4">
             <Link

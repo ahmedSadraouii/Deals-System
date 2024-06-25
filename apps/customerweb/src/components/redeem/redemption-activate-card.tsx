@@ -57,7 +57,7 @@ export default function CardActivation({
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
   return (
-    <Card className="bg-gray-100">
+    <Card className="bg-neutral-100">
       <CardHeader className="flex justify-center border-b pb-4 pt-6">
         <h1 className="text-lg text-secondary">Aktiviere deine Deal(s):</h1>
       </CardHeader>

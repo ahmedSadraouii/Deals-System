@@ -69,17 +69,17 @@ export function CartItem({ cartItem }: CartItemProps) {
   if (!deal) {
     return (
       <div className="flex flex-row gap-4 py-6">
-        <div className="flex h-24 w-24 animate-pulse items-center justify-center rounded-[20px] bg-gray-200">
+        <div className="flex h-24 w-24 animate-pulse items-center justify-center rounded-[20px] bg-neutral-200">
           <div className="h-[88px] w-[88px]" />
         </div>
         <div className="flex grow flex-col justify-center gap-2 text-secondary">
           <h2 className="text-lg font-medium">
-            <span className="inline-block h-4 w-full max-w-48 animate-pulse rounded-lg bg-gray-200" />
+            <span className="inline-block h-4 w-full max-w-48 animate-pulse rounded-lg bg-neutral-200" />
           </h2>
           <p className="text-sm">
-            <span className="inline-block h-4 w-full max-w-56 animate-pulse rounded-lg bg-gray-200" />
+            <span className="inline-block h-4 w-full max-w-56 animate-pulse rounded-lg bg-neutral-200" />
           </p>
-          <span className="inline-block h-4 w-full  max-w-24 animate-pulse rounded-lg bg-gray-200" />
+          <span className="inline-block h-4 w-full  max-w-24 animate-pulse rounded-lg bg-neutral-200" />
         </div>
       </div>
     );
@@ -88,12 +88,12 @@ export function CartItem({ cartItem }: CartItemProps) {
   return (
     <div className="flex flex-row items-center gap-4 py-6">
       {!supplierImageUrl && (
-        <div className="flex h-24 w-24 animate-pulse items-center justify-center rounded-[20px] bg-gray-200">
+        <div className="flex h-24 w-24 animate-pulse items-center justify-center rounded-[20px] bg-neutral-200">
           <div className="h-[88px] w-[88px]" />
         </div>
       )}
       {supplierImageUrl && (
-        <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-gray-200">
+        <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
           <Image
             src={supplierImageUrl}
             alt="Jober"
