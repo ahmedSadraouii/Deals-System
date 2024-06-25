@@ -9,31 +9,31 @@ export function PartnersBlock() {
   const data = [
     {
       id: '1',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/facebook.svg',
+      image: '/logos/facebook.svg',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/disney.svg',
+      image: '/logos/disney.svg',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/airbnb.svg',
+      image: '/logos/airbnb.svg',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/apple.svg',
+      image: '/logos/apple.svg',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/spark.svg',
+      image: '/logos/spark.svg',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/samsung.svg',
+      image: '/logos/samsung.svg',
     },
     {
       id: '2',
-      image: 'https://cruip-tutorials.vercel.app/logo-carousel/quora.svg',
+      image: '/logos/quora.svg',
     },
   ] as const;
   return (
