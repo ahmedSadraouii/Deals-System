@@ -16,8 +16,26 @@ export async function removeCartItemAction({
 }: RemoveCartItemActionParams): Promise<{
   cart: CartModel;
 }> {
-  const cookieStore = cookies();
   const session = await getServerSession(authOptions);
+
+  const cartsApi = getCartsApiClient({
+    accessToken: session?.accessToken,
+  });
+
+  if (session) {
+    const cart = await cartsApi.deleteCartItem({
+      dealId,
+    });
+
+    // cache bust for client cart page
+    revalidatePath('/cart');
+
+    return {
+      cart: cart,
+    };
+  }
+
+  const cookieStore = cookies();
 
   const existingCartId = cookieStore.get('cart-id');
 
@@ -28,13 +46,9 @@ export async function removeCartItemAction({
       existingCartId.value,
     )
   ) {
+    cookieStore.delete('cart-id');
     throw new Error('Invalid cart ID');
   }
-
-  const cartsApi = getCartsApiClient({
-    accessToken: session?.accessToken,
-  });
-
   const cart = await cartsApi.deleteCartItem({
     cartId: existingCartId.value,
     dealId,
