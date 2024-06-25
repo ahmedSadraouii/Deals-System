@@ -128,6 +128,7 @@ export function RegistrationCompletion() {
               color="secondary"
               fullWidth={true}
               isLoading={isLoading}
+              size="lg"
             >
               Alle bestätigen und registrieren
             </AldiButton>
@@ -137,6 +138,7 @@ export function RegistrationCompletion() {
               color="secondary"
               fullWidth={true}
               isLoading={isLoading}
+              size="lg"
             >
               Auswahl bestätigen und registrieren
             </AldiButton>

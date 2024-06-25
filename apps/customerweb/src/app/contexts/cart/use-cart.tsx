@@ -60,8 +60,6 @@ export function useCart(): {
         dealId,
       });
 
-      debugger;
-
       cartContext.dispatch({
         type: CartContextActionKind.UpdateCart,
         cart: removeCartItemResponse.cart,

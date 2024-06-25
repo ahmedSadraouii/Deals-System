@@ -16,9 +16,10 @@ import { formatCurrency } from '@/utils/format-currency';
 
 export interface CartItemProps {
   cartItem: CartItemModel;
+  editable?: boolean;
 }
 
-export function CartItem({ cartItem }: CartItemProps) {
+export function CartItem({ cartItem, editable = true }: CartItemProps) {
   const { removeCartItem, updateCartItem } = useCart();
 
   const [deal, setDeal] = useState<UmbracoDeal | undefined>(undefined);
@@ -26,14 +27,19 @@ export function CartItem({ cartItem }: CartItemProps) {
     undefined,
   );
   const [isRemovingDeal, setIsRemovingDeal] = useState(false);
+  const [isChangingQuantity, setChangingQuantity] = useState(false);
 
   const increment = useCallback(async () => {
+    setChangingQuantity(true);
     await updateCartItem(cartItem.dealId, cartItem.quantity + 1);
+    setChangingQuantity(false);
   }, [cartItem.dealId, cartItem.quantity, updateCartItem]);
 
   const decrement = useCallback(async () => {
+    setChangingQuantity(true);
     const newQuantity = Math.max(1, cartItem.quantity - 1);
     await updateCartItem(cartItem.dealId, newQuantity);
+    setChangingQuantity(false);
   }, [cartItem.dealId, cartItem.quantity, updateCartItem]);
 
   useEffect(() => {
@@ -47,12 +53,21 @@ export function CartItem({ cartItem }: CartItemProps) {
       });
 
       const supplierImage = supplier.properties?.picture?.[0]?.url;
+      const primaryImage = deal.properties?.pictures?.[0]?.url;
 
       const supplierImageUrl =
         supplierImage &&
         defaultLoader({
           src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
           width: 256,
+          config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
+        });
+
+      const productImageUrl =
+        primaryImage &&
+        defaultLoader({
+          src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
+          width: 768,
           config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
         });
 
@@ -81,6 +96,19 @@ export function CartItem({ cartItem }: CartItemProps) {
           </p>
           <span className="inline-block h-4 w-full  max-w-24 animate-pulse rounded-lg bg-neutral-200" />
         </div>
+        {editable && (
+          <>
+            <div className="flex grow flex-row gap-4">
+              <div className="flex w-full grow flex-col items-end justify-center gap-2">
+                <span className="inline-block h-4 w-full max-w-16 animate-pulse rounded-lg bg-neutral-200" />
+                <span className="inline-block h-8 w-full max-w-28 animate-pulse rounded-lg bg-neutral-200" />
+              </div>
+            </div>
+            <div className="flex basis-32 flex-row items-center gap-4">
+              <span className="inline-block h-8 w-full max-w-32 animate-pulse rounded-lg bg-neutral-200" />
+            </div>
+          </>
+        )}
       </div>
     );
   }
@@ -93,7 +121,13 @@ export function CartItem({ cartItem }: CartItemProps) {
         </div>
       )}
       {supplierImageUrl && (
-        <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
+        <div
+          className={cn(
+            'flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200',
+
+            !cartItem.available && 'opacity-30',
+          )}
+        >
           <Image
             src={supplierImageUrl}
             alt="Jober"
@@ -103,63 +137,89 @@ export function CartItem({ cartItem }: CartItemProps) {
           />
         </div>
       )}
-      <div className="flex grow flex-col justify-center gap-2 text-secondary">
+      <div
+        className={cn(
+          'flex grow flex-col justify-center gap-2 text-secondary',
+          !cartItem.available && 'opacity-30',
+        )}
+      >
         <h2 className="text-lg font-medium">{deal.name}</h2>
         <p className="text-sm">Anzahl insgesamt: {cartItem.quantity}</p>
-        <button
-          onClick={onClickRemoveDeal}
-          className={cn(
-            'items-c enter inline-flex w-fit gap-2 underline',
-            isRemovingDeal && 'opacity-50',
-          )}
-          color="secondary"
-          disabled={isRemovingDeal}
-        >
-          {isRemovingDeal && <Spinner color="secondary" size="sm" />}
-          <span>Entfernen</span>
-        </button>
-      </div>
-      <div className="flex flex-row gap-4">
-        <div className="flex flex-col items-end">
-          {deal.properties?.regularPrice && (
-            <div className="text-secondary line-through">
-              {formatCurrency(deal.properties?.regularPrice, true)}
-            </div>
-          )}
-          {deal.properties?.price && (
-            <div className="text-3xl font-bold text-primary">
-              {formatCurrency(deal.properties?.price, true)}
-            </div>
-          )}
-        </div>
-        <div className="flex flex-row items-center gap-2">
-          <AldiButton
-            variant="ghost"
+
+        {editable && (
+          <button
+            onClick={onClickRemoveDeal}
+            className={cn(
+              'inline-flex w-fit items-center gap-2',
+              isRemovingDeal && 'opacity-50',
+              cartItem.available && 'underline',
+            )}
             color="secondary"
-            isIconOnly={true}
-            size="md"
-            onClick={decrement}
-            isDisabled={cartItem.quantity <= 1}
-          >
-            -
-          </AldiButton>
-          <div className="min-w-8 text-center text-3xl font-bold text-secondary">
-            {cartItem.quantity}
-          </div>
-          <AldiButton
-            variant="ghost"
-            color="secondary"
-            isIconOnly={true}
-            size="md"
-            onClick={increment}
-            isDisabled={
-              cartItem.quantity + 1 > (deal.properties?.maxOrderQuantity || 0)
+            disabled={
+              isChangingQuantity || isRemovingDeal || !cartItem.available
             }
           >
-            +
-          </AldiButton>
-        </div>
+            {isRemovingDeal && <Spinner color="secondary" size="sm" />}
+            <span>{cartItem.available ? 'Entfernen' : 'Abgelaufen'}</span>
+          </button>
+        )}
       </div>
+
+      {editable && (
+        <div className="flex flex-row gap-4">
+          {cartItem.available && (
+            <>
+              <div className="flex flex-col items-end">
+                {deal.properties?.regularPrice && (
+                  <div className="text-secondary line-through">
+                    {formatCurrency(deal.properties?.regularPrice, true)}
+                  </div>
+                )}
+                {deal.properties?.price && (
+                  <div className="text-3xl font-bold text-primary">
+                    {formatCurrency(deal.properties?.price, true)}
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <AldiButton
+                  variant="ghost"
+                  color="secondary"
+                  isIconOnly={true}
+                  size="md"
+                  onClick={decrement}
+                  isDisabled={isRemovingDeal || cartItem.quantity <= 1}
+                >
+                  -
+                </AldiButton>
+                <div className="min-w-8 text-center text-3xl font-bold text-secondary">
+                  {cartItem.quantity}
+                </div>
+                <AldiButton
+                  variant="ghost"
+                  color="secondary"
+                  isIconOnly={true}
+                  size="md"
+                  onClick={increment}
+                  isDisabled={
+                    isRemovingDeal ||
+                    cartItem.quantity + 1 >
+                      (deal.properties?.maxOrderQuantity || 0)
+                  }
+                >
+                  +
+                </AldiButton>
+              </div>
+            </>
+          )}
+          {!cartItem.available && (
+            <div className="max-w-xs rounded-lg bg-primary/10 p-3 text-primary">
+              Dieser Deal ist leider abgelaufen! Er wird im Checkout Prozess und
+              für den Gesamtpreis nicht beachtet.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

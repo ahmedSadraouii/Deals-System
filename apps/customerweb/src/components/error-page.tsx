@@ -1,10 +1,12 @@
 import type { ComponentProps, ReactNode } from 'react';
 import Link from 'next/link';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { cn } from '@/utils/cn';
 
 interface ErrorPageProps {
   title: ReactNode;
   description: ReactNode;
+  inline?: boolean;
   back?: {
     link: string;
     text: string;
@@ -13,9 +15,14 @@ interface ErrorPageProps {
   };
 }
 
-export function ErrorPage({ title, description, back }: ErrorPageProps) {
+export function ErrorPage({
+  title,
+  description,
+  inline = false,
+  back,
+}: ErrorPageProps) {
   return (
-    <div className="grow bg-neutral-50">
+    <div className={cn('grow', !inline && 'bg-neutral-50')}>
       <div className="mx-auto flex flex-col space-y-4 p-5 lg:items-center lg:justify-center lg:py-32">
         <h1 className="text-5xl">{title}</h1>
         <div>{description}</div>

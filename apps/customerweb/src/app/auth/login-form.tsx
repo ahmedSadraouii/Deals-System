@@ -123,6 +123,7 @@ export function LoginForm() {
             fullWidth={true}
             type="submit"
             isLoading={isLoggingIn}
+            size="lg"
           >
             Anmelden
           </AldiButton>
