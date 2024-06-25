@@ -2,10 +2,7 @@ import { CartItemList } from '@/app/cart/components/cart-item-list';
 import { CartRequired } from '@/app/cart/components/cart-required';
 import { CartStepIndicator } from '@/app/cart/components/cart-step-indicator';
 import { ReservationTimer } from '@/app/cart/components/reservation-timer';
-import { PaymentIconApple } from '@/components/svg/payment-icon-apple';
-import { PaymentIconGoogle } from '@/components/svg/payment-icon-google';
 import { PaymentIconMastercard } from '@/components/svg/payment-icon-mastercard';
-import { PaymentIconPaypal } from '@/components/svg/payment-icon-paypal';
 import { PaymentIconVisa } from '@/components/svg/payment-icon-visa';
 
 export const dynamic = 'force-dynamic';
@@ -34,10 +31,7 @@ export default function Page() {
             </h2>
             <div className="flex flex-row gap-6">
               <PaymentIconMastercard />
-              <PaymentIconPaypal />
               <PaymentIconVisa />
-              <PaymentIconApple />
-              <PaymentIconGoogle />
             </div>
           </div>
         </div>
