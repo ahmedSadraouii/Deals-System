@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getAuthApiClient } from './auth-api-client';
@@ -57,6 +58,12 @@ async function refreshAccessToken(
 
 export const authOptions: NextAuthOptions = {
   debug: false,
+  events: {
+    signOut: async () => {
+      const cookieStore = cookies();
+      cookieStore.delete('cart-id');
+    },
+  },
   providers: [
     CredentialsProvider({
       name: 'ad-auth-service',
