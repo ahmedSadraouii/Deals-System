@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useContext, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { getCartAction } from '@/app/cart/actions/get-cart.action';
 import { removeCartItemAction } from '@/app/cart/actions/remove-cart-item.action';
 import { updateCartItemAction } from '@/app/cart/actions/update-cart-item.action';
@@ -15,6 +16,7 @@ export function useCart(): {
   updateCartItem: (dealId: string, quantity: number) => Promise<void>;
   removeCartItem: (dealId: string) => Promise<void>;
 } {
+  const session = useSession();
   const cartContext = useContext(CartContext);
   if (!cartContext) {
     throw new Error('useCart must be used within a CartContextProvider');
@@ -22,7 +24,10 @@ export function useCart(): {
 
   const ensureCart = useCallback(async () => {
     if (cartContext.cart) {
-      // set cookie on the client side
+      if (session.status === 'unauthenticated') {
+        // only needed for guests
+        document.cookie = `cart-id=${cartContext.cart.cartId}; path=/; max-age=31536000`;
+      }
       return cartContext.cart;
     }
 

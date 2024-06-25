@@ -28,8 +28,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <script src={process.env.ADOBE_SCRIPT} async></script>
       )}
       <body className="bg-white">
-        <ServerProviders>
-          <ClientProviders>
+        <ClientProviders>
+          <ServerProviders>
             <ToasterOutlet />
             <div className="flex min-h-screen flex-col">
               <AldiSuedDefsSvg />
@@ -37,8 +37,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <main className="flex grow flex-col">{children}</main>
               <Footer />
             </div>
-          </ClientProviders>
-        </ServerProviders>
+          </ServerProviders>
+        </ClientProviders>
       </body>
     </html>
   );
