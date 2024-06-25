@@ -20,7 +20,7 @@ function checkBasicAuth(req: NextRequest) {
 }
 
 export const config = {
-  matcher: '/((?!api|_next|static|public|favicon.ico).*)',
+  matcher: '/((?!api|health|_next|static|public|favicon.ico).*)',
 };
 
 export function middleware(request: NextRequest) {
