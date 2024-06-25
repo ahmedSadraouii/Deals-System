@@ -122,7 +122,7 @@ export function DealsListItemHeroSlider({
               showDigits={false}
               uvp={false}
               textSize={3}
-              badge={true}
+              badge={2}
             />
 
             <AldiButton
