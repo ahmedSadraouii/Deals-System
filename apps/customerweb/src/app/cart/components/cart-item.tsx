@@ -9,21 +9,32 @@ import type { CartItemModel } from 'api-deals/generated/models/CartItemModel';
 import { getDealAction } from '@/app/cart/actions/get-deal.action';
 import { getSupplierAction } from '@/app/cart/actions/get-supplier.action';
 import { useCart } from '@/app/contexts/cart/use-cart';
+import { AldiButton } from '@/components/nextui/aldi-button';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
+import { formatCurrency } from '@/utils/format-currency';
 
 export interface CartItemProps {
   cartItem: CartItemModel;
 }
 
 export function CartItem({ cartItem }: CartItemProps) {
-  const { removeCartItem } = useCart();
+  const { removeCartItem, updateCartItem } = useCart();
 
   const [deal, setDeal] = useState<UmbracoDeal | undefined>(undefined);
   const [supplierImageUrl, setSupplierImageUrl] = useState<string | undefined>(
     undefined,
   );
   const [isRemovingDeal, setIsRemovingDeal] = useState(false);
+
+  const increment = useCallback(async () => {
+    await updateCartItem(cartItem.dealId, cartItem.quantity + 1);
+  }, [cartItem.dealId, cartItem.quantity, updateCartItem]);
+
+  const decrement = useCallback(async () => {
+    const newQuantity = Math.max(1, cartItem.quantity - 1);
+    await updateCartItem(cartItem.dealId, newQuantity);
+  }, [cartItem.dealId, cartItem.quantity, updateCartItem]);
 
   useEffect(() => {
     (async function () {
@@ -75,7 +86,7 @@ export function CartItem({ cartItem }: CartItemProps) {
   }
 
   return (
-    <div className="flex flex-row gap-4 py-6">
+    <div className="flex flex-row items-center gap-4 py-6">
       {!supplierImageUrl && (
         <div className="flex h-24 w-24 animate-pulse items-center justify-center rounded-[20px] bg-gray-200">
           <div className="h-[88px] w-[88px]" />
@@ -107,6 +118,47 @@ export function CartItem({ cartItem }: CartItemProps) {
           {isRemovingDeal && <Spinner color="secondary" size="sm" />}
           <span>Entfernen</span>
         </button>
+      </div>
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-col items-end">
+          {deal.properties?.regularPrice && (
+            <div className="text-secondary line-through">
+              {formatCurrency(deal.properties?.regularPrice, true)}
+            </div>
+          )}
+          {deal.properties?.price && (
+            <div className="text-3xl font-bold text-primary">
+              {formatCurrency(deal.properties?.price, true)}
+            </div>
+          )}
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <AldiButton
+            variant="ghost"
+            color="secondary"
+            isIconOnly={true}
+            size="md"
+            onClick={decrement}
+            isDisabled={cartItem.quantity <= 1}
+          >
+            -
+          </AldiButton>
+          <div className="min-w-8 text-center text-3xl font-bold text-secondary">
+            {cartItem.quantity}
+          </div>
+          <AldiButton
+            variant="ghost"
+            color="secondary"
+            isIconOnly={true}
+            size="md"
+            onClick={increment}
+            isDisabled={
+              cartItem.quantity + 1 > (deal.properties?.maxOrderQuantity || 0)
+            }
+          >
+            +
+          </AldiButton>
+        </div>
       </div>
     </div>
   );
