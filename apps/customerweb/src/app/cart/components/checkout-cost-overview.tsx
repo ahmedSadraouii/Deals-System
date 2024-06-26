@@ -39,7 +39,7 @@ export function CheckoutCostOverview({
       </div>
       <ReservationTimer />
 
-      <div>
+      <div className="mt-6">
         <CartItemList editable={false} />
       </div>
 
