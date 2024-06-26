@@ -1,2176 +1,2176 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "ALDI Deals API",
-    "version": "1.0"
+      "title": "ALDI Deals API",
+      "version": "1.0"
   },
   "paths": {
-    "/ad-be/accounts/{userId}/export": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Exports the account data for a specified user.",
-        "operationId": "ExportAccount",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "The unique identifier of the user.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccountExportData"
-                }
+      "/ad-be/accounts/{userId}/export": {
+          "post": {
+              "tags": [
+                  "Account"
+              ],
+              "summary": "Exports the account data for a specified user.",
+              "operationId": "ExportAccount",
+              "parameters": [
+                  {
+                      "name": "userId",
+                      "in": "path",
+                      "description": "The unique identifier of the user.",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/AccountExportData"
+                              }
+                          }
+                      }
+                  }
               }
-            }
           }
-        }
-      }
-    },
-    "/ad-be/accounts/{userId}": {
-      "delete": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Deletes the account data for a specified user.",
-        "operationId": "DeleteAccount",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "The unique identifier of the user.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/ad-be/carts/checkout": {
-      "post": {
-        "tags": [
-          "Carts"
-        ],
-        "summary": "Creates a checkout for a specific cart.",
-        "description": "See https://developer.payone.com/de/integration/how-to-integrate/test-cases/index for example credit card info",
-        "operationId": "CreateCheckout",
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "query",
-            "description": "The ID of the cart to checkout.",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "returnUrl",
-            "in": "query",
-            "description": "Full return url of the customer web site.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The input model containing checkout details.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckoutInputModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckoutInputModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateCheckoutModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/carts/checkout/confirm": {
-      "post": {
-        "tags": [
-          "Carts"
-        ],
-        "summary": "Call it after the payment provided hooked you up.",
-        "operationId": "ConfirmCheckout",
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "query",
-            "description": "Gets or sets the cart id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "returnMac",
-            "in": "query",
-            "description": "Gets or sets the return MAC address.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "hostedCheckoutId",
-            "in": "query",
-            "description": "Gets or sets the hosted checkout ID.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrderModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/carts/ensure": {
-      "post": {
-        "tags": [
-          "Carts"
-        ],
-        "summary": "Ensures a cart",
-        "operationId": "EnsureCart",
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "query",
-            "description": "Cart.",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CartModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/carts/items": {
-      "post": {
-        "tags": [
-          "Carts"
-        ],
-        "summary": "Creates or updates an cart item",
-        "operationId": "UpdateCartItem",
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "query",
-            "description": "The ID of the cart.",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The input model containing the details of the cart to be created.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCartItem"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCartItem"
-              }
-            }
-          }
-        },
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CartModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/carts/items/{dealId}": {
-      "delete": {
-        "tags": [
-          "Carts"
-        ],
-        "summary": "Deletes an item from an cart.",
-        "operationId": "DeleteCartItem",
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "query",
-            "description": "The ID of the cart from which the item will be deleted.",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "dealId",
-            "in": "path",
-            "description": "The ID of the deal to be deleted from the cart.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CartModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/deals": {
-      "get": {
-        "tags": [
-          "Deals"
-        ],
-        "summary": "Retrieves a list of deals based on the provided input model.",
-        "operationId": "GetDeals",
-        "parameters": [
-          {
-            "name": "sortBy",
-            "in": "query",
-            "description": "Gets or sets the sorting criteria for the deals.",
-            "schema": {
-              "$ref": "#/components/schemas/SortBy"
-            }
-          },
-          {
-            "name": "take",
-            "in": "query",
-            "description": "Gets or sets the number of items to retrieve.",
-            "schema": {
-              "maximum": 1000,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32",
-              "default": 50
-            }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "Gets or sets the number of items to skip.",
-            "schema": {
-              "maximum": 999,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the list of deals.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DealModelPagedList"
-                }
-              }
-            }
-          }
-        }
       },
-      "post": {
-        "tags": [
-          "Deals"
-        ],
-        "summary": "Creates or updates a deal based on the provided input model.",
-        "operationId": "CreateOrUpdateDeal",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
+      "/ad-be/accounts/{userId}": {
+          "delete": {
+              "tags": [
+                  "Account"
+              ],
+              "summary": "Deletes the account data for a specified user.",
+              "operationId": "DeleteAccount",
+              "parameters": [
+                  {
+                      "name": "userId",
+                      "in": "path",
+                      "description": "The unique identifier of the user.",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK"
+                  }
+              }
           }
-        ],
-        "requestBody": {
-          "description": "The input model containing deal details.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Deal updated successfully."
-          },
-          "201": {
-            "description": "Deal created successfully."
-          },
-          "400": {
-            "description": "Invalid input data.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/favorites": {
-      "get": {
-        "tags": [
-          "Favorites"
-        ],
-        "summary": "Retrieves the list of user's favorite deals.",
-        "operationId": "GetUserFavorites",
-        "parameters": [
-          {
-            "name": "take",
-            "in": "query",
-            "description": "Number of items to retrieve",
-            "schema": {
-              "maximum": 1000,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32",
-              "default": 1000
-            }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "Number of items to skip",
-            "schema": {
-              "maximum": 999,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "If the user context is not loaded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Returns the list of user's favorite deals.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FavoriteModelPagedList"
-                }
-              }
-            }
-          }
-        }
       },
-      "post": {
-        "tags": [
-          "Favorites"
-        ],
-        "summary": "Adds a deal to user's favorites.",
-        "operationId": "AddUserFavorite",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The input model containing the deal ID to add to favorites.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFavoriteInputModel"
+      "/ad-be/carts/checkout": {
+          "post": {
+              "tags": [
+                  "Carts"
+              ],
+              "summary": "Creates a checkout for a specific cart.",
+              "description": "See https://developer.payone.com/de/integration/how-to-integrate/test-cases/index for example credit card info",
+              "operationId": "CreateCheckout",
+              "parameters": [
+                  {
+                      "name": "cartId",
+                      "in": "query",
+                      "description": "The ID of the cart to checkout.",
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "returnUrl",
+                      "in": "query",
+                      "description": "Full return url of the customer web site.",
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "description": "The input model containing checkout details.",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/CheckoutInputModel"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/CheckoutInputModel"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/CreateCheckoutModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
               }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFavoriteInputModel"
-              }
-            }
           }
-        },
-        "responses": {
-          "201": {
-            "description": "If the deal is added to favorites successfully."
+      },
+      "/ad-be/carts/checkout/confirm": {
+          "post": {
+              "tags": [
+                  "Carts"
+              ],
+              "summary": "Call it after the payment provided hooked you up.",
+              "operationId": "ConfirmCheckout",
+              "parameters": [
+                  {
+                      "name": "cartId",
+                      "in": "query",
+                      "description": "Gets or sets the cart id",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "returnMac",
+                      "in": "query",
+                      "description": "Gets or sets the return MAC address.",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "hostedCheckoutId",
+                      "in": "query",
+                      "description": "Gets or sets the hosted checkout ID.",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OrderModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/carts/ensure": {
+          "post": {
+              "tags": [
+                  "Carts"
+              ],
+              "summary": "Ensures a cart",
+              "operationId": "EnsureCart",
+              "parameters": [
+                  {
+                      "name": "cartId",
+                      "in": "query",
+                      "description": "Cart.",
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/CartModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/carts/items": {
+          "post": {
+              "tags": [
+                  "Carts"
+              ],
+              "summary": "Creates or updates an cart item",
+              "operationId": "UpdateCartItem",
+              "parameters": [
+                  {
+                      "name": "cartId",
+                      "in": "query",
+                      "description": "The ID of the cart.",
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "description": "The input model containing the details of the cart to be created.",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UpdateCartItem"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UpdateCartItem"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/CartModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  },
+                  "404": {
+                      "description": "Not Found",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/carts/items/{dealId}": {
+          "delete": {
+              "tags": [
+                  "Carts"
+              ],
+              "summary": "Deletes an item from an cart.",
+              "operationId": "DeleteCartItem",
+              "parameters": [
+                  {
+                      "name": "cartId",
+                      "in": "query",
+                      "description": "The ID of the cart from which the item will be deleted.",
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "dealId",
+                      "in": "path",
+                      "description": "The ID of the deal to be deleted from the cart.",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/CartModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  },
+                  "404": {
+                      "description": "Not Found",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/deals": {
+          "get": {
+              "tags": [
+                  "Deals"
+              ],
+              "summary": "Retrieves a list of deals based on the provided input model.",
+              "operationId": "GetDeals",
+              "parameters": [
+                  {
+                      "name": "sortBy",
+                      "in": "query",
+                      "description": "Gets or sets the sorting criteria for the deals.",
+                      "schema": {
+                          "$ref": "#/components/schemas/SortBy"
+                      }
+                  },
+                  {
+                      "name": "take",
+                      "in": "query",
+                      "description": "Gets or sets the number of items to retrieve.",
+                      "schema": {
+                          "maximum": 1000,
+                          "minimum": 1,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 50
+                      }
+                  },
+                  {
+                      "name": "skip",
+                      "in": "query",
+                      "description": "Gets or sets the number of items to skip.",
+                      "schema": {
+                          "maximum": 999,
+                          "minimum": 0,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 0
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Returns the list of deals.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/DealModelPagedList"
+                              }
+                          }
+                      }
+                  }
+              }
           },
-          "400": {
-            "description": "If the user context is not loaded, the input model is invalid, or the deal is already in favorites.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
+          "post": {
+              "tags": [
+                  "Deals"
+              ],
+              "summary": "Creates or updates a deal based on the provided input model.",
+              "operationId": "CreateOrUpdateDeal",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "description": "The input model containing deal details.",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/CreateOrUpdateDealInputModel"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Deal updated successfully."
+                  },
+                  "201": {
+                      "description": "Deal created successfully."
+                  },
+                  "400": {
+                      "description": "Invalid input data.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized request.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
               }
-            }
           }
-        }
+      },
+      "/ad-be/favorites": {
+          "get": {
+              "tags": [
+                  "Favorites"
+              ],
+              "summary": "Retrieves the list of user's favorite deals.",
+              "operationId": "GetUserFavorites",
+              "parameters": [
+                  {
+                      "name": "take",
+                      "in": "query",
+                      "description": "Number of items to retrieve",
+                      "schema": {
+                          "maximum": 1000,
+                          "minimum": 1,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 1000
+                      }
+                  },
+                  {
+                      "name": "skip",
+                      "in": "query",
+                      "description": "Number of items to skip",
+                      "schema": {
+                          "maximum": 999,
+                          "minimum": 0,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 0
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Returns the list of user's favorite deals.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/FavoriteModelPagedList"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "If the user context is not loaded.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "Favorites"
+              ],
+              "summary": "Adds a deal to user's favorites.",
+              "operationId": "AddUserFavorite",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "description": "The input model containing the deal ID to add to favorites.",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/AddFavoriteInputModel"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/AddFavoriteInputModel"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "If the deal is added to favorites successfully."
+                  },
+                  "400": {
+                      "description": "If the user context is not loaded, the input model is invalid, or the deal is already in favorites.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/favorites/{dealId}": {
+          "delete": {
+              "tags": [
+                  "Favorites"
+              ],
+              "summary": "Deletes a deal from user's favorites.",
+              "operationId": "DeleteUserFavorite",
+              "parameters": [
+                  {
+                      "name": "dealId",
+                      "in": "path",
+                      "description": "The ID of the deal to delete from favorites.",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "If the deal is deleted from favorites successfully."
+                  },
+                  "400": {
+                      "description": "If the user context is not loaded.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  },
+                  "404": {
+                      "description": "If the deal is not found in user's favorites.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/honored-deals": {
+          "get": {
+              "tags": [
+                  "HonoredDeals"
+              ],
+              "summary": "Retrieves the list of user's honored deals.",
+              "operationId": "GetHonoredDeals",
+              "parameters": [
+                  {
+                      "name": "take",
+                      "in": "query",
+                      "description": "Number of items to retrieve",
+                      "schema": {
+                          "maximum": 1000,
+                          "minimum": 1,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 50
+                      }
+                  },
+                  {
+                      "name": "skip",
+                      "in": "query",
+                      "description": "Number of items to skip",
+                      "schema": {
+                          "maximum": 999,
+                          "minimum": 0,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 0
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Returns the list user's honored deals.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/HonoredDealModelPagedList"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/honored-deals/{id}": {
+          "get": {
+              "tags": [
+                  "HonoredDeals"
+              ],
+              "summary": "Retrievs a honored deal information.",
+              "operationId": "GetHonoredDeal",
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "description": "The id of honored deal.",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/HonoredDealModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  },
+                  "404": {
+                      "description": "Not Found",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/orders": {
+          "get": {
+              "tags": [
+                  "Orders"
+              ],
+              "summary": "Retrieves the user's orders.",
+              "operationId": "GetOrders",
+              "parameters": [
+                  {
+                      "name": "take",
+                      "in": "query",
+                      "description": "Gets or sets the number of items to retrieve.",
+                      "schema": {
+                          "maximum": 1000,
+                          "minimum": 1,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 50
+                      }
+                  },
+                  {
+                      "name": "skip",
+                      "in": "query",
+                      "description": "Gets or sets the number of items to skip.",
+                      "schema": {
+                          "maximum": 999,
+                          "minimum": 0,
+                          "type": "integer",
+                          "format": "int32",
+                          "default": 0
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OrderModelPagedList"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/orders/{orderId}": {
+          "get": {
+              "tags": [
+                  "Orders"
+              ],
+              "summary": "",
+              "operationId": "GetOrder",
+              "parameters": [
+                  {
+                      "name": "orderId",
+                      "in": "path",
+                      "description": "",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OrderModel"
+                              }
+                          }
+                      }
+                  },
+                  "404": {
+                      "description": "Not Found",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/bad-request-empty": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "summary": "Returns a 400 Bad Request response with no additional details.",
+              "operationId": "BadRequestEmpty",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/bad-request-string": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "summary": "Returns a 400 Bad Request response with a specific error message.",
+              "operationId": "BadRequestString",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/bad-request-model-state-filter": {
+          "post": {
+              "tags": [
+                  "Test"
+              ],
+              "summary": "Validates the model state and returns a 400 Bad Request if the model is invalid.",
+              "operationId": "BadRequestModelStateFilter",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "description": "The input model to validate.",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/TestInputModel"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/TestInputModel"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK"
+                  },
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/bad-request-model-state-manual": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "summary": "Manually adds model errors and returns a 400 Bad Request response with those errors.",
+              "operationId": "BadRequestModelStateManual",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "400": {
+                      "description": "Bad Request",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/server-error": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "summary": "Throws a NotImplementedException resulting in a 500 Server Error response.",
+              "operationId": "ServerError",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "500": {
+                      "description": "Server Error",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/unauthorized": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "summary": "Requires authorization and returns a 401 Unauthorized response if access is denied.",
+              "operationId": "Unautorized",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK"
+                  },
+                  "401": {
+                      "description": "Unauthorized",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/test/authority": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "operationId": "Authority",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK"
+                  }
+              }
+          }
+      },
+      "/ad-be/test/options": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "operationId": "Options",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK"
+                  }
+              }
+          }
+      },
+      "/ad-be/test/send-mail": {
+          "get": {
+              "tags": [
+                  "Test"
+              ],
+              "operationId": "SendMail",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK"
+                  }
+              }
+          }
+      },
+      "/ad-be/vouchers/{pin}": {
+          "get": {
+              "tags": [
+                  "Voucher"
+              ],
+              "summary": "Retrieves voucher information based on the provided PIN code.",
+              "operationId": "GetVoucherInfo",
+              "parameters": [
+                  {
+                      "name": "pin",
+                      "in": "path",
+                      "description": "The PIN code of a voucher to be validated.",
+                      "required": true,
+                      "schema": {
+                          "maxLength": 19,
+                          "type": "string",
+                          "description": "The PIN code of a voucher to be validated."
+                      }
+                  },
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Returns the voucher information if found and valid.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/VoucherInfoModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Returns if the PIN code is invalid or has a validation error.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  },
+                  "404": {
+                      "description": "Returns if no voucher is found for the provided PIN code.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/ad-be/vouchers/redeem": {
+          "post": {
+              "tags": [
+                  "Voucher"
+              ],
+              "summary": "Redeems the PIN and creates a honored deal",
+              "operationId": "RedeemVoucher",
+              "parameters": [
+                  {
+                      "name": "x-api-version",
+                      "in": "header",
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "description": "The input model containing pin details.",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/RedeemVoucherInputModel"
+                          }
+                      },
+                      "application/*+json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/RedeemVoucherInputModel"
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "200": {
+                      "description": "Pin was redeemed successfully.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/HonoredDealModel"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Invalid input data.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
       }
-    },
-    "/ad-be/favorites/{dealId}": {
-      "delete": {
-        "tags": [
-          "Favorites"
-        ],
-        "summary": "Deletes a deal from user's favorites.",
-        "operationId": "DeleteUserFavorite",
-        "parameters": [
-          {
-            "name": "dealId",
-            "in": "path",
-            "description": "The ID of the deal to delete from favorites.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "If the deal is deleted from favorites successfully."
-          },
-          "404": {
-            "description": "If the deal is not found in user's favorites.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "If the user context is not loaded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/honored-deals": {
-      "get": {
-        "tags": [
-          "HonoredDeals"
-        ],
-        "summary": "Retrieves the list of user's honored deals.",
-        "operationId": "GetHonoredDeals",
-        "parameters": [
-          {
-            "name": "take",
-            "in": "query",
-            "description": "Number of items to retrieve",
-            "schema": {
-              "maximum": 1000,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32",
-              "default": 50
-            }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "Number of items to skip",
-            "schema": {
-              "maximum": 999,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Returns the list user's honored deals.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HonoredDealModelPagedList"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/honored-deals/{id}": {
-      "get": {
-        "tags": [
-          "HonoredDeals"
-        ],
-        "summary": "Retrievs a honored deal information.",
-        "operationId": "GetHonoredDeal",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of honored deal.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HonoredDealModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/orders": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "summary": "Retrieves the user's orders.",
-        "operationId": "GetOrders",
-        "parameters": [
-          {
-            "name": "take",
-            "in": "query",
-            "description": "Gets or sets the number of items to retrieve.",
-            "schema": {
-              "maximum": 1000,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32",
-              "default": 50
-            }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "Gets or sets the number of items to skip.",
-            "schema": {
-              "maximum": 999,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrderModelPagedList"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/orders/{orderId}": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "summary": "",
-        "operationId": "GetOrder",
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrderModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/bad-request-empty": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Returns a 400 Bad Request response with no additional details.",
-        "operationId": "BadRequestEmpty",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/bad-request-string": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Returns a 400 Bad Request response with a specific error message.",
-        "operationId": "BadRequestString",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/bad-request-model-state-filter": {
-      "post": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Validates the model state and returns a 400 Bad Request if the model is invalid.",
-        "operationId": "BadRequestModelStateFilter",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The input model to validate.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestInputModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TestInputModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/bad-request-model-state-manual": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Manually adds model errors and returns a 400 Bad Request response with those errors.",
-        "operationId": "BadRequestModelStateManual",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/server-error": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Throws a NotImplementedException resulting in a 500 Server Error response.",
-        "operationId": "ServerError",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/unauthorized": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "summary": "Requires authorization and returns a 401 Unauthorized response if access is denied.",
-        "operationId": "Unautorized",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/test/authority": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "operationId": "Authority",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/ad-be/test/options": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "operationId": "Options",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/ad-be/test/send-mail": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "operationId": "SendMail",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/ad-be/vouchers/{pin}": {
-      "get": {
-        "tags": [
-          "Voucher"
-        ],
-        "summary": "Retrieves voucher information based on the provided PIN code.",
-        "operationId": "GetVoucherInfo",
-        "parameters": [
-          {
-            "name": "pin",
-            "in": "path",
-            "description": "The PIN code of a voucher to be validated.",
-            "required": true,
-            "schema": {
-              "maxLength": 19,
-              "type": "string",
-              "description": "The PIN code of a voucher to be validated."
-            }
-          },
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "404": {
-            "description": "Returns if no voucher is found for the provided PIN code.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Returns if the PIN code is invalid or has a validation error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Returns the voucher information if found and valid.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VoucherInfoModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/ad-be/vouchers/redeem": {
-      "post": {
-        "tags": [
-          "Voucher"
-        ],
-        "summary": "Redeems the PIN and creates a honored deal",
-        "operationId": "RedeemVoucher",
-        "parameters": [
-          {
-            "name": "x-api-version",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The input model containing pin details.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RedeemVoucherInputModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RedeemVoucherInputModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "400": {
-            "description": "Invalid input data.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Pin was redeemed successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HonoredDealModel"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   },
   "components": {
-    "schemas": {
-      "AccountExportData": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid"
+      "schemas": {
+          "AccountExportData": {
+              "type": "object",
+              "properties": {
+                  "userId": {
+                      "type": "string",
+                      "format": "uuid"
+                  },
+                  "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                  },
+                  "favorites": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/FavoriteModel"
+                      },
+                      "nullable": true
+                  },
+                  "honoredDeals": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/HonoredDealModel"
+                      },
+                      "nullable": true
+                  },
+                  "orders": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/OrderModel"
+                      },
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": false
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
+          "AddFavoriteInputModel": {
+              "required": [
+                  "dealId"
+              ],
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal to be added to favorites.",
+                      "format": "uuid"
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents the input model for adding a favorite deal."
           },
-          "favorites": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FavoriteModel"
-            },
-            "nullable": true
+          "CartItemModel": {
+              "required": [
+                  "available",
+                  "dealId",
+                  "maxQuantity",
+                  "price",
+                  "quantity"
+              ],
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal associated with the cart item.",
+                      "format": "uuid"
+                  },
+                  "quantity": {
+                      "maximum": 4294967295,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the quantity of the cart item.",
+                      "format": "int32",
+                      "default": 1,
+                      "example": 1
+                  },
+                  "available": {
+                      "type": "boolean",
+                      "description": "Gets or sets the availability of the cart item.",
+                      "example": true
+                  },
+                  "maxQuantity": {
+                      "maximum": 2147483647,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the maximum quantity of the cart item.",
+                      "format": "int32",
+                      "default": 1,
+                      "example": 2
+                  },
+                  "price": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "example": 6942
+                  },
+                  "priceRegular": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "nullable": true,
+                      "example": 9095
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents an item in an cart."
           },
-          "honoredDeals": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/HonoredDealModel"
-            },
-            "nullable": true
+          "CartModel": {
+              "type": "object",
+              "properties": {
+                  "cartId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the cart.",
+                      "format": "uuid"
+                  },
+                  "createdAt": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the cart was created.",
+                      "format": "date-time"
+                  },
+                  "updatedAt": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the cart was last updated.",
+                      "format": "date-time"
+                  },
+                  "availableTill": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the cart will expire.",
+                      "format": "date-time",
+                      "nullable": true
+                  },
+                  "total": {
+                      "type": "integer",
+                      "description": "Total price of the order",
+                      "format": "int64"
+                  },
+                  "totalRegular": {
+                      "type": "integer",
+                      "description": "Regular total price of the order",
+                      "format": "int64",
+                      "nullable": true
+                  },
+                  "saving": {
+                      "type": "integer",
+                      "description": "Amount of savings",
+                      "format": "int64",
+                      "nullable": true
+                  },
+                  "recreatedDueExpiration": {
+                      "type": "boolean",
+                      "description": "Indicates if the cart was recreated because the previous cart had expired"
+                  },
+                  "expiredCartId": {
+                      "type": "string",
+                      "description": "Id of the prevous expired cart",
+                      "format": "uuid",
+                      "nullable": true
+                  },
+                  "items": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/CartItemModel"
+                      },
+                      "description": "Gets or sets the collection of items in the cart.",
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents an cart with associated details."
           },
-          "orders": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderModel"
-            },
-            "nullable": true
+          "CheckoutInputModel": {
+              "required": [
+                  "city",
+                  "countryCode",
+                  "dateOfBirth",
+                  "firstName",
+                  "houseNumber",
+                  "lastName",
+                  "postalCode",
+                  "street"
+              ],
+              "type": "object",
+              "properties": {
+                  "firstName": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the first name.",
+                      "example": "John"
+                  },
+                  "lastName": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the last name.",
+                      "example": "Doe"
+                  },
+                  "dateOfBirth": {
+                      "type": "string",
+                      "description": "Gets or sets the date of birth.",
+                      "format": "date",
+                      "example": "1989-07-01"
+                  },
+                  "city": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the city.",
+                      "example": "Cologne"
+                  },
+                  "countryCode": {
+                      "maxLength": 2,
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the country code.",
+                      "example": "DE"
+                  },
+                  "postalCode": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the postal code.",
+                      "example": "50678"
+                  },
+                  "street": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the street.",
+                      "example": "Ubierring"
+                  },
+                  "houseNumber": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the house number.",
+                      "example": "35"
+                  },
+                  "email": {
+                      "maxLength": 320,
+                      "type": "string",
+                      "description": "Gets or sets the optional email address.",
+                      "format": "email",
+                      "nullable": true,
+                      "example": "john.doe@aldi-deals.de"
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents the input model for a checkout process."
+          },
+          "CreateCheckoutModel": {
+              "required": [
+                  "redirectUrl"
+              ],
+              "type": "object",
+              "properties": {
+                  "redirectUrl": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the URL to redirect after checkout."
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents the model for creating a checkout."
+          },
+          "CreateOrUpdateDealInputModel": {
+              "required": [
+                  "dealId",
+                  "maxOrderQuantity",
+                  "name",
+                  "price",
+                  "promotionEnd",
+                  "promotionStart"
+              ],
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal.",
+                      "format": "uuid"
+                  },
+                  "name": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the name of the deal.",
+                      "example": "Sushi for 4 Persons at Best Sushi"
+                  },
+                  "price": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "example": 6942
+                  },
+                  "regularPrice": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "nullable": true,
+                      "example": 9095
+                  },
+                  "promotionStart": {
+                      "type": "string",
+                      "description": "Gets or sets the start date of the promotion.",
+                      "format": "date-time"
+                  },
+                  "promotionEnd": {
+                      "type": "string",
+                      "description": "Gets or sets the end date of the promotion.",
+                      "format": "date-time"
+                  },
+                  "maxOrderQuantity": {
+                      "maximum": 65535,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the maximum order quantity for the deal.",
+                      "format": "uint16",
+                      "example": 1
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents the input model for creating or updating a deal."
+          },
+          "DealModel": {
+              "required": [
+                  "dealId",
+                  "maxOrderQuantity",
+                  "name",
+                  "price",
+                  "promotionEnd",
+                  "promotionStart"
+              ],
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal.",
+                      "format": "uuid"
+                  },
+                  "name": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the name of the deal.",
+                      "example": "Sushi for 4 Persons at Best Sushi"
+                  },
+                  "price": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "example": 6942
+                  },
+                  "regularPrice": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "nullable": true,
+                      "example": 9095
+                  },
+                  "promotionStart": {
+                      "type": "string",
+                      "description": "Gets or sets the start date of the promotion.",
+                      "format": "date-time"
+                  },
+                  "promotionEnd": {
+                      "type": "string",
+                      "description": "Gets or sets the end date of the promotion.",
+                      "format": "date-time"
+                  },
+                  "maxOrderQuantity": {
+                      "maximum": 65535,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the maximum order quantity for the deal.",
+                      "format": "uint16",
+                      "example": 1
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents a deal for a promotional offer."
+          },
+          "DealModelPagedList": {
+              "required": [
+                  "items",
+                  "total"
+              ],
+              "type": "object",
+              "properties": {
+                  "take": {
+                      "maximum": 1000,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to retrieve.",
+                      "format": "int32",
+                      "default": 50
+                  },
+                  "skip": {
+                      "maximum": 999,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to skip.",
+                      "format": "int32",
+                      "default": 0
+                  },
+                  "total": {
+                      "type": "integer",
+                      "description": "Gets or sets the total number of items.",
+                      "format": "int32"
+                  },
+                  "items": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/DealModel"
+                      },
+                      "description": "Gets or sets the items in the paginated list."
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents a paginated list of items."
+          },
+          "FavoriteModel": {
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal.",
+                      "format": "uuid"
+                  },
+                  "createdAt": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the favorite deal was created.",
+                      "format": "date-time"
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents a favorite deal with associated details."
+          },
+          "FavoriteModelPagedList": {
+              "required": [
+                  "items",
+                  "total"
+              ],
+              "type": "object",
+              "properties": {
+                  "take": {
+                      "maximum": 1000,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to retrieve.",
+                      "format": "int32",
+                      "default": 50
+                  },
+                  "skip": {
+                      "maximum": 999,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to skip.",
+                      "format": "int32",
+                      "default": 0
+                  },
+                  "total": {
+                      "type": "integer",
+                      "description": "Gets or sets the total number of items.",
+                      "format": "int32"
+                  },
+                  "items": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/FavoriteModel"
+                      },
+                      "description": "Gets or sets the items in the paginated list."
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents a paginated list of items."
+          },
+          "HonoredDealModel": {
+              "required": [
+                  "code",
+                  "createdAt",
+                  "dealId",
+                  "honoredDealId",
+                  "serial"
+              ],
+              "type": "object",
+              "properties": {
+                  "honoredDealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the honored deal.",
+                      "format": "uuid"
+                  },
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal.",
+                      "format": "uuid"
+                  },
+                  "orderId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the order.",
+                      "format": "uuid",
+                      "nullable": true
+                  },
+                  "pin": {
+                      "type": "string",
+                      "description": "Gets or sets the PIN code of a voucher.",
+                      "format": "uuid",
+                      "nullable": true,
+                      "example": "NK32 F6D6 GVE7 6I4R"
+                  },
+                  "code": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the code of the honored deal.",
+                      "example": "12345-12345-122318"
+                  },
+                  "serial": {
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the serial number of the honored deal.",
+                      "example": "7326885455254538"
+                  },
+                  "createdAt": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the honored deal was created.",
+                      "format": "date-time"
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents an honored deal with associated details."
+          },
+          "HonoredDealModelPagedList": {
+              "required": [
+                  "items",
+                  "total"
+              ],
+              "type": "object",
+              "properties": {
+                  "take": {
+                      "maximum": 1000,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to retrieve.",
+                      "format": "int32",
+                      "default": 50
+                  },
+                  "skip": {
+                      "maximum": 999,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to skip.",
+                      "format": "int32",
+                      "default": 0
+                  },
+                  "total": {
+                      "type": "integer",
+                      "description": "Gets or sets the total number of items.",
+                      "format": "int32"
+                  },
+                  "items": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/HonoredDealModel"
+                      },
+                      "description": "Gets or sets the items in the paginated list."
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents a paginated list of items."
+          },
+          "OrderItemModel": {
+              "required": [
+                  "dealId",
+                  "price",
+                  "quantity"
+              ],
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal associated with the order item.",
+                      "format": "uuid"
+                  },
+                  "quantity": {
+                      "maximum": 4294967295,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the quantity of the order item.",
+                      "format": "int32",
+                      "default": 1,
+                      "example": 1
+                  },
+                  "price": {
+                      "maximum": 4294967295,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the price of the deal in cents.",
+                      "format": "uint32",
+                      "example": 6942
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents an item in an order."
+          },
+          "OrderModel": {
+              "type": "object",
+              "properties": {
+                  "orderId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the order.",
+                      "format": "uuid"
+                  },
+                  "createdAt": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the order was created.",
+                      "format": "date-time"
+                  },
+                  "updatedAt": {
+                      "type": "string",
+                      "description": "Gets or sets the date and time when the order was last updated.",
+                      "format": "date-time"
+                  },
+                  "items": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/OrderItemModel"
+                      },
+                      "description": "Gets or sets the collection of items in the order.",
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents an order with associated details."
+          },
+          "OrderModelPagedList": {
+              "required": [
+                  "items",
+                  "total"
+              ],
+              "type": "object",
+              "properties": {
+                  "take": {
+                      "maximum": 1000,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to retrieve.",
+                      "format": "int32",
+                      "default": 50
+                  },
+                  "skip": {
+                      "maximum": 999,
+                      "minimum": 0,
+                      "type": "integer",
+                      "description": "Gets or sets the number of items to skip.",
+                      "format": "int32",
+                      "default": 0
+                  },
+                  "total": {
+                      "type": "integer",
+                      "description": "Gets or sets the total number of items.",
+                      "format": "int32"
+                  },
+                  "items": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/OrderModel"
+                      },
+                      "description": "Gets or sets the items in the paginated list."
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents a paginated list of items."
+          },
+          "ProblemDetails": {
+              "type": "object",
+              "properties": {
+                  "type": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "title": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "nullable": true
+                  },
+                  "detail": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "instance": {
+                      "type": "string",
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": {}
+          },
+          "RedeemVoucherInputModel": {
+              "required": [
+                  "pin"
+              ],
+              "type": "object",
+              "properties": {
+                  "pin": {
+                      "maxLength": 19,
+                      "minLength": 1,
+                      "type": "string",
+                      "description": "Gets or sets the PIN code of a voucher to be validated.",
+                      "example": "NK32 F6D6 GVE7 6I4R"
+                  },
+                  "email": {
+                      "maxLength": 320,
+                      "type": "string",
+                      "description": "Gets or sets the optional email address.",
+                      "format": "email",
+                      "nullable": true,
+                      "example": "john.doe@aldi-deals.de"
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents the input model for redeeming a voucher."
+          },
+          "SortBy": {
+              "enum": [
+                  "recentlyAdded",
+                  "mostFavorited",
+                  "mostSold"
+              ],
+              "type": "string",
+              "description": "Specifies the criteria for sorting deals."
+          },
+          "TestInputModel": {
+              "required": [
+                  "bar",
+                  "foo"
+              ],
+              "type": "object",
+              "properties": {
+                  "foo": {
+                      "minLength": 1,
+                      "type": "string"
+                  },
+                  "bar": {
+                      "minLength": 1,
+                      "type": "string"
+                  }
+              },
+              "additionalProperties": false
+          },
+          "UpdateCartItem": {
+              "required": [
+                  "dealId",
+                  "quantity"
+              ],
+              "type": "object",
+              "properties": {
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the unique identifier of the deal associated with the order item.",
+                      "format": "uuid"
+                  },
+                  "quantity": {
+                      "maximum": 100,
+                      "minimum": 1,
+                      "type": "integer",
+                      "description": "Gets or sets the quantity of the order item.",
+                      "format": "int32",
+                      "default": 1,
+                      "example": 1
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Represents the model for updating an order item."
+          },
+          "ValidationProblemDetails": {
+              "type": "object",
+              "properties": {
+                  "type": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "title": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "nullable": true
+                  },
+                  "detail": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "instance": {
+                      "type": "string",
+                      "nullable": true
+                  },
+                  "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                          "type": "array",
+                          "items": {
+                              "type": "string"
+                          }
+                      },
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": {}
+          },
+          "VoucherInfoModel": {
+              "type": "object",
+              "properties": {
+                  "state": {
+                      "$ref": "#/components/schemas/VoucherState"
+                  },
+                  "dealId": {
+                      "type": "string",
+                      "description": "Gets or sets the ID of the deal associated with the voucher, if any.",
+                      "format": "uuid",
+                      "nullable": true
+                  }
+              },
+              "additionalProperties": false,
+              "description": "Model representing information about a voucher."
+          },
+          "VoucherState": {
+              "enum": [
+                  "available",
+                  "redeemed"
+              ],
+              "type": "string",
+              "description": "Represents the state of a voucher."
           }
-        },
-        "additionalProperties": false
       },
-      "AddFavoriteInputModel": {
-        "required": [
-          "dealId"
-        ],
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal to be added to favorites.",
-            "format": "uuid"
+      "securitySchemes": {
+          "Bearer": {
+              "type": "http",
+              "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+              "scheme": "Bearer"
           }
-        },
-        "additionalProperties": false,
-        "description": "Represents the input model for adding a favorite deal."
-      },
-      "CartItemModel": {
-        "required": [
-          "available",
-          "dealId",
-          "maxQuantity",
-          "price",
-          "quantity"
-        ],
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal associated with the cart item.",
-            "format": "uuid"
-          },
-          "quantity": {
-            "maximum": 4294967295,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the quantity of the cart item.",
-            "format": "int32",
-            "default": 1,
-            "example": 1
-          },
-          "available": {
-            "type": "boolean",
-            "description": "Gets or sets the availability of the cart item.",
-            "example": true
-          },
-          "maxQuantity": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the maximum quantity of the cart item.",
-            "format": "int32",
-            "default": 1,
-            "example": 2
-          },
-          "price": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "example": 6942
-          },
-          "priceRegular": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "nullable": true,
-            "example": 9095
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents an item in an cart."
-      },
-      "CartModel": {
-        "type": "object",
-        "properties": {
-          "cartId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the cart.",
-            "format": "uuid"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the cart was created.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the cart was last updated.",
-            "format": "date-time"
-          },
-          "availableTill": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the cart will expire.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "description": "Total price of the order",
-            "format": "int64"
-          },
-          "totalRegular": {
-            "type": "integer",
-            "description": "Regular total price of the order",
-            "format": "int64",
-            "nullable": true
-          },
-          "saving": {
-            "type": "integer",
-            "description": "Amount of savings",
-            "format": "int64",
-            "nullable": true
-          },
-          "recreatedDueExpiration": {
-            "type": "boolean",
-            "description": "Indicates if the cart was recreated because the previous cart had expired"
-          },
-          "expiredCartId": {
-            "type": "string",
-            "description": "Id of the prevous expired cart",
-            "format": "uuid",
-            "nullable": true
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CartItemModel"
-            },
-            "description": "Gets or sets the collection of items in the cart.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents an cart with associated details."
-      },
-      "CheckoutInputModel": {
-        "required": [
-          "city",
-          "countryCode",
-          "dateOfBirth",
-          "firstName",
-          "houseNumber",
-          "lastName",
-          "postalCode",
-          "street"
-        ],
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the first name.",
-            "example": "John"
-          },
-          "lastName": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the last name.",
-            "example": "Doe"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "description": "Gets or sets the date of birth.",
-            "format": "date",
-            "example": "1989-07-01"
-          },
-          "city": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the city.",
-            "example": "Cologne"
-          },
-          "countryCode": {
-            "maxLength": 2,
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the country code.",
-            "example": "DE"
-          },
-          "postalCode": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the postal code.",
-            "example": "50678"
-          },
-          "street": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the street.",
-            "example": "Ubierring"
-          },
-          "houseNumber": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the house number.",
-            "example": "35"
-          },
-          "email": {
-            "maxLength": 320,
-            "type": "string",
-            "description": "Gets or sets the optional email address.",
-            "format": "email",
-            "nullable": true,
-            "example": "john.doe@aldi-deals.de"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the input model for a checkout process."
-      },
-      "CreateCheckoutModel": {
-        "required": [
-          "redirectUrl"
-        ],
-        "type": "object",
-        "properties": {
-          "redirectUrl": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the URL to redirect after checkout."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the model for creating a checkout."
-      },
-      "CreateOrUpdateDealInputModel": {
-        "required": [
-          "dealId",
-          "maxOrderQuantity",
-          "name",
-          "price",
-          "promotionEnd",
-          "promotionStart"
-        ],
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal.",
-            "format": "uuid"
-          },
-          "name": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the name of the deal.",
-            "example": "Sushi for 4 Persons at Best Sushi"
-          },
-          "price": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "example": 6942
-          },
-          "regularPrice": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "nullable": true,
-            "example": 9095
-          },
-          "promotionStart": {
-            "type": "string",
-            "description": "Gets or sets the start date of the promotion.",
-            "format": "date-time"
-          },
-          "promotionEnd": {
-            "type": "string",
-            "description": "Gets or sets the end date of the promotion.",
-            "format": "date-time"
-          },
-          "maxOrderQuantity": {
-            "maximum": 65535,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the maximum order quantity for the deal.",
-            "format": "uint16",
-            "example": 1
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the input model for creating or updating a deal."
-      },
-      "DealModel": {
-        "required": [
-          "dealId",
-          "maxOrderQuantity",
-          "name",
-          "price",
-          "promotionEnd",
-          "promotionStart"
-        ],
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal.",
-            "format": "uuid"
-          },
-          "name": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the name of the deal.",
-            "example": "Sushi for 4 Persons at Best Sushi"
-          },
-          "price": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "example": 6942
-          },
-          "regularPrice": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "nullable": true,
-            "example": 9095
-          },
-          "promotionStart": {
-            "type": "string",
-            "description": "Gets or sets the start date of the promotion.",
-            "format": "date-time"
-          },
-          "promotionEnd": {
-            "type": "string",
-            "description": "Gets or sets the end date of the promotion.",
-            "format": "date-time"
-          },
-          "maxOrderQuantity": {
-            "maximum": 65535,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the maximum order quantity for the deal.",
-            "format": "uint16",
-            "example": 1
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a deal for a promotional offer."
-      },
-      "DealModelPagedList": {
-        "required": [
-          "items",
-          "total"
-        ],
-        "type": "object",
-        "properties": {
-          "take": {
-            "maximum": 1000,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the number of items to retrieve.",
-            "format": "int32",
-            "default": 50
-          },
-          "skip": {
-            "maximum": 999,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the number of items to skip.",
-            "format": "int32",
-            "default": 0
-          },
-          "total": {
-            "type": "integer",
-            "description": "Gets or sets the total number of items.",
-            "format": "int32"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DealModel"
-            },
-            "description": "Gets or sets the items in the paginated list."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a paginated list of items."
-      },
-      "FavoriteModel": {
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal.",
-            "format": "uuid"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the favorite deal was created.",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a favorite deal with associated details."
-      },
-      "FavoriteModelPagedList": {
-        "required": [
-          "items",
-          "total"
-        ],
-        "type": "object",
-        "properties": {
-          "take": {
-            "maximum": 1000,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the number of items to retrieve.",
-            "format": "int32",
-            "default": 50
-          },
-          "skip": {
-            "maximum": 999,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the number of items to skip.",
-            "format": "int32",
-            "default": 0
-          },
-          "total": {
-            "type": "integer",
-            "description": "Gets or sets the total number of items.",
-            "format": "int32"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FavoriteModel"
-            },
-            "description": "Gets or sets the items in the paginated list."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a paginated list of items."
-      },
-      "HonoredDealModel": {
-        "required": [
-          "code",
-          "createdAt",
-          "dealId",
-          "honoredDealId",
-          "serial"
-        ],
-        "type": "object",
-        "properties": {
-          "honoredDealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the honored deal.",
-            "format": "uuid"
-          },
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal.",
-            "format": "uuid"
-          },
-          "orderId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the order.",
-            "format": "uuid",
-            "nullable": true
-          },
-          "pin": {
-            "type": "string",
-            "description": "Gets or sets the PIN code of a voucher.",
-            "format": "uuid",
-            "nullable": true,
-            "example": "NK32 F6D6 GVE7 6I4R"
-          },
-          "code": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the code of the honored deal.",
-            "example": "12345-12345-122318"
-          },
-          "serial": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the serial number of the honored deal.",
-            "example": "7326885455254538"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the honored deal was created.",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents an honored deal with associated details."
-      },
-      "HonoredDealModelPagedList": {
-        "required": [
-          "items",
-          "total"
-        ],
-        "type": "object",
-        "properties": {
-          "take": {
-            "maximum": 1000,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the number of items to retrieve.",
-            "format": "int32",
-            "default": 50
-          },
-          "skip": {
-            "maximum": 999,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the number of items to skip.",
-            "format": "int32",
-            "default": 0
-          },
-          "total": {
-            "type": "integer",
-            "description": "Gets or sets the total number of items.",
-            "format": "int32"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/HonoredDealModel"
-            },
-            "description": "Gets or sets the items in the paginated list."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a paginated list of items."
-      },
-      "OrderItemModel": {
-        "required": [
-          "dealId",
-          "price",
-          "quantity"
-        ],
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal associated with the order item.",
-            "format": "uuid"
-          },
-          "quantity": {
-            "maximum": 4294967295,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the quantity of the order item.",
-            "format": "int32",
-            "default": 1,
-            "example": 1
-          },
-          "price": {
-            "maximum": 4294967295,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the price of the deal in cents.",
-            "format": "uint32",
-            "example": 6942
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents an item in an order."
-      },
-      "OrderModel": {
-        "type": "object",
-        "properties": {
-          "orderId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the order.",
-            "format": "uuid"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the order was created.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "Gets or sets the date and time when the order was last updated.",
-            "format": "date-time"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderItemModel"
-            },
-            "description": "Gets or sets the collection of items in the order.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents an order with associated details."
-      },
-      "OrderModelPagedList": {
-        "required": [
-          "items",
-          "total"
-        ],
-        "type": "object",
-        "properties": {
-          "take": {
-            "maximum": 1000,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the number of items to retrieve.",
-            "format": "int32",
-            "default": 50
-          },
-          "skip": {
-            "maximum": 999,
-            "minimum": 0,
-            "type": "integer",
-            "description": "Gets or sets the number of items to skip.",
-            "format": "int32",
-            "default": 0
-          },
-          "total": {
-            "type": "integer",
-            "description": "Gets or sets the total number of items.",
-            "format": "int32"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderModel"
-            },
-            "description": "Gets or sets the items in the paginated list."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a paginated list of items."
-      },
-      "ProblemDetails": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": { }
-      },
-      "RedeemVoucherInputModel": {
-        "required": [
-          "pin"
-        ],
-        "type": "object",
-        "properties": {
-          "pin": {
-            "maxLength": 19,
-            "minLength": 1,
-            "type": "string",
-            "description": "Gets or sets the PIN code of a voucher to be validated.",
-            "example": "NK32 F6D6 GVE7 6I4R"
-          },
-          "email": {
-            "maxLength": 320,
-            "type": "string",
-            "description": "Gets or sets the optional email address.",
-            "format": "email",
-            "nullable": true,
-            "example": "john.doe@aldi-deals.de"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the input model for redeeming a voucher."
-      },
-      "SortBy": {
-        "enum": [
-          "recentlyAdded",
-          "mostFavorited",
-          "mostSold"
-        ],
-        "type": "string",
-        "description": "Specifies the criteria for sorting deals."
-      },
-      "TestInputModel": {
-        "required": [
-          "bar",
-          "foo"
-        ],
-        "type": "object",
-        "properties": {
-          "foo": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "bar": {
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateCartItem": {
-        "required": [
-          "dealId",
-          "quantity"
-        ],
-        "type": "object",
-        "properties": {
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the unique identifier of the deal associated with the order item.",
-            "format": "uuid"
-          },
-          "quantity": {
-            "maximum": 100,
-            "minimum": 1,
-            "type": "integer",
-            "description": "Gets or sets the quantity of the order item.",
-            "format": "int32",
-            "default": 1,
-            "example": 1
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the model for updating an order item."
-      },
-      "ValidationProblemDetails": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
-          },
-          "errors": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": { }
-      },
-      "VoucherInfoModel": {
-        "type": "object",
-        "properties": {
-          "state": {
-            "$ref": "#/components/schemas/VoucherState"
-          },
-          "dealId": {
-            "type": "string",
-            "description": "Gets or sets the ID of the deal associated with the voucher, if any.",
-            "format": "uuid",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Model representing information about a voucher."
-      },
-      "VoucherState": {
-        "enum": [
-          "available",
-          "redeemed"
-        ],
-        "type": "string",
-        "description": "Represents the state of a voucher."
       }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "http",
-        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-        "scheme": "Bearer"
-      }
-    }
   },
   "security": [
-    {
-      "Bearer": [ ]
-    }
+      {
+          "Bearer": []
+      }
   ]
 }
