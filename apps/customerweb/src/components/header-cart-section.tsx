@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import React from 'react';
-import { Badge } from '@nextui-org/badge';
+import { Badge } from '@nextui-org/react';
 import { DateTime } from 'luxon';
 import { useCart } from '@/app/contexts/cart/use-cart';
 

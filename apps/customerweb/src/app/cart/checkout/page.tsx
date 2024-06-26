@@ -181,7 +181,6 @@ export default function Page() {
                       render={({ field }) => (
                         <AldiDatePicker
                           className="col-span-4"
-                          label="Geburtsdatum"
                           granularity="day"
                           isInvalid={!!errors.dateOfBirth}
                           errorMessage={

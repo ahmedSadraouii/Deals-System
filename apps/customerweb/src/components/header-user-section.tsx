@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Badge } from '@nextui-org/badge';
+import { Badge } from '@nextui-org/react';
 import { getServerSession } from 'next-auth';
 import { HeaderUserProfileButton } from '@/components/header-user-profile-button';
 import { AldiButton } from '@/components/nextui/aldi-button';
