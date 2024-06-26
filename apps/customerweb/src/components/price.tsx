@@ -7,8 +7,9 @@ export interface PriceProps {
   actualPrice: number;
   showDigits?: boolean;
   uvp: boolean;
-  textSize?: 'default' | 1 | 2 | 3;
+  textSize?: 'default' | 1 | 2 | 3 | 4;
   badge?: 1 | 2 | 3;
+  variant?: 'light' | 'dark';
 }
 
 export function Price({
@@ -18,6 +19,7 @@ export function Price({
   uvp,
   textSize = 'default',
   badge = 1,
+  variant = 'dark',
 }: PriceProps) {
   const priceText = tv({
     base: 'font-bold text-aldi-key flex items-center text-aldi-key',
@@ -27,6 +29,7 @@ export function Price({
         1: 'text-2xl',
         2: 'text-5xl',
         3: 'text-[80px] mr-6',
+        4: 'text-[88px] mr-2',
       },
     },
     defaultVariants: {
@@ -35,13 +38,19 @@ export function Price({
   });
 
   const uvpText = tv({
-    base: 'font-light text-aldi-blue line-through mr-2',
+    base: 'font-light line-through mr-2',
     variants: {
       textSize: {
         default: 'text-lg',
         1: 'text-lg',
         2: 'text-xl',
         3: 'text-4xl mr-6',
+        4: 'text-3xl mr-2',
+      },
+      variant: {
+        default: 'dark',
+        dark: 'text-secondary',
+        light: 'text-white',
       },
     },
     defaultVariants: {
@@ -57,16 +66,16 @@ export function Price({
         1: 'text-sm',
         2: 'text-sm',
         3: 'text-xl font-normal ml-6',
+        4: 'text-xl font-normal ml-6',
+      },
+      badge: {
+        default: 1,
+        1: '',
+        2: 'bg-orange-100 rounded-lg p-2',
+        3: 'bg-aldi-key text-white rounded-lg p-2',
       },
     },
   });
-
-  const badgeClass =
-    badge === 2
-      ? 'bg-orange-100 rounded-lg p-2'
-      : badge === 3
-      ? 'bg-aldi-key text-white rounded-lg p-2'
-      : '';
 
   const savingsPercentage = useMemo(
     () =>
@@ -80,13 +89,13 @@ export function Price({
     <div>
       <span className={priceText({ textSize })}>
         {oldPrice !== undefined && (
-          <small className={uvpText({ textSize })}>
+          <small className={uvpText({ textSize, variant })}>
             {uvp ? 'UVP' : ''} {formatCurrency(oldPrice, showDigits)}
           </small>
         )}
         {formatCurrency(actualPrice, showDigits)}
         {actualPrice > 0 && (
-          <small className={`${savingsText({ textSize })} ${badgeClass}`}>
+          <small className={`${savingsText({ textSize, badge })}`}>
             Du sparst {savingsPercentage}%
           </small>
         )}
