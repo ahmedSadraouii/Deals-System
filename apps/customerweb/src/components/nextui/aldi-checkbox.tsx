@@ -12,7 +12,8 @@ export const AldiCheckbox = extendVariants(Checkbox, {
     base: {
       base: {
         base: 'rounded-full',
-        wrapper: 'mr-4',
+        wrapper: 'mr-4 after:!bg-transparent',
+        icon: 'text-secondary',
       },
     },
     isInvalid: {
