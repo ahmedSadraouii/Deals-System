@@ -4,10 +4,10 @@ import { IconClock } from '@/components/svg/icon-clock';
 
 export default function MegaDealCard() {
   return (
-    <Card className="w-fit bg-transparent backdrop-blur-sm">
+    <Card className="w-fit border border-white/10 bg-transparent bg-white/10 backdrop-blur-sm">
       <CardBody className="flex flex-row items-center gap-2">
         <h1 className="text-2xl font-semibold uppercase text-white">
-          dein mega deal
+          Dein Mega Deal
         </h1>
         <div className="ms-3 flex items-center space-x-1  rtl:space-x-reverse">
           <div className="flex  items-center rounded-lg border-1 bg-white px-4 py-2 font-normal text-aldi-key">

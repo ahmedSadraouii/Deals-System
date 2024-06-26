@@ -12,6 +12,7 @@ import MegaDealCard from '@/components/home/mega-deal-card';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
+import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
@@ -50,14 +51,14 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
     primaryImage &&
     defaultLoader({
       src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
-      width: 768,
+      width: 1280,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
   const supplierImageUrl =
     supplierImage &&
     defaultLoader({
       src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
-      width: 256,
+      width: 96,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
 
@@ -69,12 +70,18 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
   };
   return (
     <Card
-      className="container mx-auto h-[80vh] rounded-[40px] md:h-[60vh]"
+      className="container relative mx-auto aspect-video rounded-[40px]"
       style={cardStyle}
     >
+      <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-b from-black/0 to-black/80" />
       <CardHeader>
-        <div className="mt-6 flex items-center gap-4 rounded-lg bg-transparent p-2 backdrop-blur-sm md:hidden">
-          <Image src="/img_1.png" alt="partner image" width={65} height={65} />
+        <div className="mt-6 flex items-center gap-4 rounded-lg border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:hidden">
+          <Image
+            src={supplierImageUrl!}
+            alt="partner image"
+            width={65}
+            height={65}
+          />
           <div>
             <p className="text-white">Partner des Deals:</p>
             <h1 className="text-xl text-white">{fullSupplier.name}</h1>
@@ -96,7 +103,8 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
             showDigits={true}
             uvp={true}
             badge={3}
-            textSize={3}
+            textSize={4}
+            variant="light"
           />
         </div>
         <div className="block md:hidden">
@@ -120,16 +128,23 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
           >
             Jetzt Deal sichern
           </AldiButton>
-          <div className="hidden items-center gap-4 bg-transparent p-2 backdrop-blur-sm md:flex">
-            <Image
-              src={supplierImageUrl!}
-              alt="partner image"
-              width={65}
-              height={65}
-            />
-            <div>
-              <p className="text-white">Partner des Deals:</p>
-              <h1 className="text-xl text-white">{fullSupplier.name}</h1>
+          <div className="hidden items-center gap-4 rounded-[20px] border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:flex">
+            <div
+              className={cn(
+                'flex h-20 w-20 items-center justify-center rounded-[20px] bg-neutral-200/10 p-2',
+              )}
+            >
+              <Image
+                src={supplierImageUrl!}
+                alt="Jober"
+                width={64}
+                height={64}
+                className="shrink-0 object-contain"
+              />
+            </div>
+            <div className="p-2">
+              <p className="text-base text-white">Partner des Deals:</p>
+              <h1 className="text-2xl text-white">{fullSupplier.name}</h1>
             </div>
           </div>
         </div>
