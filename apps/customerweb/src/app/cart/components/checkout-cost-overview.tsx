@@ -6,16 +6,9 @@ import { Link } from '@nextui-org/react';
 import { CartItemList } from '@/app/cart/components/cart-item-list';
 import { ReservationTimer } from '@/app/cart/components/reservation-timer';
 import { useCart } from '@/app/contexts/cart/use-cart';
-import { AldiButton } from '@/components/nextui/aldi-button';
 import { formatCurrency } from '@/utils/format-currency';
 
-export interface CheckoutCostOverviewProps {
-  onCheckout?: () => void;
-}
-
-export function CheckoutCostOverview({
-  onCheckout,
-}: CheckoutCostOverviewProps) {
+export function CheckoutCostOverview() {
   const { cartContext } = useCart();
   if (!cartContext || !cartContext.cart) return null;
 
@@ -73,16 +66,6 @@ export function CheckoutCostOverview({
           {formatCurrency(total / 100, true)}
         </p>
       </div>
-      <AldiButton
-        variant="solid"
-        color="secondary"
-        fullWidth={true}
-        size="lg"
-        onClick={onCheckout}
-        href="/cart/checkout"
-      >
-        Jetzt kostenpflichtig abschliessen
-      </AldiButton>
     </>
   );
 }
