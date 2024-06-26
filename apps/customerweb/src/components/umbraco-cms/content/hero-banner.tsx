@@ -3,8 +3,11 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { UmbracoDeal, UmbracoSupplier } from '../umbraco-types';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
+import type {
+  UmbracoDeal,
+  UmbracoSupplier,
+} from 'src/components/umbraco-cms/umbraco-types';
 import MegaDealCard from '@/components/home/mega-deal-card';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';

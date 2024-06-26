@@ -160,6 +160,16 @@
         "operationId": "ConfirmCheckout",
         "parameters": [
           {
+            "name": "cartId",
+            "in": "query",
+            "description": "Gets or sets the cart id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
             "name": "returnMac",
             "in": "query",
             "description": "Gets or sets the return MAC address.",

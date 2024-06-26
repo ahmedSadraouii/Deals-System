@@ -137,7 +137,6 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
               <AldiSelect
                 label="Herunterladen"
                 items={options}
-                color="aldiblue"
                 className="w-full md:max-w-56"
               />
               {options.map((option) => (

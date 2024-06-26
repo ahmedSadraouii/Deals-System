@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
-import type { CartModel } from 'api-deals';
+import type { CartModel, EnsureCartRequest } from 'api-deals';
 import { ResponseError } from 'api-deals';
-import type { EnsureCartRequest } from 'api-deals/generated/apis/CartsApi';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 import { getCartsApiClient } from '@/utils/deals-api-client';

@@ -38,7 +38,7 @@ export function useCart(): {
     });
 
     return getCartResponse.cart;
-  }, [cartContext]);
+  }, [cartContext, session.status]);
 
   const updateCartItem = useCallback(
     async (dealId: string, quantity: number) => {

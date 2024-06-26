@@ -18,6 +18,10 @@ export class ApiError extends Error {
   }
 
   toString(): string {
-    return `${super.toString()}\nInner Error: ${this.innerError?.toString()}\nError Response: ${JSON.stringify(this.errorResponse, null, 2)}\nContext: ${JSON.stringify(this.context, null, 2)}`;
+    return `${super.toString()}\nInner Error: ${this.innerError?.toString()}\nError Response: ${JSON.stringify(
+      this.errorResponse,
+      null,
+      2,
+    )}\nContext: ${JSON.stringify(this.context, null, 2)}`;
   }
 }

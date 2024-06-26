@@ -5,7 +5,7 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { Spinner } from '@nextui-org/react';
-import type { CartItemModel } from 'api-deals/generated/models/CartItemModel';
+import type { CartItemModel } from 'api-deals';
 import { getDealAction } from '@/app/cart/actions/get-deal.action';
 import { getSupplierAction } from '@/app/cart/actions/get-supplier.action';
 import { useCart } from '@/app/contexts/cart/use-cart';
@@ -63,7 +63,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
           config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
         });
 
-      const productImageUrl =
+      const _productImageUrl =
         primaryImage &&
         defaultLoader({
           src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
