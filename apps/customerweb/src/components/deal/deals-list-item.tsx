@@ -1,12 +1,7 @@
 import { DealsListItemGrid } from '@/components/deal/deals-list-item-grid';
 import { DealsListItemHeroSlider } from '@/components/deal/deals-list-item-hero-slider';
-import type {
-  UmbracoDeal,
-  UmbracoSupplier,
-} from '@/components/umbraco-cms/umbraco-types';
+import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { getContentApiClient } from '@/utils/content-api-client';
-import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
-import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
 export interface DealsListItemProps {
   deal: UmbracoDeal;
@@ -20,25 +15,15 @@ export async function DealsListItem({
   ...otherProps
 }: DealsListItemProps) {
   const contentApi = getContentApiClient();
+  const fullDeal = await contentApi.getUmbracoDeal(deal.id);
 
-  const dealContent = await contentApi.getContentItemById20({
-    id: deal.id,
-  });
-  const fullDeal = dealContent as UmbracoDeal;
-
-  if (!verifyDealIsCorrect(fullDeal)) {
-    console.log('Deal is incorrect', fullDeal);
+  if (!fullDeal) {
     return null;
   }
 
-  const supplierContent = await contentApi.getContentItemById20({
-    id: fullDeal.properties?.supplier!.id!,
-  });
+  const fullSupplier = await contentApi.getUmbracoSupplierByDeal(fullDeal);
 
-  const fullSupplier = supplierContent as UmbracoSupplier;
-
-  if (!verifySupplierIsCorrect(fullSupplier)) {
-    console.log('Supplier is incorrect', fullSupplier);
+  if (!fullSupplier) {
     return null;
   }
 

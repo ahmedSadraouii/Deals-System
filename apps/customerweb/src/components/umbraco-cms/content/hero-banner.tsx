@@ -4,17 +4,12 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
-import type {
-  UmbracoDeal,
-  UmbracoSupplier,
-} from 'src/components/umbraco-cms/umbraco-types';
+import type { UmbracoDeal } from 'src/components/umbraco-cms/umbraco-types';
 import MegaDealCard from '@/components/home/mega-deal-card';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { getContentApiClient } from '@/utils/content-api-client';
-import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
-import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
 interface HeroBannerProps {
   deals: Array<UmbracoDeal>;
@@ -22,27 +17,18 @@ interface HeroBannerProps {
 
 export default async function HeroBanner({ deals }: HeroBannerProps) {
   const contentApi = getContentApiClient();
+  const fullDeal = await contentApi.getUmbracoDeal(deals[0].id);
 
-  const dealContent = await contentApi.getContentItemById20({
-    id: deals[0].id,
-  });
-  const fullDeal = dealContent as UmbracoDeal;
-
-  if (!verifyDealIsCorrect(fullDeal)) {
-    console.log('Deal is incorrect', fullDeal);
+  if (!fullDeal) {
     return null;
   }
 
-  const supplierContent = await contentApi.getContentItemById20({
-    id: fullDeal.properties?.supplier!.id!,
-  });
+  const fullSupplier = await contentApi.getUmbracoSupplierByDeal(fullDeal);
 
-  const fullSupplier = supplierContent as UmbracoSupplier;
-
-  if (!verifySupplierIsCorrect(fullSupplier)) {
-    console.log('Supplier is incorrect', fullSupplier);
+  if (!fullSupplier) {
     return null;
   }
+
   const primaryImage = fullDeal.properties?.pictures?.[0]?.url;
   const supplierImage = fullSupplier.properties?.picture?.[0]?.url;
 
