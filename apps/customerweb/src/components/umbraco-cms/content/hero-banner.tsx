@@ -57,7 +57,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
   return (
     <div className="container mx-auto mt-10 px-4">
       <Card
-        className="relative rounded-lg md:aspect-video lg:rounded-[40px]"
+        className="relative rounded-lg lg:aspect-video lg:rounded-[40px]"
         style={cardStyle}
       >
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-b from-black/0 to-black/80" />
@@ -83,7 +83,18 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
           <h1 className="text-4xl font-semibold uppercase text-white md:hidden">
             {fullDeal.name}
           </h1>
-          <div className="hidden md:block">
+          <div className="hidden md:block xl:hidden">
+            <Price
+              oldPrice={fullDeal.properties?.regularPrice}
+              actualPrice={fullDeal.properties?.price || 0}
+              showDigits={true}
+              uvp={true}
+              badge={3}
+              textSize={3}
+              variant="light"
+            />
+          </div>
+          <div className="hidden xl:block">
             <Price
               oldPrice={fullDeal.properties?.regularPrice}
               actualPrice={fullDeal.properties?.price || 0}
