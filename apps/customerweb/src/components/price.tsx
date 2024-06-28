@@ -71,8 +71,8 @@ export function Price({
       badge: {
         default: 1,
         1: '',
-        2: 'bg-orange-100 rounded-lg p-2',
-        3: 'bg-aldi-key text-white rounded-lg p-2',
+        2: 'bg-orange-100 rounded p-2',
+        3: 'bg-aldi-key text-white rounded p-2',
       },
     },
   });

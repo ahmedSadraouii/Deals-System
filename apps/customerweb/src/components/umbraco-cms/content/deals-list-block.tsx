@@ -18,11 +18,7 @@ export function DealsListBlock({ title, deals, display }: DealsListBlockProps) {
   } else if (display === 'Small Slider') {
     return <DealsListBlockSmallSlider title={title} deals={deals} />;
   } else if (display === 'Hero') {
-    return (
-      <div className="container mx-auto mt-10">
-        <HeroBanner deals={deals} />{' '}
-      </div>
-    );
+    return <HeroBanner deals={deals} />;
   }
 
   return (
