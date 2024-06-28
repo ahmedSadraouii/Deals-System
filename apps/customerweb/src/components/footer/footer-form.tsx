@@ -36,7 +36,7 @@ function FooterForm() {
   return (
     <>
       <form method="post" onSubmit={handleSubmit(onSubmit)} className="mt-5">
-        <div className="mb-5 flex">
+        <div className="items:center mb-5 flex flex-col justify-center gap-5 lg:flex-row">
           <Input
             className="rounded-full bg-white"
             type="text"
@@ -49,7 +49,7 @@ function FooterForm() {
             {...register('name', { required: true })}
           />
           <Input
-            className="ml-4 rounded-full bg-white"
+            className="rounded-full bg-white lg:ml-4"
             type="text"
             label="Nachname"
             variant="bordered"
@@ -83,9 +83,10 @@ function FooterForm() {
             jederzeit möglich.
           </p>
         </div>
+        <p className="mt-4 text-sm text-white">*Pflichtfeld</p>
         <Button
           type="submit"
-          className="mb-5 mt-5 w-full rounded-full bg-aldi-blue px-5 py-7 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300"
+          className="mb-5 mt-5 w-full rounded-full bg-aldi-blue px-5 py-7 text-center text-lg font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 md:font-normal"
         >
           Jetzt anmelden {''}
           <Image
