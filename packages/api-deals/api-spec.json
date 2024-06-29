@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/ad-be/accounts/{userId}/export": {
+    "/accounts/{userId}/export": {
       "post": {
         "tags": [
           "Account"
@@ -45,7 +45,7 @@
         }
       }
     },
-    "/ad-be/accounts/{userId}": {
+    "/accounts/{userId}": {
       "delete": {
         "tags": [
           "Account"
@@ -78,7 +78,7 @@
         }
       }
     },
-    "/ad-be/accounts/cardinal-direction": {
+    "/accounts/cardinal-direction": {
       "get": {
         "tags": [
           "Account"
@@ -134,7 +134,7 @@
         }
       }
     },
-    "/ad-be/carts/checkout": {
+    "/carts/checkout": {
       "post": {
         "tags": [
           "Carts"
@@ -207,7 +207,7 @@
         }
       }
     },
-    "/ad-be/carts/checkout/confirm": {
+    "/carts/checkout/confirm": {
       "post": {
         "tags": [
           "Carts"
@@ -276,7 +276,7 @@
         }
       }
     },
-    "/ad-be/carts/ensure": {
+    "/carts/ensure": {
       "post": {
         "tags": [
           "Carts"
@@ -325,7 +325,7 @@
         }
       }
     },
-    "/ad-be/carts/items": {
+    "/carts/items": {
       "post": {
         "tags": [
           "Carts"
@@ -399,7 +399,7 @@
         }
       }
     },
-    "/ad-be/carts/items/{dealId}": {
+    "/carts/items/{dealId}": {
       "delete": {
         "tags": [
           "Carts"
@@ -468,7 +468,7 @@
         }
       }
     },
-    "/ad-be/deals": {
+    "/deals": {
       "get": {
         "tags": [
           "Deals"
@@ -589,7 +589,7 @@
         }
       }
     },
-    "/ad-be/favorites": {
+    "/favorites": {
       "get": {
         "tags": [
           "Favorites"
@@ -699,7 +699,7 @@
         }
       }
     },
-    "/ad-be/favorites/{dealId}": {
+    "/favorites/{dealId}": {
       "delete": {
         "tags": [
           "Favorites"
@@ -752,7 +752,7 @@
         }
       }
     },
-    "/ad-be/honored-deals": {
+    "/honored-deals": {
       "get": {
         "tags": [
           "HonoredDeals"
@@ -816,7 +816,7 @@
         }
       }
     },
-    "/ad-be/honored-deals/{id}": {
+    "/honored-deals/{id}": {
       "get": {
         "tags": [
           "HonoredDeals"
@@ -876,7 +876,7 @@
         }
       }
     },
-    "/ad-be/orders": {
+    "/orders": {
       "get": {
         "tags": [
           "Orders"
@@ -940,7 +940,7 @@
         }
       }
     },
-    "/ad-be/orders/{orderId}": {
+    "/orders/{orderId}": {
       "get": {
         "tags": [
           "Orders"
@@ -990,7 +990,7 @@
         }
       }
     },
-    "/ad-be/vouchers/{pin}": {
+    "/vouchers/{pin}": {
       "get": {
         "tags": [
           "Voucher"
@@ -1051,7 +1051,7 @@
         }
       }
     },
-    "/ad-be/vouchers/redeem": {
+    "/vouchers/redeem": {
       "post": {
         "tags": [
           "Voucher"

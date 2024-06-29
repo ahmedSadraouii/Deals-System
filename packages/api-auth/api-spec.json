@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/auth/api/admin/encrypt": {
+    "/api/admin/encrypt": {
       "post": {
         "tags": [
           "Admin"
@@ -75,7 +75,7 @@
         }
       }
     },
-    "/auth/api/admin/encrypt-list": {
+    "/api/admin/encrypt-list": {
       "post": {
         "tags": [
           "Admin"
@@ -165,7 +165,7 @@
         }
       }
     },
-    "/auth/api/admin/decrypt": {
+    "/api/admin/decrypt": {
       "post": {
         "tags": [
           "Admin"
@@ -235,7 +235,7 @@
         }
       }
     },
-    "/auth/api/admin/decrypt-list": {
+    "/api/admin/decrypt-list": {
       "post": {
         "tags": [
           "Admin"
@@ -325,7 +325,7 @@
         }
       }
     },
-    "/auth/api/admin/user-details": {
+    "/api/admin/user-details": {
       "get": {
         "tags": [
           "Admin"
@@ -412,7 +412,7 @@
         }
       }
     },
-    "/auth/api/admin/card-activation-transactions": {
+    "/api/admin/card-activation-transactions": {
       "get": {
         "tags": [
           "Admin"
@@ -491,7 +491,7 @@
         }
       }
     },
-    "/auth/api/admin/subscribe-newsletter": {
+    "/api/admin/subscribe-newsletter": {
       "post": {
         "tags": [
           "Admin"
@@ -585,7 +585,7 @@
         }
       }
     },
-    "/auth/api/admin/session-count": {
+    "/api/admin/session-count": {
       "get": {
         "tags": [
           "Admin"
@@ -647,7 +647,7 @@
         }
       }
     },
-    "/auth/api/admin/sessions": {
+    "/api/admin/sessions": {
       "get": {
         "tags": [
           "Admin"
@@ -718,7 +718,7 @@
         }
       }
     },
-    "/auth/api/admin/get-users-for-data-exports": {
+    "/api/admin/get-users-for-data-exports": {
       "get": {
         "tags": [
           "Admin"
@@ -807,7 +807,7 @@
         }
       }
     },
-    "/auth/api/countrycode/cardinal-direction": {
+    "/api/countrycode/cardinal-direction": {
       "get": {
         "tags": [
           "CountryCode"
@@ -925,7 +925,7 @@
         }
       }
     },
-    "/auth/api/postalcode/cardinal-direction": {
+    "/api/postalcode/cardinal-direction": {
       "get": {
         "tags": [
           "PostalCode"
@@ -1043,7 +1043,7 @@
         }
       }
     },
-    "/auth/api/user/register": {
+    "/api/user/register": {
       "post": {
         "tags": [
           "Authentication"
@@ -1172,7 +1172,7 @@
         }
       }
     },
-    "/auth/api/user/email-verification/{verificationId}/{domain}": {
+    "/api/user/email-verification/{verificationId}/{domain}": {
       "get": {
         "tags": [
           "Authentication"
@@ -1276,7 +1276,7 @@
         }
       }
     },
-    "/auth/api/user/verification-callback/{verificationId}/{domain}": {
+    "/api/user/verification-callback/{verificationId}/{domain}": {
       "get": {
         "tags": [
           "Authentication"
@@ -1380,7 +1380,7 @@
         }
       }
     },
-    "/auth/api/user/token": {
+    "/api/user/token": {
       "post": {
         "tags": [
           "Authentication"
@@ -1497,7 +1497,7 @@
         }
       }
     },
-    "/auth/api/user/register-deals": {
+    "/api/user/register-deals": {
       "post": {
         "tags": [
           "Authentication"
@@ -1618,7 +1618,7 @@
         }
       }
     },
-    "/auth/api/user/register-sports": {
+    "/api/user/register-sports": {
       "post": {
         "tags": [
           "Authentication"
@@ -1747,7 +1747,7 @@
         }
       }
     },
-    "/auth/api/user/refresh-token": {
+    "/api/user/refresh-token": {
       "post": {
         "tags": [
           "Authentication"
@@ -1828,7 +1828,7 @@
         }
       }
     },
-    "/auth/api/user/logout": {
+    "/api/user/logout": {
       "post": {
         "tags": [
           "Authentication"
@@ -1937,7 +1937,7 @@
         }
       }
     },
-    "/auth/api/user/forgot-password": {
+    "/api/user/forgot-password": {
       "post": {
         "tags": [
           "Authentication"
@@ -2046,7 +2046,7 @@
         }
       }
     },
-    "/auth/api/user/forgot-password/{forgotPasswordId}/{domain}": {
+    "/api/user/forgot-password/{forgotPasswordId}/{domain}": {
       "get": {
         "tags": [
           "Authentication"
@@ -2130,7 +2130,7 @@
         }
       }
     },
-    "/auth/api/user/forgot-password-by-code/{forgotPasswordId}": {
+    "/api/user/forgot-password-by-code/{forgotPasswordId}": {
       "get": {
         "tags": [
           "Authentication"
@@ -2230,7 +2230,7 @@
         }
       }
     },
-    "/auth/api/user/{code}/new-password": {
+    "/api/user/{code}/new-password": {
       "put": {
         "tags": [
           "Authentication"
@@ -2368,7 +2368,7 @@
         }
       }
     },
-    "/auth/api/user/cardinal-direction": {
+    "/api/user/cardinal-direction": {
       "post": {
         "tags": [
           "Authentication"
@@ -2477,7 +2477,7 @@
         }
       }
     },
-    "/auth/api/user/postalcode-check": {
+    "/api/user/postalcode-check": {
       "get": {
         "tags": [
           "Authentication"
@@ -2597,7 +2597,7 @@
         }
       }
     },
-    "/auth/api/user/resend-verification-email": {
+    "/api/user/resend-verification-email": {
       "post": {
         "tags": [
           "Authentication"
