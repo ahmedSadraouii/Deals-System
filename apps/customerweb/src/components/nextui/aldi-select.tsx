@@ -12,6 +12,11 @@ export const AldiSelect = extendVariants(Select, {
         popoverContent: 'bg-secondary text-white',
       },
     },
+    isInvalid: {
+      true: {
+        trigger: '!bg-transparent',
+      },
+    },
   },
   defaultVariants: {
     size: 'lg',

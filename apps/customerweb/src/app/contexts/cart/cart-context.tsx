@@ -21,6 +21,7 @@ export type CartContextAction =
 
 export interface CartContextState {
   cart?: CartModel;
+  cartExpired: boolean;
 }
 
 export interface CartContextInterface extends CartContextState {
@@ -29,6 +30,7 @@ export interface CartContextInterface extends CartContextState {
 
 export const CartContext = createContext<CartContextInterface>({
   cart: undefined,
+  cartExpired: false,
   dispatch: () => {
     throw new Error('CartContext not initialized');
   },
@@ -44,20 +46,23 @@ export function CartContextProvider({
   initialCart,
 }: CartContextProviderProps) {
   const [state, dispatch] = useReducer(
-    (_state: CartContextState, action: CartContextAction) => {
+    (state: CartContextState, action: CartContextAction) => {
       switch (action.type) {
         case CartContextActionKind.UpdateCart:
           return {
             cart: action.cart,
+            cartExpired: false,
           } as CartContextState;
         case CartContextActionKind.ExpireCart:
           return {
-            cart: undefined,
+            ...state,
+            cartExpired: true,
           } as CartContextState;
       }
     },
     {
       cart: initialCart,
+      cartExpired: false,
     } as CartContextState,
   );
 

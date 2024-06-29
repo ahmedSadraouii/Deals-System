@@ -20,7 +20,7 @@ export interface CartItemProps {
 }
 
 export function CartItem({ cartItem, editable = true }: CartItemProps) {
-  const { removeCartItem, updateCartItem } = useCart();
+  const { cartContext, removeCartItem, updateCartItem } = useCart();
 
   const [deal, setDeal] = useState<UmbracoDeal | undefined>(undefined);
   const [supplierImageUrl, setSupplierImageUrl] = useState<string | undefined>(
@@ -125,7 +125,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
           className={cn(
             'flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200',
 
-            !cartItem.available && 'opacity-30',
+            (!cartItem.available || cartContext.cartExpired) && 'opacity-30',
           )}
         >
           <Image
@@ -140,7 +140,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
       <div
         className={cn(
           'flex grow flex-col justify-center gap-2 text-secondary',
-          !cartItem.available && 'opacity-30',
+          (!cartItem.available || cartContext.cartExpired) && 'opacity-30',
         )}
       >
         <h2 className="text-lg font-medium">{deal.name}</h2>
@@ -152,11 +152,14 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
             className={cn(
               'inline-flex w-fit items-center gap-2',
               isRemovingDeal && 'opacity-50',
-              cartItem.available && 'underline',
+              (!cartItem.available || cartContext.cartExpired) && 'underline',
             )}
             color="secondary"
             disabled={
-              isChangingQuantity || isRemovingDeal || !cartItem.available
+              isChangingQuantity ||
+              isRemovingDeal ||
+              !cartItem.available ||
+              cartContext.cartExpired
             }
           >
             {isRemovingDeal && <Spinner color="secondary" size="sm" />}
@@ -167,7 +170,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
 
       {editable && (
         <div className="flex flex-row gap-4">
-          {cartItem.available && (
+          {cartItem.available && !cartContext.cartExpired && (
             <>
               <div className="flex flex-col items-end">
                 {deal.properties?.regularPrice && (

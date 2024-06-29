@@ -1,15 +1,18 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import type { ZonedDateTime } from '@internationalized/date';
+import { fromDate } from '@internationalized/date';
 import { now } from '@internationalized/date';
 import { Link, SelectItem } from '@nextui-org/react';
 import type { CheckoutInputModel } from 'api-deals';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { AuthTabs } from '@/app/auth/auth-tabs';
 import { cartCheckoutAction } from '@/app/cart/actions/cart-checkout.action';
+import { checkCartCheckoutPreconditionAction } from '@/app/cart/actions/check-cart-checkout-precondition.action';
+import { CartErrorMessage } from '@/app/cart/components/cart-error-message';
 import { CartStepIndicator } from '@/app/cart/components/cart-step-indicator';
 import { CheckoutCostOverview } from '@/app/cart/components/checkout-cost-overview';
 import { SessionLoading } from '@/app/cart/components/session-loading';
@@ -32,12 +35,28 @@ export type CheckoutPageAddressForm = Partial<
   email?: string;
   dateOfBirth?: ZonedDateTime;
   countryCode?: string;
+  termsChecked?: boolean;
+  newsletterChecked?: boolean;
+};
+
+export type CheckoutPageAddressFormDefaultValues = Omit<
+  CheckoutPageAddressForm,
+  'dateOfBirth'
+> & {
+  dateOfBirth?: string; // formatted as ISO string for ssr-csr serialization
 };
 
 export interface CheckoutPageProps {
-  defaultFormValues?: CheckoutPageAddressForm;
+  defaultFormValues?: CheckoutPageAddressFormDefaultValues;
+  isReadOnly?: boolean;
 }
-export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
+
+type ErrorState = 'invalid-location' | 'cart-expired' | undefined;
+
+export function CheckoutPage({
+  defaultFormValues,
+  isReadOnly = false,
+}: CheckoutPageProps) {
   const { cartContext } = useCart();
   const session = useSession();
   const searchParams = useSearchParams();
@@ -54,9 +73,16 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
     postalCode: defaultFormValues?.postalCode || '',
     houseNumber: defaultFormValues?.houseNumber || '',
     street: defaultFormValues?.street || '',
-    dateOfBirth: defaultFormValues?.dateOfBirth || now('Europe/Berlin'),
-    city: '',
-    countryCode: 'DE',
+    dateOfBirth: !!defaultFormValues?.dateOfBirth
+      ? fromDate(
+          new Date(Date.parse(defaultFormValues.dateOfBirth)),
+          'Europe/Berlin',
+        )
+      : now('Europe/Berlin'),
+    city: defaultFormValues?.city || '',
+    countryCode: '', // user must choose on his own
+    termsChecked: false,
+    newsletterChecked: false,
   };
 
   const countries = [
@@ -69,6 +95,8 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
     { value: 'FR', label: 'Frankreich' },
   ];
 
+  const [errorState, setErrorState] = useState<ErrorState>(undefined);
+
   const form = useForm({
     defaultValues,
   });
@@ -80,8 +108,25 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
     trigger,
   } = form;
 
+  useEffect(() => {
+    if (cartContext.cartExpired) {
+      setErrorState('cart-expired');
+    }
+  }, [cartContext.cartExpired]);
+
   const onSubmit = useCallback(async (data: typeof defaultValues) => {
     setLoading(true);
+
+    // check precondition
+    const isInCorrectRegion = await checkCartCheckoutPreconditionAction({
+      countryCode: data.countryCode,
+      postalCode: parseFloat(data.postalCode),
+    });
+    if (!isInCorrectRegion) {
+      setErrorState('invalid-location');
+      setLoading(false);
+      return;
+    }
 
     try {
       const checkoutResponse = await cartCheckoutAction({
@@ -148,6 +193,12 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-20 grid grid-cols-2 gap-10">
+            {errorState && (
+              <div className="col-span-full">
+                <CartErrorMessage error={errorState} />
+              </div>
+            )}
+
             <div>
               <div className="flex flex-col gap-10">
                 <div className="rounded-[20px] bg-neutral-100 p-10">
@@ -162,6 +213,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                             placeholder="Vorname*"
                             isRequired={true}
                             isInvalid={!!errors.firstName}
+                            isReadOnly={isReadOnly}
                             errorMessage={
                               errors.firstName && 'Vorname wird benötigt'
                             }
@@ -177,6 +229,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                           <AldiInput
                             placeholder="Nachname*"
                             isRequired={true}
+                            isReadOnly={isReadOnly}
                             isInvalid={!!errors.lastName}
                             errorMessage={
                               errors.lastName && 'Nachname wird benötigt'
@@ -195,6 +248,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                         <AldiDatePicker
                           className="col-span-4"
                           granularity="day"
+                          isReadOnly={isReadOnly}
                           isInvalid={!!errors.dateOfBirth}
                           errorMessage={
                             errors.dateOfBirth && 'Geburtsdatum wird benötigt'
@@ -209,6 +263,10 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                         <AldiSelect
                           selectedKeys={[field.value]}
                           defaultSelectedKeys={['DE']}
+                          isInvalid={!!errors.countryCode}
+                          errorMessage={
+                            errors.countryCode && 'Land wird benötigt'
+                          }
                           {...field}
                         >
                           {countries.map((country) => (
@@ -234,6 +292,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                             className="col-span-3"
                             placeholder="Straße*"
                             isRequired={true}
+                            isReadOnly={isReadOnly}
                             isInvalid={!!errors.street}
                             errorMessage={
                               errors.street && 'Straße wird benötigt'
@@ -249,6 +308,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                           <AldiInput
                             placeholder="Hausnr.*"
                             isRequired={true}
+                            isReadOnly={isReadOnly}
                             isInvalid={!!errors.houseNumber}
                             errorMessage={
                               errors.houseNumber && 'Hausnummer wird benötigt'
@@ -268,6 +328,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                             className="col-span-3"
                             placeholder="Stadt*"
                             isRequired={true}
+                            isReadOnly={isReadOnly}
                             isInvalid={!!errors.city}
                             errorMessage={errors.city && 'Stadt wird benötigt'}
                             {...field}
@@ -281,6 +342,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                           <AldiInput
                             placeholder="PLZ*"
                             isRequired={true}
+                            isReadOnly={isReadOnly}
                             isInvalid={!!errors.postalCode}
                             errorMessage={
                               errors.postalCode &&
@@ -323,6 +385,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                           type="email"
                           placeholder="E-Mail Adresse*"
                           isRequired={true}
+                          isReadOnly={isReadOnly}
                           isInvalid={
                             !!errors.email ||
                             responseError === ApiErrorCodes.EMAIL_ALREADY_IN_USE
@@ -375,16 +438,41 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                 <div className="flex flex-col gap-4">
                   <Controller
                     render={({ field }) => (
+                      <AldiCheckbox
+                        isRequired={true}
+                        isInvalid={!!errors.termsChecked}
+                        isSelected={field.value}
+                        {...field}
+                      >
+                        <p className="text-sm text-secondary/50">
+                          Ich bin mit den AGB einverstanden und habe die
+                          Datenschutzerklärung und die Widerrufsbelehrung zur
+                          Kenntnis genommen.*
+                        </p>
+                      </AldiCheckbox>
+                    )}
+                    name="termsChecked"
+                    rules={{
+                      required: true,
+                      validate: (value) => value === true,
+                    }}
+                  />
+                  <Controller
+                    render={({ field }) => (
                       <AldiCheckbox isSelected={field.value} {...field}>
-                        <p className="text-sm">
-                          Ja, ich möchte den Newsletter erhalten und akzeptiere
-                          die Datenschutzrichtlinie sowie die
-                          Nutzungsbedingungen.
+                        <p className="text-sm text-secondary/50">
+                          Ich möchte News per E-Mail erhalten und bin mit der
+                          damit verbundenen Verarbeitung meiner
+                          personenbezogenen Daten gemäß der ALDI
+                          SÜD-Datenschutzerklärung einverstanden. Ein Widerruf
+                          ist jederzeit möglich.
                         </p>
                       </AldiCheckbox>
                     )}
                     name="newsletterChecked"
                   />
+
+                  <p className="text-sm text-secondary/50">* Pflichtfeld</p>
 
                   <AldiButton
                     variant="solid"
@@ -394,6 +482,7 @@ export function CheckoutPage({ defaultFormValues }: CheckoutPageProps) {
                     onClick={onClickProceed}
                     isLoading={isLoading}
                     href="/cart/checkout"
+                    isDisabled={cartContext.cartExpired}
                   >
                     Jetzt kostenpflichtig abschliessen
                   </AldiButton>

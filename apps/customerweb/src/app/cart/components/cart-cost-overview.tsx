@@ -1,8 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+import { CartToCheckoutButton } from '@/app/cart/components/cart-to-checkout-button';
 import { useCart } from '@/app/contexts/cart/use-cart';
-import { AldiButton } from '@/components/nextui/aldi-button';
 import { formatCurrency } from '@/utils/format-currency';
 
 export function CartCostOverview() {
@@ -46,16 +45,7 @@ export function CartCostOverview() {
           {formatCurrency(total / 100, true)}
         </p>
       </div>
-      <AldiButton
-        variant="solid"
-        color="secondary"
-        fullWidth={true}
-        size="lg"
-        as={Link}
-        href="/cart/checkout"
-      >
-        Zur Kasse
-      </AldiButton>
+      <CartToCheckoutButton />
     </div>
   );
 }

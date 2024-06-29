@@ -1,3 +1,4 @@
+import * as util from 'node:util';
 import type {
   UniversalErrorContext,
   UniversalResponseContext,
@@ -9,19 +10,54 @@ import type {
 export class ApiError extends Error {
   constructor(
     message: string,
-    public readonly errorResponse?: any,
     public readonly innerError?: Error,
     public readonly context?: UniversalResponseContext | UniversalErrorContext,
+    public readonly responseText?: string,
   ) {
-    super(message);
+    super(
+      ApiError.formatErrorMessage(message, innerError, context, responseText),
+    );
     this.innerError = innerError;
   }
 
-  toString(): string {
-    return `${super.toString()}\nInner Error: ${this.innerError?.toString()}\nError Response: ${JSON.stringify(
-      this.errorResponse,
-      null,
-      2,
-    )}\nContext: ${JSON.stringify(this.context, null, 2)}`;
+  static formatErrorMessage(
+    message: string,
+    innerError?: Error,
+    context?: UniversalResponseContext | UniversalErrorContext,
+    responseText?: string,
+  ): string {
+    const apiErrorLines = [];
+    apiErrorLines.push(`[ApiError] Message: ${message}`);
+    if (innerError) {
+      apiErrorLines.push(`Inner Error: ${innerError}`);
+    }
+    if (context) {
+      if ('error' in context) {
+        const errorContext = context as UniversalErrorContext;
+        if (errorContext) {
+          apiErrorLines.push(`Error Context: ${errorContext.error}`);
+        }
+      }
+
+      const { method = 'UKNONWN', body } = context.init;
+
+      apiErrorLines.push(`Request: ${method} on ${context.url}`);
+      if (body) {
+        apiErrorLines.push(
+          `Request Body: ${util.inspect(body, { depth: 2, colors: false })}`,
+        );
+      }
+
+      const { response } = context;
+      if (response) {
+        const contentType = response.headers.get('content-type');
+        apiErrorLines.push('Response:');
+        apiErrorLines.push(`Status: ${response.status}`);
+        apiErrorLines.push(`Content-Type: ${contentType}`);
+
+        apiErrorLines.push(`Response: ${responseText}`);
+      }
+    }
+    return apiErrorLines.join('\n');
   }
 }

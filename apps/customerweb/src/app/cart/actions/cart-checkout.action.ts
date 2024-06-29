@@ -33,6 +33,9 @@ export async function cartCheckoutAction({
   const cartsApiProps: AdBeApiClientProps = {};
   if (session) {
     cartsApiProps.accessToken = session.accessToken;
+    console.log({
+      accessToken: session.accessToken,
+    });
   }
   const cartsApi = getCartsApiClient(cartsApiProps);
 

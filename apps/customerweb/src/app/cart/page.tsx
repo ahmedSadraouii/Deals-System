@@ -1,4 +1,5 @@
 import { CartCostOverview } from '@/app/cart/components/cart-cost-overview';
+import { CartExpiredErrorMessage } from '@/app/cart/components/cart-expired-error-message';
 import { CartItemList } from '@/app/cart/components/cart-item-list';
 import { CartRequired } from '@/app/cart/components/cart-required';
 import { CartStepIndicator } from '@/app/cart/components/cart-step-indicator';
@@ -16,6 +17,7 @@ export default function Page() {
         <CartStepIndicator step={1} />
       </div>
       <div className="mt-20 grid grid-cols-12 gap-10">
+        <CartExpiredErrorMessage />
         <div className="col-span-8 flex flex-col gap-10">
           <div className="rounded-[20px] bg-neutral-100 p-10">
             <h1 className="mb-6 text-3xl font-bold text-secondary">

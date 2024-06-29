@@ -10,7 +10,7 @@ export const AldiInput = extendVariants(Input, {
         input: 'text-aldi-blue',
       },
     },
-    readOnly: {
+    isReadOnly: {
       true: {
         inputWrapper: 'border-neutral-900/40 bg-neutral-900/5',
         input: 'text-aldi-blue text-start',

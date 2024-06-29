@@ -23,11 +23,9 @@ export function getApiClientErrorHandler(
 ): (
   context: UniversalErrorContext | UniversalResponseContext,
 ) => Promise<void> {
-  return async (
-    requestContext: UniversalErrorContext | UniversalResponseContext,
-  ) => {
+  return async (context: UniversalErrorContext | UniversalResponseContext) => {
     if (type === 'post') {
-      const responseContext = requestContext as UniversalResponseContext;
+      const responseContext = context as UniversalResponseContext;
       const { response } = responseContext;
       if (!response) {
         return;
@@ -36,12 +34,7 @@ export function getApiClientErrorHandler(
       if (response.status < 200 || response.status >= 300) {
         // check if we have a content length
         if (response.headers.get('content-length') === '0') {
-          throw new ApiError(
-            `[${hint}] ApiError (empty) for '${requestContext.url}'\nStatus: ${response.status}`,
-            undefined,
-            undefined,
-            requestContext,
-          );
+          throw new ApiError(`[${hint}] ApiError`, undefined, responseContext);
         }
 
         if (
@@ -49,34 +42,31 @@ export function getApiClientErrorHandler(
         ) {
           const responseJson = await response.json();
           throw new ApiError(
-            `[${hint}] ApiError (json) for '${requestContext.url}'\nStatus: ${
-              response.status
-            }\nResponse: ${JSON.stringify(responseJson, null, 2)}`,
-            responseJson,
+            `[${hint}] ApiError`,
             undefined,
-            requestContext,
+            responseContext,
+            JSON.stringify(responseJson),
           );
         }
 
         const responseText = await response.text();
         throw new ApiError(
-          `[${hint}] ApiError (text) for '${requestContext.url}'\nStatus: ${response.status}\nResponse: ${responseText}`,
-          responseText,
+          `[${hint}] ApiError (text) for '${responseContext.url}'\nStatus: ${response.status}\nResponse: ${responseText}`,
           undefined,
-          requestContext,
+          responseContext,
+          responseText,
         );
       }
 
       return;
     }
 
-    const errorContext = requestContext as UniversalErrorContext;
+    const errorContext = context as UniversalErrorContext;
 
     throw new ApiError(
-      `[${hint}] ApiError (error) for '${requestContext.url}'`,
-      undefined,
+      `[${hint}] ApiError (error) for '${errorContext.url}'`,
       errorContext.error as Error,
-      requestContext,
+      errorContext,
     );
   };
 }
