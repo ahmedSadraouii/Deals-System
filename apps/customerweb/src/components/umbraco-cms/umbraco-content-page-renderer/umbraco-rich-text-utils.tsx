@@ -11,12 +11,12 @@ function interceptAttributeValue(key: string, value: string): string {
     });
   } else if (
     key === 'src' &&
-    value.indexOf(`${process.env.IMAGE_REMOST_HOSTNAME}/media`) !== -1
+    value.indexOf(`${process.env.IMAGE_REMOTE_HOSTNAME}/media`) !== -1
   ) {
     return defaultLoader({
       src: value.replace(
-        `${process.env.IMAGE_REMOST_HOSTNAME}/media`,
-        `${process.env.IMAGE_REMOST_HOSTNAME}/umbraco/media`,
+        `${process.env.IMAGE_REMOTE_HOSTNAME}/media`,
+        `${process.env.IMAGE_REMOTE_HOSTNAME}/umbraco/media`,
       ),
       width: 1024,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
