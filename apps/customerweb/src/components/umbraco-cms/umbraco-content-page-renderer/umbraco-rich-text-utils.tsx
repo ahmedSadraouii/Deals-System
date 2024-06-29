@@ -5,18 +5,18 @@ import type { UmbracoRichTextElement } from '@/components/umbraco-cms/umbraco-ty
 function interceptAttributeValue(key: string, value: string): string {
   if (key === 'src' && value.startsWith('/media/')) {
     return defaultLoader({
-      src: `https://dev.api.aldi.amplicade.com/umbraco/${value}`,
+      src: `${process.env.CONTENT_API_BASE_URL}/${value}`,
       width: 1024,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
   } else if (
     key === 'src' &&
-    value.indexOf('dev.api.aldi.amplicade.com/media') !== -1
+    value.indexOf(`${process.env.IMAGE_REMOTE_HOSTNAME}/media`) !== -1
   ) {
     return defaultLoader({
       src: value.replace(
-        'dev.api.aldi.amplicade.com/media',
-        'dev.api.aldi.amplicade.com/umbraco/media',
+        `${process.env.IMAGE_REMOTE_HOSTNAME}/media`,
+        `${process.env.IMAGE_REMOTE_HOSTNAME}/umbraco/media`,
       ),
       width: 1024,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,

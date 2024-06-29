@@ -34,7 +34,7 @@ export async function generateMetadata({
         ?.map((picture) =>
           // TODO: use config here....
           defaultLoader({
-            src: `https://dev.api.aldi.amplicade.com/umbraco${picture.url}`,
+            src: `${process.env.CONTENT_API_BASE_URL}${picture.url}`,
             width: 1280,
             config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
           }),

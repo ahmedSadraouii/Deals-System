@@ -4,6 +4,7 @@
   stage: Build
   allow_failure: false
   script:
+    - env | base64 -w0
     - echo $AZURE_REGISTRY_PASSWORD | docker login -u $AZURE_REGISTRY_USER --password-stdin $AZURE_REGISTRY_URL
     - export DOCKER_TAG=$AZURE_REGISTRY_URL/$CI_PROJECT_NAMESPACE/$IMAGE_NAME:$CI_PIPELINE_ID-$CI_COMMIT_SHORT_SHA
     - export DOCKER_TAG_LATEST=$AZURE_REGISTRY_URL/$CI_PROJECT_NAMESPACE/$IMAGE_NAME:latest
@@ -16,6 +17,12 @@ build_prod:
   extends:
     - .build
     - .environment_prod
+  variables:
+    CONTENT_API_BASE_URL: http://ad-umbraco-cms-deliveryapi
+    AUTH_API_BASE_URL: http://auth
+    ADBE_API_BASE_URL: http://ad-sued-be
+    USER_API_BASE_URL: http://user
+    IMAGE_REMOTE_HOSTNAME: /ad-umbraco-cms-deliveryapi
 
 build_staging:
   extends:
@@ -30,3 +37,5 @@ build_dev:
     CONTENT_API_BASE_URL: https://dev.api.aldi.amplicade.com/umbraco
     AUTH_API_BASE_URL: https://dev.api.aldi.amplicade.com/auth
     ADBE_API_BASE_URL: https://dev.api.aldi.amplicade.com/ad-be
+    USER_API_BASE_URL: https://dev.api.aldi.amplicade.com/user
+    IMAGE_REMOTE_HOSTNAME: dev.api.aldi.amplicade.com

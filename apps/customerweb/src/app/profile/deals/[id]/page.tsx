@@ -75,7 +75,7 @@ export default async function Page({
   const productImageUrl =
     primaryImage &&
     defaultLoader({
-      src: `https://dev.api.aldi.amplicade.com/umbraco${primaryImage}`,
+      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
       width: 768,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
@@ -83,7 +83,7 @@ export default async function Page({
   const supplierImageUrl =
     supplierImage &&
     defaultLoader({
-      src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
+      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
       width: 256,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });

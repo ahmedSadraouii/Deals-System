@@ -32,7 +32,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
       ?.filter((picture) => !!picture.url)
       ?.map((picture) =>
         defaultLoader({
-          src: `https://dev.api.aldi.amplicade.com/umbraco${picture.url}`,
+          src: `${process.env.CONTENT_API_BASE_URL}${picture.url}`,
           width: 1280,
           config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
         }),
@@ -43,7 +43,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
   const supplierImageUrl =
     supplierImage &&
     defaultLoader({
-      src: `https://dev.api.aldi.amplicade.com/umbraco${supplierImage}`,
+      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
       width: 256,
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });

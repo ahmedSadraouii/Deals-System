@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/user/api/registration/user": {
+    "/api/registration/user": {
       "post": {
         "tags": [
           "Authentication"
@@ -114,7 +114,7 @@
         }
       }
     },
-    "/user/api/registration/deals": {
+    "/api/registration/deals": {
       "post": {
         "tags": [
           "Authentication"
@@ -215,7 +215,7 @@
         }
       }
     },
-    "/user/api/registration/sports": {
+    "/api/registration/sports": {
       "post": {
         "tags": [
           "Authentication"
@@ -316,7 +316,7 @@
         }
       }
     },
-    "/user/api/user/change-password": {
+    "/api/user/change-password": {
       "put": {
         "tags": [
           "Authentication"
@@ -417,7 +417,7 @@
         }
       }
     },
-    "/user/api/user/deactivate-account": {
+    "/api/user/deactivate-account": {
       "put": {
         "tags": [
           "User"
@@ -518,7 +518,7 @@
         }
       }
     },
-    "/user/api/user/delete-userdata": {
+    "/api/user/delete-userdata": {
       "delete": {
         "tags": [
           "User"
@@ -627,7 +627,7 @@
         }
       }
     },
-    "/user/api/user/user": {
+    "/api/user/user": {
       "get": {
         "tags": [
           "User"
@@ -804,7 +804,7 @@
         }
       }
     },
-    "/user/api/user/get-user-by-userId": {
+    "/api/user/get-user-by-userId": {
       "get": {
         "tags": [
           "User"
@@ -882,7 +882,7 @@
         }
       }
     },
-    "/user/api/user/address": {
+    "/api/user/address": {
       "post": {
         "tags": [
           "User"
@@ -1082,7 +1082,7 @@
         }
       }
     },
-    "/user/api/user/addresses": {
+    "/api/user/addresses": {
       "get": {
         "tags": [
           "User"
@@ -1191,7 +1191,7 @@
         }
       }
     },
-    "/user/api/user/get-user-by-email": {
+    "/api/user/get-user-by-email": {
       "post": {
         "tags": [
           "User"
@@ -1272,7 +1272,7 @@
         }
       }
     },
-    "/user/api/user/get-users-by-email": {
+    "/api/user/get-users-by-email": {
       "post": {
         "tags": [
           "User"
@@ -1362,7 +1362,7 @@
         }
       }
     },
-    "/user/api/user/{ciamId}/get-userid": {
+    "/api/user/{ciamId}/get-userid": {
       "get": {
         "tags": [
           "User"
@@ -1441,7 +1441,7 @@
         }
       }
     },
-    "/user/api/user/{ciamId}/get-user-details": {
+    "/api/user/{ciamId}/get-user-details": {
       "get": {
         "tags": [
           "User"
@@ -1520,7 +1520,7 @@
         }
       }
     },
-    "/user/api/user/get-users": {
+    "/api/user/get-users": {
       "post": {
         "tags": [
           "User"
@@ -1610,7 +1610,7 @@
         }
       }
     },
-    "/user/api/user/get-users-by-query": {
+    "/api/user/get-users-by-query": {
       "post": {
         "tags": [
           "User"
@@ -1700,7 +1700,7 @@
         }
       }
     },
-    "/user/api/user/{ciamId}/aldisport-user-data": {
+    "/api/user/{ciamId}/aldisport-user-data": {
       "get": {
         "tags": [
           "User"
@@ -1779,7 +1779,7 @@
         }
       }
     },
-    "/user/api/user/{userId}/aldisport-user-data": {
+    "/api/user/{userId}/aldisport-user-data": {
       "put": {
         "tags": [
           "User"
@@ -1889,7 +1889,7 @@
         }
       }
     },
-    "/user/api/user/get-users-without-membership": {
+    "/api/user/get-users-without-membership": {
       "get": {
         "tags": [
           "User"
