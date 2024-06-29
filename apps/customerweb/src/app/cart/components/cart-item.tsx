@@ -168,22 +168,22 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
         )}
       </div>
 
-      {editable && (
-        <div className="flex flex-row gap-4">
-          {cartItem.available && !cartContext.cartExpired && (
-            <>
-              <div className="flex flex-col items-end">
-                {deal.properties?.regularPrice && (
-                  <div className="text-secondary line-through">
-                    {formatCurrency(deal.properties?.regularPrice, true)}
-                  </div>
-                )}
-                {deal.properties?.price && (
-                  <div className="text-3xl font-bold text-primary">
-                    {formatCurrency(deal.properties?.price, true)}
-                  </div>
-                )}
-              </div>
+      <div className="flex flex-row gap-4">
+        {cartItem.available && !cartContext.cartExpired && (
+          <>
+            <div className="flex flex-col items-end">
+              {deal.properties?.regularPrice && (
+                <div className="text-secondary line-through">
+                  {formatCurrency(deal.properties?.regularPrice, true)}
+                </div>
+              )}
+              {deal.properties?.price && (
+                <div className="text-3xl font-bold text-primary">
+                  {formatCurrency(deal.properties?.price, true)}
+                </div>
+              )}
+            </div>
+            {editable && (
               <div className="flex flex-row items-center gap-2">
                 <AldiButton
                   variant="ghost"
@@ -213,16 +213,16 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
                   +
                 </AldiButton>
               </div>
-            </>
-          )}
-          {!cartItem.available && (
-            <div className="max-w-xs rounded-lg bg-primary/10 p-3 text-primary">
-              Dieser Deal ist leider abgelaufen! Er wird im Checkout Prozess und
-              für den Gesamtpreis nicht beachtet.
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </>
+        )}
+        {!cartItem.available && (
+          <div className="max-w-xs rounded-lg bg-primary/10 p-3 text-primary">
+            Dieser Deal ist leider abgelaufen! Er wird im Checkout Prozess und
+            für den Gesamtpreis nicht beachtet.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

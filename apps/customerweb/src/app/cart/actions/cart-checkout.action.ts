@@ -51,7 +51,7 @@ export async function cartCheckoutAction({
       city,
       countryCode: 'DE',
     },
-    returnUrl: 'http://localhost:4420/cart/success',
+    returnUrl: 'http://localhost:4420/cart/callback',
   };
 
   if (
