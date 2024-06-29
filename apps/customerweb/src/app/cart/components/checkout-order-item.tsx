@@ -57,7 +57,7 @@ export async function CheckoutOrderItem({
   return (
     <div className="flex w-full max-w-5xl flex-col gap-4 rounded-[20px] bg-default-100 p-4 lg:flex-row lg:gap-10 lg:p-10">
       <div
-        className="aspect-square w-full shrink-0 rounded-[12px] bg-cover bg-center lg:min-w-[420px]"
+        className="aspect-square w-full shrink-0 rounded-[12px] bg-cover bg-center lg:max-w-[420px]"
         style={{
           backgroundImage: `url(${productImageUrl})`,
         }}
