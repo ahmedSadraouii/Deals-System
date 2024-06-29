@@ -16,6 +16,7 @@ type Props = {
 
 export default async function Page({ params: { id } }: Props) {
   const session = await getServerSession(authOptions);
+  console.log('token', session?.accessToken);
 
   const honoredDeal = session
     ? await getHonoredDeal(id, session?.accessToken)
@@ -29,19 +30,19 @@ export default async function Page({ params: { id } }: Props) {
       </div>
       <div className="flex w-full flex-col gap-8 md:flex-row lg:w-[80%]">
         <CheckoutCard
-          imgUrl="/download-icon.png"
-          title="1. Dein Ticket oder Code herunterladen"
-          description="Willkommen zu einem unvergleichlichen Abenteuer voller Nervenkitzel, Ausdauer und Gemeinschaftssinn..."
+          imgUrl="/img-discount.png"
+          title="1. Rabattcode deines DEALS kopieren"
+          description="Kopiere deinen Rabattcode aus der unteren Übersicht oder aus der Bestellbestätigungs-E-Mail, die du erhalten hast."
         />
         <CheckoutCard
-          imgUrl="/check-all-icon.png"
-          title="2. Deal beim Partner einlösen oder direkt nutzen"
-          description="Willkommen zu einem unvergleichlichen Abenteuer voller Nervenkitzel, Ausdauer und Gemeinschaftssinn..."
+          imgUrl="/img-globe.png"
+          title="2. Webseite des Deal-Partners besuchen "
+          description="Besuche die Webseite des Deal-Partners durch Klicken des Buttons aus der unteren Übersicht oder aus der Bestellbestätigungs-E-Mail."
         />
         <CheckoutCard
-          imgUrl="/smile-icon.png"
-          title="3. Spaß haben mit deinem ALDI Deal"
-          description="Willkommen zu einem unvergleichlichen Abenteuer voller Nervenkitzel, Ausdauer und Gemeinschaftssinn..."
+          imgUrl="/img-coupon.png"
+          title="3. Deinen Rabattcode anwenden und sparen"
+          description="Wähle ein Produkt auf der Webseite des Deal-Partners aus und wende deinen Rabattcode im Bestellvorgang an. Viel Spaß beim Sparen!"
         />
       </div>
       <div className="flex w-full flex-col gap-8 lg:w-[80%] lg:min-w-[80%]">

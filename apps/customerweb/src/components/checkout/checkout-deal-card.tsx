@@ -94,7 +94,7 @@ export default async function DealCheckoutCard({
   const promotionEnd = DateTime.fromISO(fullDeal.properties?.promotionEnd!);
   return (
     <Suspense>
-      <Card className="bg-neutral-100">
+      <Card className="bg-gray-100">
         <CardBody className="flex flex-col gap-8 p-10 md:flex-row">
           <Image
             className="w-full rounded-lg md:w-1/3"

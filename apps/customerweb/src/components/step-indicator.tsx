@@ -12,7 +12,7 @@ export function StepIndicator({ step, steps }: StepIndicatorProps) {
   }
 
   return (
-    <div className="flex flex-row items-center justify-between gap-2">
+    <div className="flex flex-row items-center justify-between">
       {steps.map((stepTitle, stepIndex) => (
         <Fragment key={stepIndex}>
           <div className="flex flex-col items-center justify-center gap-2">

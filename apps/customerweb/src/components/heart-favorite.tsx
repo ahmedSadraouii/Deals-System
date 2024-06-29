@@ -83,11 +83,11 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
 
   return (
     <div
-      className="pointer-events-auto h-10 w-10 cursor-pointer rounded-full bg-white"
+      className="pointer-events-auto h-10 w-10 cursor-pointer rounded bg-white md:rounded-full"
       ref={iconRef}
       onClick={() => toggleFavorite(dealId)}
     >
-      <div className="flex h-full w-full items-center justify-center rounded-full bg-aldi-key/10 transition-colors hover:bg-aldi-key/20">
+      <div className="flex h-full w-full items-center justify-center rounded bg-aldi-key/10 transition-colors hover:bg-aldi-key/20 md:rounded-full">
         <IconHeart
           className={cn('text-xl text-aldi-key', isFavored && 'fill-aldi-key')}
         />

@@ -13,7 +13,7 @@ export default function CheckoutCard({
   description,
 }: CheckoutCardProps) {
   return (
-    <Card className="bg-neutral-100 shadow-none lg:h-full">
+    <Card className="bg-gray-100 shadow-none lg:h-full">
       <CardBody className="flex flex-col items-center gap-4 p-8">
         <Image src={imgUrl} alt="image celebration" width={40} height={50} />
         <h1 className="text-center text-2xl font-bold text-secondary">
