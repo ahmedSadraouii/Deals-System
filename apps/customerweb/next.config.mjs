@@ -32,7 +32,9 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     CONTENT_API_BASE_URL: process.env.CONTENT_API_BASE_URL,
     AUTH_API_BASE_URL: process.env.AUTH_API_BASE_URL,
+    USER_API_BASE_URL: process.env.USER_API_BASE_URL,
     ADBE_API_BASE_URL: process.env.ADBE_API_BASE_URL,
+    IMAGE_REMOTE_HOSTNAME: process.env.IMAGE_REMOTE_HOSTNAME,
     ADOBE_SCRIPT: process.env.ADOBE_SCRIPT,
   },
   skipTrailingSlashRedirect: true
