@@ -55,16 +55,16 @@ export async function CheckoutOrderItem({
   const promotionEnd = DateTime.fromISO(umbracoDeal.properties?.promotionEnd!);
 
   return (
-    <div className="flex w-full max-w-5xl flex-row gap-4 rounded-[20px] bg-default-100 p-4 lg:gap-10 lg:p-10">
+    <div className="flex w-full max-w-5xl flex-col gap-4 rounded-[20px] bg-default-100 p-4 lg:flex-row lg:gap-10 lg:p-10">
       <div
-        className="aspect-square min-w-[320px] shrink-0 rounded-[12px] bg-cover bg-center lg:min-w-[420px]"
+        className="aspect-square w-full shrink-0 rounded-[12px] bg-cover bg-center lg:min-w-[420px]"
         style={{
           backgroundImage: `url(${productImageUrl})`,
         }}
       />
       <div className="flex grow flex-col gap-8">
         <div className="flex flex-row items-center gap-6">
-          <div className="overflow-hidden rounded-[20px] bg-neutral-200 p-2">
+          <div className="shrink-0 overflow-hidden rounded-[20px] bg-neutral-200 p-2">
             <div
               className="h-20 w-20 bg-contain bg-clip-content bg-center bg-no-repeat bg-origin-content"
               style={{
@@ -72,7 +72,7 @@ export async function CheckoutOrderItem({
               }}
             />
           </div>
-          <div>
+          <div className="grow">
             <h1 className="text-2xl font-bold text-secondary">
               {umbracoSupplier.name}
             </h1>
