@@ -10,7 +10,7 @@ const nextConfig = {
     // These widths are used when the next/image component uses layout="fixed" or layout="intrinsic".
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [{
-      hostname: 'dev.api.aldi.amplicade.com'
+      hostname: process.env.IMAGE_REMOTE_HOSTNAME
     }],
     path: '/_next/image',
     loader: 'default',

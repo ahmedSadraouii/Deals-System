@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { UmbracoImage } from '@/components/umbraco-cms/umbraco-types';
 
 function getImageUrl(url: string) {
-  return `http://dev.api.aldi.amplicade.com/umbraco${url}`;
+  return `${process.env.CONTENT_API_BASE_URL}${url}`;
 }
 export interface ImagesBlockProps {
   images: Array<UmbracoImage>;

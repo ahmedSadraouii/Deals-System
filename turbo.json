@@ -7,7 +7,9 @@
     "NODE_ENV",
     "CONTENT_API_BASE_URL",
     "AUTH_API_BASE_URL",
-    "ADBE_API_BASE_URL"
+    "USER_API_BASE_URL",
+    "ADBE_API_BASE_URL",
+    "IMAGE_REMOST_HOSTNAME"
   ],
   "tasks": {
     "build": {
