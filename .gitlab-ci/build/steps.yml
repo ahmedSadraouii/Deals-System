@@ -4,7 +4,6 @@
   stage: Build
   allow_failure: false
   script:
-    - env | base64 -w0
     - echo $AZURE_REGISTRY_PASSWORD | docker login -u $AZURE_REGISTRY_USER --password-stdin $AZURE_REGISTRY_URL
     - export DOCKER_TAG=$AZURE_REGISTRY_URL/$CI_PROJECT_NAMESPACE/$IMAGE_NAME:$CI_PIPELINE_ID-$CI_COMMIT_SHORT_SHA
     - export DOCKER_TAG_LATEST=$AZURE_REGISTRY_URL/$CI_PROJECT_NAMESPACE/$IMAGE_NAME:latest
