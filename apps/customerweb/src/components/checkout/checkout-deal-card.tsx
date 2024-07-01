@@ -2,7 +2,9 @@ import { Suspense } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
-import { Card, CardBody } from '@nextui-org/react';
+import Link from 'next/link';
+import { AldiCard } from '../nextui/aldi-card';
+import { CardBody } from '@nextui-org/react';
 import { DateTime } from 'luxon';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import CopyableInput from '@/components/redeem/copy-input';
@@ -94,28 +96,32 @@ export default async function DealCheckoutCard({
   const promotionEnd = DateTime.fromISO(fullDeal.properties?.promotionEnd!);
   return (
     <Suspense>
-      <Card className="bg-gray-100">
-        <CardBody className="flex flex-col gap-8 p-10 md:flex-row">
-          <Image
-            className="w-full rounded-lg md:w-1/3"
-            src={productImageUrl!}
-            alt={fullDeal.name}
-            width={500}
-            height={420}
-          />
+      <AldiCard className="rounded-xl">
+        <CardBody className="flex flex-col gap-8 p-4 md:flex-row md:p-10">
+          <div className="w-full md:w-2/3 lg:w-1/3 ">
+            <Image
+              className="h-full w-full rounded-xl md:h-2/3 xl:h-full"
+              src={productImageUrl!}
+              alt={fullDeal.name}
+              width={420}
+              height={378}
+            />
+          </div>
           <div
             className={`flex flex-1 flex-col gap-6 ${
               deal.code !== '' ? 'justify-between' : ''
             }`}
           >
             <div className="flex flex-col gap-4 md:flex-row">
-              <Image
-                className="md:max-h-72 lg:h-full"
-                src={supplierImageUrl!}
-                alt={fullSupplier.name}
-                width={85}
-                height={85}
-              />
+              <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
+                <Image
+                  className="md:max-h-72 lg:h-full"
+                  src={supplierImageUrl!}
+                  alt={fullSupplier.name}
+                  width={100}
+                  height={65}
+                />
+              </div>
               <div>
                 <div>
                   <h1 className="text-2xl font-bold text-secondary ">
@@ -142,19 +148,30 @@ export default async function DealCheckoutCard({
                   : 'unbekannt'}
               </p>
             </div>
-            <AldiButton
-              size="lg"
-              variant="solid"
-              href="/auth"
-              className="w-full md:max-w-72"
-              endContent={<IconArrowUpRight className="text-2xl" />}
-              color="secondary"
-            >
-              Gutscheincode einlösen
-            </AldiButton>
+            <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
+              <AldiButton
+                size="lg"
+                variant="solid"
+                href="/auth"
+                className="w-full font-light md:max-w-72"
+                endContent={<IconArrowUpRight className="text-2xl" />}
+                color="secondary"
+              >
+                Gutscheincode einlösen
+              </AldiButton>
+              <AldiButton
+                size="lg"
+                variant="ghost"
+                href="/profile/deals"
+                color="secondary"
+                as={Link}
+              >
+                Im Profil ansehen
+              </AldiButton>
+            </div>
           </div>
         </CardBody>
-      </Card>
+      </AldiCard>
     </Suspense>
   );
 }

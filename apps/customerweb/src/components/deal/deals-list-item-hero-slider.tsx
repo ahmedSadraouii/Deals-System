@@ -111,7 +111,7 @@ export function DealsListItemHeroSlider({
             <h1 className="mb-4 text-5xl font-bold text-secondary">
               {deal.name}
             </h1>
-            <p className="text-lg font-[420] text-aldi-blue">
+            <p className="text-lg font-[420] text-secondary">
               {deal.properties?.description}
             </p>
           </div>

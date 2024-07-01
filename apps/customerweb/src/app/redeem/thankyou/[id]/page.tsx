@@ -24,11 +24,11 @@ export default async function Page({ params: { id } }: Props) {
   const guestDeal = !session ? await getGuestDeal(id) : null;
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center gap-16 px-4 py-14 md:px-0">
+    <div className="py:4 container mx-auto flex flex-col items-center justify-center gap-4 px-4 md:gap-16 md:px-0 md:py-14">
       <div>
         <Celebration />
       </div>
-      <div className="flex w-full flex-col gap-8 md:flex-row lg:w-[80%]">
+      <div className="flex w-full flex-col gap-6 md:flex-row md:gap-8 lg:w-[80%]">
         <CheckoutCard
           imgUrl="/img-discount.png"
           title="1. Rabattcode deines DEALS kopieren"

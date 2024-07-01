@@ -53,8 +53,8 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
   return (
     <div>
       <div className="border-b">
-        <div className="container mx-auto flex flex-row items-center space-x-2 p-4 text-aldi-blue">
-          <Link href="/" className="text-aldi-blue">
+        <div className="container mx-auto flex flex-row items-center space-x-2 p-4 text-secondary">
+          <Link href="/" className="text-secondary">
             Start
           </Link>
           <ChevronRightSvg />
@@ -178,17 +178,17 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
             </div>
             <Divider />
             <div className="flex flex-col space-y-6 rounded-lg border border-secondary/10 p-10 lg:rounded-[20px]">
-              <h1 className="text-4xl font-bold text-aldi-blue">
+              <h1 className="text-4xl font-bold text-secondary">
                 Beschreibung
               </h1>
-              <p className="text-aldi-blue">{deal.properties?.description}</p>
+              <p className="text-secondary">{deal.properties?.description}</p>
               <div className="inline-block">
                 <Tooltip content="TODO: Was passiert on-click?">
                   <a
                     href="#"
                     className="inline-flex flex-row items-center space-x-2"
                   >
-                    <span className="text-aldi-blue underline underline-offset-2">
+                    <span className="text-secondary underline underline-offset-2">
                       Mehr anzeigen
                     </span>
                     <ChevronRightSvg />
@@ -198,15 +198,15 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
             </div>
             {deal.properties?.details && (
               <div className="flex flex-col space-y-6 rounded-lg border border-secondary/10 p-10 lg:rounded-[20px]">
-                <h1 className="text-4xl font-bold text-aldi-blue">Details</h1>
-                <p className="text-aldi-blue">{deal.properties?.details}</p>
+                <h1 className="text-4xl font-bold text-secondary">Details</h1>
+                <p className="text-secondary">{deal.properties?.details}</p>
                 <div className="inline-block">
                   <Tooltip content="TODO: Was passiert on-click?">
                     <a
                       href="#"
                       className="inline-flex flex-row items-center space-x-2"
                     >
-                      <span className="text-aldi-blue underline underline-offset-2">
+                      <span className="text-secondary underline underline-offset-2">
                         Mehr anzeigen
                       </span>
                       <ChevronRightSvg />

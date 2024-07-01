@@ -4,6 +4,7 @@ import { authOptions } from '@/utils/auth';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
+  console.log('token', session?.accessToken);
 
   return (
     <div className="w-full lg:w-[70%] xl:w-[50%]">
@@ -11,7 +12,7 @@ export default async function Page() {
         <h1 className="text-center text-4xl font-bold text-secondary">
           Kassenbon-PIN eingeben
         </h1>
-        <p className="text-center text-aldi-blue opacity-50">
+        <p className="text-center text-secondary opacity-50">
           Gib folgend die 16-stellige PIN auf deinem Kassenbon ein.
         </p>
       </div>

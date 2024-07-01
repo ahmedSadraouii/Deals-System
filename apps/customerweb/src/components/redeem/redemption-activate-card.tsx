@@ -6,7 +6,8 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
+import { AldiCard } from '../nextui/aldi-card';
+import { CardBody, CardFooter, CardHeader } from '@nextui-org/react';
 import { AldiButton } from 'src/components/nextui/aldi-button';
 import type {
   UmbracoDeal,
@@ -57,7 +58,7 @@ export default function CardActivation({
       config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
     });
   return (
-    <Card className="bg-neutral-100">
+    <AldiCard>
       <CardHeader className="flex justify-center border-b pb-4 pt-6">
         <h1 className="text-lg text-secondary">Aktiviere deine Deal(s):</h1>
       </CardHeader>
@@ -66,12 +67,14 @@ export default function CardActivation({
           key={deal.id}
           className="flex flex-col items-center gap-4 md:flex-row md:px-4"
         >
-          <Image
-            src={supplierImageUrl!}
-            alt={supplier.name}
-            width={85}
-            height={85}
-          />
+          <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
+            <Image
+              src={supplierImageUrl!}
+              alt={supplier.name}
+              width={85}
+              height={85}
+            />
+          </div>
           <h1 className="text-lg font-bold text-aldi-blue md:w-[40%] ">
             {deal.name}
           </h1>
@@ -88,6 +91,6 @@ export default function CardActivation({
           Deal aktivieren
         </AldiButton>
       </CardFooter>
-    </Card>
+    </AldiCard>
   );
 }

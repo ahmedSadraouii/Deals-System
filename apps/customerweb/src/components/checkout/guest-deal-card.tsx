@@ -100,13 +100,15 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
 
           <div className="flex flex-col gap-8">
             <div className="flex items-center gap-6">
-              <Image
-                className="md:max-h-72 lg:h-full"
-                src={supplierImageUrl!}
-                alt={fullSupplier.name}
-                width={85}
-                height={85}
-              />
+              <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
+                <Image
+                  className="md:max-h-72 lg:h-full"
+                  src={supplierImageUrl!}
+                  alt={fullSupplier.name}
+                  width={100}
+                  height={65}
+                />
+              </div>
               <div>
                 <div>
                   <h1 className="text-2xl font-bold text-secondary ">
