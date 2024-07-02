@@ -2,10 +2,10 @@
 
 import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
-import { AldiInput } from '../nextui/aldi-input';
 import { Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
-import { AldiCheckbox } from 'src/components/nextui/aldi-checkbox';
+import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
+import { AldiInput } from '@/components/nextui/aldi-input';
 
 function FooterForm() {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);

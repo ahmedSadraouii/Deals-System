@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { AldiCard } from '../nextui/aldi-card';
 import { CardBody } from '@nextui-org/react';
+import { AldiCard } from '@/components/nextui/aldi-card';
 
 interface CheckoutCardProps {
   imgUrl: string;

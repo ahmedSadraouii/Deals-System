@@ -6,14 +6,14 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { AldiCard } from '../nextui/aldi-card';
 import { CardBody, CardFooter, CardHeader } from '@nextui-org/react';
-import { AldiButton } from 'src/components/nextui/aldi-button';
+import { redeemVoucher } from '@/app/redeem/actions/redeem.action';
+import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiCard } from '@/components/nextui/aldi-card';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
-} from 'src/components/umbraco-cms/umbraco-types';
-import { redeemVoucher } from '@/app/redeem/actions/redeem.action';
+} from '@/components/umbraco-cms/umbraco-types';
 
 interface CardActivationProps {
   deal: UmbracoDeal;

@@ -4,7 +4,7 @@ import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { Card, CardBody, SelectItem } from '@nextui-org/react';
 import { DateTime } from 'luxon';
-import { AldiSelect } from 'src/components/nextui/aldi-select';
+import { AldiSelect } from '@/components/nextui/aldi-select';
 import type {
   UmbracoDeal,
   UmbracoSupplier,

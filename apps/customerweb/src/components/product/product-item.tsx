@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { IconOnline } from 'src/components/svg/icon-nur-online';
 import { HeartFavorite } from '@/components/heart-favorite';
 import { Price } from '@/components/price';
 import { IconClock } from '@/components/svg/icon-clock';
+import { IconOnline } from '@/components/svg/icon-nur-online';
 
 export interface ProductItemProps {
   price: number;

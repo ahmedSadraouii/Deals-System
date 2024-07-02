@@ -3,10 +3,10 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AldiCard } from '../nextui/aldi-card';
 import { CardBody } from '@nextui-org/react';
 import { DateTime } from 'luxon';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiCard } from '@/components/nextui/aldi-card';
 import CopyableInput from '@/components/redeem/copy-input';
 import { IconArrowUpRight } from '@/components/svg/icon-arrow-up-right';
 import type {
