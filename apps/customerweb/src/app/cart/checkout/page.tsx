@@ -34,11 +34,8 @@ export default async function Page() {
     email: userDetails.email,
   };
 
-  // @Russlan
-  // todo: if we are logged in, get the profile information and set it as defaultFormValues
-  // todo: in the CheckoutPage component, make the form fields readonly if they are already filled in with defaultFormValues
-
+  // no need to make it readonly for the user
   return (
-    <CheckoutPage defaultFormValues={defaultFormValues} isReadOnly={true} />
+    <CheckoutPage defaultFormValues={defaultFormValues} isReadOnly={false} />
   );
 }
