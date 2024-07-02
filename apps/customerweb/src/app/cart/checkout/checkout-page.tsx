@@ -192,7 +192,7 @@ export function CheckoutPage({
 
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-20 grid grid-cols-2 gap-10">
+          <div className="mt-20 grid grid-cols-1 gap-10 lg:grid-cols-2">
             {errorState && (
               <div className="col-span-full">
                 <CartErrorMessage error={errorState} />
