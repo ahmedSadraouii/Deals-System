@@ -16,8 +16,11 @@ export default function Page() {
       <div className="mx-auto max-w-5xl">
         <CartStepIndicator step={1} />
       </div>
-      <div className="mt-20 grid grid-cols-12 gap-10">
+      <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-10">
         <CartExpiredErrorMessage />
+        <div className="col-span-8 block lg:hidden">
+          <ReservationTimer />
+        </div>
         <div className="col-span-8 flex flex-col gap-10">
           <div className="rounded-[20px] bg-neutral-100 p-10">
             <h1 className="mb-6 text-3xl font-bold text-secondary">
@@ -28,19 +31,32 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-[20px] bg-neutral-100 p-10">
+          <div className="hidden rounded-[20px] bg-neutral-100 p-10 lg:flex lg:flex-col lg:items-center lg:gap-5">
             <h2 className="text-lg font-medium text-secondary">
               Wir unterstützen folgende Zahlungsmethoden
             </h2>
-            <div className="flex flex-row gap-6">
+            <div className="flex flex-row gap-6 ">
               <PaymentIconMastercard />
               <PaymentIconVisa />
             </div>
           </div>
         </div>
-        <div className="col-span-4 flex flex-col gap-10">
-          <ReservationTimer />
-          <CartCostOverview />
+        <div className="col-span-8 flex flex-col gap-10 lg:col-span-4">
+          <div className="hidden lg:block">
+            <ReservationTimer />
+          </div>
+          <div className="w-full">
+            <CartCostOverview />
+          </div>
+          <div className="hidden rounded-[20px] bg-neutral-100 p-10 md:flex md:flex-col md:items-center md:gap-5 lg:hidden">
+            <h2 className="text-lg font-medium text-secondary">
+              Wir unterstützen folgende Zahlungsmethoden
+            </h2>
+            <div className="flex flex-row gap-6 ">
+              <PaymentIconMastercard />
+              <PaymentIconVisa />
+            </div>
+          </div>
         </div>
       </div>
     </CartRequired>

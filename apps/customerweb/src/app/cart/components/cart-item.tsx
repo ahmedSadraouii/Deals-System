@@ -123,7 +123,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
       {supplierImageUrl && (
         <div
           className={cn(
-            'flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200',
+            'hidden h-24 w-24 rounded-[20px] bg-neutral-200 md:flex md:items-center md:justify-center',
 
             (!cartItem.available || cartContext.cartExpired) && 'opacity-30',
           )}
@@ -143,7 +143,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
           (!cartItem.available || cartContext.cartExpired) && 'opacity-30',
         )}
       >
-        <h2 className="text-lg font-medium">{deal.name}</h2>
+        <h2 className="flex-grow text-lg font-medium">{deal.name}</h2>
         <p className="text-sm">Anzahl insgesamt: {cartItem.quantity}</p>
 
         {editable && (
@@ -163,12 +163,14 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
             }
           >
             {isRemovingDeal && <Spinner color="secondary" size="sm" />}
-            <span>{cartItem.available ? 'Entfernen' : 'Abgelaufen'}</span>
+            <span className="underline">
+              {cartItem.available ? 'Entfernen' : 'Abgelaufen'}
+            </span>
           </button>
         )}
       </div>
 
-      <div className="flex flex-row gap-4">
+      <div className="hidden md:flex md:flex-row md:gap-4">
         {cartItem.available && !cartContext.cartExpired && (
           <>
             <div className="flex flex-col items-end">
@@ -214,6 +216,60 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
                 </AldiButton>
               </div>
             )}
+          </>
+        )}
+        {!cartItem.available && (
+          <div className="max-w-xs rounded-lg bg-primary/10 p-3 text-primary">
+            Dieser Deal ist leider abgelaufen! Er wird im Checkout Prozess und
+            für den Gesamtpreis nicht beachtet.
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col gap-4 md:hidden">
+        {editable && (
+          <div className="flex flex-row items-center gap-2">
+            <AldiButton
+              variant="ghost"
+              color="secondary"
+              isIconOnly={true}
+              size="md"
+              onClick={decrement}
+              isDisabled={isRemovingDeal || cartItem.quantity <= 1}
+            >
+              -
+            </AldiButton>
+            <div className="min-w-8 text-center text-3xl font-bold text-secondary">
+              {cartItem.quantity}
+            </div>
+            <AldiButton
+              variant="ghost"
+              color="secondary"
+              isIconOnly={true}
+              size="md"
+              onClick={increment}
+              isDisabled={
+                isRemovingDeal ||
+                cartItem.quantity + 1 > (deal.properties?.maxOrderQuantity || 0)
+              }
+            >
+              +
+            </AldiButton>
+          </div>
+        )}
+        {cartItem.available && !cartContext.cartExpired && (
+          <>
+            <div className="flex flex-col items-end">
+              {deal.properties?.regularPrice && (
+                <div className="text-secondary line-through">
+                  {formatCurrency(deal.properties?.regularPrice, true)}
+                </div>
+              )}
+              {deal.properties?.price && (
+                <div className="text-3xl font-bold text-primary">
+                  {formatCurrency(deal.properties?.price, true)}
+                </div>
+              )}
+            </div>
           </>
         )}
         {!cartItem.available && (
