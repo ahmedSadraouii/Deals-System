@@ -4,12 +4,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
-import { Spinner } from '@nextui-org/react';
+import { SelectItem, Spinner } from '@nextui-org/react';
 import type { CartItemModel } from 'api-deals';
 import { getDealAction } from '@/app/cart/actions/get-deal.action';
 import { getSupplierAction } from '@/app/cart/actions/get-supplier.action';
 import { useCart } from '@/app/contexts/cart/use-cart';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiSelect } from '@/components/nextui/aldi-select';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { formatCurrency } from '@/utils/format-currency';
@@ -28,6 +29,18 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
   );
   const [isRemovingDeal, setIsRemovingDeal] = useState(false);
   const [isChangingQuantity, setChangingQuantity] = useState(false);
+  const [selectedQuantity, setSelectedQuantity] = useState(cartItem.quantity);
+
+  const handleQuantityChange = useCallback(
+    async (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setChangingQuantity(true);
+      const newQuantity = parseInt(event.target.value, 10);
+      await updateCartItem(cartItem.dealId, newQuantity);
+      setSelectedQuantity(newQuantity);
+      setChangingQuantity(false);
+    },
+    [cartItem.dealId, updateCartItem],
+  );
 
   const increment = useCallback(async () => {
     setChangingQuantity(true);
@@ -74,6 +87,14 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
       setSupplierImageUrl(supplierImageUrl);
     })();
   }, [cartItem.dealId]);
+
+  const options = Array.from(
+    { length: deal?.properties?.maxOrderQuantity || 10 },
+    (_, i) => ({
+      label: (i + 1).toString(),
+      value: (i + 1).toString(),
+    }),
+  );
 
   const onClickRemoveDeal = useCallback(async () => {
     setIsRemovingDeal(true);
@@ -228,32 +249,15 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
       <div className="flex flex-col gap-4 md:hidden">
         {editable && (
           <div className="flex flex-row items-center gap-2">
-            <AldiButton
-              variant="ghost"
-              color="secondary"
-              isIconOnly={true}
-              size="md"
-              onClick={decrement}
-              isDisabled={isRemovingDeal || cartItem.quantity <= 1}
+            <AldiSelect
+              value={selectedQuantity.toString()}
+              onChange={handleQuantityChange}
+              disabled={isRemovingDeal || isChangingQuantity}
             >
-              -
-            </AldiButton>
-            <div className="min-w-8 text-center text-3xl font-bold text-secondary">
-              {cartItem.quantity}
-            </div>
-            <AldiButton
-              variant="ghost"
-              color="secondary"
-              isIconOnly={true}
-              size="md"
-              onClick={increment}
-              isDisabled={
-                isRemovingDeal ||
-                cartItem.quantity + 1 > (deal.properties?.maxOrderQuantity || 0)
-              }
-            >
-              +
-            </AldiButton>
+              {options.map((option) => (
+                <SelectItem key={option.value}>{option.label}</SelectItem>
+              ))}
+            </AldiSelect>
           </div>
         )}
         {cartItem.available && !cartContext.cartExpired && (

@@ -190,13 +190,13 @@ export function CheckoutPage({
       <div className="mx-auto max-w-5xl">
         <CartStepIndicator step={2} />
       </div>
-      <div className="mt-8 rounded-[20px] bg-neutral-100 p-4 md:hidden md:p-10">
+      <div className="mt-10 rounded-[20px] bg-neutral-100 p-4 md:hidden md:p-10">
         <CheckoutCartMobile />
       </div>
 
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <div className="mt-10 grid grid-cols-1 gap-10 md:mt-12 lg:grid-cols-2">
             {errorState && (
               <div className="col-span-full">
                 <CartErrorMessage error={errorState} />

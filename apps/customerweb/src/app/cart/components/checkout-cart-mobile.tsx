@@ -6,7 +6,7 @@ import { ReservationTimer } from '@/app/cart/components/reservation-timer';
 
 export default function CheckoutCartMobile() {
   return (
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-col justify-between">
       <div className="flex w-full flex-row items-center justify-between pb-2">
         <h1 className=" text-3xl font-bold text-secondary">Warenkorb</h1>
         <Link

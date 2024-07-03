@@ -23,7 +23,7 @@ export default function Page() {
         </div>
         <div className="col-span-8 flex flex-col gap-10">
           <div className="rounded-[20px] bg-neutral-100 p-10">
-            <h1 className="mb-6 text-3xl font-bold text-secondary">
+            <h1 className="border-b pb-4 text-3xl font-bold text-secondary">
               Dein Warenkorb
             </h1>
             <div>
