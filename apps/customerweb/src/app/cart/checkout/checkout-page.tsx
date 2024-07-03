@@ -14,6 +14,7 @@ import { cartCheckoutAction } from '@/app/cart/actions/cart-checkout.action';
 import { checkCartCheckoutPreconditionAction } from '@/app/cart/actions/check-cart-checkout-precondition.action';
 import { CartErrorMessage } from '@/app/cart/components/cart-error-message';
 import { CartStepIndicator } from '@/app/cart/components/cart-step-indicator';
+import CheckoutCartMobile from '@/app/cart/components/checkout-cart-mobile';
 import { CheckoutCostOverview } from '@/app/cart/components/checkout-cost-overview';
 import { SessionLoading } from '@/app/cart/components/session-loading';
 import { useCart } from '@/app/contexts/cart/use-cart';
@@ -189,10 +190,13 @@ export function CheckoutPage({
       <div className="mx-auto max-w-5xl">
         <CartStepIndicator step={2} />
       </div>
+      <div className="mt-8 rounded-[20px] bg-neutral-100 p-4 md:hidden md:p-10">
+        <CheckoutCartMobile />
+      </div>
 
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-20 grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2">
             {errorState && (
               <div className="col-span-full">
                 <CartErrorMessage error={errorState} />
@@ -432,7 +436,7 @@ export function CheckoutPage({
             </div>
 
             <div>
-              <div className="rounded-[20px] bg-neutral-100 p-10">
+              <div className="rounded-[20px] bg-neutral-100 p-4 md:p-10">
                 <CheckoutCostOverview />
 
                 <div className="flex flex-col gap-4">

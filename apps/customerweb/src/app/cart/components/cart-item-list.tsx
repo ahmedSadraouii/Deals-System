@@ -12,7 +12,7 @@ export function CartItemList({ editable = true }: CartItemListProps) {
   } = useCart();
 
   return (cart?.items || []).map((cartItem) => (
-    <div key={cartItem.dealId} className="border-t border-t-secondary/10">
+    <div key={cartItem.dealId} className="md:border-t md:border-t-secondary/10">
       <CartItem cartItem={cartItem} editable={editable} />
     </div>
   ));

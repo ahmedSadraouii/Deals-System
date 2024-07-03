@@ -17,9 +17,15 @@ export function CheckoutCostOverview() {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <div className="flex w-full flex-row items-center justify-between pb-6">
-          <h1 className="text-3xl font-bold text-secondary">Warenkorb</h1>
+        <div className="flex w-full flex-row items-center justify-between  border-b pb-2 md:border-b-0 md:pb-6">
+          <h1 className="hidden text-3xl font-bold text-secondary md:block">
+            Warenkorb
+          </h1>
+          <h1 className="text-3xl font-bold text-secondary md:hidden">
+            Übersicht
+          </h1>
           <Link
+            className="hidden md:block"
             as={NextLink}
             href="/cart"
             size="lg"
@@ -30,9 +36,11 @@ export function CheckoutCostOverview() {
           </Link>
         </div>
       </div>
-      <ReservationTimer />
+      <div className="hidden md:block">
+        <ReservationTimer />
+      </div>
 
-      <div className="mt-6">
+      <div className="mt-6 hidden md:block">
         <CartItemList editable={false} />
       </div>
 
