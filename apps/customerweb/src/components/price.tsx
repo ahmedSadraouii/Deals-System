@@ -42,8 +42,8 @@ export function Price({
     variants: {
       textSize: {
         default: 'text-lg',
-        1: 'text-lg',
-        2: 'text-xl',
+        1: 'text-2xl',
+        2: 'text-3xl',
         3: 'text-4xl mr-6',
         4: 'text-3xl mr-2',
       },
