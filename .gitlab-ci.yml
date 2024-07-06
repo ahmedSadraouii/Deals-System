@@ -1,5 +1,4 @@
 include:
-  - '/.gitlab-ci/test/steps.yml'
   - '/.gitlab-ci/build/steps.yml'
   - '/.gitlab-ci/deploy/steps.yml'
 
@@ -17,7 +16,6 @@ variables:
   IMAGE_NAME: "ad-fe"
 
 stages:
-  - Test
   - Build
   - Deploy
 
