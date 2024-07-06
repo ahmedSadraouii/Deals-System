@@ -51,7 +51,7 @@ export async function cartCheckoutAction({
       city,
       countryCode: 'DE',
     },
-    returnUrl: 'http://localhost:4420/cart/callback',
+    returnUrl: `${process.env.NEXTAUTH_URL}/cart/callback`,
   };
 
   if (
