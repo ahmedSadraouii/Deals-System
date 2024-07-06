@@ -11,6 +11,7 @@ import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
+import { formatAvailability } from '@/utils/format-availability';
 
 interface HeroBannerProps {
   deals: Array<UmbracoDeal>;
@@ -76,7 +77,13 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
           </div>
         </CardHeader>
         <CardBody className="mb-5 flex flex-col items-start justify-end gap-6 md:mb-16 md:ml-6">
-          <MegaDealCard />
+          {fullDeal.properties?.availabilityEnd && (
+            <MegaDealCard
+              availabilityEnd={formatAvailability(
+                fullDeal.properties?.availabilityEnd,
+              )}
+            />
+          )}
           <h1 className="hidden text-6xl font-semibold uppercase text-white md:block">
             {fullDeal.name}
           </h1>
