@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { getAuthApiClient } from './auth-api-client';
 import type { UserDetailsDto } from 'api-user';
 import type { NextAuthOptions, User } from 'next-auth';
+import { ApiError } from '@/utils/api-error';
 import { tryParseApiError } from '@/utils/api-response-handling';
 import { getUserApiClient } from '@/utils/user-api-client';
 
@@ -110,10 +111,11 @@ export const authOptions: NextAuthOptions = {
                 cardinalDirectionResponse.data!.cardinalDirection,
             }),
           } satisfies User;
-        } catch (error: any) {
-          if (error?.response?.json) {
-            const errorResponse = await (error as any).response.json();
-            const apiErrorCode = tryParseApiError(errorResponse);
+        } catch (error: ApiError | unknown) {
+          if (error instanceof ApiError) {
+            const responseJson = JSON.parse(error.responseText || '{}');
+
+            const apiErrorCode = tryParseApiError(responseJson);
             throw new Error(apiErrorCode);
           }
           console.error('Error during login:', error);
