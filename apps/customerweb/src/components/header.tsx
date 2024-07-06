@@ -60,7 +60,7 @@ export function Header() {
         <AldiButton
           as={Link}
           size="lg"
-          variant="ghost"
+          variant="solid"
           href="/redeem"
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
