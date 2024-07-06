@@ -135,7 +135,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               >
                 <Image
                   src={supplierImageUrl!}
-                  alt="Jober"
+                  alt={fullSupplier.name}
                   width={64}
                   height={64}
                   className="shrink-0 object-contain"

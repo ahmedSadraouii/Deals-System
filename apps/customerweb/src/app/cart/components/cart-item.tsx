@@ -11,7 +11,10 @@ import { getSupplierAction } from '@/app/cart/actions/get-supplier.action';
 import { useCart } from '@/app/contexts/cart/use-cart';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiSelect } from '@/components/nextui/aldi-select';
-import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
+import type {
+  UmbracoDeal,
+  UmbracoSupplier,
+} from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { formatCurrency } from '@/utils/format-currency';
 
@@ -24,6 +27,9 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
   const { cartContext, removeCartItem, updateCartItem } = useCart();
 
   const [deal, setDeal] = useState<UmbracoDeal | undefined>(undefined);
+  const [supplier, setSupplier] = useState<UmbracoSupplier | undefined>(
+    undefined,
+  );
   const [supplierImageUrl, setSupplierImageUrl] = useState<string | undefined>(
     undefined,
   );
@@ -64,6 +70,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
       const supplier = await getSupplierAction({
         supplierId: deal.properties!.supplier.id,
       });
+      setSupplier(supplier);
 
       const supplierImage = supplier.properties?.picture?.[0]?.url;
       const primaryImage = deal.properties?.pictures?.[0]?.url;
@@ -151,7 +158,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
         >
           <Image
             src={supplierImageUrl}
-            alt="Jober"
+            alt={supplier?.name ?? 'supplier'}
             width={88}
             height={88}
             className="shrink-0 object-contain"
