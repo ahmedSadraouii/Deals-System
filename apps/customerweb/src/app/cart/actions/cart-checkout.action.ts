@@ -39,6 +39,8 @@ export async function cartCheckoutAction({
   }
   const cartsApi = getCartsApiClient(cartsApiProps);
 
+  const baseUrl = process.env.NEXTAUTH_URL;
+  const redirectUrl = `${baseUrl}/cart-callback`;
   const createCheckoutRequest: CreateCheckoutRequest = {
     checkoutInputModel: {
       email,
@@ -51,7 +53,7 @@ export async function cartCheckoutAction({
       city,
       countryCode: 'DE',
     },
-    returnUrl: `${process.env.NEXTAUTH_URL}/cart/callback`,
+    returnUrl: redirectUrl,
   };
 
   if (

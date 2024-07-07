@@ -5,6 +5,7 @@
     "__NEXT_IMAGE_OPTS",
     "ADOBE_SCRIPT",
     "NODE_ENV",
+    "NEXTAUTH_URL",
     "CONTENT_API_BASE_URL",
     "AUTH_API_BASE_URL",
     "USER_API_BASE_URL",

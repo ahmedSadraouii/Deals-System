@@ -6,6 +6,7 @@ import {
   HonoredDealsApi,
   CartsApi,
   VoucherApi,
+  AccountApi,
 } from 'api-deals';
 import { getApiClientErrorHandler } from '@/utils/catch-api-error';
 
@@ -36,6 +37,13 @@ export function getDealsApiClient(params: AdBeApiClientProps): DealsApi {
   return new DealsApi(getAdBeApiConfiguration(params)).withMiddleware({
     onError: getApiClientErrorHandler('DealsApi', 'error'),
     post: getApiClientErrorHandler('DealsApi', 'post'),
+  });
+}
+
+export function getAccountApiClient(params: AdBeApiClientProps): AccountApi {
+  return new AccountApi(getAdBeApiConfiguration(params)).withMiddleware({
+    onError: getApiClientErrorHandler('AccountApi', 'error'),
+    post: getApiClientErrorHandler('AccountApi', 'post'),
   });
 }
 
