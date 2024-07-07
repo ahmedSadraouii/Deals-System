@@ -1,6 +1,6 @@
 'use server';
 
-import { CardinalDirection } from 'api-deals/generated/models/CardinalDirection';
+import { CardinalDirection } from 'api-deals';
 import { getAccountApiClient } from '@/utils/deals-api-client';
 
 export interface CheckCartCheckoutPreconditionAction {
