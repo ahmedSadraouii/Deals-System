@@ -1,57 +1,15 @@
 'use client';
 
-import React from 'react';
-import { ProductItem } from './product-item';
+import type { ReactNode } from 'react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 
-export function DealsSlider() {
-  const data = [
-    {
-      id: '1',
-      image: '/img_4.png',
-      price: 100,
-      discountPrice: 80,
-    },
-    {
-      id: '2',
-      image: '/img_4.png',
-      price: 150,
-      discountPrice: 120,
-    },
-    {
-      id: '3',
-      image: '/img_4.png',
-      price: 200,
-      discountPrice: 160,
-    },
-    {
-      id: '4',
-      image: '/img_4.png',
-      price: 250,
-      discountPrice: 200,
-    },
-    {
-      id: '5',
-      image: '/img_4.png',
-      price: 300,
-      discountPrice: 240,
-    },
-    {
-      id: '6',
-      image: '/img_4.png',
-      price: 350,
-      discountPrice: 280,
-    },
-    {
-      id: '7',
-      image: '/img_4.png',
-      price: 400,
-      discountPrice: 320,
-    },
-  ];
+interface DealsSliderProps {
+  children: ReactNode[]; // Adjusted type to expect an array of ReactNode
+}
 
+export function DealsSlider({ children }: DealsSliderProps) {
   return (
     <section className="w-full bg-neutral-100 px-5 py-16">
       <div className="container mx-auto">
@@ -59,16 +17,16 @@ export function DealsSlider() {
           <h1 className="mb-4 text-4xl font-bold text-aldi-blue">
             DEALS der Woche
           </h1>
-          <div className="flex justify-between gap-2">
+          <div className="flex justify-between gap-6">
             <button
               type="button"
-              className="prev rounded-full bg-black p-2 text-lg"
+              className="prev rounded-full bg-secondary p-2 text-lg"
             >
               <ChevronRightSvg className="rotate-180  text-white" />
             </button>
             <button
               type="button"
-              className="next rounded-full bg-black p-2 text-lg"
+              className="next rounded-full bg-secondary p-2 text-lg"
             >
               <ChevronRightSvg className=" text-white" />
             </button>
@@ -112,14 +70,10 @@ export function DealsSlider() {
           modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper"
         >
-          {data.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="flex items-center justify-center gap-4">
-                <ProductItem
-                  price={item.price}
-                  discountPrice={item.discountPrice}
-                  image={item.image}
-                />
+          {children.map((child, index) => (
+            <SwiperSlide key={index}>
+              <div className="flex items-center justify-center gap-0">
+                {child}
               </div>
             </SwiperSlide>
           ))}
