@@ -1,8 +1,7 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/utils/auth';
-import { getPostalCodeApiClient } from '@/utils/get-postal-code-api-client';
+import { CardinalDirection } from 'api-deals';
+import { getAccountApiClient } from '@/utils/deals-api-client';
 
 export interface CheckCartCheckoutPreconditionAction {
   countryCode: string;
@@ -20,16 +19,33 @@ export async function checkCartCheckoutPreconditionAction({
     return false;
   }
 
-  const serverSession = await getServerSession(authOptions);
+  /*const serverSession = await getServerSession(authOptions);
   if (serverSession) {
     // check cardinal direction from session
     return serverSession.user.cardinalDirection === 1; // 1 is sued
-  }
+  }*/
 
   // check cardinal direction of postal code to determine if it is in the correct region
-  const postalCodeApiClient = getPostalCodeApiClient();
-  // TODO: implement postal code check, russlan will take care of it
-  // because the postal code api client returns a content type JSON but the response is a string
-  // also the response model is not correct in the openapi spec
-  return true;
+  const accountApiClient = getAccountApiClient({});
+  const getCardinalDirectionResponse =
+    await accountApiClient.getCardinalDirection({
+      postalCode: `${postalCode}`,
+    });
+
+  const allowedCardinalDirections: Array<CardinalDirection> = [
+    CardinalDirection.Sued,
+  ];
+
+  console.log({
+    getCardinalDirectionResponse,
+    allowedCardinalDirections,
+    postalCode,
+  });
+
+  return (
+    getCardinalDirectionResponse.cardinalDirection !== undefined &&
+    allowedCardinalDirections.includes(
+      getCardinalDirectionResponse.cardinalDirection,
+    )
+  );
 }
