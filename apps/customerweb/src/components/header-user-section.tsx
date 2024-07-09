@@ -44,16 +44,31 @@ export async function HeaderUserSection() {
   }
   return (
     <>
-      <AldiButton
-        as={Link}
-        size="lg"
-        variant="solid"
-        href="/auth"
-        endContent={<IconUser className="text-2xl" />}
-        color="secondary"
-      >
-        Anmelden
-      </AldiButton>
+      <div>
+        <div className="hidden lg:block">
+          <AldiButton
+            as={Link}
+            size="lg"
+            variant="solid"
+            href="/auth"
+            endContent={<IconUser className="text-2xl" />}
+            color="secondary"
+          >
+            Anmelden
+          </AldiButton>
+        </div>
+        <div className="lg:hidden">
+          <AldiButton
+            as={Link}
+            data-is-user-button={true}
+            variant="flat"
+            isIconOnly={true}
+            endContent={<IconUser className="text-2xl" />}
+            href="/auth"
+            className="h-12 w-12 text-secondary"
+          />
+        </div>
+      </div>
     </>
   );
 }
