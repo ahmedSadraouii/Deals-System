@@ -128,6 +128,7 @@ export function CheckoutPage({
       setLoading(false);
       return;
     }
+    setErrorState(undefined);
 
     try {
       const checkoutResponse = await cartCheckoutAction({

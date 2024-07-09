@@ -26,14 +26,14 @@ export async function HeaderUserSection() {
           <HeaderUserProfileButton>
             <AldiButton
               size="lg"
-              variant="light"
-              className="cursor-pointer items-center !bg-transparent py-0"
+              variant="flat"
+              className="cursor-pointer items-center"
               data-is-user-button={true}
             >
               <span className="hidden pl-4 lg:block">
                 Hey {session.user.profile.firstName}!
               </span>
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-default/40">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center">
                 <IconProfile className="text-2xl text-secondary" />
               </div>
             </AldiButton>
@@ -44,16 +44,31 @@ export async function HeaderUserSection() {
   }
   return (
     <>
-      <AldiButton
-        as={Link}
-        size="lg"
-        variant="solid"
-        href="/auth"
-        endContent={<IconUser className="text-2xl" />}
-        color="secondary"
-      >
-        Anmelden
-      </AldiButton>
+      <div>
+        <div className="hidden lg:block">
+          <AldiButton
+            as={Link}
+            size="lg"
+            variant="solid"
+            href="/auth"
+            endContent={<IconUser className="text-2xl" />}
+            color="secondary"
+          >
+            Anmelden
+          </AldiButton>
+        </div>
+        <div className="lg:hidden">
+          <AldiButton
+            as={Link}
+            data-is-user-button={true}
+            variant="flat"
+            isIconOnly={true}
+            endContent={<IconUser className="text-2xl" />}
+            href="/auth"
+            className="h-12 w-12 text-secondary"
+          />
+        </div>
+      </div>
     </>
   );
 }

@@ -60,7 +60,7 @@ export function Header() {
         <AldiButton
           as={Link}
           size="lg"
-          variant="ghost"
+          variant="solid"
           href="/redeem"
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
@@ -96,7 +96,6 @@ export function Header() {
             <AldiSuedSvg className="h-10 lg:h-auto" />
             <AldiDealsSvg className="h-10 lg:h-auto" />
           </NavbarBrand>
-          <HeaderUserSection />
           <HeaderCartSection>
             <AldiButton
               as={Link}
@@ -108,6 +107,7 @@ export function Header() {
               <IconCart className="text-2xl" />
             </AldiButton>
           </HeaderCartSection>
+          <HeaderUserSection />
         </div>
         <div className="w-full">
           <AldiButton

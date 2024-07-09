@@ -24,9 +24,14 @@ import { formatAvailability } from '@/utils/format-availability';
 export interface DealDetailPageProps {
   deal: UmbracoDeal;
   supplier: UmbracoSupplier;
+  children: React.ReactNode;
 }
 
-export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
+export function DealDetailPage({
+  deal,
+  supplier,
+  children,
+}: DealDetailPageProps) {
   const productImages =
     deal.properties?.pictures
       ?.filter((picture) => !!picture.url)
@@ -62,7 +67,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
         </div>
       </div>
       <div className="container mx-auto space-y-10 px-4 py-4 xl:py-20">
-        <div className="grid gap-10 lg:grid-cols-12">
+        <div className="grid gap-10 xl:grid-cols-12">
           <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-7">
             <DetailPageCarousel itemStart={0} itemsPerPage={5}>
               {productImages.map((image, index) => (
@@ -218,6 +223,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
             )}
           </div>
         </div>
+        {children}
       </div>
     </div>
   );

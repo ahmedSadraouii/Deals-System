@@ -57,7 +57,7 @@ export default async function Page({
       );
     }
 
-    return <ThankYouPage orderModel={confirmPaymentResponse.order!} />;
+    return <ThankYouPage orderModel={confirmPaymentResponse.order} />;
   } catch (error) {
     return (
       <ErrorPage

@@ -3,6 +3,8 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import { DealDetailPage } from '@/app/deal/[path]/deal-detail-page';
 import NotFound from '@/app/not-found';
+import { DealsSlider } from '@/components/product/deals-slider';
+import { ProductItem } from '@/components/product/product-item';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
@@ -55,7 +57,10 @@ export async function generateMetadata({
 
 export default async function Page({ params: { path } }: Props) {
   const contentApi = getContentApiClient();
-
+  const contentDeals = await contentApi.getContent20({
+    filter: ['contentType:deal'],
+  });
+  const deals = contentDeals.items as UmbracoDeal[];
   try {
     const deal = (await contentApi.getContentItemByPath20({
       path: `/content/deals/${path}/`,
@@ -75,7 +80,15 @@ export default async function Page({ params: { path } }: Props) {
       return <NotFound />;
     }
 
-    return <DealDetailPage deal={deal} supplier={supplier} />;
+    return (
+      <DealDetailPage deal={deal} supplier={supplier}>
+        <DealsSlider>
+          {deals.map((deal) => (
+            <ProductItem key={deal.id} dealId={deal.id} />
+          ))}
+        </DealsSlider>
+      </DealDetailPage>
+    );
   } catch (error) {
     return <NotFound />;
   }
