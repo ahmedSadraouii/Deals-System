@@ -120,7 +120,8 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
               <p className="text-secondary">{deal.properties?.description}</p>
               <Divider />
               <div className="flex grow flex-col justify-end">
-                <Tooltip content="TODO: Woher wissen wir, ob es ein UVP Preis ist?">
+            
+                {/*<Tooltip content="TODO: Woher wissen wir, ob es ein UVP Preis ist?">
                   <div>
                     <Price
                       oldPrice={deal.properties?.regularPrice}
@@ -130,7 +131,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                       textSize={2}
                     />
                   </div>
-                </Tooltip>
+                </Tooltip>*/}
               </div>
               <div className="flex flex-col gap-2">
                 <AddDealToCart
@@ -182,7 +183,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                 Beschreibung
               </h1>
               <p className="text-secondary">{deal.properties?.description}</p>
-              <div className="inline-block">
+              {/*<div className="inline-block">
                 <Tooltip content="TODO: Was passiert on-click?">
                   <a
                     href="#"
@@ -194,13 +195,13 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                     <ChevronRightSvg />
                   </a>
                 </Tooltip>
-              </div>
+              </div> */}
             </div>
             {deal.properties?.details && (
               <div className="flex flex-col space-y-6 rounded-lg border border-secondary/10 p-10 lg:rounded-[20px]">
                 <h1 className="text-4xl font-bold text-secondary">Details</h1>
                 <p className="text-secondary">{deal.properties?.details}</p>
-                <div className="inline-block">
+                {/*<div className="inline-block">
                   <Tooltip content="TODO: Was passiert on-click?">
                     <a
                       href="#"
@@ -212,7 +213,7 @@ export function DealDetailPage({ deal, supplier }: DealDetailPageProps) {
                       <ChevronRightSvg />
                     </a>
                   </Tooltip>
-                </div>
+                </div>*/}
               </div>
             )}
           </div>
