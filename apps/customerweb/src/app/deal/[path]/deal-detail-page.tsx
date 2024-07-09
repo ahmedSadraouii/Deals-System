@@ -5,12 +5,11 @@ import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Divider, Tooltip } from '@nextui-org/react';
+import { Divider } from '@nextui-org/react';
 import { AddDealToCart } from '@/app/deal/[path]/add-deal-to-cart';
 import { DealPerkCard } from '@/app/deal/[path]/deal-perk-card';
 import { DetailPageCarousel } from '@/components/carousel/detail-page-carousel';
 import { HeartFavorite } from '@/components/heart-favorite';
-import { Price } from '@/components/price';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
@@ -125,7 +124,6 @@ export function DealDetailPage({
               <p className="text-secondary">{deal.properties?.description}</p>
               <Divider />
               <div className="flex grow flex-col justify-end">
-            
                 {/*<Tooltip content="TODO: Woher wissen wir, ob es ein UVP Preis ist?">
                   <div>
                     <Price
