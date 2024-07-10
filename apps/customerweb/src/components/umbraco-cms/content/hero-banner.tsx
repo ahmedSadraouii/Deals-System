@@ -1,11 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
+import { HeroButton } from '@/components/home/hero-button';
 import MegaDealCard from '@/components/home/mega-deal-card';
-import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
-import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -116,16 +114,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               />
             </div>
             <div className="flex w-[96%] items-center justify-between">
-              <AldiButton
-                as={Link}
-                variant="solid"
-                color="primary"
-                endContent={<IconArrowRight />}
-                href={`/deal/${dealLink || fullDeal.route.path}`}
-                size="lg"
-              >
-                Jetzt Deal sichern
-              </AldiButton>
+              <HeroButton href={`/deal/${dealLink || fullDeal.route.path}`} />
               <div className="hidden items-center gap-4 rounded-[20px] border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:flex">
                 <div
                   className={cn(

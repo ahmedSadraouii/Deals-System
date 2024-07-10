@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
@@ -15,6 +15,7 @@ import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
+import { trackCTA } from '@/utils/tracking';
 
 export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
   supplier: UmbracoSupplier;
@@ -39,6 +40,11 @@ export function DealsListItemGrid({
     () => deal.route.path.split('/')[3],
     [deal.route.path],
   );
+  const ctaText = 'Jetzt Deal sichern';
+  const targetUrl = `/deal/${dealLinkSegment || deal.route.path}`;
+  const handleCtaClick = useCallback(() => {
+    trackCTA(ctaText, targetUrl);
+  }, [ctaText, targetUrl]);
 
   return (
     <div
@@ -101,6 +107,7 @@ export function DealsListItemGrid({
               variant="ghost"
               isIconOnly={true}
               href={`/deal/${dealLinkSegment || deal.route.path}`}
+              onClick={handleCtaClick}
             >
               <IconArrowRight className="text-xl text-secondary/10" />
             </AldiButton>
@@ -111,9 +118,10 @@ export function DealsListItemGrid({
             as={Link}
             variant="solid"
             color="secondary"
-            href={`/deal/${dealLinkSegment || deal.route.path}`}
+            href={targetUrl}
             fullWidth={true}
             endContent={<IconArrowRight className="text-xl text-white" />}
+            onClick={handleCtaClick}
           >
             Jetzt deal sichern
           </AldiButton>

@@ -29,6 +29,7 @@ import { PaymentIconVisa } from '@/components/svg/payment-icon-visa';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { emailRegex } from '@/utils/email-regex';
 import { toast } from '@/utils/toast';
+import { trackCTA } from '@/utils/tracking';
 
 export type CheckoutPageAddressForm = Partial<
   Omit<CheckoutInputModel, 'dateOfBirth'>
@@ -152,10 +153,12 @@ export function CheckoutPage({
       setLoading(false);
     }
   }, []);
-
+  const targetUrl = '/cart/checkout';
+  const ctaText = 'Jetzt kostenpflichtig abschliessen';
   const onClickProceed = useCallback(async () => {
     await trigger();
     await handleSubmit(onSubmit)();
+    trackCTA(ctaText, targetUrl);
   }, [handleSubmit, onSubmit, trigger]);
 
   const isGuestOrder = searchParams.get('type') === 'guest';

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import NextLink from 'next/link';
+import { HeaderCartButton } from './header-cart-button';
 import {
   Navbar,
   NavbarBrand,
@@ -16,7 +17,6 @@ import { HeaderUserSection } from '@/components/header-user-section';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiDealsSvg } from '@/components/svg/aldi-deals-svg';
 import { AldiSuedSvg } from '@/components/svg/aldi-sued-svg';
-import { IconCart } from '@/components/svg/icon-cart';
 import { IconTicket } from '@/components/svg/icon-ticket';
 import { cn } from '@/utils/cn';
 
@@ -69,16 +69,7 @@ export function Header() {
         </AldiButton>
         <HeaderUserSection />
         <HeaderCartSection>
-          <AldiButton
-            as={Link}
-            size="lg"
-            variant="flat"
-            isIconOnly={true}
-            href="/cart"
-            className="h-12 w-12 text-secondary"
-          >
-            <IconCart className="text-2xl" />
-          </AldiButton>
+          <HeaderCartButton />
         </HeaderCartSection>
       </NavbarContent>
 
@@ -97,15 +88,7 @@ export function Header() {
             <AldiDealsSvg className="h-10 lg:h-auto" />
           </NavbarBrand>
           <HeaderCartSection>
-            <AldiButton
-              as={Link}
-              variant="flat"
-              isIconOnly={true}
-              href="/cart"
-              className="h-12 w-12 text-secondary"
-            >
-              <IconCart className="text-2xl" />
-            </AldiButton>
+            <HeaderCartButton />
           </HeaderCartSection>
           <HeaderUserSection />
         </div>

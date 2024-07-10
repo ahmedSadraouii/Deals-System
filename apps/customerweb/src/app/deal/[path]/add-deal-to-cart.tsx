@@ -7,6 +7,7 @@ import { useCart } from '@/app/contexts/cart/use-cart';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconCart } from '@/components/svg/icon-cart';
 import { toast } from '@/utils/toast';
+import { trackCTA } from '@/utils/tracking';
 
 export interface AddDealToCartProps {
   dealId: string;
@@ -38,10 +39,14 @@ export function AddDealToCart({
   );
 
   const [isLoading, setLoading] = useState(false);
+  const ctaText = 'In den Warenkorb';
+  const targetUrl = window.location.pathname;
+
   const onAddToCart = useCallback(async () => {
-    setLoading(true);
     try {
       await updateCartItem(dealId, existingCartItemQuantity + quantity);
+      trackCTA(ctaText, targetUrl);
+      setLoading(true);
     } catch (error) {
       console.error('Error updating cart item:', error);
       toast({
@@ -52,7 +57,14 @@ export function AddDealToCart({
       setLoading(false);
       setQuantity(1);
     }
-  }, [dealId, existingCartItemQuantity, quantity, updateCartItem]);
+  }, [
+    dealId,
+    existingCartItemQuantity,
+    quantity,
+    updateCartItem,
+    ctaText,
+    targetUrl,
+  ]);
 
   if (
     session.status === 'authenticated' &&

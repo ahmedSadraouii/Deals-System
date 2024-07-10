@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
@@ -15,6 +15,7 @@ import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
+import { trackCTA } from '@/utils/tracking';
 
 export type DealsListItemHeroSliderProps = Omit<
   DealsListItemProps,
@@ -40,6 +41,12 @@ export function DealsListItemHeroSlider({
     () => deal.route.path.split('/')[3],
     [deal.route.path],
   );
+  const ctaText = 'Jetzt Deal sichern';
+  const targetUrl = `/deal/${dealLinkSegment || deal.route.path}`;
+  const handleCtaClick = useCallback(() => {
+    trackCTA(ctaText, targetUrl);
+  }, [ctaText, targetUrl]);
+
   return (
     <>
       <div className="lg:hidden">
@@ -123,8 +130,9 @@ export function DealsListItemHeroSlider({
               className="px-6"
               variant="solid"
               color="primary"
-              href={`/deal/${dealLinkSegment || deal.route.path}`}
+              href={targetUrl}
               size="lg"
+              onClick={handleCtaClick}
             >
               Jetzt Deal sichern
             </AldiButton>
