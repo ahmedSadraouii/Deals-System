@@ -3,7 +3,7 @@
 import React, { useContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
+import { FavoriteContext } from '@/app/(aldi-deals)/contexts/favorite/favorite-context';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
 import { DealsListItemGrid } from '@/components/deal/deals-list-item-grid';
 import { HeartFavorite } from '@/components/heart-favorite';

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { CardBody, CardFooter, CardHeader } from '@nextui-org/react';
-import { redeemVoucher } from '@/app/redeem/actions/redeem.action';
+import { redeemVoucher } from '@/app/(aldi-deals)/redeem/actions/redeem.action';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCard } from '@/components/nextui/aldi-card';
 import type {
@@ -64,7 +64,7 @@ export default function CardActivation({
           <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
             {supplierImage && (
               <Image
-                src={`${process.env.CONTENT_API_BASE_URL}${supplierImage}`}
+                src={supplierImage}
                 alt={supplier.name}
                 width={80}
                 height={80}

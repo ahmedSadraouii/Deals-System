@@ -7,9 +7,9 @@ import { IconHeart } from './svg/icon-heart';
 import {
   FavoriteContext,
   FavoriteContextActionKind,
-} from '@/app/contexts/favorite/favorite-context';
-import { addFavoriteAction } from '@/app/profile/actions/add-favorite.action';
-import { deleteFavoriteAction } from '@/app/profile/actions/delete-favorite.action';
+} from '@/app/(aldi-deals)/contexts/favorite/favorite-context';
+import { addFavoriteAction } from '@/app/(aldi-deals)/profile/actions/add-favorite.action';
+import { deleteFavoriteAction } from '@/app/(aldi-deals)/profile/actions/delete-favorite.action';
 import { cn } from '@/utils/cn';
 
 interface HeartFavoriteProps {

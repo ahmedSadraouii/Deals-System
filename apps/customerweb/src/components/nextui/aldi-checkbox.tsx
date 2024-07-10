@@ -4,6 +4,12 @@ import { Checkbox, extendVariants } from '@nextui-org/react';
 
 export const AldiCheckbox = extendVariants(Checkbox, {
   variants: {
+    color: {
+      white: {
+        wrapper: 'before:!border-white/50',
+        label: 'text-white',
+      },
+    },
     size: {
       lg: {
         wrapper: 'w-10 h-10 before:border-1 before:border-secondary/50',

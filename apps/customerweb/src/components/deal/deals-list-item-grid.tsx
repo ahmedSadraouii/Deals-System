@@ -3,7 +3,7 @@
 import { useContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
+import { FavoriteContext } from '@/app/(aldi-deals)/contexts/favorite/favorite-context';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
 import { HeartFavorite } from '@/components/heart-favorite';
 import { AldiButton } from '@/components/nextui/aldi-button';
