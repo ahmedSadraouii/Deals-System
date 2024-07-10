@@ -4,7 +4,6 @@ import { authOptions } from '@/utils/auth';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  console.log('token', session?.accessToken);
 
   return (
     <div className="w-full lg:w-[70%] xl:w-[50%]">

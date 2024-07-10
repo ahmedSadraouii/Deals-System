@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Divider } from '@nextui-org/react';
@@ -18,6 +18,7 @@ import type {
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
+import { trackPageView } from '@/utils/tracking';
 
 export interface DealDetailPageProps {
   deal: UmbracoDeal;
@@ -30,6 +31,7 @@ export function DealDetailPage({
   supplier,
   children,
 }: DealDetailPageProps) {
+  const hasTrackedPageView = useRef(false);
   const productImages =
     deal.properties?.pictures
       ?.filter((picture) => !!picture.url)
@@ -40,6 +42,20 @@ export function DealDetailPage({
   const supplierImageUrl = supplierImage && fixUmbracoMediaLink(supplierImage);
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const pageInfo = {
+    pageName: 'aldi-deals-detailpage',
+    pageType: 'aldi-sued-ci-template',
+    primaryCategory: 'ALDI SUED CI',
+    subCategory: 'aldi-deals',
+    subSubCategory: 'detailpage',
+  };
+  useEffect(() => {
+    if (!hasTrackedPageView.current) {
+      trackPageView(pageInfo);
+      hasTrackedPageView.current = true;
+    }
+  }, []);
 
   return (
     <div>

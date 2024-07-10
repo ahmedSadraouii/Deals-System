@@ -1,18 +1,20 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { getVoucherInfo } from '@/app/(aldi-deals)/redeem/actions/get-voucher-info.action';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiInput } from '@/components/nextui/aldi-input';
+import { trackPageView } from '@/utils/tracking';
 
 interface RedemptionPinFormProps {
   isGuest: boolean;
 }
 
 export function RedemptionPinForm({ isGuest }: RedemptionPinFormProps) {
+  const hasTrackedPageView = useRef(false);
   const router = useRouter();
   const defaultValues = {
     pinCode: '',
@@ -58,6 +60,20 @@ export function RedemptionPinForm({ isGuest }: RedemptionPinFormProps) {
     },
     [router, setError, isGuest],
   );
+
+  const pageInfo = {
+    pageName: 'aldi-deals-redeem',
+    pageType: 'aldi-sued-ci-template',
+    primaryCategory: 'ALDI SUED CI',
+    subCategory: 'aldi-deals',
+    subSubCategory: 'redeem',
+  };
+  useEffect(() => {
+    if (!hasTrackedPageView.current) {
+      trackPageView(pageInfo);
+      hasTrackedPageView.current = true;
+    }
+  }, []);
   return (
     <Card className=" bg-neutral-100 py-4 md:p-8">
       <CardBody>
