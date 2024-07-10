@@ -176,7 +176,10 @@ export async function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/content/nutzungsbedingungen" className="hover:underline">
+                  <Link
+                    href="/content/nutzungsbedingungen"
+                    className="hover:underline"
+                  >
                     Nutzungsbedingungen
                   </Link>
                 </li>
