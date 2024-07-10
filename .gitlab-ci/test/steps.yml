@@ -6,23 +6,18 @@
     paths:
       - node_modules/
   before_script:
-    - echo "Add some steps" 
+    - echo "Add some steps"
     #- npm install yarn
   script:
-    - echo "Add some steps" 
+    - echo "Add some steps"
     #- yarn install
     #- yarn test
     #- yarn build
-  
+
 test_prod:
   extends:
     - .test
     - .environment_prod
-
-test_staging:
-  extends:
-    - .test
-    - .environment_staging
 
 test_dev:
   extends:

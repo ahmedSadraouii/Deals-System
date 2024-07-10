@@ -25,13 +25,6 @@ deploy_prod:
   before_script:
     - export KUBECONFIG=$PROD_KUBECONFIG
 
-deploy_staging:
-  extends:
-    - .deploy
-    - .environment_staging
-  before_script:
-    - export KUBECONFIG=$STAGING_KUBECONFIG
-
 deploy_dev:
   extends:
     - .deploy
