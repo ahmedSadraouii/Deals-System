@@ -34,8 +34,7 @@ const nextConfig = {
     AUTH_API_BASE_URL: process.env.AUTH_API_BASE_URL,
     USER_API_BASE_URL: process.env.USER_API_BASE_URL,
     ADBE_API_BASE_URL: process.env.ADBE_API_BASE_URL,
-    IMAGE_REMOTE_HOSTNAME: process.env.IMAGE_REMOTE_HOSTNAME,
-    ADOBE_SCRIPT: process.env.ADOBE_SCRIPT,
+    NEXT_PUBLIC_ADOBE_SCRIPT: process.env.NEXT_PUBLIC_ADOBE_SCRIPT,
   },
   skipTrailingSlashRedirect: true
 };

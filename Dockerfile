@@ -29,6 +29,11 @@ ENV TURBO_TELEMETRY_DISABLED 1
 # build the actual app
 COPY --from=builder /app/.openapi-generator-cli/ ./.openapi-generator-cli
 RUN ls -la ./.openapi-generator-cli
+
+ARG NEXT_PUBLIC_IMAGE_REMOTE_HOSTNAME
+ARG NEXT_PUBLIC_ADOBE_SCRIPT
+ENV NEXT_PUBLIC_IMAGE_REMOTE_HOSTNAME=$NEXT_PUBLIC_IMAGE_REMOTE_HOSTNAME
+ENV NEXT_PUBLIC_ADOBE_SCRIPT=$NEXT_PUBLIC_ADOBE_SCRIPT
 RUN yarn dlx turbo run build --filter=customerweb...
 
 FROM base AS runner

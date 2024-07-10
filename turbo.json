@@ -3,13 +3,13 @@
   "ui": "stream",
   "globalEnv": [
     "__NEXT_IMAGE_OPTS",
-    "ADOBE_SCRIPT",
+    "NEXT_PUBLIC_ADOBE_SCRIPT",
+    "NEXT_PUBLIC_IMAGE_REMOTE_HOSTNAME",
     "NODE_ENV",
     "CONTENT_API_BASE_URL",
     "AUTH_API_BASE_URL",
     "USER_API_BASE_URL",
     "ADBE_API_BASE_URL",
-    "IMAGE_REMOTE_HOSTNAME",
     "NEXTAUTH_URL"
   ],
   "tasks": {
