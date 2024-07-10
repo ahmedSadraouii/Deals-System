@@ -165,7 +165,7 @@ export default async function Page({
               </span>
             </Link>
             <Link
-              href="/faq"
+              href="/content/faq"
               size="lg"
               color="secondary"
               underline="always"
