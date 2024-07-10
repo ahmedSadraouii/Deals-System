@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardBody } from '@nextui-org/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
-import { getVoucherInfo } from '@/app/redeem/actions/get-voucher-info.action';
+import { getVoucherInfo } from '@/app/(aldi-deals)/redeem/actions/get-voucher-info.action';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiInput } from '@/components/nextui/aldi-input';
 

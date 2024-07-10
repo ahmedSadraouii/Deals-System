@@ -2,104 +2,170 @@
 
 import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
-import { Button } from '@nextui-org/react';
-import { useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { newsletterSignup } from '@/components/footer/actions/newsletter-signup.action';
+import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
 import { AldiInput } from '@/components/nextui/aldi-input';
+import { emailRegex } from '@/utils/email-regex';
+import { toast } from '@/utils/toast';
 
-function FooterForm() {
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsCheckboxChecked((prev) => !prev);
-  };
+export function FooterForm() {
+  const [isLoading, setLoading] = useState(false);
+  const [hasSignedUp, setSignedUp] = useState(false);
   const defaultValues = {
-    name: '',
-    surname: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    password: '',
+    termsChecked: false,
   };
+  const form = useForm({
+    defaultValues,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues,
-  });
+  } = form;
 
-  const onSubmit = useCallback(
-    (data: typeof defaultValues) => {
-      console.log(data);
-      console.log(errors);
-    },
-    [errors],
-  );
+  const onSubmit = useCallback(async (data: typeof defaultValues) => {
+    try {
+      setLoading(true);
+      await newsletterSignup(data);
+      setSignedUp(true);
+    } catch (error) {
+      toast({
+        title: 'Fehler',
+        description:
+          'Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.',
+      });
+      setLoading(false);
+      console.error(error);
+    }
+  }, []);
+
+  if (hasSignedUp) {
+    return (
+      <div className="flex flex-col items-center text-center text-white">
+        <Image
+          src="/img-celebration.png"
+          alt="Vielen Dank"
+          width={32}
+          height={32}
+          priority
+        />
+
+        <h1 className="mb-4 mt-2 text-4xl font-bold">
+          Erfolgreich zum Newsletter angemeldet!{' '}
+        </h1>
+
+        <p className="mb-10 text-center text-xl">
+          Du erhältst eine Mail zur Bestätigung deiner Newsletter-Anmeldung.
+          Klicke auf den Button in der E-Mail, um deine Anmeldung zu bestätigen.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
-      <form method="post" onSubmit={handleSubmit(onSubmit)} className="mt-5">
-        <div className="mb-5 flex flex-col items-center justify-center gap-5 lg:flex-row">
-          <AldiInput
-            className="rounded-full bg-white"
-            type="text"
-            label="Vorname"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.name}
-            radius="full"
-            errorMessage={errors.name?.message}
-            {...register('name', { required: true })}
-          />
-          <AldiInput
-            className="rounded-full bg-white lg:ml-4"
-            type="text"
-            label="Nachname"
-            variant="bordered"
-            isRequired={true}
-            isInvalid={!!errors.surname}
-            radius="full"
-            errorMessage={errors.surname?.message}
-            {...register('surname', { required: true })}
-          />
-        </div>
-        <AldiInput
-          className="rounded-full bg-white"
-          type="email"
-          label="E-Mail Adresse"
-          variant="bordered"
-          isRequired={true}
-          isInvalid={!!errors.email}
-          radius="full"
-          errorMessage={errors.email?.message}
-          {...register('email', { required: true })}
-        />
-        <div className="mt-6 flex gap-2">
-          <AldiCheckbox
-            checked={isCheckboxChecked}
-            onChange={handleCheckboxChange}
-          />
-          <p className="text-sm text-white">
-            Ich möchte News per E-Mail erhalten und bin mit der damit
-            verbundenen Verarbeitung meiner personenbezogenen Daten gemäß der
-            ALDI SÜD-Datenschutzerklärung einverstanden*. Ein Widerruf ist
-            jederzeit möglich.
-          </p>
-        </div>
-        <p className="mt-4 text-sm text-white">*Pflichtfeld</p>
-        <Button
-          type="submit"
-          className="mb-5 mt-5 w-full rounded-full bg-secondary px-5 py-7 text-center text-lg font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 md:font-normal"
-        >
-          Jetzt anmelden {''}
+      <h1 className="text-sm text-white">Nie wieder einen Deal verpassen!</h1>
+      <h2 className="text-2xl font-bold text-white md:text-4xl">
+        Jetzt zum Newsletter anmelden
+      </h2>
+      <ul className="mt-2 md:mt-5">
+        <li className="mb-2 flex items-center text-white">
           <Image
-            src="/icons/send-icon.svg"
-            width={16}
-            height={15}
-            alt="send icon"
+            src="/icons/login-check-icon.svg"
+            width={32}
+            height={32}
+            alt=""
+            className="mr-3"
           />
-        </Button>
-      </form>
+          Kostenlos, unverbindlich und jederzeit löschbar!
+        </li>
+        <li className="flex items-center text-white">
+          <Image
+            src="/icons/login-check-icon.svg"
+            width={32}
+            height={32}
+            alt=""
+            className="mr-3"
+          />
+          Neue Angebote, Sonderaktionen und Deals – nichts mehr verpassen!
+        </li>
+      </ul>
+      <FormProvider {...form}>
+        <form method="post" onSubmit={handleSubmit(onSubmit)} className="mt-5">
+          <div className="mb-5 flex flex-col items-center justify-center gap-5 lg:flex-row">
+            <AldiInput
+              color="white"
+              type="text"
+              label="Vorname"
+              isInvalid={!!errors.lastName}
+              errorMessage={errors.firstName && 'Vorname wird benötigt'}
+              {...register('firstName', { required: true })}
+            />
+            <AldiInput
+              color="white"
+              type="text"
+              label="Nachname"
+              isInvalid={!!errors.lastName}
+              errorMessage={errors.lastName && 'Nachname wird benötigt'}
+              {...register('lastName', { required: true })}
+            />
+          </div>
+          <AldiInput
+            color="white"
+            type="email"
+            label="E-Mail Adresse"
+            isInvalid={!!errors.email}
+            errorMessage={
+              errors.email && 'Eine korrekte E-Mail Adresse wird benötigt'
+            }
+            {...register('email', {
+              required: true,
+              validate: (value) => emailRegex.test(value),
+            })}
+          />
+          <div className="mt-6 flex gap-2">
+            <Controller
+              render={({ field }) => (
+                <AldiCheckbox
+                  color="white"
+                  isRequired={true}
+                  isInvalid={!!errors.termsChecked}
+                  isSelected={field.value}
+                  {...field}
+                >
+                  Ich möchte News per E-Mail erhalten und bin mit der damit
+                  verbundenen Verarbeitung meiner personenbezogenen Daten gemäß
+                  der ALDI SÜD-Datenschutzerklärung einverstanden*. Ein Widerruf
+                  ist jederzeit möglich.
+                </AldiCheckbox>
+              )}
+              name="termsChecked"
+              rules={{ required: true }}
+            />
+          </div>
+          <p className="my-4 text-sm text-white">*Pflichtfeld</p>
+          <AldiButton
+            type="submit"
+            variant="solid"
+            color="secondary"
+            fullWidth={true}
+            isLoading={isLoading}
+          >
+            Jetzt anmelden {''}
+            <Image
+              src="/icons/send-icon.svg"
+              width={16}
+              height={15}
+              alt="send icon"
+            />
+          </AldiButton>
+        </form>
+      </FormProvider>
     </>
   );
 }
-
-export default FooterForm;

@@ -498,7 +498,7 @@
         ],
         "summary": "Subscribe user to newsletter",
         "description": "Subscribe user to newsletter",
-        "operationId": "SubscribeNewsletter",
+        "operationId": "AdminSubscribeNewsletter",
         "parameters": [
           {
             "name": "email",
@@ -2705,6 +2705,182 @@
           }
         }
       }
+    },
+    "/api/user/subscribe-newsletter": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "subscribe a user to newsletter",
+        "description": "subscribe a user to newsletter",
+        "operationId": "AuthenticationSubscribeNewsletter",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/Domain"
+            }
+          },
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeNewsletterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeNewsletterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeNewsletterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Newsletter Confirmation mail sent."
+          },
+          "400": {
+            "description": "Invalid data sent by client.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An internal error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/subscribe-newsletter/{newsletterSubscriptionId}/{domain}": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Confirm newsletter subscription",
+        "description": "Confirm newsletter subscription",
+        "operationId": "ConfirmNewsletterSubscription",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/Domain"
+            }
+          },
+          {
+            "name": "newsletterSubscriptionId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirect to landing page."
+          },
+          "400": {
+            "description": "Invalid data sent by client.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An internal error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3407,6 +3583,35 @@
           "data": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscribeNewsletterRequest": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "firstName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "pattern": "^[a-zA-ZäöüÄÖÜß-]+$",
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "pattern": "^[a-zA-ZäöüÄÖÜß-]+$",
+            "type": "string"
           }
         },
         "additionalProperties": false

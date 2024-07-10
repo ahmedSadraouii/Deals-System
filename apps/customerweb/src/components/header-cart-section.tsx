@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import React from 'react';
 import { Badge } from '@nextui-org/react';
-import { useCart } from '@/app/contexts/cart/use-cart';
+import { useCart } from '@/app/(aldi-deals)/contexts/cart/use-cart';
 
 export interface HeaderCartSectionProps {
   children: ReactNode;

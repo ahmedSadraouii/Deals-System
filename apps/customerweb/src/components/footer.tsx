@@ -95,7 +95,7 @@ export async function Footer() {
                       </Link>
                     </li>
                     <li className="mb-4">
-                      <Link href="#" className="hover:underline">
+                      <Link href="/content/faq" className="hover:underline">
                         FAQ
                       </Link>
                     </li>
@@ -161,28 +161,31 @@ export async function Footer() {
             <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 pt-4 md:border-b-0">
               <ul className="flex h-full flex-col gap-4 md:mx-0 md:flex-row md:items-end">
                 <li>
-                  <Link href="/" className="text-nowrap hover:underline">
+                  <Link href="#" className="text-nowrap hover:underline">
                     Cookie-Einstellungen
                   </Link>
                 </li>
                 <li>
-                  <Link href="/" className="hover:underline">
+                  <Link href="/content/datenschutz" className="hover:underline">
                     Datenschutz
                   </Link>
                 </li>
                 <li>
-                  <Link href="/" className="hover:underline">
+                  <Link href="/content/impressum" className="hover:underline">
                     Impressum
                   </Link>
                 </li>
                 <li>
-                  <Link href="/" className="hover:underline">
+                  <Link
+                    href="/content/nutzungsbedingungen"
+                    className="hover:underline"
+                  >
                     Nutzungsbedingungen
                   </Link>
                 </li>
                 <li>
-                  <Link href="/" className="hover:underline">
-                    Widerruf{' '}
+                  <Link href="/content/widerruf" className="hover:underline">
+                    Widerruf
                   </Link>
                 </li>
               </ul>

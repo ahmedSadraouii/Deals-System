@@ -4,6 +4,11 @@ import { extendVariants, Input } from '@nextui-org/react';
 
 export const AldiInput = extendVariants(Input, {
   variants: {
+    color: {
+      white: {
+        inputWrapper: 'bg-white',
+      },
+    },
     variant: {
       bordered: {
         inputWrapper: 'border-1 border-secondary/50 h-unit-14',

@@ -49,11 +49,11 @@ export function Header() {
             Start
           </AldiButton>
         </NavbarItem>
-        {/*<NavbarItem>
-          <AldiButton as={Link} size="lg" variant="light" href="/faq">
+        <NavbarItem>
+          <AldiButton as={Link} size="lg" variant="light" href="/content/faq">
             FAQ
           </AldiButton>
-        </NavbarItem>*/}
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="hidden shrink-0 gap-4 lg:flex" justify="end">

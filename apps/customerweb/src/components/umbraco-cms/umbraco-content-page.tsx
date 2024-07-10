@@ -1,4 +1,4 @@
-import NotFound from '@/app/not-found';
+import NotFound from '@/app/(aldi-deals)/not-found';
 import { UmbracoRenderer } from '@/components/umbraco-cms/umbraco-renderer';
 import type { UmbracoContentPage as UmbracoTypesUmbracoContentPage } from '@/components/umbraco-cms/umbraco-types';
 import { getContentApiClient } from '@/utils/content-api-client';
