@@ -1,8 +1,6 @@
 'use client';
 
 import { useCallback } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -14,6 +12,7 @@ import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 
 interface CardActivationProps {
   deal: UmbracoDeal;
@@ -49,14 +48,9 @@ export default function CardActivation({
     }
   }, [pinCode, email, deal, router, session]);
 
-  const supplierImage = supplier.properties?.picture?.[0]?.url;
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
+  const supplierImage =
+    supplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(supplier.properties?.picture?.[0]?.url);
   return (
     <AldiCard>
       <CardHeader className="flex justify-center border-b pb-4 pt-6">
@@ -68,12 +62,14 @@ export default function CardActivation({
           className="flex flex-col items-center gap-4 md:flex-row md:px-4"
         >
           <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
-            <Image
-              src={supplierImageUrl!}
-              alt={supplier.name}
-              width={85}
-              height={85}
-            />
+            {supplierImage && (
+              <Image
+                src={`${process.env.CONTENT_API_BASE_URL}${supplierImage}`}
+                alt={supplier.name}
+                width={80}
+                height={80}
+              />
+            )}
           </div>
           <h1 className="text-lg font-bold text-aldi-blue md:w-[40%] ">
             {deal.name}

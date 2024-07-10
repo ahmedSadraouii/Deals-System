@@ -1,8 +1,7 @@
 'use client';
 
 import { useContext, useMemo } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
@@ -14,6 +13,7 @@ import { IconClock } from '@/components/svg/icon-clock';
 import { IconOnline } from '@/components/svg/icon-nur-online';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
 
 export type DealsListItemGridProps = Omit<DealsListItemProps, 'display'> & {
@@ -27,25 +27,13 @@ export function DealsListItemGrid({
   className,
   ctaType = 'inline',
 }: DealsListItemGridProps) {
-  const primaryImage = deal.properties?.pictures?.[0]?.url;
-  const supplierImage = supplier.properties?.picture?.[0]?.url;
+  const primaryImage =
+    deal.properties?.pictures?.[0]?.url &&
+    fixUmbracoMediaLink(deal.properties?.pictures?.[0]?.url);
+  const supplierImage =
+    supplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(supplier.properties?.picture?.[0]?.url);
   const favoriteContext = useContext(FavoriteContext);
-
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
 
   const dealLinkSegment = useMemo(
     () => deal.route.path.split('/')[3],
@@ -59,29 +47,34 @@ export function DealsListItemGrid({
         className,
       )}
     >
-      <div
-        className="h-72 bg-cover bg-center"
-        style={{
-          backgroundImage: productImageUrl && `url(${productImageUrl})`,
-        }}
-      >
-        <div className="flex items-center justify-between p-4">
-          <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
-            <IconOnline className="mr-2 text-base" />
-            <span className="text-aldi-key">Nur Online</span>
-          </span>
-          {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
-        </div>
+      {primaryImage && (
+        <Image
+          className="h-72 object-cover object-center"
+          src={primaryImage}
+          alt="Deal Image"
+          width={768}
+          height={768}
+        />
+      )}
+      <div className="flex items-center justify-between p-4">
+        <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
+          <IconOnline className="mr-2 text-base" />
+          <span className="text-aldi-key">Nur Online</span>
+        </span>
+        {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
       </div>
 
       <div className="flex grow flex-col gap-4 p-6">
         <div className="flex flex-row items-center justify-between">
-          <div
-            className="h-10 w-48 bg-contain bg-left bg-no-repeat"
-            style={{
-              backgroundImage: supplierImageUrl && `url(${supplierImageUrl})`,
-            }}
-          />
+          {supplierImage && (
+            <Image
+              className="h-10 w-48 object-contain object-left"
+              src={supplierImage}
+              alt="Supplier Image"
+              width={192}
+              height={40}
+            />
+          )}
           {deal.properties?.availabilityEnd && (
             <div className="flex items-center space-x-2 rounded-md border border-secondary/10 p-2 text-primary">
               <IconClock className="text-2xl" />{' '}

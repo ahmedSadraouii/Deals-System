@@ -1,6 +1,4 @@
 import React from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { HonoredDealModel } from 'api-deals';
@@ -12,6 +10,7 @@ import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 
 export interface HonoredDealItemProps {
   deal: UmbracoDeal;
@@ -23,15 +22,9 @@ export function HonoredDealItem({
   supplier,
   honoredDeal,
 }: HonoredDealItemProps) {
-  const supplierImage = supplier.properties?.picture?.[0]?.url;
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
+  const supplierImage =
+    supplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(supplier.properties?.picture?.[0]?.url);
 
   const validTill = DateTime.fromISO(deal.properties?.promotionEnd!);
   const now = DateTime.now();
@@ -42,13 +35,15 @@ export function HonoredDealItem({
       key={honoredDeal.honoredDealId}
     >
       <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
-        <Image
-          src={supplierImageUrl!}
-          alt={supplier.name}
-          width={88}
-          height={88}
-          className="shrink-0 object-contain"
-        />
+        {supplierImage && (
+          <Image
+            src={supplierImage}
+            alt={supplier.name}
+            width={88}
+            height={88}
+            className="shrink-0 object-contain"
+          />
+        )}
       </div>
       <div className="flex grow flex-col gap-2">
         <h2 className="text-lg font-medium text-secondary">{deal.name}</h2>

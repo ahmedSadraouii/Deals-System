@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useContext, useMemo } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FavoriteContext } from '@/app/contexts/favorite/favorite-context';
 import type { DealsListItemProps } from '@/components/deal/deals-list-item';
@@ -14,6 +13,7 @@ import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
 
 export type DealsListItemHeroSliderProps = Omit<
@@ -28,25 +28,13 @@ export function DealsListItemHeroSlider({
   supplier,
   className,
 }: DealsListItemHeroSliderProps) {
-  const primaryImage = deal.properties?.pictures?.[0]?.url;
-  const supplierImage = supplier.properties?.picture?.[0]?.url;
+  const primaryImage =
+    deal.properties?.pictures?.[0]?.url &&
+    fixUmbracoMediaLink(deal.properties?.pictures?.[0]?.url);
+  const supplierImage =
+    supplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(supplier.properties?.picture?.[0]?.url);
   const favoriteContext = useContext(FavoriteContext);
-
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
 
   const dealLinkSegment = useMemo(
     () => deal.route.path.split('/')[3],
@@ -64,35 +52,40 @@ export function DealsListItemHeroSlider({
       </div>
       <div
         className={cn(
-          'hidden w-full flex-row gap-10 overflow-hidden rounded-[40px] bg-default-100 p-10 lg:flex xl:aspect-[2/1]',
+          'relative hidden w-full flex-row gap-10 overflow-hidden rounded-[40px] bg-default-100 p-10 lg:flex xl:aspect-[2/1]',
           className,
         )}
       >
-        <div
-          className="relative shrink-0 basis-1/2 overflow-hidden rounded-[20px] bg-cover bg-center object-cover"
-          style={{
-            backgroundImage: productImageUrl && `url(${productImageUrl})`,
-          }}
-        >
-          <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
-            <span className="flex items-center rounded bg-neutral-100 px-6 py-4 text-xs text-aldi-key">
-              <IconTag className="mr-2 text-base" />
-              <span>Stark nachgefragt</span>
-            </span>
-            {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
-          </div>
+        {primaryImage && (
+          <Image
+            className="shrink-0 basis-1/2 overflow-hidden rounded-[20px] bg-cover bg-center object-cover"
+            src={primaryImage}
+            alt="Deal Image"
+            width={768}
+            height={768}
+          />
+        )}
+        <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
+          <span className="m-6 flex items-center rounded bg-neutral-100 px-6 py-4 text-xs text-aldi-key">
+            <IconTag className="mr-2 text-base" />
+            <span>Stark nachgefragt</span>
+          </span>
+          {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
         </div>
+
         <div className="flex grow flex-col gap-4">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-6">
               <div className="overflow-hidden rounded-[20px]">
-                <div
-                  className="h-20 w-20 bg-contain bg-center bg-no-repeat"
-                  style={{
-                    backgroundImage:
-                      supplierImageUrl && `url(${supplierImageUrl})`,
-                  }}
-                />
+                {supplierImage && (
+                  <Image
+                    className="h-20 w-20 object-contain object-center"
+                    src={supplierImage}
+                    alt={supplier.name}
+                    width={80}
+                    height={80}
+                  />
+                )}
               </div>
               <h1 className="text-4xl font-bold text-secondary">
                 {supplier.name}

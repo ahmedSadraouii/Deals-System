@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { SelectItem, Spinner } from '@nextui-org/react';
 import type { CartItemModel } from 'api-deals';
@@ -16,6 +14,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatCurrency } from '@/utils/format-currency';
 
 export interface CartItemProps {
@@ -72,26 +71,11 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
       });
       setSupplier(supplier);
 
-      const supplierImage = supplier.properties?.picture?.[0]?.url;
-      const primaryImage = deal.properties?.pictures?.[0]?.url;
+      const supplierImage =
+        supplier.properties?.picture?.[0]?.url &&
+        fixUmbracoMediaLink(supplier.properties?.picture?.[0]?.url);
 
-      const supplierImageUrl =
-        supplierImage &&
-        defaultLoader({
-          src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-          width: 256,
-          config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-        });
-
-      const _productImageUrl =
-        primaryImage &&
-        defaultLoader({
-          src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-          width: 768,
-          config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-        });
-
-      setSupplierImageUrl(supplierImageUrl);
+      setSupplierImageUrl(supplierImage);
     })();
   }, [cartItem.dealId]);
 
@@ -157,7 +141,7 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
           )}
         >
           <Image
-            src={supplierImageUrl}
+            src={`${process.env.CONTENT_API_BASE_URL}${supplierImageUrl}`}
             alt={supplier?.name ?? 'supplier'}
             width={88}
             height={88}

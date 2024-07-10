@@ -10,6 +10,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { getContentApiClient } from '@/utils/content-api-client';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
@@ -34,9 +35,9 @@ export async function generateMetadata({
       deal.properties?.pictures
         ?.filter((picture) => !!picture.url)
         ?.map((picture) =>
-          // TODO: use config here....
+          // here we can actually use defaultLoader as this is server side
           defaultLoader({
-            src: `${process.env.CONTENT_API_BASE_URL}${picture.url}`,
+            src: fixUmbracoMediaLink(picture.url),
             width: 1280,
             config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
           }),

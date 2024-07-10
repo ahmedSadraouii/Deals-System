@@ -1,6 +1,4 @@
 import React from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { Link } from '@nextui-org/react';
@@ -19,6 +17,7 @@ import type {
 import { authOptions } from '@/utils/auth';
 import { getContentApiClient } from '@/utils/content-api-client';
 import { getHonoredDealsApiClient } from '@/utils/deals-api-client';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
@@ -70,23 +69,12 @@ export default async function Page({
     return <NotFound />;
   }
 
-  const primaryImage = deal.properties?.pictures?.[0]?.url;
-  const supplierImage = dealSupplier.properties?.picture?.[0]?.url;
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
+  const primaryImage =
+    deal.properties?.pictures?.[0]?.url &&
+    fixUmbracoMediaLink(deal.properties?.pictures?.[0]?.url);
+  const supplierImage =
+    dealSupplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(dealSupplier.properties?.picture?.[0]?.url);
 
   const promotionStart = DateTime.fromISO(deal.properties?.promotionStart!);
   const promotionEnd = DateTime.fromISO(deal.properties?.promotionEnd!);
@@ -107,22 +95,27 @@ export default async function Page({
           <span className="text-lg text-secondary">Zurück zu Meine Deals</span>
         </div>
         <div className="grid grid-cols-5 gap-8">
-          <div
-            className="col-span-5 min-h-72 overflow-hidden rounded-[20px] bg-cover bg-center lg:col-span-2"
-            style={{
-              backgroundImage: productImageUrl && `url(${productImageUrl})`,
-            }}
-          />
+          {primaryImage && (
+            <Image
+              className="col-span-5 min-h-72 overflow-hidden rounded-[20px] object-cover object-center lg:col-span-2"
+              src={primaryImage}
+              alt="Deal Image"
+              width={768}
+              height={768}
+            />
+          )}
           <div className="col-span-5 flex flex-col gap-6 lg:col-span-3">
             <div className="flex flex-row items-center gap-4">
               <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
-                <Image
-                  src={supplierImageUrl!}
-                  alt={dealSupplier.name}
-                  width={88}
-                  height={88}
-                  className="shrink-0 object-contain"
-                />
+                {supplierImage && (
+                  <Image
+                    src={supplierImage}
+                    alt={dealSupplier.name}
+                    width={88}
+                    height={88}
+                    className="shrink-0 object-contain"
+                  />
+                )}
               </div>
               <h2 className="text-lg font-medium text-secondary">
                 {deal.name}

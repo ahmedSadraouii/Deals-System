@@ -1,6 +1,4 @@
 import { Suspense } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import { Card, CardBody, SelectItem } from '@nextui-org/react';
 import { DateTime } from 'luxon';
@@ -10,6 +8,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { getContentApiClient } from '@/utils/content-api-client';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
 // interface for the component props
@@ -44,24 +43,13 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
     console.log('Supplier is incorrect', fullSupplier);
     return null;
   }
-  const primaryImage = deal.properties?.pictures?.[0]?.url;
-  const supplierImage = fullSupplier.properties?.picture?.[0]?.url;
+  const primaryImage =
+    deal.properties?.pictures?.[0]?.url &&
+    fixUmbracoMediaLink(deal.properties?.pictures?.[0]?.url);
+  const supplierImage =
+    fullSupplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(fullSupplier.properties?.picture?.[0]?.url);
 
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
   const promotionStart = DateTime.fromISO(deal.properties?.promotionStart!);
   const promotionEnd = DateTime.fromISO(deal.properties?.promotionEnd!);
 
@@ -90,24 +78,28 @@ export default async function GuestDealCard({ deal }: DealCheckoutCardProps) {
     <Suspense>
       <Card className="bg-neutral-100">
         <CardBody className="flex  flex-col gap-8 p-10 md:min-h-[35vh] md:flex-row">
-          <Image
-            className="rounded-lg"
-            src={productImageUrl!}
-            alt={deal.name}
-            width={450}
-            height={500}
-          />
+          {primaryImage && (
+            <Image
+              className="rounded-lg"
+              src={primaryImage}
+              alt={deal.name}
+              width={450}
+              height={500}
+            />
+          )}
 
           <div className="flex flex-col gap-8">
             <div className="flex items-center gap-6">
               <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
-                <Image
-                  className="md:max-h-72 lg:h-full"
-                  src={supplierImageUrl!}
-                  alt={fullSupplier.name}
-                  width={100}
-                  height={65}
-                />
+                {supplierImage && (
+                  <Image
+                    className="md:max-h-72 lg:h-full"
+                    src={supplierImage}
+                    alt={fullSupplier.name}
+                    width={100}
+                    height={65}
+                  />
+                )}
               </div>
               <div>
                 <div>

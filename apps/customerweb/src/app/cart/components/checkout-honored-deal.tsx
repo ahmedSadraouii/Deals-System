@@ -1,10 +1,10 @@
 import React from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
+import Image from 'next/image';
 import type { HonoredDealModel } from 'api-deals';
 import { DateTime } from 'luxon';
 import { CodeField } from '@/app/profile/deals/code-field';
 import { getContentApiClient } from '@/utils/content-api-client';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 
 export interface CheckoutHonoredDealProps {
   honoredDealModel: HonoredDealModel;
@@ -31,24 +31,13 @@ export async function CheckoutHonoredDeal({
     return <div>Supplier not found</div>;
   }
 
-  const primaryImage = umbracoDeal.properties?.pictures?.[0]?.url;
-  const supplierImage = umbracoSupplier.properties?.picture?.[0]?.url;
+  const primaryImage =
+    umbracoDeal.properties?.pictures?.[0]?.url &&
+    fixUmbracoMediaLink(umbracoDeal.properties?.pictures?.[0]?.url);
+  const supplierImage =
+    umbracoSupplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(umbracoSupplier.properties?.picture?.[0]?.url);
 
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
   const promotionStart = DateTime.fromISO(
     umbracoDeal.properties?.promotionStart!,
   );
@@ -56,21 +45,27 @@ export async function CheckoutHonoredDeal({
 
   return (
     <div className="flex w-full max-w-5xl flex-col gap-4 rounded-[20px] bg-default-100 p-4 lg:flex-row lg:gap-10 lg:p-10">
-      <div
-        className="aspect-square w-full shrink-0 rounded-[12px] bg-cover bg-center lg:max-w-[420px]"
-        style={{
-          backgroundImage: `url(${productImageUrl})`,
-        }}
-      />
+      {primaryImage && (
+        <Image
+          className="aspect-square w-full shrink-0 rounded-[12px] bg-cover bg-center lg:max-w-[420px]"
+          src={primaryImage}
+          alt="Deal Image"
+          width={768}
+          height={768}
+        />
+      )}
       <div className="flex grow flex-col gap-8">
         <div className="flex flex-row items-center gap-6">
           <div className="shrink-0 overflow-hidden rounded-[20px] bg-neutral-200 p-2">
-            <div
-              className="h-20 w-20 bg-contain bg-clip-content bg-center bg-no-repeat bg-origin-content"
-              style={{
-                backgroundImage: supplierImageUrl && `url(${supplierImageUrl})`,
-              }}
-            />
+            {supplierImage && (
+              <Image
+                className="h-20 w-20 bg-contain bg-clip-content bg-center bg-no-repeat bg-origin-content"
+                src={supplierImage}
+                alt="Supplier Image"
+                width={80}
+                height={80}
+              />
+            )}
           </div>
           <div className="grow">
             <h1 className="text-2xl font-bold text-secondary">

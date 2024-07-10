@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Divider } from '@nextui-org/react';
@@ -18,6 +16,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
 
 export interface DealDetailPageProps {
@@ -34,23 +33,11 @@ export function DealDetailPage({
   const productImages =
     deal.properties?.pictures
       ?.filter((picture) => !!picture.url)
-      ?.map((picture) =>
-        defaultLoader({
-          src: `${process.env.CONTENT_API_BASE_URL}${picture.url}`,
-          width: 1280,
-          config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-        }),
-      ) ?? [];
+      ?.map((picture) => fixUmbracoMediaLink(picture.url)) ?? [];
 
   const supplierImage = supplier.properties?.picture?.[0]?.url;
 
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
+  const supplierImageUrl = supplierImage && fixUmbracoMediaLink(supplierImage);
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -92,9 +79,12 @@ export function DealDetailPage({
                       </div>
                     )}
                   </div>
-                  <div
+                  <Image
+                    src={image}
                     className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto lg:min-h-[480px]"
-                    style={{ backgroundImage: `url(${image})` }}
+                    alt="Product Image"
+                    width={1024}
+                    height={1024}
                   />
                 </div>
               ))}

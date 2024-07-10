@@ -1,6 +1,4 @@
 import { Suspense } from 'react';
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
-import defaultLoader from 'next/dist/shared/lib/image-loader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CardBody } from '@nextui-org/react';
@@ -14,6 +12,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { getContentApiClient } from '@/utils/content-api-client';
+import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
 import { verifySupplierIsCorrect } from '@/utils/verify-supplier-is-correct';
 
@@ -74,24 +73,13 @@ export default async function DealCheckoutCard({
     console.log('Supplier is incorrect', fullSupplier);
     return null;
   }
-  const primaryImage = fullDeal.properties?.pictures?.[0]?.url;
-  const supplierImage = fullSupplier.properties?.picture?.[0]?.url;
+  const primaryImage =
+    fullDeal.properties?.pictures?.[0]?.url &&
+    fixUmbracoMediaLink(fullDeal.properties?.pictures?.[0]?.url);
+  const supplierImage =
+    fullSupplier.properties?.picture?.[0]?.url &&
+    fixUmbracoMediaLink(fullSupplier.properties?.picture?.[0]?.url);
 
-  const productImageUrl =
-    primaryImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${primaryImage}`,
-      width: 768,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
-
-  const supplierImageUrl =
-    supplierImage &&
-    defaultLoader({
-      src: `${process.env.CONTENT_API_BASE_URL}${supplierImage}`,
-      width: 256,
-      config: process.env.__NEXT_IMAGE_OPTS as any as ImageConfigComplete,
-    });
   const promotionStart = DateTime.fromISO(fullDeal.properties?.promotionStart!);
   const promotionEnd = DateTime.fromISO(fullDeal.properties?.promotionEnd!);
   return (
@@ -99,13 +87,15 @@ export default async function DealCheckoutCard({
       <AldiCard className="rounded-xl">
         <CardBody className="flex flex-col gap-8 p-4 md:flex-row md:p-10">
           <div className="w-full md:w-2/3 lg:w-1/3 ">
-            <Image
-              className="h-full w-full rounded-xl md:h-2/3 xl:h-full"
-              src={productImageUrl!}
-              alt={fullDeal.name}
-              width={420}
-              height={378}
-            />
+            {primaryImage && (
+              <Image
+                className="h-full w-full rounded-xl md:h-2/3 xl:h-full"
+                src={primaryImage}
+                alt={fullDeal.name}
+                width={420}
+                height={378}
+              />
+            )}
           </div>
           <div
             className={`flex flex-1 flex-col gap-6 ${
@@ -114,13 +104,15 @@ export default async function DealCheckoutCard({
           >
             <div className="flex flex-col gap-4 md:flex-row">
               <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">
-                <Image
-                  className="md:max-h-72 lg:h-full"
-                  src={supplierImageUrl!}
-                  alt={fullSupplier.name}
-                  width={100}
-                  height={65}
-                />
+                {supplierImage && (
+                  <Image
+                    className="md:max-h-72 lg:h-full"
+                    src={supplierImage}
+                    alt={fullSupplier.name}
+                    width={100}
+                    height={65}
+                  />
+                )}
               </div>
               <div>
                 <div>

@@ -6,8 +6,8 @@ export default function Celebration() {
       <Image
         src="/img-celebration.png"
         alt="image celebration"
-        width={85}
-        height={85}
+        width={80}
+        height={80}
       />
       <h1 className="text-center text-3xl font-bold text-secondary md:text-4xl">
         Vielen Dank für Deinen Einkauf!
