@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
-import type { HonoredDealModel, OrderItemModel } from 'api-deals';
+import type { HonoredDealModel } from 'api-deals';
 import { DateTime } from 'luxon';
 import { CodeField } from '@/app/profile/deals/code-field';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -84,7 +84,8 @@ export async function CheckoutHonoredDeal({
         </div>
         <div className="border-y border-secondary/10 py-4 text-secondary/50">
           Gültig ab: {promotionStart.toFormat('dd.MM.yyyy')} - Gültig bis:{' '}
-          {promotionEnd.toFormat('dd.MM.yyyy')}<br/>
+          {promotionEnd.toFormat('dd.MM.yyyy')}
+          <br />
           Seriennummer: {honoredDealModel.serial}
         </div>
       </div>
