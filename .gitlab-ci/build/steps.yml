@@ -18,7 +18,7 @@ build_prod:
     - .environment_prod
   variables:
     NEXT_PUBLIC_ADOBE_SCRIPT: https://assets.adobedtm.com/1a449bc36397/626d47f555ca/launch-20f5b14e58a4.min.js
-    NEXT_PUBLIC_IMAGE_REMOTE_HOSTNAME: http://ad-umbraco-cms-deliveryapi
+    NEXT_PUBLIC_IMAGE_REMOTE_HOSTNAME: http://ad-umbraco-cms-deliveryapi.svc.cluster.local
 
 build_dev:
   extends:

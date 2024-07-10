@@ -16,7 +16,7 @@ const nextConfig = {
       hostname: 'dev.api.aldi.amplicade.com'
     }, {
       // prod (non public, cluster internal)
-      hostname: 'ad-umbraco-cms-deliveryapi'
+      hostname: 'ad-umbraco-cms-deliveryapi.svc.cluster.local'
     }],
     path: '/_next/image',
     loader: 'default',
