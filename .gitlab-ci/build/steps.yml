@@ -21,7 +21,7 @@ build_prod:
     AUTH_API_BASE_URL: http://auth
     ADBE_API_BASE_URL: http://ad-sued-be
     USER_API_BASE_URL: http://user
-    IMAGE_REMOTE_HOSTNAME: /ad-umbraco-cms-deliveryapi
+    IMAGE_REMOTE_HOSTNAME: http://ad-umbraco-cms-deliveryapi/umbraco
 
 build_staging:
   extends:
@@ -37,4 +37,4 @@ build_dev:
     AUTH_API_BASE_URL: https://dev.api.aldi.amplicade.com/auth
     ADBE_API_BASE_URL: https://dev.api.aldi.amplicade.com/ad-be
     USER_API_BASE_URL: https://dev.api.aldi.amplicade.com/user
-    IMAGE_REMOTE_HOSTNAME: dev.api.aldi.amplicade.com
+    IMAGE_REMOTE_HOSTNAME: https://dev.api.aldi.amplicade.com/umbraco
