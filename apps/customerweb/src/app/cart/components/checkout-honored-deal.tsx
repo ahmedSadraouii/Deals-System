@@ -1,20 +1,20 @@
 import React from 'react';
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config';
 import defaultLoader from 'next/dist/shared/lib/image-loader';
-import type { OrderItemModel } from 'api-deals';
+import type { HonoredDealModel, OrderItemModel } from 'api-deals';
 import { DateTime } from 'luxon';
 import { CodeField } from '@/app/profile/deals/code-field';
 import { getContentApiClient } from '@/utils/content-api-client';
 
-export interface CheckoutOrderItemProps {
-  orderItemModel: OrderItemModel;
+export interface CheckoutHonoredDealProps {
+  honoredDealModel: HonoredDealModel;
 }
-export async function CheckoutOrderItem({
-  orderItemModel,
-}: CheckoutOrderItemProps) {
+export async function CheckoutHonoredDeal({
+  honoredDealModel,
+}: CheckoutHonoredDealProps) {
   const contentApi = getContentApiClient();
 
-  const umbracoDeal = await contentApi.getUmbracoDeal(orderItemModel.dealId);
+  const umbracoDeal = await contentApi.getUmbracoDeal(honoredDealModel.dealId);
   if (!umbracoDeal) {
     return <div>Deal not found</div>;
   }
@@ -80,11 +80,12 @@ export async function CheckoutOrderItem({
           </div>
         </div>
         <div>
-          <CodeField code="what?" fullWidth={true} />
+          <CodeField code={honoredDealModel.code} fullWidth={true} />
         </div>
         <div className="border-y border-secondary/10 py-4 text-secondary/50">
           Gültig ab: {promotionStart.toFormat('dd.MM.yyyy')} - Gültig bis:{' '}
-          {promotionEnd.toFormat('dd.MM.yyyy')}
+          {promotionEnd.toFormat('dd.MM.yyyy')}<br/>
+          Seriennummer: {honoredDealModel.serial}
         </div>
       </div>
     </div>

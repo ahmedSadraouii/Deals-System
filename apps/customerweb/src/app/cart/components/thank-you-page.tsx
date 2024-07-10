@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import type { OrderModel } from 'api-deals';
-import { CheckoutOrderItem } from '@/app/cart/components/checkout-order-item';
 import { Refresh } from '@/app/cart/components/refresh';
 import CheckoutCard from '@/components/checkout/checkout-card';
 import { LoadingSvg } from '@/components/svg/loading-svg';
+import { CheckoutHonoredDeal } from './checkout-honored-deal';
 
 export interface ThankYouPageProps {
   orderModel?: OrderModel;
@@ -56,8 +56,8 @@ export function ThankYouPage({ orderModel }: ThankYouPageProps) {
               />
             </div>
             <div className="flex w-full flex-col items-center gap-4 lg:gap-10">
-              {orderModel.items?.map((item) => (
-                <CheckoutOrderItem key={item.dealId} orderItemModel={item} />
+              {orderModel.honoredDeals?.map((item) => (
+                <CheckoutHonoredDeal key={item.dealId} honoredDealModel={item} />
               ))}
             </div>
           </>
