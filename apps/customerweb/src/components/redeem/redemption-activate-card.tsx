@@ -13,6 +13,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
+import { trackVoucherSubmit } from '@/utils/tracking';
 
 interface CardActivationProps {
   deal: UmbracoDeal;
@@ -37,6 +38,7 @@ export default function CardActivation({
 
       const result = await redeemVoucher(params);
       if (result.success) {
+        trackVoucherSubmit(deal.name, supplier.name);
         router.push(
           `/redeem/thankyou/${isLoggedIn ? result.honoredDealId : deal.id}`,
         );
@@ -46,7 +48,7 @@ export default function CardActivation({
     } catch (error) {
       console.error('Error activating the voucher', error);
     }
-  }, [pinCode, email, deal, router, session]);
+  }, [pinCode, email, deal, router, session, supplier]);
 
   const supplierImage =
     supplier.properties?.picture?.[0]?.url &&

@@ -56,3 +56,17 @@ export function trackLinkClick(linkName: string, targetUrl: string) {
     },
   });
 }
+
+export function trackVoucherSubmit(dealName: string, supplierName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'voucher_submit_successful',
+    name: 'voucher_submit_successful',
+    eventAction: dealName,
+    type: 'interaction',
+    category: {
+      primaryCategory: 'form',
+      subCategory: supplierName,
+    },
+  });
+}
