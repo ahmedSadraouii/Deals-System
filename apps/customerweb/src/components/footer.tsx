@@ -1,6 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import FooterLegalLinks from './footer-links';
+import FooterNavigation from './footer-navigation';
+import NoSessionFooter from './no-session-footer';
+import SessionFooter from './session-footer';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/auth';
 
@@ -75,121 +79,10 @@ export async function Footer() {
               </div>
             </div>
             <div className="grid w-full grid-cols-1 md:grid-cols-2">
-              <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 md:border-b-0	">
-                <div>
-                  <h2 className="mb-4 text-3xl font-[450]">Navigation</h2>
-                  <ul>
-                    <li className="mb-4 text-neutral-50">
-                      <Link href="/" className="hover:underline">
-                        Start
-                      </Link>
-                    </li>
-                    <li className="mb-4 text-neutral-50">
-                      <Link href="/auth" className="hover:underline">
-                        Anmelden
-                      </Link>
-                    </li>
-                    <li className="mb-4">
-                      <Link href="/auth" className="hover:underline">
-                        Registrieren
-                      </Link>
-                    </li>
-                    <li className="mb-4">
-                      <Link href="/content/faq" className="hover:underline">
-                        FAQ
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 md:border-b-0 ">
-                <div className="mr-[57px] md:mr-0">
-                  <ul className="mt-12">
-                    {session ? (
-                      <>
-                        <li className="mb-4">
-                          <Link
-                            href="/profile/general"
-                            className="hover:underline"
-                          >
-                            Warenkorb
-                          </Link>
-                        </li>
-                        <li className="mb-4">
-                          <Link
-                            href="/profile/general"
-                            className="hover:underline"
-                          >
-                            Profil
-                          </Link>
-                        </li>
-                        <li className="mb-4">
-                          <Link
-                            href="/profile/deals"
-                            className="hover:underline"
-                          >
-                            Meine Deals
-                          </Link>
-                        </li>
-                        <li className="mb-4">
-                          <Link
-                            href="/profile/favorites"
-                            className="hover:underline"
-                          >
-                            Merkliste
-                          </Link>
-                        </li>
-                      </>
-                    ) : (
-                      <>
-                        <li className="mb-4">
-                          <Link href="/auth" className="hover:underline">
-                            Anmelden
-                          </Link>
-                        </li>
-                        <li className="mb-4">
-                          <Link href="/auth" className="hover:underline">
-                            Registrieren
-                          </Link>
-                        </li>
-                      </>
-                    )}
-                  </ul>
-                </div>
-              </div>
+              <FooterNavigation />
+              {session ? <SessionFooter /> : <NoSessionFooter />}
             </div>
-            <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 pt-4 md:border-b-0">
-              <ul className="flex h-full flex-col gap-4 md:mx-0 md:flex-row md:items-end">
-                <li>
-                  <Link href="#" className="text-nowrap hover:underline">
-                    Cookie-Einstellungen
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/content/datenschutz" className="hover:underline">
-                    Datenschutz
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/content/impressum" className="hover:underline">
-                    Impressum
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/content/nutzungsbedingungen"
-                    className="hover:underline"
-                  >
-                    Nutzungsbedingungen
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/content/widerruf" className="hover:underline">
-                    Widerruf
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <FooterLegalLinks />
           </div>
           <div className="mt-10 justify-center sm:flex sm:items-center">
             <span className="text-sm text-white">

@@ -40,3 +40,19 @@ export function trackPageView(pageInfo: PageInfo) {
   });
   console.log('window', window.adobeDataLayer);
 }
+
+export function trackLinkClick(linkName: string, targetUrl: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'link_click',
+    eventInfo: {
+      name: 'link_click',
+      eventAction: linkName,
+      type: 'interaction',
+      effect: targetUrl,
+      category: {
+        primaryCategory: 'link',
+      },
+    },
+  });
+}

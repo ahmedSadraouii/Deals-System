@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import NextLink from 'next/link';
@@ -13,14 +15,17 @@ import {
 } from '@nextui-org/react';
 import type { Variants } from 'framer-motion';
 import { HeaderCartSection } from '@/components/header-cart-section';
-import { HeaderUserSection } from '@/components/header-user-section';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiDealsSvg } from '@/components/svg/aldi-deals-svg';
 import { AldiSuedSvg } from '@/components/svg/aldi-sued-svg';
 import { IconTicket } from '@/components/svg/icon-ticket';
 import { cn } from '@/utils/cn';
+import { trackLinkClick } from '@/utils/tracking';
 
 export function Header() {
+  const handleLinkClick = (linkName: string, targetUrl: string) => {
+    trackLinkClick(linkName, targetUrl);
+  };
   return (
     <Navbar
       suppressHydrationWarning={true}
@@ -45,12 +50,24 @@ export function Header() {
           <AldiDealsSvg className="h-full" />
         </NavbarBrand>
         <NavbarItem>
-          <AldiButton as={Link} size="lg" variant="light" href="/">
+          <AldiButton
+            as={Link}
+            size="lg"
+            variant="light"
+            href="/"
+            onClick={() => handleLinkClick('start', '/')}
+          >
             Start
           </AldiButton>
         </NavbarItem>
         <NavbarItem>
-          <AldiButton as={Link} size="lg" variant="light" href="/content/faq">
+          <AldiButton
+            as={Link}
+            size="lg"
+            variant="light"
+            href="/content/faq"
+            onClick={() => handleLinkClick('faq', '/content/faq')}
+          >
             FAQ
           </AldiButton>
         </NavbarItem>
@@ -64,10 +81,10 @@ export function Header() {
           href="/redeem"
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
+          onClick={() => handleLinkClick('dealactivieren', '/redeem')}
         >
           Deal aktivieren
         </AldiButton>
-        <HeaderUserSection />
         <HeaderCartSection>
           <HeaderCartButton />
         </HeaderCartSection>
@@ -83,6 +100,7 @@ export function Header() {
             as={NextLink}
             href="/"
             className="ml-4 shrink-0 space-x-4"
+            onClick={() => handleLinkClick('home', '/')}
           >
             <AldiSuedSvg className="h-10 lg:h-auto" />
             <AldiDealsSvg className="h-10 lg:h-auto" />
@@ -90,7 +108,6 @@ export function Header() {
           <HeaderCartSection>
             <HeaderCartButton />
           </HeaderCartSection>
-          <HeaderUserSection />
         </div>
         <div className="w-full">
           <AldiButton
@@ -101,6 +118,7 @@ export function Header() {
             endContent={<IconTicket className="text-2xl" />}
             color="secondary"
             fullWidth={true}
+            onClick={() => handleLinkClick('dealactivieren', '/redeem')}
           >
             Deal aktivieren
           </AldiButton>
