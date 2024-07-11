@@ -70,3 +70,17 @@ export function trackVoucherSubmit(dealName: string, supplierName: string) {
     },
   });
 }
+export function trackNavigationClick(navigationItem: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'navigation_item_click',
+    eventInfo: {
+      name: 'navigation_item_click',
+      eventAction: navigationItem,
+      type: 'interaction',
+      category: {
+        primaryCategory: 'navigation',
+      },
+    },
+  });
+}

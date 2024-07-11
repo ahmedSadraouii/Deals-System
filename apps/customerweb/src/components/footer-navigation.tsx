@@ -2,13 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { trackLinkClick } from '@/utils/tracking';
+import { trackNavigationClick } from '@/utils/tracking';
 
 export function FooterNavigation() {
   const handleLinkClick =
-    (linkName: string, targetUrl: string) =>
-    (_: React.MouseEvent<HTMLAnchorElement>) => {
-      trackLinkClick(linkName, targetUrl);
+    (navigationItem: string) => (_: React.MouseEvent<HTMLAnchorElement>) => {
+      trackNavigationClick(navigationItem);
     };
 
   return (
@@ -20,7 +19,7 @@ export function FooterNavigation() {
             <Link
               href="/"
               className="hover:underline"
-              onClick={handleLinkClick('start', '/')}
+              onClick={handleLinkClick('start')}
             >
               Start
             </Link>
@@ -29,7 +28,7 @@ export function FooterNavigation() {
             <Link
               href="/auth"
               className="hover:underline"
-              onClick={handleLinkClick('anmelden', '/auth')}
+              onClick={handleLinkClick('anmelden')}
             >
               Anmelden
             </Link>
@@ -38,7 +37,7 @@ export function FooterNavigation() {
             <Link
               href="/auth"
               className="hover:underline"
-              onClick={handleLinkClick('registrieren', '/auth')}
+              onClick={handleLinkClick('registrieren')}
             >
               Registrieren
             </Link>
@@ -47,7 +46,7 @@ export function FooterNavigation() {
             <Link
               href="/content/faq"
               className="hover:underline"
-              onClick={handleLinkClick('faq', '/content/faq')}
+              onClick={handleLinkClick('faq')}
             >
               FAQ
             </Link>
