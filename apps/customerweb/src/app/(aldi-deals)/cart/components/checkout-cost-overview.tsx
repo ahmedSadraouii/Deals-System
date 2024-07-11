@@ -41,7 +41,7 @@ export function CheckoutCostOverview() {
       </div>
 
       <div className="mt-6 hidden md:block">
-        <CartItemList editable={false} />
+        <CartItemList editable={false} isCheckoutPage={true} />
       </div>
 
       <div className="my-6 flex flex-col gap-4 border-b border-neutral-200 pb-6">

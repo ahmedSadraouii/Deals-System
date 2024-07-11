@@ -84,3 +84,96 @@ export function trackNavigationClick(navigationItem: string) {
     },
   });
 }
+
+export function trackAddToCart(partnerName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'add_to_cart',
+    eventInfo: {
+      name: 'add_to_cart',
+      eventAction: partnerName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName,
+      },
+    },
+  });
+}
+
+export function trackCheckoutStep1(partnerName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'checkout_step_1',
+    eventInfo: {
+      name: 'checkout_step_1',
+      eventAction: partnerName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName,
+      },
+    },
+  });
+}
+export function trackCheckoutStep2(partnerName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'checkout_step_2',
+    eventInfo: {
+      name: 'checkout_step_2',
+      eventAction: partnerName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName,
+      },
+    },
+  });
+}
+export function trackCheckoutStep3(partnerName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'checkout_step_3',
+    eventInfo: {
+      name: 'checkout_step_3',
+      eventAction: partnerName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName,
+      },
+    },
+  });
+}
+export function trackCheckoutStep4(partnerName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'checkout_step_4',
+    eventInfo: {
+      name: 'checkout_step_4',
+      eventAction: partnerName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName,
+      },
+    },
+  });
+}
+
+export function trackFormSend(formName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'raffle_form_send',
+    eventInfo: {
+      name: 'raffle_form_send',
+      eventAction: 'raffle_form_send',
+      type: 'success',
+      category: {
+        primaryCategory: 'form',
+        subCategory: formName,
+      },
+    },
+  });
+}

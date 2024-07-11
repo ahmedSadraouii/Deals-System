@@ -145,6 +145,8 @@ export function DealDetailPage({
               <div className="flex flex-col gap-2">
                 <AddDealToCart
                   dealId={deal.id}
+                  dealName={deal.name}
+                  supplierName={supplier.name}
                   maxCustomerQuantity={deal.properties?.maxOrderQuantity || 0}
                 />
               </div>

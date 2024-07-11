@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { SelectItem, Spinner } from '@nextui-org/react';
 import type { CartItemModel } from 'api-deals';
@@ -16,14 +16,21 @@ import type {
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatCurrency } from '@/utils/format-currency';
+import { trackCheckoutStep1, trackCheckoutStep2 } from '@/utils/tracking';
 
 export interface CartItemProps {
   cartItem: CartItemModel;
   editable?: boolean;
+  isCheckoutPage?: boolean;
 }
 
-export function CartItem({ cartItem, editable = true }: CartItemProps) {
+export function CartItem({
+  cartItem,
+  editable = true,
+  isCheckoutPage = false,
+}: CartItemProps) {
   const { cartContext, removeCartItem, updateCartItem } = useCart();
+  const hasTrackedPageView = useRef(false);
 
   const [deal, setDeal] = useState<UmbracoDeal | undefined>(undefined);
   const [supplier, setSupplier] = useState<UmbracoSupplier | undefined>(
@@ -70,6 +77,12 @@ export function CartItem({ cartItem, editable = true }: CartItemProps) {
         supplierId: deal.properties!.supplier.id,
       });
       setSupplier(supplier);
+      if (!hasTrackedPageView.current) {
+        isCheckoutPage
+          ? trackCheckoutStep2(supplier.name, deal.name)
+          : trackCheckoutStep1(supplier.name, deal.name);
+        hasTrackedPageView.current = true;
+      }
 
       const supplierImage =
         supplier.properties?.picture?.[0]?.url &&

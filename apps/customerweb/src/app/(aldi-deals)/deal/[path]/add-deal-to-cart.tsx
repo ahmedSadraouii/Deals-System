@@ -7,14 +7,18 @@ import { useCart } from '@/app/(aldi-deals)/contexts/cart/use-cart';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconCart } from '@/components/svg/icon-cart';
 import { toast } from '@/utils/toast';
-import { trackCTA } from '@/utils/tracking';
+import { trackAddToCart, trackCTA } from '@/utils/tracking';
 
 export interface AddDealToCartProps {
   dealId: string;
+  dealName: string;
+  supplierName: string;
   maxCustomerQuantity: number;
 }
 export function AddDealToCart({
   dealId,
+  dealName,
+  supplierName,
   maxCustomerQuantity,
 }: AddDealToCartProps) {
   const { cartContext, updateCartItem } = useCart();
@@ -46,6 +50,7 @@ export function AddDealToCart({
     try {
       await updateCartItem(dealId, existingCartItemQuantity + quantity);
       trackCTA(ctaText, targetUrl);
+      trackAddToCart(supplierName, dealName);
       setLoading(true);
     } catch (error) {
       console.error('Error updating cart item:', error);
@@ -64,6 +69,8 @@ export function AddDealToCart({
     updateCartItem,
     ctaText,
     targetUrl,
+    dealName,
+    supplierName,
   ]);
 
   if (

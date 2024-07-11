@@ -9,6 +9,7 @@ import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { emailRegex } from '@/utils/email-regex';
 import { toast } from '@/utils/toast';
+import { trackFormSend } from '@/utils/tracking';
 
 export function FooterForm() {
   const [isLoading, setLoading] = useState(false);
@@ -31,16 +32,22 @@ export function FooterForm() {
   const onSubmit = useCallback(async (data: typeof defaultValues) => {
     try {
       setLoading(true);
-      await newsletterSignup(data);
-      setSignedUp(true);
+      const result = await newsletterSignup(data);
+      if (result.success) {
+        trackFormSend('newsletter');
+        setSignedUp(true);
+      } else {
+        throw new Error('Signup failed');
+      }
     } catch (error) {
       toast({
         title: 'Fehler',
         description:
           'Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.',
       });
-      setLoading(false);
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 

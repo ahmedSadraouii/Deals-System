@@ -27,7 +27,7 @@ export default function Page() {
               Dein Warenkorb
             </h1>
             <div>
-              <CartItemList />
+              <CartItemList isCheckoutPage={false} />
             </div>
           </div>
 
