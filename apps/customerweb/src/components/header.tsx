@@ -15,6 +15,7 @@ import {
 } from '@nextui-org/react';
 import type { Variants } from 'framer-motion';
 import { HeaderCartSection } from '@/components/header-cart-section';
+import { HeaderUserSection } from '@/components/header-user-section';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiDealsSvg } from '@/components/svg/aldi-deals-svg';
 import { AldiSuedSvg } from '@/components/svg/aldi-sued-svg';
@@ -88,6 +89,7 @@ export function Header() {
         >
           Deal aktivieren
         </AldiButton>
+        <HeaderUserSection />
         <HeaderCartSection>
           <HeaderCartButton />
         </HeaderCartSection>
@@ -107,6 +109,7 @@ export function Header() {
             <AldiSuedSvg className="h-10 lg:h-auto" />
             <AldiDealsSvg className="h-10 lg:h-auto" />
           </NavbarBrand>
+          <HeaderUserSection />
           <HeaderCartSection>
             <HeaderCartButton />
           </HeaderCartSection>

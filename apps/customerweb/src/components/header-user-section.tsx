@@ -1,18 +1,19 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { Badge } from '@nextui-org/react';
-import { getServerSession } from 'next-auth';
 import { HeaderUserProfileButton } from '@/components/header-user-profile-button';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconArrowDown } from '@/components/svg/icon-arrow-down';
 import { IconProfile } from '@/components/svg/icon-profile';
 import { IconUser } from '@/components/svg/icon-user';
-import { authOptions } from '@/utils/auth';
 
-export async function HeaderUserSection() {
-  const session = await getServerSession(authOptions);
+export function HeaderUserSection() {
+  const session = useSession();
 
-  if (session) {
+  if (session.status === 'authenticated') {
     return (
       <>
         <Badge
@@ -31,7 +32,7 @@ export async function HeaderUserSection() {
               data-is-user-button={true}
             >
               <span className="hidden pl-4 lg:block">
-                Hey {session.user.profile.firstName}!
+                Hey {session.data.user.profile.firstName}!
               </span>
               <div className="flex h-12 w-12 shrink-0 items-center justify-center">
                 <IconProfile className="text-2xl text-secondary" />
