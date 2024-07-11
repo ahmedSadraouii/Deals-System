@@ -15,7 +15,7 @@ import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
-import { trackCTA } from '@/utils/tracking';
+import { trackCTA, trackOfferClick } from '@/utils/tracking';
 
 export type DealsListItemHeroSliderProps = Omit<
   DealsListItemProps,
@@ -45,6 +45,7 @@ export function DealsListItemHeroSlider({
   const targetUrl = `/deal/${dealLinkSegment || deal.route.path}`;
   const handleCtaClick = useCallback(() => {
     trackCTA(ctaText, targetUrl);
+    trackOfferClick(deal.name, supplier.name);
   }, [ctaText, targetUrl]);
 
   return (

@@ -177,3 +177,19 @@ export function trackFormSend(formName: string) {
     },
   });
 }
+
+export function trackOfferClick(dealName: string, partnerName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'offer_click',
+    eventInfo: {
+      name: 'offer_click',
+      eventAction: dealName,
+      type: 'interaction',
+      category: {
+        primaryCategory: 'deal_cells',
+        subCategory: partnerName,
+      },
+    },
+  });
+}

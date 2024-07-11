@@ -24,7 +24,7 @@ export default function CheckoutCartMobile() {
       </div>
 
       <div>
-        <CartItemList editable={false} />
+        <CartItemList editable={false} isCheckoutPage={true} />
       </div>
     </div>
   );

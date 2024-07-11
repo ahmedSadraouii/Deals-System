@@ -7,7 +7,7 @@ import { IconCart } from './svg/icon-cart';
 import { trackCTA } from '@/utils/tracking';
 
 export function HeaderCartButton() {
-  const ctaText = 'cart';
+  const ctaText = 'zum warenkorb';
   const targetUrl = '/cart';
   const handleCtaClick = useCallback(() => {
     trackCTA(ctaText, targetUrl);
