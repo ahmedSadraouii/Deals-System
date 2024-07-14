@@ -38,7 +38,6 @@ export function trackPageView(pageInfo: PageInfo) {
       },
     },
   });
-  console.log('window', window.adobeDataLayer);
 }
 
 export function trackLinkClick(linkName: string, targetUrl: string) {
