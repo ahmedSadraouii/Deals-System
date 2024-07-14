@@ -38,18 +38,18 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
   const dealLink = fullDeal.route.path.split('/')[3];
   return (
     <div className="container mx-auto mt-10 px-4">
-      <Card className="relative rounded-lg lg:aspect-video lg:rounded-[40px]">
+      <Card className="relative h-[60vh] rounded-lg lg:aspect-video lg:h-auto lg:rounded-[40px]">
         {primaryImage && (
           <Image
             src={primaryImage}
             alt=""
-            width={1280}
-            height={1280}
-            className="object-cover object-center"
+            width={1600}
+            height={1600}
+            className="h-full object-cover object-center"
           />
         )}
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-b from-black/0 to-black/80" />
-        <div className="absolute bottom-0 left-0 right-0 top-0">
+        <div className="absolute bottom-0 left-0 right-0 top-0 w-full xl:mt-64">
           <CardHeader>
             <div className="mb-12 mt-2 flex items-center gap-4 rounded-lg border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:hidden">
               {supplierImage && (
@@ -66,7 +66,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               </div>
             </div>
           </CardHeader>
-          <CardBody className="mb-5 flex flex-col items-start justify-end gap-6 md:mb-16 md:ml-6">
+          <CardBody className="mb-5 flex h-full flex-col items-start justify-center gap-6 p-5 md:mb-16 md:ml-6">
             {fullDeal.properties?.availabilityEnd && (
               <MegaDealCard
                 availabilityEnd={formatAvailability(
