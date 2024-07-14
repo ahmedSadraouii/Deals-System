@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import type { ZonedDateTime } from '@internationalized/date';
 import { fromDate } from '@internationalized/date';
 import { now } from '@internationalized/date';
-import { Link, SelectItem } from '@nextui-org/react';
+import { Link } from '@nextui-org/react';
 import type { CheckoutInputModel } from 'api-deals';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { AuthTabs } from '@/app/(aldi-deals)/auth/auth-tabs';
@@ -23,7 +23,6 @@ import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCheckbox } from '@/components/nextui/aldi-checkbox';
 import { AldiDatePicker } from '@/components/nextui/aldi-date-picker';
 import { AldiInput } from '@/components/nextui/aldi-input';
-import { AldiSelect } from '@/components/nextui/aldi-select';
 import { PaymentIconMastercard } from '@/components/svg/payment-icon-mastercard';
 import { PaymentIconVisa } from '@/components/svg/payment-icon-visa';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
@@ -86,16 +85,6 @@ export function CheckoutPage({
     termsChecked: false,
     newsletterChecked: false,
   };
-
-  const countries = [
-    { value: 'DE', label: 'Deutschland' },
-    { value: 'AT', label: 'Österreich' },
-    { value: 'CH', label: 'Schweiz' },
-    { value: 'NL', label: 'Niederlande' },
-    { value: 'BE', label: 'Belgien' },
-    { value: 'LU', label: 'Luxemburg' },
-    { value: 'FR', label: 'Frankreich' },
-  ];
 
   const [errorState, setErrorState] = useState<ErrorState>(undefined);
 
@@ -266,33 +255,6 @@ export function CheckoutPage({
                       )}
                     />
 
-                    <Controller
-                      render={({ field }) => (
-                        <AldiSelect
-                          selectedKeys={[field.value]}
-                          defaultSelectedKeys={['DE']}
-                          isInvalid={!!errors.countryCode}
-                          errorMessage={
-                            errors.countryCode && 'Land wird benötigt'
-                          }
-                          {...field}
-                        >
-                          {countries.map((country) => (
-                            <SelectItem
-                              key={country.value}
-                              value={country.value}
-                            >
-                              {country.label}
-                            </SelectItem>
-                          ))}
-                        </AldiSelect>
-                      )}
-                      name="countryCode"
-                      rules={{
-                        required: true,
-                      }}
-                    />
-
                     <div className="grid w-full grid-cols-4 gap-4">
                       <Controller
                         render={({ field }) => (
@@ -387,38 +349,41 @@ export function CheckoutPage({
                       />
                     </div>
 
-                    <Controller
-                      render={({ field }) => (
-                        <AldiInput
-                          type="email"
-                          placeholder="E-Mail Adresse*"
-                          isRequired={true}
-                          isReadOnly={isReadOnly}
-                          isInvalid={
-                            !!errors.email ||
-                            responseError === ApiErrorCodes.EMAIL_ALREADY_IN_USE
-                          }
-                          errorMessage={
-                            <ApiErrorTranslation
-                              errorOverride={
-                                errors.email &&
-                                'Eine korrekte E-Mail Adresse wird benötigt'
-                              }
-                              allowedErrors={[
-                                ApiErrorCodes.EMAIL_ALREADY_IN_USE,
-                              ]}
-                              apiError={responseError}
-                            />
-                          }
-                          {...field}
-                        />
-                      )}
-                      name="email"
-                      rules={{
-                        required: true,
-                        validate: (value) => emailRegex.test(value),
-                      }}
-                    />
+                    {session.status === 'unauthenticated' && isGuestOrder && (
+                      <Controller
+                        render={({ field }) => (
+                          <AldiInput
+                            type="email"
+                            placeholder="E-Mail Adresse*"
+                            isRequired={true}
+                            isReadOnly={isReadOnly}
+                            isInvalid={
+                              !!errors.email ||
+                              responseError ===
+                                ApiErrorCodes.EMAIL_ALREADY_IN_USE
+                            }
+                            errorMessage={
+                              <ApiErrorTranslation
+                                errorOverride={
+                                  errors.email &&
+                                  'Eine korrekte E-Mail Adresse wird benötigt'
+                                }
+                                allowedErrors={[
+                                  ApiErrorCodes.EMAIL_ALREADY_IN_USE,
+                                ]}
+                                apiError={responseError}
+                              />
+                            }
+                            {...field}
+                          />
+                        )}
+                        name="email"
+                        rules={{
+                          required: true,
+                          validate: (value) => emailRegex.test(value),
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
 
