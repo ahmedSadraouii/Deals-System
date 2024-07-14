@@ -45,7 +45,6 @@ export default function Page({
           code,
           newPassword: data.password,
         });
-        console.log({ returnValue });
         router.push('/auth/password-forget/success');
       } catch {
         setApiError(true);

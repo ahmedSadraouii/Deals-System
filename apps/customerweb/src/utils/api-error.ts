@@ -28,9 +28,11 @@ export class ApiError extends Error {
   ): string {
     const apiErrorLines = [];
     apiErrorLines.push(`[ApiError] Message: ${message}`);
+    debugger;
     if (innerError) {
       apiErrorLines.push(`Inner Error: ${innerError}`);
     }
+
     if (context) {
       if ('error' in context) {
         const errorContext = context as UniversalErrorContext;

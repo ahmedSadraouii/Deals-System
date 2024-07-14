@@ -21,6 +21,7 @@ export function tryParseApiError(error: any): ApiErrorCodes {
         return ApiErrorCodes.PASSWORD_INVALID;
     }
   }
+
   if ('message' in error && !!error.message) {
     if (
       error.message.includes(
@@ -50,8 +51,9 @@ export function tryParseApiError(error: any): ApiErrorCodes {
       return ApiErrorCodes.EMAIL_VERIFICATION_REQUIRED;
     }
 
-    console.log('Uncaught error message:', error.message);
+    console.error('Uncaught error message:', error.message);
   }
+
   return ApiErrorCodes.UNKNOWN;
 }
 
@@ -59,6 +61,9 @@ export function tryParseApiErrorWithFallback(error: any): {
   errorCode: ApiErrorCodes;
   message: string;
 } {
+  console.log(
+    'HALLO WELT- -.............................................................................',
+  );
   const apiError = tryParseApiError(error);
 
   function getApiErrorMessage(error: any): string {

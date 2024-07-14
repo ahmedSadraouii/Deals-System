@@ -36,12 +36,6 @@ export async function checkCartCheckoutPreconditionAction({
     CardinalDirection.Sued,
   ];
 
-  console.log({
-    getCardinalDirectionResponse,
-    allowedCardinalDirections,
-    postalCode,
-  });
-
   return (
     getCardinalDirectionResponse.cardinalDirection !== undefined &&
     allowedCardinalDirections.includes(

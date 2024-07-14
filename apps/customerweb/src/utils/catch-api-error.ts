@@ -27,6 +27,7 @@ export function getApiClientErrorHandler(
     if (type === 'post') {
       const responseContext = context as UniversalResponseContext;
       const { response } = responseContext;
+
       if (!response) {
         return;
       }

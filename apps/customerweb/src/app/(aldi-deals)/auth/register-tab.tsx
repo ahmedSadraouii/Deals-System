@@ -136,6 +136,13 @@ export function RegisterTab(props: RegisterTabProps) {
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex shrink-0 basis-[600px] flex-col gap-6 rounded-3xl border bg-default-100 p-10">
+              {/*{responseError && (
+                <p className="text-center text-red-500">
+                  {responseError}
+                  <ApiErrorTranslation apiError={responseError} />
+                </p>
+              )}*/}
+
               <Controller
                 render={({ field }) => (
                   <AldiInput

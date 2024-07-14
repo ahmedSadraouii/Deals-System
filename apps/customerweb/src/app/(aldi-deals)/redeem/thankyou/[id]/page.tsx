@@ -16,11 +16,11 @@ type Props = {
 
 export default async function Page({ params: { id } }: Props) {
   const session = await getServerSession(authOptions);
-  console.log('token', session?.accessToken);
 
   const honoredDeal = session
     ? await getHonoredDeal(id, session?.accessToken)
     : null;
+
   const guestDeal = !session ? await getGuestDeal(id) : null;
 
   return (

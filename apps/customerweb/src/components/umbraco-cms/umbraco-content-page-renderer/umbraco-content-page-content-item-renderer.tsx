@@ -24,7 +24,7 @@ async function getDeals(
 ): Promise<Array<UmbracoDeal>> {
   if (dataHint === 'All Deals' || dataHint === 'Best Sellers') {
     const deals = await contentApi.getContent20({
-      filter: ['contentType:deal'],
+      filter: ['contentType:deal'], // TODO: dont do that, pull children from item at /content/deals
     });
 
     return deals.items as Array<UmbracoDeal>;

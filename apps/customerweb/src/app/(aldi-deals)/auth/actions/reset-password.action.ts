@@ -1,6 +1,5 @@
 'use server';
 
-import { inspect } from 'util';
 import { getAuthApiClient } from '@/utils/auth-api-client';
 
 export interface ResetPasswordActionParams {
@@ -13,7 +12,6 @@ export async function resetPasswordAction({
   newPassword,
 }: ResetPasswordActionParams): Promise<{ error?: string }> {
   const authApi = getAuthApiClient();
-  console.log('Trying to reset password', code, newPassword);
   try {
     const result = await authApi.updateUserPassword({
       code,
@@ -21,13 +19,12 @@ export async function resetPasswordAction({
         newPassword,
       },
     });
-    console.log(inspect(result, false, 3, true));
     return {};
   } catch (error) {
     console.error(error);
-    throw new Error('SHESH');
+    throw new Error('reset password action caused an error');
     return {
-      error: 'sheesh',
+      error: 'reset password action caused an error',
     };
   }
 }

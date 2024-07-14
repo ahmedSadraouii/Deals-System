@@ -33,9 +33,6 @@ export async function cartCheckoutAction({
   const cartsApiProps: AdBeApiClientProps = {};
   if (session) {
     cartsApiProps.accessToken = session.accessToken;
-    console.log({
-      accessToken: session.accessToken,
-    });
   }
   const cartsApi = getCartsApiClient(cartsApiProps);
 
@@ -68,8 +65,6 @@ export async function cartCheckoutAction({
   const createCheckoutResponse = await cartsApi.createCheckout(
     createCheckoutRequest,
   );
-
-  console.log('Got Response', createCheckoutResponse);
 
   return {
     redirectUrl: createCheckoutResponse.redirectUrl || '',

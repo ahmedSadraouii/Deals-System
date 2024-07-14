@@ -19,7 +19,7 @@ export default async function Page() {
   });
 
   const dealsResponse = await contentApi.getContent20({
-    filter: ['contentType:deal'],
+    filter: ['contentType:deal'], // TODO: dont do that, pull children from item at /content/deals
     take: 100,
   });
   const deals = (dealsResponse.items as Array<UmbracoDeal>).filter((deal) =>
@@ -69,12 +69,12 @@ export default async function Page() {
 
       // todo: SUPER HACKY TEMPORARY WORKAROUND, REMOVE THIS IMMEDIATELY
       // use the first deal if the deal was not found
-      const dealToUse = deal || deals[0];
-      if (dealToUse !== deal) {
-        console.log(
-          `Danger. Using deal ${dealToUse?.id} instead of ${deal?.id}`,
-        );
-      }
+      const dealToUse = deal; // || deals[0];
+      //if (dealToUse !== deal) {
+      //  console.error(
+      //    `Using deal ${dealToUse?.id} instead of ${deal?.id}`,
+      // );
+      // }
 
       const supplier = suppliers.find(
         (supplier) => supplier.id === dealToUse?.properties?.supplier?.id,

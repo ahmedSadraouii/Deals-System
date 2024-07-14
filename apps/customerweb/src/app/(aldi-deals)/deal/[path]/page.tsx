@@ -59,7 +59,7 @@ export async function generateMetadata({
 export default async function Page({ params: { path } }: Props) {
   const contentApi = getContentApiClient();
   const contentDeals = await contentApi.getContent20({
-    filter: ['contentType:deal'],
+    filter: ['contentType:deal'], // TODO: dont do that, pull children from item at /content/deals
   });
   const deals = contentDeals.items as UmbracoDeal[];
   try {
