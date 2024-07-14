@@ -84,8 +84,8 @@ export async function Footer() {
             </div>
             <FooterLegalLinks />
           </div>
-          <div className="mt-10 justify-center sm:flex sm:items-center">
-            <span className="text-sm text-white">
+          <div className="mt-10 text-center">
+            <span className="text-center text-sm text-white">
               &copy; 2024{' '}
               <Link href="/" className="hover:underline">
                 Aldi-Deals&trade;
