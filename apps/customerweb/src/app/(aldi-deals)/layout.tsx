@@ -34,7 +34,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="flex min-h-screen flex-col">
               <AldiSuedDefsSvg />
               <Header />
-              <main className="flex grow flex-col">{children}</main>
+              <main className="flex grow flex-col overflow-x-hidden">
+                {children}
+              </main>
               <Footer />
             </div>
           </ServerProviders>

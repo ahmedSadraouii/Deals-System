@@ -1,16 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { RedemptionSteps } from './redemption-steps';
-import { Link } from '@nextui-org/react';
-import { Card, CardBody } from '@nextui-org/react';
-import { FormProvider, useForm, Controller } from 'react-hook-form';
+import { CardBody, Link } from '@nextui-org/react';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { AuthTabs } from '@/app/(aldi-deals)/auth/auth-tabs';
 import { getVoucherInfo } from '@/app/(aldi-deals)/redeem/actions/get-voucher-info.action';
+import { translateApiError } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { AldiCard } from '@/components/nextui/aldi-card';
 import { AldiInput } from '@/components/nextui/aldi-input';
+import { ApiErrorCodes } from '@/utils/api-response-handling';
+import { toast } from '@/utils/toast';
 import { trackPageView } from '@/utils/tracking';
 
 interface RedeemPageProps {
@@ -22,6 +25,7 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
   const searchParams = useSearchParams();
   const session = useSession();
   const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
   const defaultValues = {
     pinCode: '',
     email: '',
@@ -37,6 +41,7 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
 
   const onSubmit = useCallback(
     async (data: typeof defaultValues) => {
+      setLoading(true);
       try {
         const result = await getVoucherInfo({ pin: data.pinCode });
         if (result.success) {
@@ -57,33 +62,38 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
         } else {
           setError('pinCode', {
             type: 'manual',
-            message: result.message,
+            message: translateApiError(
+              result.apiErrorCode || ApiErrorCodes.UNKNOWN,
+            ),
           });
         }
       } catch (error) {
         console.error('Error submitting the form', error);
+        toast({
+          title: 'Fehler',
+          description: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.',
+        });
+      } finally {
+        setLoading(false);
       }
     },
     [router, setError, isGuest],
   );
 
-  const pageInfo = {
-    pageName: 'aldi-deals-redeem',
-    pageType: 'aldi-sued-ci-template',
-    primaryCategory: 'ALDI SUED CI',
-    subCategory: 'aldi-deals',
-    subSubCategory: 'redeem',
-  };
   useEffect(() => {
     if (!hasTrackedPageView.current) {
-      trackPageView(pageInfo);
+      trackPageView({
+        pageName: 'aldi-deals-redeem',
+        pageType: 'aldi-sued-ci-template',
+        primaryCategory: 'ALDI SUED CI',
+        subCategory: 'aldi-deals',
+        subSubCategory: 'redeem',
+      });
       hasTrackedPageView.current = true;
     }
   }, []);
 
   const isGuestOrder = searchParams.get('type') === 'guest';
-  console.log('session', session);
-  console.log(isGuestOrder);
   if (session.status === 'unauthenticated' && !isGuestOrder) {
     return (
       <div className="flex w-full flex-col items-center py-20">
@@ -116,7 +126,7 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
             Gib folgend die 16-stellige PIN auf deinem Kassenbon ein.
           </p>
         </div>
-        <Card className=" bg-neutral-100 py-4 md:p-8">
+        <AldiCard className=" bg-neutral-100 py-4 md:p-8">
           <CardBody>
             <FormProvider {...form}>
               <form
@@ -164,13 +174,14 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
                   variant="solid"
                   type="submit"
                   color="secondary"
+                  isLoading={isLoading}
                 >
                   Eingabe bestätigen
                 </AldiButton>
               </form>
             </FormProvider>
           </CardBody>
-        </Card>
+        </AldiCard>
       </div>
     </div>
   );

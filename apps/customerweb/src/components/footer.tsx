@@ -51,7 +51,7 @@ export async function Footer() {
           </div>
         </div>
       </div>
-      <footer className="bg-secondary text-white">
+      <footer className="overflow-x-hidden bg-secondary text-white">
         <div className="mx-auto w-full py-16 md:container md:p-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex flex-col items-center justify-center">
