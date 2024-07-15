@@ -227,7 +227,7 @@ export function DealDetailPage({
         </div>
         {children}
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-neutral-100 p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-neutral-100 p-4 lg:hidden">
         <div className="flex flex-col gap-2">
           <AddDealToCart
             dealId={deal.id}
