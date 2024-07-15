@@ -92,7 +92,7 @@ export function CheckoutPage({
         )
       : now('Europe/Berlin'),
     city: defaultFormValues?.city || '',
-    countryCode: '', // user must choose on his own
+    countryCode: 'DE',
     termsChecked: false,
     newsletterChecked: false,
   };
