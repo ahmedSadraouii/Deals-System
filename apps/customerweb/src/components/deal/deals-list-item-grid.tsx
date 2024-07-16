@@ -63,15 +63,17 @@ export function DealsListItemGrid({
           height={768}
         />
       )}
-      <div className="flex items-center justify-between p-4">
-        <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
-          <IconOnline className="mr-2 text-base" />
-          <span className="text-aldi-key">Nur Online</span>
-        </span>
-        {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
+      <div className="relative bottom-64 w-full">
+        <div className="absolute inset-0 flex items-center justify-between p-4">
+          <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
+            <IconOnline className="mr-2 text-base" />
+            <span className="text-aldi-key">Nur Online</span>
+          </span>
+          {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
+        </div>
       </div>
 
-      <div className="flex grow flex-col gap-4 p-6">
+      <div className="flex grow flex-col gap-4 p-4 md:p-6">
         <div className="flex flex-row items-center justify-between">
           {supplierImage && (
             <Image
@@ -91,7 +93,7 @@ export function DealsListItemGrid({
             </div>
           )}
         </div>
-        <div className="grow text-2xl font-bold text-secondary">
+        <div className="my-2 text-3xl font-bold text-secondary lg:text-2xl">
           {deal.name}
         </div>
         <div className="flex flex-row justify-between">

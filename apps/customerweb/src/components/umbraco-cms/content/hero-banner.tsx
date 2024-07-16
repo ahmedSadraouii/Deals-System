@@ -66,7 +66,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               </div>
             </div>
           </CardHeader>
-          <CardBody className="mb-5 flex h-full flex-col items-start justify-center gap-6 p-5 md:mb-16 md:ml-6">
+          <CardBody className="mb-5 mt-5 flex h-full flex-col items-start justify-start gap-6 p-5 md:mb-16 md:ml-6 md:mt-0 md:justify-center">
             {fullDeal.properties?.availabilityEnd && (
               <MegaDealCard
                 availabilityEnd={formatAvailability(

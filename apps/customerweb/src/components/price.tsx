@@ -42,7 +42,7 @@ export function Price({
     variants: {
       textSize: {
         default: 'text-lg',
-        1: 'text-2xl',
+        1: 'text-lg',
         2: 'text-3xl',
         3: 'text-4xl mr-6',
         4: 'text-3xl mr-2',
@@ -59,7 +59,7 @@ export function Price({
   });
 
   const savingsText = tv({
-    base: 'font-light ml-2 p-1 rounded',
+    base: 'font-light ml-2 p-1 rounded whitespace-nowrap',
     variants: {
       textSize: {
         default: 'text-sm',
