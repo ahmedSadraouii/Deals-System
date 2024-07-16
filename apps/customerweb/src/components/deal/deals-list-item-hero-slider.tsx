@@ -73,7 +73,7 @@ export function DealsListItemHeroSlider({
             height={768}
           />
         )}
-        <div className="absolute left-0 right-0 top-0 flex flex-row justify-between p-6">
+        <div className="absolute left-0 right-0 top-0 flex flex-row items-center justify-between p-6">
           <span className="m-6 flex items-center rounded bg-neutral-100 px-6 py-4 text-xs text-aldi-key">
             <IconTag className="mr-2 text-base" />
             <span>Stark nachgefragt</span>

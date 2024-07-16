@@ -41,6 +41,7 @@ export function CartItem({
   );
   const [isRemovingDeal, setIsRemovingDeal] = useState(false);
   const [isChangingQuantity, setChangingQuantity] = useState(false);
+  console.log('log', cartItem.quantity);
   const [selectedQuantity, setSelectedQuantity] = useState(cartItem.quantity);
 
   const handleQuantityChange = useCallback(
@@ -254,7 +255,7 @@ export function CartItem({
         {editable && (
           <div className="flex flex-row items-center gap-2">
             <AldiSelect
-              value={selectedQuantity.toString()}
+              selectedKeys={[selectedQuantity.toString()]}
               onChange={handleQuantityChange}
               disabled={isRemovingDeal || isChangingQuantity}
             >
