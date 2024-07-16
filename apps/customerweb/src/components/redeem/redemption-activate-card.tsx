@@ -13,7 +13,7 @@ import type {
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
-import { trackVoucherSubmit } from '@/utils/tracking';
+import { trackVoucherError, trackVoucherSubmit } from '@/utils/tracking';
 
 interface CardActivationProps {
   deal: UmbracoDeal;
@@ -44,6 +44,10 @@ export default function CardActivation({
         );
       } else {
         console.error('Failed to activate the voucher', result.message);
+        trackVoucherError(
+          result.message || '',
+          'Failed to activate the voucher',
+        );
       }
     } catch (error) {
       console.error('Error activating the voucher', error);

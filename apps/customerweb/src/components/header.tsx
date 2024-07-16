@@ -21,7 +21,11 @@ import { AldiDealsSvg } from '@/components/svg/aldi-deals-svg';
 import { AldiSuedSvg } from '@/components/svg/aldi-sued-svg';
 import { IconTicket } from '@/components/svg/icon-ticket';
 import { cn } from '@/utils/cn';
-import { trackLinkClick, trackNavigationClick } from '@/utils/tracking';
+import {
+  trackLinkClick,
+  trackLogoClick,
+  trackNavigationClick,
+} from '@/utils/tracking';
 
 export function Header() {
   const handleLinkClick = (linkName: string, targetUrl: string) => {
@@ -29,6 +33,9 @@ export function Header() {
   };
   const handleNavigationClick = (navigationItem: string) => {
     trackNavigationClick(navigationItem);
+  };
+  const handleLogoClick = () => {
+    trackLogoClick('aldi deals');
   };
   return (
     <Navbar
@@ -49,6 +56,7 @@ export function Header() {
           as={NextLink}
           href="/"
           className="mr-4 h-full shrink-0 space-x-4 py-4"
+          onClick={handleLogoClick}
         >
           <AldiSuedSvg className="h-full" />
           <AldiDealsSvg className="h-full" />

@@ -46,9 +46,9 @@ export function trackLinkClick(linkName: string, targetUrl: string) {
     event: 'link_click',
     eventInfo: {
       name: 'link_click',
-      eventAction: linkName,
+      eventAction: linkName.toLowerCase(),
       type: 'interaction',
-      effect: targetUrl,
+      effect: targetUrl.toLowerCase(),
       category: {
         primaryCategory: 'link',
       },
@@ -61,11 +61,28 @@ export function trackVoucherSubmit(dealName: string, supplierName: string) {
   window.adobeDataLayer.push({
     event: 'voucher_submit_successful',
     name: 'voucher_submit_successful',
-    eventAction: dealName,
+    eventAction: dealName.toLowerCase(),
     type: 'interaction',
     category: {
       primaryCategory: 'form',
-      subCategory: supplierName,
+      subCategory: supplierName.toLowerCase(),
+    },
+  });
+}
+export function trackVoucherError(cause: string, effect: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'voucher_submit_error',
+    eventInfo: {
+      name: 'voucher_submit_error',
+      eventAction: 'voucher_error',
+      type: 'error',
+      cause: cause,
+      effect: effect,
+      category: {
+        primaryCategory: 'form',
+        subCategory: 'voucher',
+      },
     },
   });
 }
@@ -75,7 +92,7 @@ export function trackNavigationClick(navigationItem: string) {
     event: 'navigation_item_click',
     eventInfo: {
       name: 'navigation_item_click',
-      eventAction: navigationItem,
+      eventAction: navigationItem.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'navigation',
@@ -94,7 +111,7 @@ export function trackAddToCart(partnerName: string, dealName: string) {
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
-        subCategory: dealName,
+        subCategory: dealName.toLowerCase(),
       },
     },
   });
@@ -110,7 +127,7 @@ export function trackCheckoutStep1(partnerName: string, dealName: string) {
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
-        subCategory: dealName,
+        subCategory: dealName.toLowerCase(),
       },
     },
   });
@@ -125,7 +142,7 @@ export function trackCheckoutStep2(partnerName: string, dealName: string) {
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
-        subCategory: dealName,
+        subCategory: dealName.toLowerCase(),
       },
     },
   });
@@ -140,7 +157,7 @@ export function trackCheckoutStep3(partnerName: string, dealName: string) {
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
-        subCategory: dealName,
+        subCategory: dealName.toLowerCase(),
       },
     },
   });
@@ -155,7 +172,7 @@ export function trackCheckoutStep4(partnerName: string, dealName: string) {
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
-        subCategory: dealName,
+        subCategory: dealName.toLowerCase(),
       },
     },
   });
@@ -171,7 +188,7 @@ export function trackFormSend(formName: string) {
       type: 'success',
       category: {
         primaryCategory: 'form',
-        subCategory: formName,
+        subCategory: formName.toLowerCase(),
       },
     },
   });
@@ -183,11 +200,26 @@ export function trackOfferClick(dealName: string, partnerName: string) {
     event: 'offer_click',
     eventInfo: {
       name: 'offer_click',
-      eventAction: dealName,
+      eventAction: dealName.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'deal_cells',
-        subCategory: partnerName,
+        subCategory: partnerName.toLowerCase(),
+      },
+    },
+  });
+}
+
+export function trackLogoClick(altText: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'logo_click',
+    eventInfo: {
+      name: 'logo_click',
+      eventAction: altText.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'logo',
       },
     },
   });

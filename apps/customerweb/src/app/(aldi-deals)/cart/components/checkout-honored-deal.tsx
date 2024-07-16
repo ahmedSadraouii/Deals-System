@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { ThankYouDetails } from './thankyou-details';
 import type { HonoredDealModel } from 'api-deals';
 import { DateTime } from 'luxon';
 import { CodeField } from '@/app/(aldi-deals)/profile/deals/code-field';
@@ -67,12 +68,10 @@ export async function CheckoutHonoredDeal({
               />
             )}
           </div>
-          <div className="grow">
-            <h1 className="text-2xl font-bold text-secondary">
-              {umbracoSupplier.name}
-            </h1>
-            <h2 className="text-lg text-secondary">{umbracoDeal.name}</h2>
-          </div>
+          <ThankYouDetails
+            supplierName={umbracoSupplier.name}
+            dealName={umbracoDeal.name}
+          />
         </div>
         <div>
           <CodeField code={honoredDealModel.code} fullWidth={true} />
