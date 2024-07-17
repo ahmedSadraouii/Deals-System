@@ -7,7 +7,7 @@ import { useCart } from '@/app/(aldi-deals)/contexts/cart/use-cart';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { IconCart } from '@/components/svg/icon-cart';
 import { toast } from '@/utils/toast';
-import { trackAddToCart, trackCTA } from '@/utils/tracking';
+import { trackAddToCart } from '@/utils/tracking';
 
 export interface AddDealToCartProps {
   dealId: string;
@@ -49,7 +49,6 @@ export function AddDealToCart({
   const onAddToCart = useCallback(async () => {
     try {
       await updateCartItem(dealId, existingCartItemQuantity + quantity);
-      trackCTA(ctaText, targetUrl);
       trackAddToCart(supplierName, dealName);
       setLoading(true);
     } catch (error) {
@@ -67,8 +66,6 @@ export function AddDealToCart({
     existingCartItemQuantity,
     quantity,
     updateCartItem,
-    ctaText,
-    targetUrl,
     dealName,
     supplierName,
   ]);

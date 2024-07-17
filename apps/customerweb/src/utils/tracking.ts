@@ -193,6 +193,23 @@ export function trackFormSend(formName: string) {
     },
   });
 }
+export function trackFormError(cause: string, effect: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'raffle_form_error',
+    eventInfo: {
+      name: 'raffle_form_error',
+      eventAction: 'form_error',
+      type: 'error',
+      cause: cause.toLowerCase(),
+      effect: effect.toLowerCase(),
+      category: {
+        primaryCategory: 'form',
+        subCategory: 'raffle',
+      },
+    },
+  });
+}
 
 export function trackOfferClick(dealName: string, partnerName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];

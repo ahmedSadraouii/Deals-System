@@ -16,6 +16,7 @@ import { IconCircleCheck } from '@/components/svg/icon-circle-check';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { createQueryString } from '@/utils/create-query-string';
 import { emailRegex } from '@/utils/email-regex';
+import { trackFormError, trackFormSend } from '@/utils/tracking';
 import { validateAldiPassword } from '@/utils/validate-aldi-password';
 
 export interface RegisterTabProps {
@@ -81,6 +82,7 @@ export function RegisterTab(props: RegisterTabProps) {
         });
 
         if (returnValue.success) {
+          trackFormSend('register');
           router.push(
             `/auth/register-success?${createQueryString({
               email: data.email,
@@ -93,6 +95,7 @@ export function RegisterTab(props: RegisterTabProps) {
       } catch (error: any) {
         setResponseError(ApiErrorCodes.UNKNOWN);
         setLoading(false);
+        trackFormError(error.message, 'user not registered');
       }
     },
     [router],

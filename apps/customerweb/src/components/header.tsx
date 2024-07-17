@@ -22,14 +22,14 @@ import { AldiSuedSvg } from '@/components/svg/aldi-sued-svg';
 import { IconTicket } from '@/components/svg/icon-ticket';
 import { cn } from '@/utils/cn';
 import {
-  trackLinkClick,
+  trackCTA,
   trackLogoClick,
   trackNavigationClick,
 } from '@/utils/tracking';
 
 export function Header() {
   const handleLinkClick = (linkName: string, targetUrl: string) => {
-    trackLinkClick(linkName, targetUrl);
+    trackCTA(linkName, targetUrl);
   };
   const handleNavigationClick = (navigationItem: string) => {
     trackNavigationClick(navigationItem);
@@ -131,7 +131,7 @@ export function Header() {
             endContent={<IconTicket className="text-2xl" />}
             color="secondary"
             fullWidth={true}
-            onClick={() => handleLinkClick('dealactivieren', '/redeem')}
+            onClick={() => handleLinkClick('deal aktivieren', '/redeem')}
           >
             Deal aktivieren
           </AldiButton>
