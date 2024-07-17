@@ -20,6 +20,7 @@ import {
   trackCheckoutStep1,
   trackCheckoutStep2,
   trackPageView,
+  trackRemoveFromCart,
 } from '@/utils/tracking';
 
 export interface CartItemProps {
@@ -115,8 +116,9 @@ export function CartItem({
   const onClickRemoveDeal = useCallback(async () => {
     setIsRemovingDeal(true);
     await removeCartItem(cartItem.dealId);
+    trackRemoveFromCart(supplier?.name || '', deal?.name || '');
     setIsRemovingDeal(false);
-  }, [cartItem.dealId, removeCartItem]);
+  }, [cartItem.dealId, removeCartItem, deal?.name, supplier?.name]);
 
   if (!deal) {
     return (

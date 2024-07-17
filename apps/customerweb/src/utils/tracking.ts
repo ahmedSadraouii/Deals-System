@@ -116,6 +116,21 @@ export function trackAddToCart(partnerName: string, dealName: string) {
     },
   });
 }
+export function trackRemoveFromCart(partnerName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'remove_from_cart',
+    eventInfo: {
+      name: 'remove_from_cart',
+      eventAction: partnerName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName.toLowerCase(),
+      },
+    },
+  });
+}
 
 export function trackCheckoutStep1(partnerName: string, dealName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
