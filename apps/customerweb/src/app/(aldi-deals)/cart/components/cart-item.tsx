@@ -16,7 +16,11 @@ import type {
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatCurrency } from '@/utils/format-currency';
-import { trackCheckoutStep1, trackCheckoutStep2 } from '@/utils/tracking';
+import {
+  trackCheckoutStep1,
+  trackCheckoutStep2,
+  trackPageView,
+} from '@/utils/tracking';
 
 export interface CartItemProps {
   cartItem: CartItemModel;
@@ -41,7 +45,6 @@ export function CartItem({
   );
   const [isRemovingDeal, setIsRemovingDeal] = useState(false);
   const [isChangingQuantity, setChangingQuantity] = useState(false);
-  console.log('log', cartItem.quantity);
   const [selectedQuantity, setSelectedQuantity] = useState(cartItem.quantity);
 
   const handleQuantityChange = useCallback(
@@ -79,9 +82,17 @@ export function CartItem({
       });
       setSupplier(supplier);
       if (!hasTrackedPageView.current) {
-        isCheckoutPage
-          ? trackCheckoutStep2(supplier.name, deal.name)
-          : trackCheckoutStep1(supplier.name, deal.name);
+        if (isCheckoutPage) trackCheckoutStep2(supplier.name, deal.name);
+        else {
+          trackCheckoutStep1(supplier.name, deal.name);
+          trackPageView({
+            pageName: 'aldi-deals-profile',
+            pageType: 'aldi-sued-ci-template',
+            primaryCategory: 'ALDI SUED CI',
+            subCategory: 'aldi-deals',
+            subSubCategory: 'cart',
+          });
+        }
         hasTrackedPageView.current = true;
       }
 
@@ -91,7 +102,7 @@ export function CartItem({
 
       setSupplierImageUrl(supplierImage);
     })();
-  }, [cartItem.dealId]);
+  }, [cartItem.dealId, isCheckoutPage]);
 
   const options = Array.from(
     { length: deal?.properties?.maxOrderQuantity || 10 },
