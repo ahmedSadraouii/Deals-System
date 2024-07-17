@@ -13,6 +13,7 @@ import {
 import { BagOutlineSvg } from '@/components/svg/bag-outline-svg';
 import { BookmarkOutlineSvg } from '@/components/svg/bookmark-outline-svg';
 import { IconUser } from '@/components/svg/icon-user';
+import { trackNavigationClick } from '@/utils/tracking';
 
 export interface HeaderUserProfileButtonProps {
   children: ReactNode;
@@ -51,6 +52,7 @@ export function HeaderUserProfileButton({
           as={Link}
           href="/profile/general"
           startContent={<IconUser className="text-xl" />}
+          onClick={() => trackNavigationClick('profile')}
         >
           Mein Profil
         </DropdownItem>
@@ -58,6 +60,7 @@ export function HeaderUserProfileButton({
           as={Link}
           href="/profile/deals"
           startContent={<BagOutlineSvg className="text-xl" />}
+          onClick={() => trackNavigationClick('meine deals')}
         >
           Meine Deals
         </DropdownItem>
@@ -65,6 +68,7 @@ export function HeaderUserProfileButton({
           as={Link}
           href="/profile/favorites"
           startContent={<BookmarkOutlineSvg className="text-xl" />}
+          onClick={() => trackNavigationClick('merkliste')}
         >
           Merkliste
         </DropdownItem>

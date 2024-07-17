@@ -1,9 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
+import { EmptyFavoriteList } from './empty-favorite-list';
+import { FavoriteList } from './favorite-list';
 import { getServerSession } from 'next-auth';
 import { DealsListItem } from '@/components/deal/deals-list-item';
-import { AldiButton } from '@/components/nextui/aldi-button';
-import { IconArrowLeft } from '@/components/svg/icon-arrow-left';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { authOptions } from '@/utils/auth';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -36,28 +35,16 @@ export default async function Page() {
   return (
     <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
       <div className="w-full rounded-large bg-default-100 p-4 lg:p-14">
-        {deals.length > 0 && (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {deals.map((deal, index) => (
-              <DealsListItem key={index} deal={deal} display="Grid" />
-            ))}
-          </div>
-        )}
-        {deals.length === 0 && (
-          <div className="flex flex-col items-center gap-4 text-secondary/50">
-            <span>Du hast noch keine Deals gemerkt.</span>
-
-            <AldiButton
-              as={Link}
-              size="lg"
-              variant="ghost"
-              href="/"
-              startContent={<IconArrowLeft className="text-2xl" />}
-              color="secondary"
-            >
-              Zurück zur Startseite
-            </AldiButton>
-          </div>
+        {deals.length > 0 ? (
+          <FavoriteList>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {deals.map((deal) => (
+                <DealsListItem deal={deal} display="Grid" key={deal.id} />
+              ))}
+            </div>
+          </FavoriteList>
+        ) : (
+          <EmptyFavoriteList />
         )}
       </div>
     </div>

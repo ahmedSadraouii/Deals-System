@@ -1,4 +1,5 @@
 import React from 'react';
+import { AcquiredDealsHeader } from './acquired-deals-header';
 import { getServerSession } from 'next-auth';
 import { HonoredDealsList } from '@/app/(aldi-deals)/profile/deals/honored-deals-list';
 import type {
@@ -115,9 +116,7 @@ export default async function Page() {
   return (
     <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
       <div className="w-full rounded-large bg-default-100 p-4 lg:p-10">
-        <h1 className="mb-6 text-3xl font-bold text-secondary">
-          Deine erworbenen Deals
-        </h1>
+        <AcquiredDealsHeader />
         <HonoredDealsList items={activeHonoredDealsList} />
         {activeHonoredDealsList.length === 0 && (
           <p className="mt-4 text-secondary/50">

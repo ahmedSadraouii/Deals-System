@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { fromDate, getLocalTimeZone } from '@internationalized/date';
 import { Link } from '@nextui-org/react';
@@ -11,6 +11,7 @@ import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiDatePicker } from '@/components/nextui/aldi-date-picker';
 import { AldiInput } from '@/components/nextui/aldi-input';
 import { IconProfile } from '@/components/svg/icon-profile';
+import { trackPageView } from '@/utils/tracking';
 
 export interface PersonalInformationFormProps {
   initialFormValues: UserDetailsDto;
@@ -21,6 +22,7 @@ export function PersonalInformationForm({
 }: PersonalInformationFormProps) {
   const [isSaving, setIsSaving] = useState(false);
   const session = useSession({ required: true });
+  const hasTrackedPageView = useRef(false);
 
   const _initialFormValues = {
     ...initialFormValues,
@@ -68,6 +70,18 @@ export function PersonalInformationForm({
     await signOut({
       redirect: true,
     });
+  }, []);
+  useEffect(() => {
+    if (!hasTrackedPageView.current) {
+      trackPageView({
+        pageName: 'aldi-deals-profile',
+        pageType: 'aldi-sued-ci-template',
+        primaryCategory: 'ALDI SUED CI',
+        subCategory: 'aldi-deals',
+        subSubCategory: 'profile',
+      });
+      hasTrackedPageView.current = true;
+    }
   }, []);
 
   if (!session.data) return null;
