@@ -19,7 +19,6 @@ import { formatCurrency } from '@/utils/format-currency';
 import {
   trackCheckoutStep1,
   trackCheckoutStep2,
-  trackPageView,
   trackRemoveFromCart,
 } from '@/utils/tracking';
 
@@ -86,13 +85,6 @@ export function CartItem({
         if (isCheckoutPage) trackCheckoutStep2(supplier.name, deal.name);
         else {
           trackCheckoutStep1(supplier.name, deal.name);
-          trackPageView({
-            pageName: 'aldi-deals-profile',
-            pageType: 'aldi-sued-ci-template',
-            primaryCategory: 'ALDI SUED CI',
-            subCategory: 'aldi-deals',
-            subSubCategory: 'cart',
-          });
         }
         hasTrackedPageView.current = true;
       }

@@ -35,15 +35,15 @@ export function AuthTabs() {
     hasTrackedPageView.current = false;
   }, [setSelectedTab]);
 
-  const pageInfo = {
-    pageName:
-      selectedTab === 'register' ? 'aldi-deals-register' : 'aldi-deals-login',
-    pageType: 'aldi-sued-ci-template',
-    primaryCategory: 'ALDI SUED CI',
-    subCategory: 'aldi-deals',
-    subSubCategory: selectedTab === 'register' ? 'register' : 'login',
-  };
   useEffect(() => {
+    const pageInfo = {
+      pageName:
+        selectedTab === 'register' ? 'aldi-deals-register' : 'aldi-deals-login',
+      pageType: 'aldi-sued-ci-template',
+      primaryCategory: 'ALDI SUED CI',
+      subCategory: 'aldi-deals',
+      subSubCategory: selectedTab === 'register' ? 'register' : 'login',
+    };
     if (!hasTrackedPageView.current) {
       trackPageView(pageInfo);
       hasTrackedPageView.current = true;

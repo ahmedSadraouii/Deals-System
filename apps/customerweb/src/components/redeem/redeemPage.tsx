@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { RedemptionSteps } from './redemption-steps';
@@ -12,16 +12,15 @@ import { translateApiError } from '@/components/api-error-translation';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { AldiCard } from '@/components/nextui/aldi-card';
 import { AldiInput } from '@/components/nextui/aldi-input';
+import { PageViewTracking } from '@/components/tracking-page-view';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { toast } from '@/utils/toast';
-import { trackPageView } from '@/utils/tracking';
 
 interface RedeemPageProps {
   isGuest: boolean;
 }
 
 export function RedeemPage({ isGuest }: RedeemPageProps) {
-  const hasTrackedPageView = useRef(false);
   const searchParams = useSearchParams();
   const session = useSession();
   const router = useRouter();
@@ -80,18 +79,13 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
     [router, setError, isGuest],
   );
 
-  useEffect(() => {
-    if (!hasTrackedPageView.current) {
-      trackPageView({
-        pageName: 'aldi-deals-redeem',
-        pageType: 'aldi-sued-ci-template',
-        primaryCategory: 'ALDI SUED CI',
-        subCategory: 'aldi-deals',
-        subSubCategory: 'redeem',
-      });
-      hasTrackedPageView.current = true;
-    }
-  }, []);
+  const pageInfo = {
+    pageName: 'aldi-deals-redeem',
+    pageType: 'aldi-sued-ci-template',
+    primaryCategory: 'ALDI SUED CI',
+    subCategory: 'aldi-deals',
+    subSubCategory: 'redeem',
+  };
 
   const isGuestOrder = searchParams.get('type') === 'guest';
   if (session.status === 'unauthenticated' && !isGuestOrder) {
@@ -183,6 +177,7 @@ export function RedeemPage({ isGuest }: RedeemPageProps) {
           </CardBody>
         </AldiCard>
       </div>
+      <PageViewTracking pageInfo={pageInfo} />
     </div>
   );
 }

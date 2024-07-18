@@ -4,6 +4,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { HeroButton } from '@/components/home/hero-button';
 import MegaDealCard from '@/components/home/mega-deal-card';
 import { Price } from '@/components/price';
+import { PageViewTracking } from '@/components/tracking-page-view';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -17,6 +18,13 @@ interface HeroBannerProps {
 export default async function HeroBanner({ deals }: HeroBannerProps) {
   const contentApi = getContentApiClient();
   const fullDeal = await contentApi.getUmbracoDeal(deals[0].id);
+  const pageInfo = {
+    pageName: 'aldi-deals-landingpage',
+    pageType: 'aldi-sued-ci-template',
+    primaryCategory: 'ALDI SUED CI',
+    subCategory: 'aldi-deals',
+    subSubCategory: 'landingpage',
+  };
 
   if (!fullDeal) {
     return null;
@@ -140,6 +148,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
           </CardBody>
         </div>
       </Card>
+      <PageViewTracking pageInfo={pageInfo} />
     </div>
   );
 }

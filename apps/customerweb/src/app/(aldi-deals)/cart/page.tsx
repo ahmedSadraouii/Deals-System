@@ -6,9 +6,17 @@ import { CartStepIndicator } from '@/app/(aldi-deals)/cart/components/cart-step-
 import { ReservationTimer } from '@/app/(aldi-deals)/cart/components/reservation-timer';
 import { PaymentIconMastercard } from '@/components/svg/payment-icon-mastercard';
 import { PaymentIconVisa } from '@/components/svg/payment-icon-visa';
+import { PageViewTracking } from '@/components/tracking-page-view';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+const pageInfo = {
+  pageName: 'aldi-deals-profile',
+  pageType: 'aldi-sued-ci-template',
+  primaryCategory: 'ALDI SUED CI',
+  subCategory: 'aldi-deals',
+  subSubCategory: 'cart',
+};
 
 export default function Page() {
   return (
@@ -58,6 +66,7 @@ export default function Page() {
             </div>
           </div>
         </div>
+        <PageViewTracking pageInfo={pageInfo} />
       </div>
     </CartRequired>
   );

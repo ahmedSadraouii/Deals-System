@@ -1,17 +1,28 @@
 import Link from 'next/link';
 import { ErrorPage } from '@/components/error-page';
 import { AldiButton } from '@/components/nextui/aldi-button';
+import { PageViewTracking } from '@/components/tracking-page-view';
 
 export default function NotFound() {
+  const pageInfo = {
+    pageName: 'aldi-deals-redeem',
+    pageType: 'aldi-sued-ci-template',
+    primaryCategory: 'ALDI SUED CI',
+    subCategory: 'aldi-deals',
+    subSubCategory: 'faq',
+  };
   return (
-    <ErrorPage
-      title="FAQ"
-      description="Diese Seite befindet sich noch im Aufbau. Bitte versuchen Sie es später erneut."
-      back={{
-        link: '/',
-        text: 'Zur Startseite zurück',
-      }}
-    />
+    <>
+      <ErrorPage
+        title="FAQ"
+        description="Diese Seite befindet sich noch im Aufbau. Bitte versuchen Sie es später erneut."
+        back={{
+          link: '/',
+          text: 'Zur Startseite zurück',
+        }}
+      />
+      <PageViewTracking pageInfo={pageInfo} />
+    </>
   );
 
   return (
