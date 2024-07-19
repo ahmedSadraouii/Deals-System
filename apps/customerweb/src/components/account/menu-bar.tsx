@@ -28,7 +28,7 @@ function MenuBar() {
             variant="bordered"
             startContent={
               <Image
-                src="/icons/basket-profile-icon.svg"
+                src="/icons/cart-profile-icon.svg"
                 width={18}
                 height={18}
                 alt="profil icon"

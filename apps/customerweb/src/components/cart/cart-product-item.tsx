@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Button } from '@nextui-org/react';
 import { Price } from '@/components/price';
 
-export interface BasketProductItemProps {
+export interface CartProductItemProps {
   name: string;
   description: string;
   price: number;
@@ -11,12 +11,12 @@ export interface BasketProductItemProps {
   image: string;
 }
 
-export function BasketProductItem({
+export function CartProductItem({
   name,
   description,
   price,
   image,
-}: BasketProductItemProps) {
+}: CartProductItemProps) {
   return (
     <div>
       <div className="flex flex-auto items-center justify-between">

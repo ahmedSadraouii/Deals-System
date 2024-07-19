@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button, Input } from '@nextui-org/react';
-import { BasketProductItem } from '@/components/basket/basket-product-item';
+import { CartProductItem } from '@/components/cart/cart-product-item';
 import { Price } from '@/components/price';
 
 export default function Page() {
@@ -203,14 +203,14 @@ export default function Page() {
         <div>
           <h1 className="mb-3 text-2xl font-bold">Warenkorb Übersicht</h1>
           <div className="mx-auto mb-10 rounded-3xl bg-neutral-100 px-6 py-6 lg:px-8">
-            <BasketProductItem
+            <CartProductItem
               name="Mud Masters Tickets"
               description="2 Tickets zum Preis von 1"
               price={45}
               count={2}
               image="/img_1.png"
             />
-            <BasketProductItem
+            <CartProductItem
               name="Mud Masters Tickets"
               description="2 Tickets zum Preis von 1"
               price={45}
