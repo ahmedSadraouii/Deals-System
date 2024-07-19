@@ -12,8 +12,8 @@ export function FooterLegalLinks() {
     };
 
   return (
-    <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 pt-4 md:border-b-0">
-      <ul className="flex h-full flex-col gap-4 md:mx-0 md:flex-row md:items-end">
+    <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 pt-4 md:w-screen md:border-b-0 2xl:w-auto">
+      <ul className="flex h-full flex-col gap-4 md:mx-0 md:w-screen md:flex-row md:items-center md:justify-center  2xl:w-auto 2xl:items-end">
         <li>
           <Link
             href="#"

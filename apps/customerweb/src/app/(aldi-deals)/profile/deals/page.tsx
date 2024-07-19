@@ -118,7 +118,7 @@ export default async function Page() {
     pageType: 'aldi-sued-ci-template',
     primaryCategory: 'ALDI SUED CI',
     subCategory: 'aldi-deals',
-    subSubCategory: 'merketlise',
+    subSubCategory: 'meine deals',
   };
 
   return (

@@ -15,7 +15,7 @@ export async function Footer() {
     <>
       <div className="border-t border-secondary/10 bg-neutral-100">
         <div className="container mx-auto w-full p-4 py-16">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 place-items-center gap-8 lg:grid-cols-2">
             <div className="flex items-center">
               <div className="mb-6 md:mb-0">
                 <h2 className="text-2xl font-bold">
@@ -27,7 +27,7 @@ export async function Footer() {
             <div className="md:flex">
               <a
                 href="mailto:kundenservice@aldideals.de"
-                className="flex items-center rounded-full bg-slate-900 px-6 py-3 text-white hover:underline"
+                className="flex items-center rounded-full bg-secondary px-6 py-3 text-white hover:underline"
               >
                 <img
                   src="/icons/mail-footer-icon.svg"
@@ -38,7 +38,7 @@ export async function Footer() {
               </a>
               <a
                 href="mailto:kundenservice@aldideals.de"
-                className="mt-5 flex items-center rounded-full bg-slate-900 px-6 py-3 text-white hover:underline md:ml-4 md:mt-0"
+                className="mt-5 flex items-center rounded-full bg-secondary px-6 py-3 text-white hover:underline md:ml-4 md:mt-0"
               >
                 <img
                   src="/icons/info-icon.svg"
@@ -53,7 +53,7 @@ export async function Footer() {
       </div>
       <footer className="overflow-x-hidden bg-secondary text-white">
         <div className="mx-auto w-full py-16 md:container md:p-4">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
             <div className="flex flex-col items-center justify-center">
               <div className="hidden md:block">
                 <Link href="/">
