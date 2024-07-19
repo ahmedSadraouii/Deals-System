@@ -28,7 +28,7 @@ export function HeaderUserSection() {
             <AldiButton
               size="lg"
               variant="flat"
-              className="cursor-pointer items-center"
+              className="h-12 w-12 cursor-pointer items-center p-0 lg:h-full lg:w-full lg:p-1"
               data-is-user-button={true}
             >
               <span className="hidden pl-4 lg:block">

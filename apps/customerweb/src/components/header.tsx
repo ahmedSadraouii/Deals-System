@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import NextLink from 'next/link';
+import { useSession } from 'next-auth/react';
 import { HeaderCartButton } from './header-cart-button';
 import {
   Navbar,
@@ -34,6 +35,7 @@ export function Header() {
   const handleNavigationClick = (navigationItem: string) => {
     trackNavigationClick(navigationItem);
   };
+  const session = useSession();
   const handleLogoClick = () => {
     trackLogoClick('aldi deals');
   };
@@ -126,7 +128,7 @@ export function Header() {
           <AldiButton
             as={Link}
             size="lg"
-            variant="ghost"
+            variant={session.status === 'unauthenticated' ? 'ghost' : 'solid'}
             href="/redeem"
             endContent={<IconTicket className="text-2xl" />}
             color="secondary"
