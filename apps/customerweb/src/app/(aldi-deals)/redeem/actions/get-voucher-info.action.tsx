@@ -1,21 +1,26 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import type { ApiErrorCodes } from '@/utils/api-response-handling';
+import { ApiError } from '@/utils/api-error';
+import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { authOptions } from '@/utils/auth';
 import { getVoucherApiClient } from '@/utils/deals-api-client';
 
-export interface getVoucherInfoParams {
+export interface GetVoucherInfoParams {
   pin: string;
 }
 
-export async function getVoucherInfo({ pin }: getVoucherInfoParams): Promise<{
+export interface GetVoucherInfoResult {
   success: boolean;
   apiErrorCode?: ApiErrorCodes;
   message?: string;
   dealId?: string | null;
   state?: string;
-}> {
+}
+
+export async function getVoucherInfo({
+  pin,
+}: GetVoucherInfoParams): Promise<GetVoucherInfoResult> {
   const session = await getServerSession(authOptions);
 
   const voucherApi = getVoucherApiClient({
@@ -35,15 +40,21 @@ export async function getVoucherInfo({ pin }: getVoucherInfoParams): Promise<{
       state,
     };
   } catch (error: any) {
-    if (error?.response?.json) {
-      const errorResponse = await error.response.json();
-      if (errorResponse.errors && errorResponse.errors.pin) {
-        return {
-          success: false,
-          message: errorResponse.errors.pin.join(', '), // Join multiple error messages if any
-        };
-      }
+    if (error instanceof ApiError && error.context?.response?.status === 404) {
+      return {
+        success: false,
+        apiErrorCode: ApiErrorCodes.VOUCHER_NOT_FOUND,
+      };
+    } else if (
+      error instanceof ApiError &&
+      error.context?.response?.status === 400
+    ) {
+      return {
+        success: false,
+        apiErrorCode: ApiErrorCodes.VOUCHER_VALIDATION_FAILED,
+      };
     }
+
     throw error;
   }
 }

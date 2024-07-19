@@ -94,47 +94,97 @@ export function AddDealToCart({
 
   return (
     <>
-      <div className="text-md text-center text-secondary/50">
-        Maximal {maxCustomerQuantity} Deals pro Bestellung
-      </div>
-      <div className="hidden flex-row items-center gap-4 lg:flex">
-        <AldiButton
-          variant="ghost"
-          color="primary"
-          isIconOnly={true}
-          size="lg"
-          onClick={decrement}
-          isDisabled={quantity <= 1}
-        >
-          -
-        </AldiButton>
-        <div className="min-w-8 text-center text-3xl font-bold text-primary">
-          {quantity}
+      <div className="lg:hidden">
+        <div className="text-center text-sm text-secondary/50">
+          Maximal {maxCustomerQuantity} Deals pro Bestellung
         </div>
-        <AldiButton
-          variant="ghost"
-          color="primary"
-          isIconOnly={true}
-          size="lg"
-          onClick={increment}
-          isDisabled={
-            existingCartItemQuantity + quantity >= maxCustomerQuantity
-          }
-        >
-          +
-        </AldiButton>
-        <AldiButton
-          size="lg"
-          className="grow"
-          variant="solid"
-          color="primary"
-          endContent={<IconCart className="shrink-0 text-2xl" />}
-          onClick={onAddToCart}
-          isLoading={isLoading}
-          isDisabled={existingCartItemQuantity + quantity > maxCustomerQuantity}
-        >
-          In den Warenkorb
-        </AldiButton>
+        <div className="flex flex-row items-center gap-2">
+          <AldiButton
+            variant="ghost"
+            color="primary"
+            isIconOnly={true}
+            size="sm"
+            onClick={decrement}
+            isDisabled={quantity <= 1}
+          >
+            -
+          </AldiButton>
+          <div className="min-w-8 text-center text-xl font-bold text-primary">
+            {quantity}
+          </div>
+          <AldiButton
+            variant="ghost"
+            color="primary"
+            isIconOnly={true}
+            size="sm"
+            onClick={increment}
+            isDisabled={
+              existingCartItemQuantity + quantity >= maxCustomerQuantity
+            }
+          >
+            +
+          </AldiButton>
+          <AldiButton
+            size="sm"
+            className="grow"
+            variant="solid"
+            color="primary"
+            endContent={<IconCart className="shrink-0 text-2xl" />}
+            onClick={onAddToCart}
+            isLoading={isLoading}
+            isDisabled={
+              existingCartItemQuantity + quantity > maxCustomerQuantity
+            }
+          >
+            In den Warenkorb
+          </AldiButton>
+        </div>
+      </div>
+      <div className="hidden lg:block">
+        <div className="text-md text-center text-secondary/50">
+          Maximal {maxCustomerQuantity} Deals pro Bestellung
+        </div>
+        <div className="flex flex-row items-center gap-4">
+          <AldiButton
+            variant="ghost"
+            color="primary"
+            isIconOnly={true}
+            size="lg"
+            onClick={decrement}
+            isDisabled={quantity <= 1}
+          >
+            -
+          </AldiButton>
+          <div className="min-w-8 text-center text-3xl font-bold text-primary">
+            {quantity}
+          </div>
+          <AldiButton
+            variant="ghost"
+            color="primary"
+            isIconOnly={true}
+            size="lg"
+            onClick={increment}
+            isDisabled={
+              existingCartItemQuantity + quantity >= maxCustomerQuantity
+            }
+          >
+            +
+          </AldiButton>
+          <AldiButton
+            size="lg"
+            className="grow"
+            variant="solid"
+            color="primary"
+            endContent={<IconCart className="shrink-0 text-2xl" />}
+            onClick={onAddToCart}
+            isLoading={isLoading}
+            isDisabled={
+              existingCartItemQuantity + quantity > maxCustomerQuantity
+            }
+          >
+            In den Warenkorb
+          </AldiButton>
+        </div>
       </div>
     </>
   );

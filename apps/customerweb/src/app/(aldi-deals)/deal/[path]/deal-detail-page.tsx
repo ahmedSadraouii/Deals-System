@@ -8,6 +8,7 @@ import { AddDealToCart } from '@/app/(aldi-deals)/deal/[path]/add-deal-to-cart';
 import { DealPerkCard } from '@/app/(aldi-deals)/deal/[path]/deal-perk-card';
 import { DetailPageCarousel } from '@/components/carousel/detail-page-carousel';
 import { HeartFavorite } from '@/components/heart-favorite';
+import { Price } from '@/components/price';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
@@ -43,16 +44,15 @@ export function DealDetailPage({
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  const pageInfo = {
-    pageName: 'aldi-deals-detailpage',
-    pageType: 'aldi-sued-ci-template',
-    primaryCategory: 'ALDI SUED CI',
-    subCategory: 'aldi-deals',
-    subSubCategory: 'detailpage',
-  };
   useEffect(() => {
     if (!hasTrackedPageView.current) {
-      trackPageView(pageInfo);
+      trackPageView({
+        pageName: 'aldi-deals-detailpage',
+        pageType: 'aldi-sued-ci-template',
+        primaryCategory: 'ALDI SUED CI',
+        subCategory: 'aldi-deals',
+        subSubCategory: 'detailpage',
+      });
       hasTrackedPageView.current = true;
     }
   }, []);
@@ -130,19 +130,15 @@ export function DealDetailPage({
               <p className="text-secondary">{deal.properties?.description}</p>
               <Divider />
               <div className="flex grow flex-col justify-end">
-                {/*<Tooltip content="TODO: Woher wissen wir, ob es ein UVP Preis ist?">
-                  <div>
-                    <Price
-                      oldPrice={deal.properties?.regularPrice}
-                      actualPrice={deal.properties?.price || 9999}
-                      showDigits={false}
-                      uvp={true}
-                      textSize={2}
-                    />
-                  </div>
-                </Tooltip>*/}
+                <Price
+                  oldPrice={deal.properties?.regularPrice}
+                  actualPrice={deal.properties?.price || 9999}
+                  showDigits={false}
+                  uvp={true}
+                  textSize={2}
+                />
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="hidden flex-col gap-2 lg:flex">
                 <AddDealToCart
                   dealId={deal.id}
                   dealName={deal.name}
@@ -230,6 +226,16 @@ export function DealDetailPage({
           </div>
         </div>
         {children}
+      </div>
+      <div className="fixed bottom-0 left-0 right-0 bg-neutral-100 p-4 lg:hidden">
+        <div className="flex flex-col gap-2">
+          <AddDealToCart
+            dealId={deal.id}
+            dealName={deal.name}
+            supplierName={supplier.name}
+            maxCustomerQuantity={deal.properties?.maxOrderQuantity || 0}
+          />
+        </div>
       </div>
     </div>
   );

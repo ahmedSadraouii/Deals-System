@@ -1970,6 +1970,204 @@
           }
         }
       }
+    },
+    "/api/user/sportgame-participants": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get SportGame Participants",
+        "description": "Get SportGame Participants",
+        "operationId": "GetSportGameParticipants",
+        "parameters": [
+          {
+            "name": "cardinalDirection",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/CardinalDirection"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UserIds returned.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportGameParticipantsUserIds"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportGameParticipantsUserIds"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportGameParticipantsUserIds"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data sent by client.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An internal error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/get-registered-domains": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get registered domains of a user by email",
+        "description": "Get registered domains of a user by email",
+        "operationId": "GetUserRegisteredDomainsAsync",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetUserRegisteredDomainsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetUserRegisteredDomainsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetUserRegisteredDomainsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns registered domains.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An internal error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBase"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2004,9 +2202,15 @@
             "nullable": true
           },
           "addressPostalCode": {
-            "minLength": 1,
-            "pattern": "^\\d{5}$",
+            "maxLength": 7,
+            "minLength": 4,
             "type": "string"
+          },
+          "addressCountryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
           },
           "addressType": {
             "$ref": "#/components/schemas/AddressType"
@@ -2032,11 +2236,15 @@
             "type": "string",
             "nullable": true
           },
+          "houseNumber": {
+            "type": "string",
+            "nullable": true
+          },
           "postalCode": {
             "type": "string",
             "nullable": true
           },
-          "houseNumber": {
+          "countryCode": {
             "type": "string",
             "nullable": true
           },
@@ -2298,6 +2506,23 @@
         },
         "additionalProperties": false
       },
+      "GetUserRegisteredDomainsRequest": {
+        "required": [
+          "cardinalDirection",
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "cardinalDirection": {
+            "$ref": "#/components/schemas/CardinalDirection"
+          }
+        },
+        "additionalProperties": false
+      },
       "GetUsersByEmailRequest": {
         "type": "object",
         "properties": {
@@ -2371,9 +2596,15 @@
             "type": "string"
           },
           "addressPostalCode": {
-            "minLength": 1,
-            "pattern": "^\\d{5}$",
+            "maxLength": 7,
+            "minLength": 4,
             "type": "string"
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
           },
           "termsAccepted": {
             "type": "boolean"
@@ -2400,6 +2631,20 @@
           },
           "showType": {
             "$ref": "#/components/schemas/MessageShowType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SportGameParticipantsUserIds": {
+        "type": "object",
+        "properties": {
+          "sportGameParticipantsUserIdList": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2521,6 +2766,10 @@
             "type": "string",
             "nullable": true
           },
+          "addressCountryCode": {
+            "type": "string",
+            "nullable": true
+          },
           "profilePictureUri": {
             "type": "string",
             "nullable": true
@@ -2574,6 +2823,10 @@
             "format": "int64"
           },
           "ciamId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ciamUsername": {
             "type": "string",
             "nullable": true
           },
