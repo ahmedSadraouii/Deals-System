@@ -18,15 +18,6 @@ export default function SessionFooter() {
             <Link
               href="/profile/general"
               className="hover:underline"
-              onClick={handleLinkClick('warenkorb', '/profile/general')}
-            >
-              Warenkorb
-            </Link>
-          </li>
-          <li className="mb-4">
-            <Link
-              href="/profile/general"
-              className="hover:underline"
               onClick={handleLinkClick('profil', '/profile/general')}
             >
               Profil
