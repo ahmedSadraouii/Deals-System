@@ -222,7 +222,7 @@ export function CheckoutPage({
                       <Controller
                         render={({ field }) => (
                           <AldiInput
-                            placeholder="Vorname*"
+                            label="Vorname"
                             isRequired={true}
                             isInvalid={!!errors.firstName}
                             isReadOnly={isReadOnly}
@@ -239,7 +239,7 @@ export function CheckoutPage({
                       <Controller
                         render={({ field }) => (
                           <AldiInput
-                            placeholder="Nachname*"
+                            label="Nachname"
                             isRequired={true}
                             isReadOnly={isReadOnly}
                             isInvalid={!!errors.lastName}
@@ -258,6 +258,7 @@ export function CheckoutPage({
                       name="dateOfBirth"
                       render={({ field }) => (
                         <AldiDatePicker
+                          label="Geburtsdatum"
                           className="col-span-4"
                           granularity="day"
                           isReadOnly={isReadOnly}
@@ -273,6 +274,7 @@ export function CheckoutPage({
                     <Controller
                       render={({ field }) => (
                         <AldiSelect
+                          label="Land"
                           selectedKeys={[field.value]}
                           defaultSelectedKeys={['DE']}
                           isInvalid={!!errors.countryCode}
@@ -302,7 +304,7 @@ export function CheckoutPage({
                         render={({ field }) => (
                           <AldiInput
                             className="col-span-3"
-                            placeholder="Straße*"
+                            label="Straße"
                             isRequired={true}
                             isReadOnly={isReadOnly}
                             isInvalid={!!errors.street}
@@ -318,7 +320,7 @@ export function CheckoutPage({
                       <Controller
                         render={({ field }) => (
                           <AldiInput
-                            placeholder="Hausnr.*"
+                            label="Hausnr."
                             isRequired={true}
                             isReadOnly={isReadOnly}
                             isInvalid={!!errors.houseNumber}
@@ -338,7 +340,7 @@ export function CheckoutPage({
                         render={({ field }) => (
                           <AldiInput
                             className="col-span-3"
-                            placeholder="Stadt*"
+                            label="Stadt"
                             isRequired={true}
                             isReadOnly={isReadOnly}
                             isInvalid={!!errors.city}
@@ -352,7 +354,7 @@ export function CheckoutPage({
                       <Controller
                         render={({ field }) => (
                           <AldiInput
-                            placeholder="PLZ*"
+                            label="PLZ"
                             isRequired={true}
                             isReadOnly={isReadOnly}
                             isInvalid={!!errors.postalCode}
@@ -396,7 +398,7 @@ export function CheckoutPage({
                         render={({ field }) => (
                           <AldiInput
                             type="email"
-                            placeholder="E-Mail Adresse*"
+                            label="E-Mail Adresse"
                             isRequired={true}
                             isReadOnly={isReadOnly}
                             isInvalid={
