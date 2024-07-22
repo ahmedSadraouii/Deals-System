@@ -11,10 +11,10 @@ export function FooterNavigation() {
     };
 
   return (
-    <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 md:border-b-0">
+    <div className="flex flex-col items-center justify-center border-b border-slate-100 border-opacity-10 pb-4 md:border-b-0">
       <div>
         <h2 className="mb-4 text-3xl font-[450]">Navigation</h2>
-        <ul>
+        <ul className="text-center">
           <li className="mb-4 text-neutral-50">
             <Link
               href="/"

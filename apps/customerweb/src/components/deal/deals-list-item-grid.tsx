@@ -120,7 +120,7 @@ export function DealsListItemGrid({
           <AldiButton
             as={Link}
             variant="solid"
-            color="secondary"
+            color="primary"
             href={targetUrl}
             fullWidth={true}
             endContent={<IconArrowRight className="text-xl text-white" />}

@@ -13,6 +13,7 @@ import { trackPageView } from '@/utils/tracking';
 export function AuthTabs() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const isRedeemPage = pathname === '/redeem';
   const router = useRouter();
   const hasTrackedPageView = useRef(false);
   const [selectedTab, setSelectedTabInner] = useState<Key>(
@@ -52,10 +53,13 @@ export function AuthTabs() {
 
   return (
     <>
-      <h1 className="mb-20 text-center text-5xl font-bold text-secondary">
+      <h1 className="mb-4 text-center text-2xl font-bold text-secondary lg:mb-20 lg:text-5xl">
+        {isRedeemPage && 'Melde Dich an, um deinen Deal einzulösen!'}
         {selectedTab === 'login' &&
+          !isRedeemPage &&
           'Melde Dich an, um Dir tolle Deals zu sichern!'}
         {selectedTab === 'register' &&
+          !isRedeemPage &&
           'Registriere Dich, um Dir tolle Deals zu sichern!'}
       </h1>
       <AldiTabs selectedKey={selectedTab} onSelectionChange={setSelectedTab}>

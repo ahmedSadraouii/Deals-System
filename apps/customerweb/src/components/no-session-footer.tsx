@@ -12,8 +12,8 @@ export default function NoSessionFooter() {
     };
 
   return (
-    <div className="flex flex-col items-center justify-center border-b border-slate-100 pb-4 md:border-b-0">
-      <div className="mr-[57px] md:mr-0">
+    <div className="flex flex-col items-center justify-center border-b border-slate-100 border-opacity-10 pb-4 md:border-b-0">
+      <div>
         <ul className="mt-12">
           <li className="mb-4">
             <Link

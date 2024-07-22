@@ -24,7 +24,7 @@ export default function CopyableInput({ value }: CopyableInputProps) {
         <div>
           <Tooltip
             color="success"
-            content="Copied!"
+            content="kopiert"
             isOpen={copyTooltipVisible}
             onOpenChange={setCopyTooltipVisible}
             placement="top-end"

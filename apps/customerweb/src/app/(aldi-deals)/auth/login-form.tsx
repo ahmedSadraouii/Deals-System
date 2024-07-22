@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 import NextLink from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Link } from '@nextui-org/react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
@@ -14,6 +14,7 @@ import { emailRegex } from '@/utils/email-regex';
 
 export function LoginForm() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const [isLoggingIn, setLoggingIn] = useState(false);
   const apiError = useMemo(() => searchParams.get('error'), [searchParams]);
@@ -50,10 +51,10 @@ export function LoginForm() {
       await signIn('credentials', {
         email: data.email,
         password: data.password,
-        callbackUrl: '/',
+        callbackUrl: pathname === '/redeem' ? '/redeem' : '/',
       });
     },
-    [isLoggingIn],
+    [isLoggingIn, pathname],
   );
 
   const onClickProceed = useCallback(async () => {

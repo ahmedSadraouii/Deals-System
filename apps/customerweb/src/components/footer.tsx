@@ -17,8 +17,8 @@ export async function Footer() {
         <div className="container mx-auto w-full p-4 py-16">
           <div className="grid grid-cols-1 place-items-center gap-8 lg:grid-cols-2">
             <div className="flex items-center">
-              <div className="mb-6 md:mb-0">
-                <h2 className="text-2xl font-bold">
+              <div>
+                <h2 className="mx-auto text-center text-2xl font-bold text-aldi-blue">
                   Du brauchst Hilfe? Unser Kundendienst hilft gerne!
                 </h2>
               </div>
@@ -72,7 +72,7 @@ export async function Footer() {
                     src="/logos/aldi-fire.svg"
                     height={100}
                     width={100}
-                    className="h-[10rem] w-48"
+                    className="h-24 w-24 lg:h-[10rem] lg:w-48 "
                     alt="FlowBite Logo"
                   />
                 </Link>

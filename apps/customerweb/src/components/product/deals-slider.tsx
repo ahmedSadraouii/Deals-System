@@ -11,7 +11,7 @@ interface DealsSliderProps {
 
 export function DealsSlider({ children }: DealsSliderProps) {
   return (
-    <section className="w-full bg-neutral-100 px-5 py-16">
+    <section className="w-full px-5 py-16">
       <div className="container mx-auto">
         <div className="mb-5 flex w-full items-center justify-between">
           <h1 className="mb-4 text-4xl font-bold text-aldi-blue">

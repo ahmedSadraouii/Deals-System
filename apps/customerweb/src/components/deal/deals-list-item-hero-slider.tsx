@@ -74,7 +74,7 @@ export function DealsListItemHeroSlider({
           />
         )}
         <div className="absolute left-0 right-0 top-0 flex flex-row items-center justify-between p-6">
-          <span className="m-6 flex items-center rounded bg-neutral-100 px-6 py-4 text-xs text-aldi-key">
+          <span className="m-8 flex items-center rounded bg-neutral-100 px-6 py-4 text-xs text-aldi-key">
             <IconTag className="mr-2 text-base" />
             <span>Stark nachgefragt</span>
           </span>
@@ -84,7 +84,7 @@ export function DealsListItemHeroSlider({
         <div className="flex grow flex-col gap-4">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-6">
-              <div className="overflow-hidden rounded-[20px]">
+              <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white">
                 {supplierImage && (
                   <Image
                     className="h-20 w-20 object-contain object-center"

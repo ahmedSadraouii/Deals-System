@@ -225,7 +225,6 @@ export function DealDetailPage({
             )}
           </div>
         </div>
-        {children}
       </div>
       <div className="fixed bottom-0 left-0 right-0 bg-neutral-100 p-4 lg:hidden">
         <div className="flex flex-col gap-2">
@@ -236,6 +235,9 @@ export function DealDetailPage({
             maxCustomerQuantity={deal.properties?.maxOrderQuantity || 0}
           />
         </div>
+      </div>
+      <div className="col-span-12 row-span-1 mb-48 bg-neutral-100">
+        {children}
       </div>
     </div>
   );

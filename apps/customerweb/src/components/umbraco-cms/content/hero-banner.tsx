@@ -57,9 +57,9 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
           />
         )}
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-b from-black/0 to-black/80" />
-        <div className="absolute bottom-0 left-0 right-0 top-0 w-full xl:mt-64">
+        <div className="absolute bottom-0 left-0 right-0 top-0 flex w-full flex-col items-center justify-between xl:mt-64">
           <CardHeader>
-            <div className="mb-12 mt-2 flex items-center gap-4 rounded-lg border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:hidden">
+            <div className="mb:0 mt-2 flex items-center gap-4 rounded-lg border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:hidden lg:mb-12">
               {supplierImage && (
                 <Image
                   src={supplierImage}
@@ -74,7 +74,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               </div>
             </div>
           </CardHeader>
-          <CardBody className="mb-5 mt-5 flex h-full flex-col items-start justify-start gap-6 p-5 md:mb-16 md:ml-6 md:mt-0 md:justify-center">
+          <CardBody className="flex h-full flex-col items-start justify-end gap-6 p-5 md:ml-6 md:mt-0 md:justify-center lg:gap-2">
             {fullDeal.properties?.availabilityEnd && (
               <MegaDealCard
                 availabilityEnd={formatAvailability(
@@ -123,7 +123,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
             </div>
             <div className="flex w-[96%] items-center justify-between">
               <HeroButton href={`/deal/${dealLink || fullDeal.route.path}`} />
-              <div className="hidden items-center gap-4 rounded-[20px] border border-white/10 bg-white/10 p-2 backdrop-blur-sm md:flex">
+              <div className="hidden items-center gap-4 rounded-[20px] border border-white/10 bg-white/10 p-2 px-5 backdrop-blur-sm md:flex">
                 <div
                   className={cn(
                     'flex h-20 w-20 items-center justify-center rounded-[20px] bg-neutral-200/10 p-2',

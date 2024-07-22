@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Link } from '@nextui-org/react';
 import { useCart } from '@/app/(aldi-deals)/contexts/cart/use-cart';
@@ -23,6 +24,7 @@ export function AddDealToCart({
 }: AddDealToCartProps) {
   const { cartContext, updateCartItem } = useCart();
   const session = useSession();
+  const router = useRouter();
 
   const [quantity, setQuantity] = useState(1);
   const increment = useCallback(
@@ -43,8 +45,6 @@ export function AddDealToCart({
   );
 
   const [isLoading, setLoading] = useState(false);
-  const ctaText = 'In den Warenkorb';
-  const targetUrl = window.location.pathname;
 
   const onAddToCart = useCallback(async () => {
     try {
@@ -60,6 +60,7 @@ export function AddDealToCart({
     } finally {
       setLoading(false);
       setQuantity(1);
+      router.push('/cart');
     }
   }, [
     dealId,
@@ -67,6 +68,7 @@ export function AddDealToCart({
     quantity,
     updateCartItem,
     dealName,
+    router,
     supplierName,
   ]);
 

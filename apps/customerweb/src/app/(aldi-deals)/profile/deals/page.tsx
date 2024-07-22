@@ -1,6 +1,9 @@
 import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { HonoredDealsList } from '@/app/(aldi-deals)/profile/deals/honored-deals-list';
+import { AldiButton } from '@/components/nextui/aldi-button';
 import { PageViewTracking } from '@/components/tracking-page-view';
 import type {
   UmbracoDeal,
@@ -124,14 +127,38 @@ export default async function Page() {
   return (
     <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
       <div className="w-full rounded-large bg-default-100 p-4 lg:p-10">
-        <h1 className="mb-6 text-3xl font-bold text-secondary">
-          Deine erworbenen Deals
-        </h1>
-        <HonoredDealsList items={activeHonoredDealsList} />
-        {activeHonoredDealsList.length === 0 && (
-          <p className="mt-4 text-secondary/50">
-            Du hast noch keine Deals erworben.
-          </p>
+        {activeHonoredDealsList.length > 0 && (
+          <div className="mt-4 flex h-full w-full flex-col items-center justify-center gap-8">
+            <Image
+              src="/shopping-bag.png"
+              alt="empty deals"
+              className="mb-6"
+              width={100}
+              height={100}
+            />
+            <div>
+              <h1 className="m-0 text-center text-2xl font-bold text-secondary lg:text-4xl">
+                Du hast noch keine DEALS erworben!
+              </h1>
+              <p className="text-center text-sm text-secondary/50">
+                Du hast noch keine{' '}
+                <span className="font-semibold underline">DEALS</span> erworben!
+                Durchstöbere jetzt{' '}
+                <span className="font-semibold underline">alle DEALS</span> und
+                leg los.
+              </p>
+            </div>
+            <AldiButton
+              variant="solid"
+              as={Link}
+              href="/"
+              color="secondary"
+              size="lg"
+              className="mb-8"
+            >
+              DEALS entdecken
+            </AldiButton>
+          </div>
         )}
         {expiredHonoredDealsList.length > 0 && (
           <>
