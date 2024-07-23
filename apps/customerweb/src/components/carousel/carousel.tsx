@@ -1,77 +1,69 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
-import { useMemo, useState } from 'react';
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 
 export interface CarouselProps {
-  children: Iterable<ReactNode>;
+  children: React.ReactNode;
   itemStart?: number;
-  itemsPerPage?: number;
   onItemChange?: (index: number) => void;
 }
 
 export function Carousel({
   children,
   itemStart = 0,
-  itemsPerPage = 1,
   onItemChange,
 }: CarouselProps) {
-  const items = useMemo(() => Array.from(children), [children]);
+  const items = useMemo(() => React.Children.toArray(children), [children]);
   const itemCount = items.length;
   const [_itemStart, setItemStart] = useState(itemStart);
 
   const onGoPrevious = useCallback(() => {
-    setItemStart((prev) => Math.max(0, prev - itemsPerPage));
-  }, [itemsPerPage]);
+    setItemStart((prev) => Math.max(0, prev - 1));
+  }, []);
 
   const onGoNext = useCallback(() => {
-    setItemStart((prev) =>
-      Math.min(itemCount - itemsPerPage, prev + itemsPerPage),
-    );
-  }, [itemCount, itemsPerPage]);
+    setItemStart((prev) => Math.min(itemCount - 1, prev + 1));
+  }, [itemCount]);
 
   useEffect(() => {
     onItemChange?.(_itemStart);
   }, [_itemStart, onItemChange]);
 
   useEffect(() => {
-    setItemStart(itemStart ?? 1);
+    setItemStart(itemStart ?? 0);
   }, [itemStart]);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <div
-        className={
-          itemsPerPage === 5
-            ? `grid-cols-${itemsPerPage} grid gap-4`
-            : `grid grid-cols-1 gap-4 md:grid-cols-${itemsPerPage}`
-        }
+        className="flex gap-8 transition-transform duration-300"
+        style={{
+          transform: `translateX(-${_itemStart * 90}%)`,
+        }}
       >
-        {items.map((item, index) => {
-          if (index < _itemStart || index >= _itemStart + itemsPerPage) {
-            return (
-              <div className="sr-only" key={index}>
-                {item}
-              </div>
-            );
-          }
-          return <div key={index}>{item}</div>;
-        })}
+        {items.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              flex: '0 0 90%',
+            }}
+          >
+            {item}
+          </div>
+        ))}
       </div>
-      {_itemStart >= 1 && (
+      {_itemStart > 0 && (
         <button
-          className="pointer-events-auto absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
+          className="absolute left-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
           onClick={onGoPrevious}
         >
           <ChevronRightSvg className="rotate-180 text-3xl" />
         </button>
       )}
-      {_itemStart + itemsPerPage < itemCount && (
+      {_itemStart < itemCount - 1 && (
         <button
-          className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
+          className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
           onClick={onGoNext}
         >
           <ChevronRightSvg className="text-3xl" />

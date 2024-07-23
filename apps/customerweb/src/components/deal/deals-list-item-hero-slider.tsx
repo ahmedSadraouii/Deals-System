@@ -49,7 +49,7 @@ export function DealsListItemHeroSlider({
   }, [ctaText, targetUrl]);
 
   return (
-    <Link href={targetUrl} onClick={handleCtaClick}>
+    <>
       <div className="lg:hidden">
         <DealsListItemGrid
           className="bg-default-100"
@@ -108,14 +108,16 @@ export function DealsListItemHeroSlider({
               </div>
             )}
           </div>
-          <div className="mt-10 grow">
-            <h1 className="mb-4 text-5xl font-bold text-secondary">
-              {deal.name}
-            </h1>
-            <p className="text-lg font-[420] text-secondary">
-              {deal.properties?.description}
-            </p>
-          </div>
+          <Link href={targetUrl}>
+            <div className="mt-10 grow">
+              <h1 className="mb-4 text-5xl font-bold text-secondary">
+                {deal.name}
+              </h1>
+              <p className="text-lg font-[420] text-secondary">
+                {deal.properties?.description}
+              </p>
+            </div>
+          </Link>
           <div>
             <Price
               oldPrice={deal.properties?.regularPrice}
@@ -140,6 +142,6 @@ export function DealsListItemHeroSlider({
           </div>
         </div>
       </div>
-    </Link>
+    </>
   );
 }

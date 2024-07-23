@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import type { CarouselProps } from '@/components/carousel/carousel';
 import { Carousel } from '@/components/carousel/carousel';
 
@@ -13,11 +13,12 @@ export function HeroCarousel({
   children,
   ...carouselProps
 }: HeroCarouselProps) {
-  const itemCount = useMemo(() => Array.from(children).length, [children]);
+  const itemCount = useMemo(() => React.Children.count(children), [children]);
   const [itemStart, setItemStart] = useState(0);
+
   return (
     <>
-      <div className="flex flex-col justify-between gap-4 pb-10 lg:flex-row lg:items-center">
+      <div className="flex flex-col justify-between gap-4  pb-10 md:w-full lg:w-[90%] lg:flex-row lg:items-center">
         <h2 className="text-5xl font-bold text-secondary">
           {title || 'Deals List Block Hero Slider Title'}
         </h2>
@@ -45,7 +46,6 @@ export function HeroCarousel({
       </div>
       <Carousel
         {...carouselProps}
-        itemsPerPage={1}
         itemStart={itemStart}
         onItemChange={setItemStart}
       >
