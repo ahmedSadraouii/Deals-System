@@ -119,11 +119,14 @@ export function RegisterTab(props: RegisterTabProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <p className="flex flex-row items-center justify-center gap-2 text-secondary/50">
-        <span>Du besitzt ein</span>
-        <img alt="ALDI SPORTS" src="/aldi-sport-logo.svg" />
+      <p className="flex flex-col items-center justify-center gap-2 text-secondary/50 lg:flex-row">
+        <div className="flex items-center justify-center gap-2">
+          <span>Du besitzt ein</span>
+          <img alt="ALDI SPORTS" src="/aldi-sport-logo.svg" />
+          <span>Konto? </span>
+        </div>
         <span>
-          Konto? Melde dich mit deinen Accountdaten{' '}
+          Melde dich mit deinen Accountdaten{' '}
           <Link
             className="pointer-events-auto cursor-pointer"
             onClick={props.onSwitchToLogin}

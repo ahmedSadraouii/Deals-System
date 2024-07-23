@@ -127,7 +127,7 @@ export default async function Page() {
   return (
     <div className="mx-auto mb-40 flex w-full flex-col items-center px-4 lg:max-w-5xl">
       <div className="w-full rounded-large bg-default-100 p-4 lg:p-10">
-        {activeHonoredDealsList.length > 0 && (
+        {activeHonoredDealsList.length === 0 && (
           <div className="mt-4 flex h-full w-full flex-col items-center justify-center gap-8">
             <Image
               src="/shopping-bag.png"

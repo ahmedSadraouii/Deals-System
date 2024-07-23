@@ -63,10 +63,10 @@ export function AuthTabs() {
           'Registriere Dich, um Dir tolle Deals zu sichern!'}
       </h1>
       <AldiTabs selectedKey={selectedTab} onSelectionChange={setSelectedTab}>
-        <Tab key="login" title="Ich habe bereits ein Konto" className="w-full">
+        <Tab key="login" title="Anmelden" className="w-full">
           <LoginTab />
         </Tab>
-        <Tab key="register" title="Ich bin neu hier" className="w-full">
+        <Tab key="register" title="Registrieren" className="w-full">
           <RegisterTab onSwitchToLogin={onSwitchToLogin} />
         </Tab>
       </AldiTabs>
