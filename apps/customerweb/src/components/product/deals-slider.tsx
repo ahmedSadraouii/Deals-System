@@ -1,15 +1,31 @@
 'use client';
 
+import { useState, useRef, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 
 interface DealsSliderProps {
-  children: ReactNode[]; // Adjusted type to expect an array of ReactNode
+  children: ReactNode[];
 }
 
 export function DealsSlider({ children }: DealsSliderProps) {
+  const [progressWidth, setProgressWidth] = useState(16);
+  const swiperRef = useRef<any>(null);
+
+  // Function to handle slide change and update progress bar
+  const handleSlideChange = useCallback(() => {
+    const swiper = swiperRef.current;
+    if (swiper && swiper.slides) {
+      const totalSlides = swiper.slides.length;
+      const activeIndex = swiper.activeIndex;
+      const slideWidth = swiper.params.slidesPerView || 1;
+      const slideProgress = (activeIndex + slideWidth) / totalSlides;
+      setProgressWidth(slideProgress * 100);
+    }
+  }, []);
+
   return (
     <section className="w-full px-5 py-16">
       <div className="container mx-auto">
@@ -21,22 +37,26 @@ export function DealsSlider({ children }: DealsSliderProps) {
             <button
               type="button"
               className="prev rounded-full bg-secondary p-2 text-lg"
+              onClick={() => swiperRef.current?.slidePrev()}
             >
-              <ChevronRightSvg className="rotate-180  text-white" />
+              <ChevronRightSvg className="rotate-180 text-white" />
             </button>
             <button
               type="button"
               className="next rounded-full bg-secondary p-2 text-lg"
+              onClick={() => swiperRef.current?.slideNext()}
             >
-              <ChevronRightSvg className=" text-white" />
+              <ChevronRightSvg className="text-white" />
             </button>
           </div>
         </div>
         <div className="mb-10 flex h-1 w-full items-center rounded-full bg-aldi-key/20">
-          <div className="h-1.5 w-16 rounded-full bg-aldi-key" />
+          <div
+            className="h-1.5 rounded-full bg-aldi-key"
+            style={{ width: `${progressWidth}%` }}
+          />
         </div>
         <Swiper
-          loop={true}
           spaceBetween={10}
           slidesPerView={1}
           breakpoints={{
@@ -67,6 +87,8 @@ export function DealsSlider({ children }: DealsSliderProps) {
             nextEl: '.next',
           }}
           watchSlidesProgress={true}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={handleSlideChange}
           modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper"
         >

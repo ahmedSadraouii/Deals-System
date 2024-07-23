@@ -49,7 +49,7 @@ export function DealsListItemHeroSlider({
   }, [ctaText, targetUrl]);
 
   return (
-    <>
+    <Link href={targetUrl} onClick={handleCtaClick}>
       <div className="lg:hidden">
         <DealsListItemGrid
           className="bg-default-100"
@@ -140,6 +140,6 @@ export function DealsListItemHeroSlider({
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 }

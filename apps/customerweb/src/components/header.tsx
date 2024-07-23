@@ -68,6 +68,7 @@ export function Header() {
             as={Link}
             size="lg"
             variant="light"
+            className="text-secondary"
             href="/"
             onClick={() => handleNavigationClick('start')}
           >
@@ -80,6 +81,7 @@ export function Header() {
             size="lg"
             variant="light"
             href="/content/faq"
+            className="text-secondary"
             onClick={() => handleNavigationClick('faq')}
           >
             FAQ
