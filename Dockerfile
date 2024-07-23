@@ -5,9 +5,10 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 # Set working directory
 WORKDIR /app
-RUN yarn global add turbo
+RUN yarn global add turbo@2.0.9
 COPY . .
-RUN turbo prune customerweb --docker
+# breaks the yarn.lock :(
+# RUN turbo prune customerweb --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
@@ -17,13 +18,24 @@ WORKDIR /app
 
 # First install the dependencies (as they change less often)
 COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/packages/api-auth/package.json ./packages/api-auth/package.json
+COPY --from=builder /app/packages/api-content/package.json ./packages/api-content/package.json
+COPY --from=builder /app/packages/api-deals/package.json ./packages/api-deals/package.json
+COPY --from=builder /app/packages/api-user/package.json ./packages/api-user/package.json
+COPY --from=builder /app/packages/eslint-config-custom/package.json ./packages/eslint-config-custom/package.json
+COPY --from=builder /app/packages/tailwind-config/package.json ./packages/tailwind-config/package.json
+COPY --from=builder /app/packages/tsconfig/package.json ./packages/tsconfig/package.json
+COPY --from=builder /app/apps/customerweb/package.json ./apps/customerweb/package.json
+COPY --from=builder /app/yarn.lock ./yarn.lock
 COPY --from=builder /app/.yarnrc.yml ./.yarnrc.yml
-RUN yarn install
+COPY --from=builder /app/.yarn ./.yarn
+# RUN ls -la && cat package.json && exit 1
+RUN yarn install --immutable
+RUN yarn why @react-aria/utils
 
 # Build the project
-COPY --from=builder /app/out/full/ .
+COPY --from=builder /app/ .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV TURBO_TELEMETRY_DISABLED 1
 # build the actual app
