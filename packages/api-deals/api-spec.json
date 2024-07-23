@@ -37,7 +37,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccountExportData"
+                  "$ref": "#/components/schemas/AccountExportDataModel"
                 }
               }
             }
@@ -74,6 +74,56 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{userId}/stats": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Provides information about user",
+        "operationId": "GetUserStats",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The unique identifier of the user.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountStatsModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -990,6 +1040,295 @@
         }
       }
     },
+    "/test/bad-request-empty": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Returns a 400 Bad Request response with no additional details.",
+        "operationId": "BadRequestEmpty",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/bad-request-string": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Returns a 400 Bad Request response with a specific error message.",
+        "operationId": "BadRequestString",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/bad-request-model-state-filter": {
+      "post": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Validates the model state and returns a 400 Bad Request if the model is invalid.",
+        "operationId": "BadRequestModelStateFilter",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The input model to validate.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestInputModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestInputModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/bad-request-model-state-manual": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Manually adds model errors and returns a 400 Bad Request response with those errors.",
+        "operationId": "BadRequestModelStateManual",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/server-error": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Throws a NotImplementedException resulting in a 500 Server Error response.",
+        "operationId": "ServerError",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/unauthorized": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Requires authorization and returns a 401 Unauthorized response if access is denied.",
+        "operationId": "Unautorized",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/authority": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "Authority",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/options": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "Options",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/send-mail": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "SendMail",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/get-user-profile": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "GetUserProfile",
+        "parameters": [
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/vouchers/{pin}": {
       "get": {
         "tags": [
@@ -1119,7 +1458,7 @@
   },
   "components": {
     "schemas": {
-      "AccountExportData": {
+      "AccountExportDataModel": {
         "type": "object",
         "properties": {
           "userId": {
@@ -1150,6 +1489,32 @@
               "$ref": "#/components/schemas/OrderModel"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountStatsModel": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orders": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "favorites": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "honoredDeals": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -1464,6 +1829,26 @@
             "description": "Gets or sets the maximum order quantity for the deal.",
             "format": "uint16",
             "example": 1
+          },
+          "redemptionConditions": {
+            "type": "string",
+            "description": "Gets or sets the redemption conditions of the deal.",
+            "nullable": true
+          },
+          "legalTerms": {
+            "type": "string",
+            "description": "Gets or sets the legal terms of the deal.",
+            "nullable": true
+          },
+          "dealUrl": {
+            "type": "string",
+            "description": "Gets or sets the URL of the deal.",
+            "nullable": true
+          },
+          "details": {
+            "type": "string",
+            "description": "Gets or sets the details of the deal.",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -1525,6 +1910,26 @@
             "description": "Gets or sets the maximum order quantity for the deal.",
             "format": "uint16",
             "example": 1
+          },
+          "redemptionConditions": {
+            "type": "string",
+            "description": "Gets or sets the redemption conditions of the deal.",
+            "nullable": true
+          },
+          "legalTerms": {
+            "type": "string",
+            "description": "Gets or sets the legal terms of the deal.",
+            "nullable": true
+          },
+          "dealUrl": {
+            "type": "string",
+            "description": "Gets or sets the URL of the deal.",
+            "nullable": true
+          },
+          "details": {
+            "type": "string",
+            "description": "Gets or sets the details of the deal.",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -1927,6 +2332,24 @@
         ],
         "type": "string",
         "description": "Specifies the criteria for sorting deals."
+      },
+      "TestInputModel": {
+        "required": [
+          "bar",
+          "foo"
+        ],
+        "type": "object",
+        "properties": {
+          "foo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "bar": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
       },
       "UpdateCartItem": {
         "required": [

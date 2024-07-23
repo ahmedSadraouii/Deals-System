@@ -541,6 +541,34 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "user subscribed to newsletter.",
@@ -718,7 +746,7 @@
         }
       }
     },
-    "/api/admin/get-users-for-data-exports": {
+    "/api/admin/get-unverified-users-email-addresses": {
       "get": {
         "tags": [
           "Admin"
@@ -727,24 +755,6 @@
         "description": "Get users",
         "operationId": "GetUserForDataExports",
         "parameters": [
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
           {
             "name": "x-api-version",
             "in": "header",

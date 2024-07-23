@@ -6,7 +6,7 @@ export type DealsListBlockGridProps = Omit<DealsListBlockProps, 'display'>;
 export function DealsListBlockGrid({ title, deals }: DealsListBlockGridProps) {
   return (
     <div className="bg-default-100">
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-20 md:px-0">
         <h2 className="pb-10 text-5xl font-bold text-secondary">{title}</h2>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
           {deals.map((deal, index) => (
