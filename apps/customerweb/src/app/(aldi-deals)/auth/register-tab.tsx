@@ -116,26 +116,28 @@ export function RegisterTab(props: RegisterTabProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <p className="flex flex-row items-center justify-center gap-2 text-secondary/50">
-        <span>Du besitzt ein</span>
-        <img alt="ALDI SPORTS" src="/aldi-sport-logo.svg" />
-        <span>
-          Konto? Melde dich mit deinen Accountdaten{' '}
-          <Link
-            className="pointer-events-auto cursor-pointer"
-            onClick={props.onSwitchToLogin}
-            color="secondary"
-            underline="always"
-          >
-            hier
-          </Link>{' '}
-          an.
-        </span>
+      <p className="text-center text-secondary/50">
+        Du besitzt ein{' '}
+        <img
+          className="inline-block"
+          alt="ALDI SPORTS"
+          src="/aldi-sport-logo.svg"
+        />{' '}
+        Konto? Melde dich mit deinen Accountdaten{' '}
+        <Link
+          className="pointer-events-auto cursor-pointer"
+          onClick={props.onSwitchToLogin}
+          color="secondary"
+          underline="always"
+        >
+          hier
+        </Link>{' '}
+        an.
       </p>
       <div className="flex flex-col gap-12 lg:flex-row lg:justify-center">
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex shrink-0 basis-[600px] flex-col gap-6 rounded-3xl border bg-default-100 p-10">
+            <div className="flex shrink-0 basis-[600px] flex-col gap-6 rounded-3xl border bg-default-100 p-4 lg:p-10">
               {/*{responseError && (
                 <p className="text-center text-red-500">
                   {responseError}
@@ -147,21 +149,21 @@ export function RegisterTab(props: RegisterTabProps) {
                 render={({ field }) => (
                   <AldiInput
                     type="email"
-                    placeholder="E-Mail Adresse*"
+                    label="E-Mail Adresse"
+                    size="sm"
                     isRequired={true}
-                    isInvalid={
-                      !!errors.email ||
-                      responseError === ApiErrorCodes.EMAIL_ALREADY_IN_USE
-                    }
+                    isInvalid={!!errors.email}
                     errorMessage={
-                      <ApiErrorTranslation
-                        errorOverride={
-                          errors.email &&
-                          'Eine korrekte E-Mail Adresse wird benötigt'
-                        }
-                        allowedErrors={[ApiErrorCodes.EMAIL_ALREADY_IN_USE]}
-                        apiError={responseError}
-                      />
+                      !!errors.email && (
+                        <ApiErrorTranslation
+                          errorOverride={
+                            errors.email &&
+                            'Eine korrekte E-Mail Adresse wird benötigt'
+                          }
+                          allowedErrors={[ApiErrorCodes.EMAIL_ALREADY_IN_USE]}
+                          apiError={responseError}
+                        />
+                      )
                     }
                     {...field}
                   />
@@ -176,7 +178,8 @@ export function RegisterTab(props: RegisterTabProps) {
                 <Controller
                   render={({ field }) => (
                     <AldiInput
-                      placeholder="Vorname*"
+                      label="Vorname"
+                      size="sm"
                       isRequired={true}
                       isInvalid={!!errors.firstName}
                       errorMessage={errors.firstName && 'Vorname wird benötigt'}
@@ -190,7 +193,8 @@ export function RegisterTab(props: RegisterTabProps) {
                 <Controller
                   render={({ field }) => (
                     <AldiInput
-                      placeholder="Nachname*"
+                      label="Nachname"
+                      size="sm"
                       isRequired={true}
                       isInvalid={!!errors.lastName}
                       errorMessage={errors.lastName && 'Nachname wird benötigt'}
@@ -224,7 +228,8 @@ export function RegisterTab(props: RegisterTabProps) {
               <Controller
                 render={({ field }) => (
                   <AldiInput
-                    placeholder="PLZ*"
+                    label="PLZ"
+                    size="sm"
                     isRequired={true}
                     isInvalid={!!errors.postalCode}
                     errorMessage={
@@ -262,7 +267,8 @@ export function RegisterTab(props: RegisterTabProps) {
               <Controller
                 render={({ field }) => (
                   <AldiPasswordInput
-                    placeholder="Passwort*"
+                    label="Passwort"
+                    size="sm"
                     isRequired={true}
                     isInvalid={
                       !!errors.password ||
