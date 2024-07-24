@@ -214,7 +214,7 @@ export function PersonalInformationForm({
         size="lg"
         color="secondary"
         underline="always"
-        className="mt-10 hidden lg:block"
+        className="mt-10  lg:block"
       >
         Ausloggen
       </Link>

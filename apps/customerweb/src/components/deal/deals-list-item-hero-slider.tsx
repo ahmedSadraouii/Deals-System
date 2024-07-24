@@ -58,7 +58,7 @@ export function DealsListItemHeroSlider({
           ctaType="button"
         />
       </div>
-      <Link href={targetUrl}>
+      <Link href={targetUrl} onClick={handleCtaClick}>
         <div
           className={cn(
             'relative hidden w-full flex-row gap-10 overflow-hidden rounded-[40px] bg-default-100 p-10 lg:flex xl:aspect-[2/1]',

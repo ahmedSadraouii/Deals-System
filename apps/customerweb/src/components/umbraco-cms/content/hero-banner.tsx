@@ -6,6 +6,7 @@ import { TrackableCard } from '@/components/home/trackable-card';
 import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
+import { PageViewTracking } from '@/components/tracking-page-view';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -162,6 +163,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
             </div>
           </CardBody>
         </div>
+        <PageViewTracking pageInfo={pageInfo} />
       </TrackableCard>
     </div>
   );
