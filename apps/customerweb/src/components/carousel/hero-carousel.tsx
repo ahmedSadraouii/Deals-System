@@ -1,56 +1,74 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-import type { CarouselProps } from '@/components/carousel/carousel';
-import { Carousel } from '@/components/carousel/carousel';
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
+import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 
-export interface HeroCarouselProps extends CarouselProps {
-  title: string;
+export interface CarouselProps {
+  children: React.ReactNode;
+  itemStart?: number;
+  onItemChange?: (index: number) => void;
 }
 
 export function HeroCarousel({
-  title,
   children,
-  ...carouselProps
-}: HeroCarouselProps) {
-  const itemCount = useMemo(() => React.Children.count(children), [children]);
-  const [itemStart, setItemStart] = useState(0);
+  itemStart = 0,
+  onItemChange,
+}: CarouselProps) {
+  const items = useMemo(() => React.Children.toArray(children), [children]);
+  const itemCount = items.length;
+  const [_itemStart, setItemStart] = useState(itemStart);
+
+  const onGoPrevious = useCallback(() => {
+    setItemStart((prev) => Math.max(0, prev - 1));
+  }, []);
+
+  const onGoNext = useCallback(() => {
+    setItemStart((prev) => Math.min(itemCount - 1, prev + 1));
+  }, [itemCount]);
+
+  useEffect(() => {
+    onItemChange?.(_itemStart);
+  }, [_itemStart, onItemChange]);
+
+  useEffect(() => {
+    setItemStart(itemStart ?? 0);
+  }, [itemStart]);
 
   return (
-    <>
-      <div className="flex flex-col justify-between gap-4  pb-10 md:w-full lg:w-[90%] lg:flex-row lg:items-center">
-        <h2 className="text-5xl font-bold text-secondary">
-          {title || 'Deals List Block Hero Slider Title'}
-        </h2>
-        <div className="flex flex-row space-x-8">
-          <div className="whitespace-nowrap text-3xl font-bold text-aldi-blue">
-            {itemStart + 1} / {itemCount}
-          </div>
-          <div className="flex flex-row items-center space-x-8">
-            {Array(itemCount)
-              .fill(0)
-              .map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  className={`w-10 rounded-full lg:w-20 ${
-                    itemStart === index
-                      ? 'h-1.5 bg-aldi-blue'
-                      : 'h-1 bg-blue-100'
-                  }`}
-                  onClick={() => setItemStart(index)}
-                />
-              ))}
-          </div>
-        </div>
-      </div>
-      <Carousel
-        {...carouselProps}
-        itemStart={itemStart}
-        onItemChange={setItemStart}
+    <div className="relative overflow-hidden">
+      <div
+        className="flex gap-8 transition-transform duration-300"
+        style={{
+          transform: `translateX(-${_itemStart * 90}%)`,
+        }}
       >
-        {children}
-      </Carousel>
-    </>
+        {items.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              flex: '0 0 90%',
+            }}
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+      {_itemStart > 0 && (
+        <button
+          className="absolute left-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
+          onClick={onGoPrevious}
+        >
+          <ChevronRightSvg className="rotate-180 text-3xl" />
+        </button>
+      )}
+      {_itemStart < itemCount - 1 && (
+        <button
+          className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
+          onClick={onGoNext}
+        >
+          <ChevronRightSvg className="text-3xl" />
+        </button>
+      )}
+    </div>
   );
 }
