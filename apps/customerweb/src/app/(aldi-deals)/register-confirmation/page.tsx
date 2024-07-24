@@ -16,7 +16,7 @@ export default async function Page({
 
   return (
     <section className="bg-neutral-50">
-      <div className="flex flex-col items-center px-6 py-8 lg:py-0">
+      <div className="flex flex-col items-center px-4 py-8 lg:py-0">
         <div className="flex flex-col items-center py-20">
           <h1 className="mb-4 mt-10 text-5xl font-bold text-secondary">
             Vielen Dank für deine Registrierung!

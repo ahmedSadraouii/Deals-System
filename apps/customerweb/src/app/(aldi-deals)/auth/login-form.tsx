@@ -77,7 +77,8 @@ export function LoginForm() {
             render={({ field }) => (
               <AldiInput
                 type="email"
-                placeholder="E-Mail Adresse*"
+                label="E-Mail Adresse"
+                size="sm"
                 isRequired={true}
                 isInvalid={!!errors.email}
                 errorMessage={
@@ -96,7 +97,8 @@ export function LoginForm() {
           <Controller
             render={({ field }) => (
               <AldiPasswordInput
-                placeholder="Passwort*"
+                label="Passwort"
+                size="sm"
                 isRequired={true}
                 isInvalid={!!errors.password}
                 errorMessage={errors.password && 'Passwort wird benötigt'}

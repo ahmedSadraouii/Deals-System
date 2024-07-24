@@ -98,11 +98,7 @@ export default function MainSlider() {
                           </div>
                         </dl>
                         <div className="mt-10 w-full">
-                          <Price
-                            oldPrice={90}
-                            actualPrice={45}
-                            uvp={true}
-                          ></Price>
+                          <Price oldPrice={90} actualPrice={45} uvp={true} />
 
                           <div className="mt-5 flex w-full justify-start">
                             <AldiButton color="secondary">

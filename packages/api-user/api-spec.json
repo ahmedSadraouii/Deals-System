@@ -1272,14 +1272,14 @@
         }
       }
     },
-    "/api/user/get-users-by-email": {
-      "post": {
+    "/api/user/get-users-for-data-exports": {
+      "get": {
         "tags": [
           "User"
         ],
-        "summary": "Get users by emails",
-        "description": "Get users by emails",
-        "operationId": "GetUsersByEmailAsync",
+        "summary": "Get users",
+        "description": "Get users",
+        "operationId": "GetUsersForDataExports",
         "parameters": [
           {
             "name": "x-api-version",
@@ -1290,25 +1290,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetUsersByEmailRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetUsersByEmailRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetUsersByEmailRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Returns user data.",
@@ -2445,19 +2426,6 @@
         "type": "integer",
         "format": "int32"
       },
-      "EmailWithCardinalDirection": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "cardinalDirection": {
-            "$ref": "#/components/schemas/CardinalDirection"
-          }
-        },
-        "additionalProperties": false
-      },
       "Gender": {
         "enum": [
           1,
@@ -2519,19 +2487,6 @@
           },
           "cardinalDirection": {
             "$ref": "#/components/schemas/CardinalDirection"
-          }
-        },
-        "additionalProperties": false
-      },
-      "GetUsersByEmailRequest": {
-        "type": "object",
-        "properties": {
-          "emails": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/EmailWithCardinalDirection"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false

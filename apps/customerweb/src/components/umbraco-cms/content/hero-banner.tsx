@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import { Card, CardBody, CardHeader } from '@nextui-org/react';
-import { HeroButton } from '@/components/home/hero-button';
+import { CardBody, CardHeader } from '@nextui-org/react';
 import MegaDealCard from '@/components/home/mega-deal-card';
+import { TrackableCard } from '@/components/home/trackable-card';
+import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
-import { PageViewTracking } from '@/components/tracking-page-view';
+import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import type { UmbracoDeal } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
@@ -39,20 +40,26 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
   const primaryImage =
     fullDeal.properties?.pictures?.[0]?.url &&
     fixUmbracoMediaLink(fullDeal.properties?.pictures?.[0]?.url);
+
   const supplierImage =
     fullSupplier.properties?.picture?.[0]?.url &&
     fixUmbracoMediaLink(fullSupplier.properties?.picture?.[0]?.url);
 
   const dealLink = fullDeal.route.path.split('/')[3];
+  const targetUrl = `/deal/${dealLink || fullDeal.route.path}`;
+
   return (
-    <div className="container mx-auto mt-10 px-4">
-      <Card className="relative h-[60vh] rounded-lg lg:aspect-video lg:h-auto lg:rounded-[40px]">
+    <div className="container mx-auto mt-10 px-4 md:px-0">
+      <TrackableCard
+        className="relative h-[60vh] rounded-lg lg:aspect-video lg:h-auto lg:rounded-[40px]"
+        link={targetUrl}
+      >
         {primaryImage && (
           <Image
             src={primaryImage}
             alt=""
-            width={1600}
-            height={1600}
+            width={1680}
+            height={1680}
             className="h-full object-cover object-center"
           />
         )}
@@ -121,9 +128,17 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
                 variant="light"
               />
             </div>
-            <div className="flex w-[96%] items-center justify-between">
-              <HeroButton href={`/deal/${dealLink || fullDeal.route.path}`} />
-              <div className="hidden items-center gap-4 rounded-[20px] border border-white/10 bg-white/10 p-2 px-5 backdrop-blur-sm md:flex">
+            <div className="flex w-full items-center justify-between">
+              <AldiButton
+                variant="solid"
+                color="primary"
+                endContent={<IconArrowRight />}
+                size="lg"
+                className="h-20 px-8 text-2xl"
+              >
+                Jetzt Deal sichern
+              </AldiButton>
+              <div className="hidden items-center gap-4 rounded-[20px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm md:flex">
                 <div
                   className={cn(
                     'flex h-20 w-20 items-center justify-center rounded-[20px] bg-neutral-200/10 p-2',
@@ -147,8 +162,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
             </div>
           </CardBody>
         </div>
-      </Card>
-      <PageViewTracking pageInfo={pageInfo} />
+      </TrackableCard>
     </div>
   );
 }

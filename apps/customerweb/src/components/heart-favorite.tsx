@@ -1,5 +1,6 @@
 'use client';
 
+import type { MouseEvent } from 'react';
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -81,15 +82,23 @@ export function HeartFavorite({ dealId }: HeartFavoriteProps) {
     [dealId, favoriteContext.favoredDealIds],
   );
 
+  const handleOnClick = useCallback(
+    async (e: MouseEvent) => {
+      await toggleFavorite(dealId);
+      e.preventDefault();
+    },
+    [dealId, toggleFavorite],
+  );
+
   return (
     <div
-      className="pointer-events-auto h-10 w-10 cursor-pointer rounded bg-white md:rounded-full"
+      className="pointer-events-auto h-12 w-12 cursor-pointer rounded bg-white md:rounded-full"
       ref={iconRef}
-      onClick={() => toggleFavorite(dealId)}
+      onClick={handleOnClick}
     >
       <div className="flex h-full w-full items-center justify-center rounded bg-aldi-key/10 transition-colors hover:bg-aldi-key/20 md:rounded-full">
         <IconHeart
-          className={cn('text-xl text-aldi-key', isFavored && 'fill-aldi-key')}
+          className={cn('text-2xl text-aldi-key', isFavored && 'fill-aldi-key')}
         />
       </div>
     </div>

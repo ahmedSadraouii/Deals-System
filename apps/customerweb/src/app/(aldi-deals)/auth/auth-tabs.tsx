@@ -49,7 +49,7 @@ export function AuthTabs() {
       trackPageView(pageInfo);
       hasTrackedPageView.current = true;
     }
-  }, [selectedTab]);
+  }, [pageInfo, selectedTab]);
 
   return (
     <>
@@ -63,10 +63,30 @@ export function AuthTabs() {
           'Registriere Dich, um Dir tolle Deals zu sichern!'}
       </h1>
       <AldiTabs selectedKey={selectedTab} onSelectionChange={setSelectedTab}>
-        <Tab key="login" title="Anmelden" className="w-full">
+        <Tab
+          key="login"
+          title={
+            <>
+              <span className="hidden lg:block">
+                Ich habe bereits ein Konto
+              </span>
+              <span className="lg:hidden">Anmelden</span>
+            </>
+          }
+          className="w-full"
+        >
           <LoginTab />
         </Tab>
-        <Tab key="register" title="Registrieren" className="w-full">
+        <Tab
+          key="register"
+          title={
+            <>
+              <span className="hidden lg:block">Ich bin neu hier</span>
+              <span className="lg:hidden">Registrieren</span>
+            </>
+          }
+          className="w-full"
+        >
           <RegisterTab onSwitchToLogin={onSwitchToLogin} />
         </Tab>
       </AldiTabs>
