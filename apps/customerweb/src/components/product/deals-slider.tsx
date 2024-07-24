@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +12,8 @@ interface DealsSliderProps {
 
 export function DealsSlider({ children }: DealsSliderProps) {
   const [progressWidth, setProgressWidth] = useState(16);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef<any>(null);
 
   // Function to handle slide change and update progress bar
@@ -23,6 +25,16 @@ export function DealsSlider({ children }: DealsSliderProps) {
       const slideWidth = swiper.params.slidesPerView || 1;
       const slideProgress = (activeIndex + slideWidth) / totalSlides;
       setProgressWidth(slideProgress * 100);
+      setIsBeginning(swiper.isBeginning);
+      setIsEnd(swiper.isEnd);
+    }
+  }, []);
+
+  useEffect(() => {
+    const swiper = swiperRef.current;
+    if (swiper) {
+      setIsBeginning(swiper.isBeginning);
+      setIsEnd(swiper.isEnd);
     }
   }, []);
 
@@ -36,17 +48,23 @@ export function DealsSlider({ children }: DealsSliderProps) {
           <div className="flex justify-between gap-6">
             <button
               type="button"
-              className="prev rounded-full bg-secondary p-2 text-lg"
-              onClick={() => swiperRef.current?.slidePrev()}
+              className={`prev h-12 w-12 rounded-full bg-secondary p-2 text-lg ${
+                isBeginning ? 'cursor-not-allowed opacity-50' : ''
+              }`}
+              onClick={() => !isBeginning && swiperRef.current?.slidePrev()}
+              disabled={isBeginning}
             >
-              <ChevronRightSvg className="rotate-180 text-white" />
+              <ChevronRightSvg className="flex h-full w-full rotate-180 items-center justify-center text-white" />
             </button>
             <button
               type="button"
-              className="next rounded-full bg-secondary p-2 text-lg"
-              onClick={() => swiperRef.current?.slideNext()}
+              className={`next h-12 w-12 rounded-full bg-secondary p-2 text-lg ${
+                isEnd ? 'cursor-not-allowed opacity-50' : ''
+              }`}
+              onClick={() => !isEnd && swiperRef.current?.slideNext()}
+              disabled={isEnd}
             >
-              <ChevronRightSvg className="text-white" />
+              <ChevronRightSvg className="flex h-full w-full items-center justify-center text-white" />
             </button>
           </div>
         </div>

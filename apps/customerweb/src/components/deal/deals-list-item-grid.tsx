@@ -3,6 +3,7 @@
 import type { MouseEvent } from 'react';
 import { useCallback, useContext, useMemo, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DateTime } from 'luxon';
 import { FavoriteContext } from '@/app/(aldi-deals)/contexts/favorite/favorite-context';
@@ -93,27 +94,7 @@ export function DealsListItemGrid({
             {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
           </div>
         </div>
-      {primaryImage && (
-        <Link href={targetUrl} onClick={handleCtaClick}>
-          <Image
-            className="h-72 object-cover object-center"
-            src={primaryImage}
-            alt="Deal Image"
-            width={768}
-            height={768}
-          />
-        </Link>
-      )}
-      <div className="relative bottom-64 w-full">
-        <div className="absolute inset-0 flex items-center justify-between p-4">
-          <span className="flex items-center rounded bg-neutral-100 px-4 py-2 text-xs font-light text-black">
-            <IconOnline className="mr-2 text-base" />
-            <span className="text-aldi-key">Nur Online</span>
-          </span>
-          {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
-        </div>
       </div>
-
       <div className="flex grow flex-col gap-4 p-4 md:p-6">
         <div className="flex flex-row items-center justify-between">
           {supplierImage && (

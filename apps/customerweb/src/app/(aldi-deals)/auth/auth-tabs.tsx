@@ -49,7 +49,7 @@ export function AuthTabs() {
       trackPageView(pageInfo);
       hasTrackedPageView.current = true;
     }
-  }, [pageInfo, selectedTab]);
+  }, [selectedTab]);
 
   return (
     <>
