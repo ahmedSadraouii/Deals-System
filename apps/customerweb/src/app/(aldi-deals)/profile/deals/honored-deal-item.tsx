@@ -31,24 +31,32 @@ export function HonoredDealItem({
 
   return (
     <div
-      className="flex h-32 flex-row items-center gap-6 border-b border-neutral-200 py-6"
+      className="flex h-full flex-col items-center gap-2 border-b border-neutral-200 py-6 md:h-32 md:flex-row md:gap-6"
       key={honoredDeal.honoredDealId}
     >
-      <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
-        {supplierImage && (
-          <Image
-            src={supplierImage}
-            alt={supplier.name}
-            width={88}
-            height={88}
-            className="shrink-0 object-contain"
-          />
-        )}
+      <div>
+        <div className="flex h-24 w-24 items-center justify-center rounded-[20px] bg-neutral-200">
+          {supplierImage && (
+            <Image
+              src={supplierImage}
+              alt={supplier.name}
+              width={88}
+              height={88}
+              className="shrink-0 object-contain"
+            />
+          )}
+        </div>
+        <h2 className="text-center text-lg font-medium text-secondary md:hidden ">
+          {supplier.name}
+        </h2>
       </div>
+
       <div className="flex grow flex-col gap-2">
-        <h2 className="text-lg font-medium text-secondary">{deal.name}</h2>
+        <h2 className="text-center text-lg font-medium text-secondary md:text-start">
+          {deal.name}
+        </h2>
         {validTill.isValid && validTill > now && (
-          <h3 className="text-secondary/50">
+          <h3 className="text-center text-secondary/50 md:text-start">
             Gültig bis: {validTill.toLocaleString(DateTime.DATE_SHORT)}
           </h3>
         )}
@@ -56,7 +64,7 @@ export function HonoredDealItem({
           <h3 className="text-secondary/50">Abgelaufen</h3>
         )}
       </div>
-      <div className="flex flex-row items-center gap-6">
+      <div className="flex w-full flex-col gap-6 md:w-auto md:flex-row md:items-center">
         <CodeField code={honoredDeal.code || ''} />
         <AldiButton
           variant="ghost"

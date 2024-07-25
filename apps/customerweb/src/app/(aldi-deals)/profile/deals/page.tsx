@@ -129,7 +129,7 @@ export default async function Page() {
       <div className="w-full rounded-large bg-default-100 p-4 lg:p-10">
         {activeHonoredDealsList.length > 0 && (
           <div>
-            <h1 className="mb-6 text-3xl font-bold text-secondary">
+            <h1 className="mb-6 text-center text-3xl font-bold text-secondary lg:text-start">
               Deine erworbenen Deals
             </h1>
             <HonoredDealsList items={activeHonoredDealsList} />
