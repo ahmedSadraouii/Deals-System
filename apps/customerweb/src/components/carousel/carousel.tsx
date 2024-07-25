@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useMemo, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 
 export interface CarouselProps {
@@ -22,6 +23,7 @@ export function Carousel({
   const items = useMemo(() => Array.from(children), [children]);
   const itemCount = items.length;
   const [_itemStart, setItemStart] = useState(itemStart);
+  const pathname = usePathname();
 
   const onGoPrevious = useCallback(() => {
     setItemStart((prev) => Math.max(0, prev - itemsPerPage));
@@ -40,6 +42,9 @@ export function Carousel({
   useEffect(() => {
     setItemStart(itemStart ?? 1);
   }, [itemStart]);
+
+  // Check if the URL contains "/deal"
+  const isDealPage = useMemo(() => pathname.includes('/deal'), [pathname]);
 
   return (
     <div className="relative">
@@ -63,7 +68,9 @@ export function Carousel({
       </div>
       {_itemStart >= 1 && (
         <button
-          className="pointer-events-auto absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
+          className={`pointer-events-auto absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70 ${
+            isDealPage ? 'hidden sm:block' : ''
+          }`}
           onClick={onGoPrevious}
         >
           <ChevronRightSvg className="rotate-180 text-3xl" />
@@ -71,7 +78,9 @@ export function Carousel({
       )}
       {_itemStart + itemsPerPage < itemCount && (
         <button
-          className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70"
+          className={`pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border-8 border-white bg-secondary p-2 text-white transition-opacity hover:opacity-70 ${
+            isDealPage ? 'hidden sm:block' : ''
+          }`}
           onClick={onGoNext}
         >
           <ChevronRightSvg className="text-3xl" />

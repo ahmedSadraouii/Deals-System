@@ -125,7 +125,7 @@ export function AddDealToCart({
           </AldiButton>
           <AldiButton
             size="sm"
-            className="grow"
+            className="h-10 grow"
             variant="solid"
             color="primary"
             endContent={<IconCart className="shrink-0 text-2xl" />}

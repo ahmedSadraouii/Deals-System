@@ -97,7 +97,7 @@ export function DealDetailPage({
                   </div>
                   <Image
                     src={image}
-                    className="aspect-video h-full overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto lg:min-h-[480px]"
+                    className="aspect-video h-full min-h-[240px] overflow-hidden rounded-[20px] bg-cover bg-center lg:aspect-auto lg:min-h-[480px]"
                     alt="Product Image"
                     width={1024}
                     height={1024}
@@ -109,10 +109,12 @@ export function DealDetailPage({
           <div className="col-span-6 flex flex-col gap-4 2xl:col-span-5">
             <div className="flex grow flex-col gap-y-6 rounded-[20px] bg-default-100 p-10">
               <div className="flex flex-row items-center justify-between gap-6">
-                <h1 className="text-2xl font-bold text-secondary">
+                <h1 className="text-xl font-bold text-secondary md:text-2xl">
                   {deal.name}
                 </h1>
-                <HeartFavorite dealId={deal.id} />
+                <div className="hidden md:block">
+                  <HeartFavorite dealId={deal.id} />
+                </div>
               </div>
               {deal.properties?.availabilityEnd && (
                 <div className="hidden flex-row items-center gap-2 text-secondary/50 lg:flex">
@@ -130,13 +132,15 @@ export function DealDetailPage({
               <p className="text-secondary">{deal.properties?.description}</p>
               <Divider />
               <div className="flex grow flex-col justify-end">
-                <Price
-                  oldPrice={deal.properties?.regularPrice}
-                  actualPrice={deal.properties?.price || 9999}
-                  showDigits={false}
-                  uvp={true}
-                  textSize={2}
-                />
+                <div>
+                  <Price
+                    oldPrice={deal.properties?.regularPrice}
+                    actualPrice={deal.properties?.price || 9999}
+                    showDigits={false}
+                    uvp={true}
+                    textSize={2}
+                  />
+                </div>
               </div>
               <div className="hidden flex-col gap-2 lg:flex">
                 <AddDealToCart
@@ -169,7 +173,7 @@ export function DealDetailPage({
         <div className="grid gap-10 2xl:grid-cols-12">
           <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-8">
             <Divider />
-            <div className="flex flex-row flex-wrap gap-4">
+            <div className="grid grid-cols-2 justify-items-center gap-4 md:flex md:flex-row md:flex-wrap">
               {deal.properties?.greatOffer && (
                 <DealPerkCard perk="greatOffer" />
               )}
@@ -226,7 +230,7 @@ export function DealDetailPage({
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-neutral-100 p-4 lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-neutral-100 p-4 lg:hidden">
         <div className="flex flex-col gap-2">
           <AddDealToCart
             dealId={deal.id}

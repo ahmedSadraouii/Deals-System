@@ -21,10 +21,10 @@ export function DetailPageCarousel({
         {children}
       </Carousel>
       <div className="flex flex-row space-x-8">
-        <div className="whitespace-nowrap text-3xl font-bold text-aldi-blue">
+        <div className="hidden whitespace-nowrap text-3xl font-bold text-aldi-blue md:block">
           {itemStart + 1} / {itemCount}
         </div>
-        <div className="flex flex-row items-center space-x-8">
+        <div className="flex w-full flex-row items-center justify-center space-x-8 md:justify-start">
           {Array(itemCount)
             .fill(0)
             .map((_, index) => (

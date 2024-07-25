@@ -29,7 +29,7 @@ export function DealPerkCard({ perk }: DealPerkCardProps) {
   }[perk];
 
   return (
-    <div className="inline-flex items-center gap-2 rounded-lg border border-secondary/10 px-6 py-4 text-xl font-medium">
+    <div className="inline-flex w-full items-center gap-2 rounded-lg border border-secondary/10 px-6 py-4 text-xl font-medium md:w-auto">
       <span className="text-3xl">{perkIcon}</span>
       <span className="text-secondary">{perkText}</span>
     </div>

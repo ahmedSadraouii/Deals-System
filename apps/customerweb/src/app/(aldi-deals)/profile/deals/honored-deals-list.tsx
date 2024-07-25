@@ -15,7 +15,7 @@ export interface OrderListProps {
 
 export function HonoredDealsList({ items }: OrderListProps) {
   return (
-    <div className="flex flex-col gap-6 border-t border-neutral-200">
+    <div className="border-t border-neutral-200">
       {items.map((item, index) => (
         <HonoredDealItem
           key={index}
