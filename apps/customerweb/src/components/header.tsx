@@ -1,17 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
 import { HeaderCartButton } from './header-cart-button';
+import { NavbarMenuItems } from './navbar-items';
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenu,
-  NavbarMenuItem,
   NavbarMenuToggle,
 } from '@nextui-org/react';
 import type { Variants } from 'framer-motion';
@@ -29,21 +29,37 @@ import {
 } from '@/utils/tracking';
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
   const handleLinkClick = (linkName: string, targetUrl: string) => {
     trackCTA(linkName, targetUrl);
   };
+
   const handleNavigationClick = (navigationItem: string) => {
     trackNavigationClick(navigationItem);
   };
+
   const session = useSession();
+
   const handleLogoClick = () => {
     trackLogoClick('aldi deals');
   };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <Navbar
       suppressHydrationWarning={true}
       isBordered={true}
       maxWidth="full"
+      isMenuOpen={isMenuOpen}
       classNames={{
         base: 'navbar-height-proxy bg-white !border-solid',
         menu: 'navbar-height-proxy',
@@ -97,7 +113,7 @@ export function Header() {
           href="/redeem"
           endContent={<IconTicket className="text-2xl" />}
           color="secondary"
-          onClick={() => handleLinkClick('dealactivieren', '/redeem')}
+          onClick={() => handleLinkClick('dealaktivieren', '/redeem')}
         >
           Deal aktivieren
         </AldiButton>
@@ -112,11 +128,12 @@ export function Header() {
         justify="center"
       >
         <div className="flex w-full items-center gap-4">
-          <NavbarMenuToggle />
+          <NavbarMenuToggle onClick={toggleMenu} />
           <NavbarBrand
             as={NextLink}
             href="/"
             className="ml-4 shrink-0 space-x-4"
+            onClick={handleLogoClick}
           >
             <AldiSuedSvg className="h-10 lg:h-auto" />
             <AldiDealsSvg className="h-10 lg:h-auto" />
@@ -147,6 +164,8 @@ export function Header() {
           variants: {
             enter: {
               width: '100%',
+              top: '0',
+              zIndex: '100',
               transition: {
                 duration: 0.3,
                 easings: 'easeOut',
@@ -163,10 +182,11 @@ export function Header() {
         }}
         className="bg-secondary/80 p-0 backdrop-blur-sm"
       >
-        <div className="flex h-full w-[280px] flex-col gap-4 bg-white p-4">
-          <NavbarMenuItem>
-            <Link href="/">Start</Link>
-          </NavbarMenuItem>
+        <div
+          ref={menuRef}
+          className="flex h-full w-[280px] flex-col gap-4 bg-white"
+        >
+          <NavbarMenuItems closeMenu={closeMenu} />
         </div>
       </NavbarMenu>
     </Navbar>
