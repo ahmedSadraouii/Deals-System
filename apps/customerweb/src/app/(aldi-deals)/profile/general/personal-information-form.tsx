@@ -96,12 +96,12 @@ export function PersonalInformationForm({
           </div>
         </div>
         <div className="pt-6">
-          <h1 className="mb-6 text-3xl font-bold text-secondary">
+          <h1 className="mb-6 whitespace-nowrap text-2xl font-bold text-secondary md:text-3xl">
             Persönliche Informationen
           </h1>
           <FormProvider {...form}>
             <form method="post" onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4 grid grid-cols-4 gap-4">
+              <div className="mb-4 flex flex-col gap-4 md:grid md:grid-cols-4">
                 <Controller
                   name="firstName"
                   rules={{
@@ -175,24 +175,25 @@ export function PersonalInformationForm({
                     />
                   )}
                 />
+                <div className="flex items-center justify-between gap-4">
+                  <Controller
+                    name="addressCity"
+                    render={({ field }) => (
+                      <AldiInput
+                        className="col-span-2"
+                        label="Stadt"
+                        {...field}
+                      />
+                    )}
+                  />
 
-                <Controller
-                  name="addressCity"
-                  render={({ field }) => (
-                    <AldiInput
-                      className="col-span-2"
-                      label="Stadt"
-                      {...field}
-                    />
-                  )}
-                />
-
-                <AldiInput
-                  className="col-span-2"
-                  label="PLZ"
-                  value={String(session.data.user.profile.addressPostalCode)}
-                  readOnly={true}
-                />
+                  <AldiInput
+                    className="col-span-2"
+                    label="PLZ"
+                    value={String(session.data.user.profile.addressPostalCode)}
+                    readOnly={true}
+                  />
+                </div>
               </div>
               <AldiButton
                 type="submit"
