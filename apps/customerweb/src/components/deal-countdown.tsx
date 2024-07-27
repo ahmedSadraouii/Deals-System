@@ -19,7 +19,9 @@ export function DealCountdown({ availableTill }: DealCountdownProps) {
   return (
     <div className="flex flex-row items-center gap-2 rounded-lg border border-secondary/10 p-3 text-primary">
       <IconClock className="mr-2 text-2xl" />
-      <span suppressHydrationWarning={true}>Noch {availabilityText}</span>
+      <span className="whitespace-nowrap" suppressHydrationWarning={true}>
+        Noch {availabilityText}
+      </span>
     </div>
   );
 }

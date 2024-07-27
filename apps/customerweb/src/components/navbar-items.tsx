@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { AldiButton } from './nextui/aldi-button';
 import { BagSvg } from './svg/bag-svg';
 import { CloseSvg } from './svg/close-svg';
@@ -31,6 +31,12 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
       .reduce((a, b) => a + b, 0);
     return cartItemQuantity === 0 ? undefined : cartItemQuantity;
   }, [cartContext.cart?.items, cartContext.cartExpired]);
+
+  const onClickSignOut = useCallback(async () => {
+    await signOut({
+      redirect: true,
+    });
+  }, []);
 
   return (
     <div className="flex h-full flex-col gap-8 bg-white">
@@ -62,6 +68,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
               className="w-full"
               endContent={<IconUser className="text-white" />}
               color="secondary"
+              onClick={closeMenu}
             >
               Anmelden
             </AldiButton>
@@ -75,14 +82,20 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
         </p>
         <Divider />
         <div className="flex flex-col gap-4 p-4">
-          <NavbarMenuItem className="flex items-center gap-2">
+          <NavbarMenuItem
+            className="flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <IconHome />
             <Link href="/" className="text-lg text-secondary">
               Startseite
             </Link>
           </NavbarMenuItem>
           <Divider />
-          <NavbarMenuItem className="flex items-center justify-between">
+          <NavbarMenuItem
+            className="flex items-center justify-between"
+            onClick={closeMenu}
+          >
             <div className="flex items-center gap-2">
               <IconCart className="text-2xl text-secondary" />
               <Link href="/cart" className="text-lg text-secondary">
@@ -101,7 +114,10 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
             </Badge>
           </NavbarMenuItem>
           <Divider />
-          <NavbarMenuItem className="flex items-center gap-2">
+          <NavbarMenuItem
+            className="flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <InfoIcon />
             <Link href="/faq" className="text-lg text-secondary">
               FAQ
@@ -119,21 +135,30 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
             session.status !== 'authenticated' ? 'opacity-25' : ''
           }`}
         >
-          <NavbarMenuItem className="flex items-center gap-2">
+          <NavbarMenuItem
+            className="flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <IconUser className="text-2xl text-secondary" />
             <Link href="/profile" className="text-lg text-secondary">
               Profil
             </Link>
           </NavbarMenuItem>
           <Divider />
-          <NavbarMenuItem className="flex items-center gap-2">
+          <NavbarMenuItem
+            className="flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <BagSvg />
             <Link href="/profile/deals" className="text-lg text-secondary">
               Meine Deals
             </Link>
           </NavbarMenuItem>
           <Divider />
-          <NavbarMenuItem className="flex items-center gap-2">
+          <NavbarMenuItem
+            className="flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <HeartSvg className="text-2xl text-secondary" />
             <Link href="/profile/favorites" className="text-lg text-secondary">
               Merkliste
@@ -144,13 +169,17 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
 
       <div>
         {session.status === 'authenticated' && (
-          <NavbarMenuItem className="flex w-full items-center justify-center gap-2">
+          <NavbarMenuItem
+            className="flex w-full items-center justify-center gap-2"
+            onClick={closeMenu}
+          >
             <AldiButton
               as={Link}
               size="lg"
               variant="ghost"
               href="/auth"
               className="w-[90%]"
+              onClick={onClickSignOut}
               color="secondary"
             >
               Abmelden

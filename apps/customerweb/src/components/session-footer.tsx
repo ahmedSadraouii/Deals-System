@@ -13,7 +13,7 @@ export default function SessionFooter() {
   return (
     <div className="flex flex-col items-center justify-center border-b border-slate-100 border-opacity-10 pb-4 md:border-b-0">
       <div>
-        <ul className="mt-12">
+        <ul className="mt-12 text-center">
           <li className="mb-4">
             <Link
               href="/profile/general"
