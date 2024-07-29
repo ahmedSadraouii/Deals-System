@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { HonoredDealModel } from 'api-deals';
 import { DateTime } from 'luxon';
 import { CodeField } from '@/app/(aldi-deals)/profile/deals/code-field';
@@ -28,10 +31,12 @@ export function HonoredDealItem({
 
   const validTill = DateTime.fromISO(deal.properties?.promotionEnd!);
   const now = DateTime.now();
+  const pathname = usePathname();
+  const isProfile = pathname === '/profile';
 
   return (
     <div
-      className="flex h-full flex-col items-center gap-2 border-b border-neutral-200 py-6 md:h-32 md:flex-row md:gap-6"
+      className={`flex h-full flex-col items-center gap-2 border-b border-neutral-200 ${isProfile ? 'rounded-lg bg-neutral-100 ' : ''} p-4 py-6 md:h-32 md:flex-row md:gap-6`}
       key={honoredDeal.honoredDealId}
     >
       <div>
@@ -55,17 +60,17 @@ export function HonoredDealItem({
         <h2 className="text-center text-lg font-medium text-secondary md:text-start">
           {deal.name}
         </h2>
-        {validTill.isValid && validTill > now && (
+        {validTill.isValid && validTill > now && !isProfile && (
           <h3 className="text-center text-secondary/50 md:text-start">
             Gültig bis: {validTill.toLocaleString(DateTime.DATE_SHORT)}
           </h3>
         )}
-        {validTill.isValid && validTill <= now && (
+        {validTill.isValid && validTill <= now && !isProfile && (
           <h3 className="text-secondary/50">Abgelaufen</h3>
         )}
       </div>
       <div className="flex w-full flex-col gap-6 md:w-auto md:flex-row md:items-center">
-        <CodeField code={honoredDeal.code || ''} />
+        {!isProfile && <CodeField code={honoredDeal.code || ''} />}
         <AldiButton
           variant="ghost"
           endContent={<IconArrowRight />}

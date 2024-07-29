@@ -46,7 +46,7 @@ export function CarouselMobile({
   return (
     <div>
       <div className="mb-4 flex w-full items-center justify-between">
-        <h1 className="text-3xl font-bold text-secondary">
+        <h1 className="text-xl font-bold text-secondary md:text-3xl">
           {title || 'Die neuesten DEALS'}
         </h1>
         <div className="flex justify-between gap-2">

@@ -175,25 +175,25 @@ export function PersonalInformationForm({
                     />
                   )}
                 />
-                <div className="flex items-center justify-between gap-4">
-                  <Controller
-                    name="addressCity"
-                    render={({ field }) => (
-                      <AldiInput
-                        className="col-span-2"
-                        label="Stadt"
-                        {...field}
-                      />
-                    )}
-                  />
+              </div>
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <Controller
+                  name="addressCity"
+                  render={({ field }) => (
+                    <AldiInput
+                      className="col-span-2"
+                      label="Stadt"
+                      {...field}
+                    />
+                  )}
+                />
 
-                  <AldiInput
-                    className="col-span-2"
-                    label="PLZ"
-                    value={String(session.data.user.profile.addressPostalCode)}
-                    readOnly={true}
-                  />
-                </div>
+                <AldiInput
+                  className="col-span-2"
+                  label="PLZ"
+                  value={String(session.data.user.profile.addressPostalCode)}
+                  readOnly={true}
+                />
               </div>
               <AldiButton
                 type="submit"
