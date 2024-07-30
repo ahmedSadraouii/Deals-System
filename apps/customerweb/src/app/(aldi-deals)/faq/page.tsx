@@ -5,7 +5,7 @@ import { PageViewTracking } from '@/components/tracking-page-view';
 
 export default function NotFound() {
   const pageInfo = {
-    pageName: 'aldi-deals-redeem',
+    pageName: 'aldi-deals-faq',
     pageType: 'aldi-sued-ci-template',
     primaryCategory: 'ALDI SUED CI',
     subCategory: 'aldi-deals',

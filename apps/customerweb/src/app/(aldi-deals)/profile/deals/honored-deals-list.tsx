@@ -22,6 +22,7 @@ export function HonoredDealsList({ items }: OrderListProps) {
           deal={item.deal}
           supplier={item.supplier}
           honoredDeal={item.honoredDeal}
+          isProfile={false}
         />
       ))}
     </div>

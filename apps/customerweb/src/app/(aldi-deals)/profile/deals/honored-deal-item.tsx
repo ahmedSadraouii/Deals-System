@@ -1,9 +1,6 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import type { HonoredDealModel } from 'api-deals';
 import { DateTime } from 'luxon';
 import { CodeField } from '@/app/(aldi-deals)/profile/deals/code-field';
@@ -13,17 +10,20 @@ import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
+import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 
 export interface HonoredDealItemProps {
   deal: UmbracoDeal;
   supplier: UmbracoSupplier;
   honoredDeal: HonoredDealModel;
+  isProfile: boolean;
 }
 export function HonoredDealItem({
   deal,
   supplier,
   honoredDeal,
+  isProfile,
 }: HonoredDealItemProps) {
   const supplierImage =
     supplier.properties?.picture?.[0]?.url &&
@@ -31,12 +31,13 @@ export function HonoredDealItem({
 
   const validTill = DateTime.fromISO(deal.properties?.promotionEnd!);
   const now = DateTime.now();
-  const pathname = usePathname();
-  const isProfile = pathname === '/profile';
 
   return (
     <div
-      className={`flex h-full flex-col items-center gap-2 border-b border-neutral-200 ${isProfile ? 'rounded-lg bg-neutral-100 ' : ''} p-4 py-6 md:h-32 md:flex-row md:gap-6`}
+      className={cn(
+        'flex h-full flex-col items-center gap-2 border-b border-neutral-200 p-4 py-6 md:h-32 md:flex-row md:gap-6',
+        isProfile && 'rounded-lg bg-neutral-100',
+      )}
       key={honoredDeal.honoredDealId}
     >
       <div>

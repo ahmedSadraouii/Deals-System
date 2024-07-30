@@ -2,6 +2,9 @@
 
 import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
+import { cn } from '@/utils/cn';
+
+// Adjust the path as necessary
 
 export interface CarouselProps {
   children: React.ReactNode;
@@ -52,11 +55,12 @@ export function CarouselMobile({
         <div className="flex justify-between gap-2">
           <button
             type="button"
-            className={`h-12 w-12 rounded-full p-2 text-lg ${
+            className={cn(
+              'h-12 w-12 rounded-full p-2 text-lg',
               _itemStart === 0
                 ? 'cursor-not-allowed bg-secondary opacity-50'
-                : 'bg-secondary'
-            }`}
+                : 'bg-secondary',
+            )}
             onClick={onGoPrevious}
             disabled={_itemStart === 0}
           >
@@ -64,11 +68,12 @@ export function CarouselMobile({
           </button>
           <button
             type="button"
-            className={`h-12 w-12 rounded-full p-2 text-lg ${
+            className={cn(
+              'h-12 w-12 rounded-full p-2 text-lg',
               _itemStart + itemsPerPage >= itemCount
                 ? 'cursor-not-allowed bg-secondary opacity-50'
-                : 'bg-secondary'
-            }`}
+                : 'bg-secondary',
+            )}
             onClick={
               _itemStart + itemsPerPage >= itemCount ? undefined : onGoNext
             }
@@ -79,11 +84,12 @@ export function CarouselMobile({
         </div>
       </div>
       <div
-        className={
+        className={cn(
+          'grid gap-4',
           itemsPerPage === 5
-            ? `grid-cols-${itemsPerPage} grid gap-4`
-            : `grid grid-cols-1 gap-4 md:grid-cols-${itemsPerPage}`
-        }
+            ? `grid-cols-${itemsPerPage}`
+            : `grid-cols-1 md:grid-cols-${itemsPerPage}`,
+        )}
       >
         {items.map((item, index) => {
           if (index < _itemStart || index >= _itemStart + itemsPerPage) {

@@ -51,7 +51,7 @@ export function DealsSlider({ children }: DealsSliderProps) {
               className={`prev h-12 w-12 rounded-full bg-secondary p-2 text-lg ${
                 isBeginning ? 'cursor-not-allowed opacity-50' : ''
               }`}
-              onClick={() => !isBeginning && swiperRef.current?.slidePrev()}
+              onClick={() => !isBeginning && swiperRef.current?.slidePrev?.()}
               disabled={isBeginning}
             >
               <ChevronRightSvg className="flex h-full w-full rotate-180 items-center justify-center text-white" />
@@ -61,7 +61,7 @@ export function DealsSlider({ children }: DealsSliderProps) {
               className={`next h-12 w-12 rounded-full bg-secondary p-2 text-lg ${
                 isEnd ? 'cursor-not-allowed opacity-50' : ''
               }`}
-              onClick={() => !isEnd && swiperRef.current?.slideNext()}
+              onClick={() => !isEnd && swiperRef.current?.slideNext?.()}
               disabled={isEnd}
             >
               <ChevronRightSvg className="flex h-full w-full items-center justify-center text-white" />

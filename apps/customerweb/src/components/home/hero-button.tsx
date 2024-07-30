@@ -7,11 +7,9 @@ import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { trackCTA } from '@/utils/tracking';
 
 export function HeroButton({ href }: { href: string }) {
-  const ctaText = 'Jetzt Deal sichern';
-  const targetUrl = href;
   const handleClick = useCallback(() => {
-    trackCTA(ctaText, targetUrl);
-  }, [ctaText, targetUrl]);
+    trackCTA('Jetzt Deal sichern', href);
+  }, [href]);
 
   return (
     <AldiButton

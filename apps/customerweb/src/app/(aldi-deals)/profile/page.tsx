@@ -71,16 +71,7 @@ export default async function Page() {
           `Deal with id ${honoredDeal.dealId} was not found in the list of all deals.`,
         );
       }
-
-      // todo: SUPER HACKY TEMPORARY WORKAROUND, REMOVE THIS IMMEDIATELY
-      // use the first deal if the deal was not found
-      const dealToUse = deal; // || deals[0];
-      //if (dealToUse !== deal) {
-      //  console.error(
-      //    `Using deal ${dealToUse?.id} instead of ${deal?.id}`,
-      // );
-      // }
-
+      const dealToUse = deal;
       const supplier = suppliers.find(
         (supplier) => supplier.id === dealToUse?.properties?.supplier?.id,
       );
@@ -121,6 +112,7 @@ export default async function Page() {
             deal={item.deal}
             supplier={item.supplier}
             honoredDeal={item.honoredDeal}
+            isProfile={true}
           />
         ))}
       </HeroCarouselMobile>
