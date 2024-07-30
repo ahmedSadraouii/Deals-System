@@ -100,7 +100,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               <Price
                 oldPrice={fullDeal.properties?.regularPrice}
                 actualPrice={fullDeal.properties?.price || 0}
-                showDigits={true}
+                showDigits={false}
                 uvp={true}
                 badge={3}
                 textSize={3}
@@ -111,7 +111,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               <Price
                 oldPrice={fullDeal.properties?.regularPrice}
                 actualPrice={fullDeal.properties?.price || 0}
-                showDigits={true}
+                showDigits={false}
                 uvp={true}
                 badge={3}
                 textSize={4}
@@ -122,7 +122,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               <Price
                 oldPrice={fullDeal.properties?.regularPrice}
                 actualPrice={fullDeal.properties?.price || 0}
-                showDigits={true}
+                showDigits={false}
                 uvp={true}
                 badge={3}
                 textSize={1}
