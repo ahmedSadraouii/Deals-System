@@ -12,6 +12,7 @@ import { Price } from '@/components/price';
 import { ChevronRightSvg } from '@/components/svg/chevron-right-svg';
 import { IconClock } from '@/components/svg/icon-clock';
 import { IconTag } from '@/components/svg/icon-tag';
+import { NewsletterBlock } from '@/components/umbraco-cms/content/newsletter-block';
 import type {
   UmbracoDeal,
   UmbracoSupplier,
@@ -240,8 +241,11 @@ export function DealDetailPage({
           />
         </div>
       </div>
-      <div className="col-span-12 row-span-1 mb-48 bg-neutral-100">
+      <div className="col-span-12 row-span-1 mb-20 bg-neutral-100">
         {children}
+      </div>
+      <div className="col-span-12 row-span-1 mb-20 bg-white">
+        <NewsletterBlock />
       </div>
     </div>
   );
