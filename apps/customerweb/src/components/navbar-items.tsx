@@ -14,6 +14,7 @@ import { InfoIcon } from './svg/info-svg';
 import { Badge, Divider, NavbarMenuItem } from '@nextui-org/react';
 import { useCart } from '@/app/(aldi-deals)/contexts/cart/use-cart';
 import { cn } from '@/utils/cn';
+import { trackNavigationClick } from '@/utils/tracking';
 
 interface NavbarMenuItemsProps {
   closeMenu: () => void;
@@ -38,6 +39,11 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
       redirect: true,
     });
   }, []);
+
+  const handleNavigationClick = (navigationItem: string) => {
+    closeMenu();
+    trackNavigationClick(navigationItem);
+  };
 
   return (
     <div className="flex h-full flex-col gap-6 bg-white">
@@ -85,7 +91,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
         <div className="flex flex-col gap-4 p-4">
           <NavbarMenuItem
             className="flex items-center gap-2"
-            onClick={closeMenu}
+            onClick={() => handleNavigationClick('home')}
           >
             <IconHome />
             <Link href="/" className="text-lg text-secondary">
@@ -95,7 +101,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
           <Divider />
           <NavbarMenuItem
             className="flex items-center justify-between"
-            onClick={closeMenu}
+            onClick={() => handleNavigationClick('cart')}
           >
             <div className="flex items-center gap-2">
               <IconCart className="text-2xl text-secondary" />
@@ -117,7 +123,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
           <Divider />
           <NavbarMenuItem
             className="flex items-center gap-2"
-            onClick={closeMenu}
+            onClick={() => handleNavigationClick('faq')}
           >
             <InfoIcon />
             <Link href="/faq" className="text-lg text-secondary">
@@ -137,7 +143,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
               'flex items-center gap-2',
               session.status === 'unauthenticated' && 'opacity-25',
             )}
-            onClick={closeMenu}
+            onClick={() => handleNavigationClick('profile')}
           >
             <IconUser className="text-2xl text-secondary" />
             <Link href="/profile" className="text-lg text-secondary">
@@ -150,10 +156,12 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
               'flex items-center gap-2',
               session.status === 'unauthenticated' && 'opacity-25',
             )}
-            onClick={closeMenu}
+            onClick={() => trackNavigationClick('meine deals')}
           >
             <BagSvg />
-            <Link href="/profile/deals">Meine Deals</Link>
+            <Link href="/profile/deals" className="text-lg text-secondary">
+              Meine Deals
+            </Link>
           </NavbarMenuItem>
           <Divider />
           <NavbarMenuItem
@@ -161,7 +169,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
               'flex items-center gap-2',
               session.status === 'unauthenticated' && 'opacity-25',
             )}
-            onClick={closeMenu}
+            onClick={() => trackNavigationClick('merkliste')}
           >
             <HeartSvg className="text-2xl text-secondary" />
             <Link href="/profile/favorites" className="text-lg text-secondary">

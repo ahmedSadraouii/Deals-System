@@ -172,7 +172,7 @@ export function DealDetailPage({
           </div>
         </div>
         <div className="grid gap-10 2xl:grid-cols-12">
-          <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-8">
+          <div className="col-span-6 flex grow flex-col gap-y-4 lg:gap-y-10 2xl:col-span-7">
             <Divider />
             <div className="grid grid-cols-2 justify-items-center gap-4 md:flex md:flex-row md:flex-wrap">
               {deal.properties?.greatOffer && (

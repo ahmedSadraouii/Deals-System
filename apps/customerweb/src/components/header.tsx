@@ -132,7 +132,7 @@ export function Header() {
           <NavbarBrand
             as={NextLink}
             href="/"
-            className="ml-4 shrink-0 space-x-4"
+            className="shrink-0 space-x-4"
             onClick={handleLogoClick}
           >
             <AldiSuedSvg className="h-10 lg:h-auto" />
