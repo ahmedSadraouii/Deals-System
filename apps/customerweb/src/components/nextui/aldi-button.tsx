@@ -8,6 +8,7 @@ export const AldiButton = extendVariants(Button, {
       ghost: 'border-secondary/10 border-1',
       solid: 'border-1 border-transparent font-light',
       outline: 'border-orange-600 border-1',
+      warning: 'border-red-600 border-1',
     },
     size: {
       lg: 'px-4 py-7 text-xl',
@@ -20,6 +21,7 @@ export const AldiButton = extendVariants(Button, {
     },
     color: {
       orange: 'text-orange-600',
+      warning: 'text-red-600',
     },
     'data-is-user-button': {
       true: 'min-w-0 px-0 !gap-0 space-x-0 lg:space-x-4',
