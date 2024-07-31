@@ -18,7 +18,11 @@ export function DealsListBlock({ title, deals, display }: DealsListBlockProps) {
   } else if (display === 'Small Slider') {
     return <DealsListBlockSmallSlider title={title} deals={deals} />;
   } else if (display === 'Hero') {
-    return <HeroBanner deals={deals} />;
+    if (deals.length === 0) {
+      console.log('DealsListBlock: No deals found for Hero display');
+      return null;
+    }
+    return <HeroBanner deal={deals[0]} />;
   }
 
   return (

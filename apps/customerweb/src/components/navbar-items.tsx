@@ -13,6 +13,7 @@ import { IconUser } from './svg/icon-user';
 import { InfoIcon } from './svg/info-svg';
 import { Badge, Divider, NavbarMenuItem } from '@nextui-org/react';
 import { useCart } from '@/app/(aldi-deals)/contexts/cart/use-cart';
+import { cn } from '@/utils/cn';
 
 interface NavbarMenuItemsProps {
   closeMenu: () => void;
@@ -39,7 +40,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
   }, []);
 
   return (
-    <div className="flex h-full flex-col gap-8 bg-white">
+    <div className="flex h-full flex-col gap-6 bg-white">
       <div>
         <div className="p-4">
           <NavbarMenuItem
@@ -47,7 +48,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
             onClick={closeMenu}
           >
             <CloseSvg />
-            <p className="text-lg text-secondary">Menü schließen</p>
+            <p className="text-xs text-secondary">Menü schließen</p>
           </NavbarMenuItem>
         </div>
         <Divider />
@@ -77,7 +78,7 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
       </div>
 
       <div className="mb-4 w-full border-b border-secondary border-opacity-10">
-        <p className=" px-4 py-1 text-medium text-secondary opacity-25">
+        <p className="px-4 py-2 text-xs text-secondary opacity-25">
           Navigation
         </p>
         <Divider />
@@ -125,18 +126,17 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
           </NavbarMenuItem>
         </div>
       </div>
-      <div className="mb-4 w-full border-b border-secondary border-opacity-10">
-        <p className=" px-4 py-1 text-medium text-secondary opacity-25">
-          Mein Profil
-        </p>
-        <Divider />
-        <div
-          className={`flex flex-col gap-4 p-4 ${
-            session.status !== 'authenticated' ? 'opacity-25' : ''
-          }`}
-        >
+      <div className="mb-4 w-full border-b border-secondary/10">
+        <p className="px-4 py-2 text-xs text-secondary/25">Mein Profil</p>
+        <Divider
+          className={cn(session.status === 'unauthenticated' && 'opacity-25')}
+        />
+        <div className="flex flex-col gap-4 p-4">
           <NavbarMenuItem
-            className="flex items-center gap-2"
+            className={cn(
+              'flex items-center gap-2',
+              session.status === 'unauthenticated' && 'opacity-25',
+            )}
             onClick={closeMenu}
           >
             <IconUser className="text-2xl text-secondary" />
@@ -146,17 +146,21 @@ export function NavbarMenuItems({ closeMenu }: NavbarMenuItemsProps) {
           </NavbarMenuItem>
           <Divider />
           <NavbarMenuItem
-            className="flex items-center gap-2"
+            className={cn(
+              'flex items-center gap-2',
+              session.status === 'unauthenticated' && 'opacity-25',
+            )}
             onClick={closeMenu}
           >
             <BagSvg />
-            <Link href="/profile/deals" className="text-lg text-secondary">
-              Meine Deals
-            </Link>
+            <Link href="/profile/deals">Meine Deals</Link>
           </NavbarMenuItem>
           <Divider />
           <NavbarMenuItem
-            className="flex items-center gap-2"
+            className={cn(
+              'flex items-center gap-2',
+              session.status === 'unauthenticated' && 'opacity-25',
+            )}
             onClick={closeMenu}
           >
             <HeartSvg className="text-2xl text-secondary" />

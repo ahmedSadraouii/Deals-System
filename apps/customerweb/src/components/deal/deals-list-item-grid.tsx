@@ -3,7 +3,6 @@
 import type { MouseEvent } from 'react';
 import { useCallback, useContext, useMemo, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DateTime } from 'luxon';
 import { FavoriteContext } from '@/app/(aldi-deals)/contexts/favorite/favorite-context';
@@ -14,6 +13,7 @@ import { AldiButton } from '@/components/nextui/aldi-button';
 import { Price } from '@/components/price';
 import { IconArrowRight } from '@/components/svg/icon-arrow-right';
 import { IconOnline } from '@/components/svg/icon-nur-online';
+import { getTrackInfoForCTA, TrackOnClick } from '@/components/track-on-click';
 import type { UmbracoSupplier } from '@/components/umbraco-cms/umbraco-types';
 import { cn } from '@/utils/cn';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
@@ -67,89 +67,98 @@ export function DealsListItemGrid({
   );
 
   return (
-    <a
-      className={cn(
-        'group flex flex-col overflow-hidden rounded-xl bg-white transition-shadow hover:shadow-xl hover:shadow-black/5',
-        className,
+    <TrackOnClick
+      track={getTrackInfoForCTA(
+        'Jetzt Deal sichern',
+        `/deal/${dealLinkSegment || deal.route.path}`,
       )}
-      onClick={handleOnClick}
-      href={targetUrl}
     >
-      <div className="relative">
-        {primaryImage && (
-          <Image
-            className="h-[280px] object-cover object-center transition-opacity group-hover:opacity-80"
-            src={primaryImage}
-            alt="Deal Image"
-            width={768}
-            height={768}
-          />
+      <a
+        className={cn(
+          'group flex flex-col overflow-hidden rounded-xl bg-white transition-shadow hover:shadow-xl hover:shadow-black/5',
+          className,
         )}
-        <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-6">
-          <span className="flex items-center rounded-lg bg-neutral-100 px-4 py-3 font-light text-black">
-            <IconOnline className="mr-2 text-base" />
-            <span className="text-aldi-key">Nur Online</span>
-          </span>
-          <div ref={interactionContainer}>
-            {favoriteContext.favsEnabled && <HeartFavorite dealId={deal.id} />}
-          </div>
-        </div>
-      </div>
-      <div className="flex grow flex-col gap-4 p-4 md:p-6">
-        <div className="flex flex-row items-center justify-between">
-          {supplierImage && (
+        onClick={handleOnClick}
+        href={targetUrl}
+      >
+        <div className="relative">
+          {primaryImage && (
             <Image
-              className="h-10 w-48 object-contain object-left"
-              src={supplierImage}
-              alt="Supplier Image"
-              width={192}
-              height={40}
+              className="h-[280px] object-cover object-center transition-opacity group-hover:opacity-80"
+              src={primaryImage}
+              alt="Deal Image"
+              width={768}
+              height={768}
             />
           )}
-          {(deal.properties?.availabilityEnd && (
-            <DealCountdown availableTill={deal.properties?.availabilityEnd} />
-          )) || (
-            <DealCountdown
-              availableTill={DateTime.now().plus({ minutes: 12 }).toISO()}
-            />
-          )}
-        </div>
-        <Link href={targetUrl} onClick={handleCtaClick}>
-          <div className="my-2 text-3xl font-bold text-secondary lg:text-2xl">
-            {deal.name}
+          <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-6">
+            <span className="flex items-center rounded-lg bg-neutral-100 px-4 py-3 font-light text-black">
+              <IconOnline className="mr-2 text-base" />
+              <span className="text-aldi-key">Nur Online</span>
+            </span>
+            <div ref={interactionContainer}>
+              {favoriteContext.favsEnabled && (
+                <HeartFavorite dealId={deal.id} />
+              )}
+            </div>
           </div>
-        </Link>
-        <div className="flex flex-row justify-between">
-          <Price
-            oldPrice={deal.properties?.regularPrice}
-            actualPrice={deal.properties?.price || 9999}
-            showDigits={false}
-            uvp={false}
-            textSize={2}
-          />
-          {ctaType === 'inline' && (
+        </div>
+        <div className="flex grow flex-col gap-4 p-4 md:p-6">
+          <div className="flex flex-row items-center justify-between">
+            {supplierImage && (
+              <Image
+                className="h-10 w-48 object-contain object-left"
+                src={supplierImage}
+                alt="Supplier Image"
+                width={192}
+                height={40}
+              />
+            )}
+            {(deal.properties?.availabilityEnd && (
+              <DealCountdown availableTill={deal.properties?.availabilityEnd} />
+            )) || (
+              <DealCountdown
+                availableTill={DateTime.now().plus({ minutes: 12 }).toISO()}
+              />
+            )}
+          </div>
+          <span onClick={handleCtaClick}>
+            <div className="my-2 text-3xl font-bold text-secondary lg:text-2xl">
+              {deal.name}
+            </div>
+          </span>
+          <div className="flex flex-row justify-between">
+            <Price
+              oldPrice={deal.properties?.regularPrice}
+              actualPrice={deal.properties?.price || 9999}
+              showDigits={false}
+              uvp={false}
+              textSize={2}
+            />
+            {ctaType === 'inline' && (
+              <AldiButton
+                variant="ghost"
+                isIconOnly={true}
+                onClick={handleCtaClick}
+              >
+                <IconArrowRight className="text-xl text-secondary/10" />
+              </AldiButton>
+            )}
+          </div>
+          {ctaType === 'button' && (
             <AldiButton
-              variant="ghost"
-              isIconOnly={true}
+              variant="solid"
+              color="primary"
+              href={targetUrl}
+              fullWidth={true}
+              endContent={<IconArrowRight className="text-xl text-white" />}
               onClick={handleCtaClick}
             >
-              <IconArrowRight className="text-xl text-secondary/10" />
+              Jetzt deal sichern
             </AldiButton>
           )}
         </div>
-        {ctaType === 'button' && (
-          <AldiButton
-            variant="solid"
-            color="primary"
-            href={targetUrl}
-            fullWidth={true}
-            endContent={<IconArrowRight className="text-xl text-white" />}
-            onClick={handleCtaClick}
-          >
-            Jetzt deal sichern
-          </AldiButton>
-        )}
-      </div>
-    </a>
+      </a>
+    </TrackOnClick>
   );
 }

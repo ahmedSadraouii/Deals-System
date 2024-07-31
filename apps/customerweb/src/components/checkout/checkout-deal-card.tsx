@@ -11,6 +11,7 @@ import type {
   UmbracoDeal,
   UmbracoSupplier,
 } from '@/components/umbraco-cms/umbraco-types';
+import { cn } from '@/utils/cn';
 import { getContentApiClient } from '@/utils/content-api-client';
 import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { verifyDealIsCorrect } from '@/utils/verify-deal-is-correct';
@@ -98,9 +99,10 @@ export default async function DealCheckoutCard({
             )}
           </div>
           <div
-            className={`flex flex-1 flex-col gap-6 ${
-              deal.code !== '' ? 'justify-between' : ''
-            }`}
+            className={cn(
+              'flex flex-1 flex-col gap-6',
+              (deal.code?.length || 0) > 0 && 'justify-between',
+            )}
           >
             <div className="flex flex-col gap-4 md:flex-row">
               <div className="flex h-20 w-20 items-center justify-center rounded-[20px] bg-white p-2">

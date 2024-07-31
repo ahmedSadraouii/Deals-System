@@ -164,7 +164,6 @@ export function Header() {
           variants: {
             enter: {
               width: '100%',
-              top: '0',
               zIndex: '100',
               transition: {
                 duration: 0.3,
@@ -180,11 +179,11 @@ export function Header() {
             },
           } as Variants,
         }}
-        className="bg-secondary/80 p-0 backdrop-blur-sm"
+        className="top-0 bg-black/80 p-0 backdrop-blur-none"
       >
         <div
           ref={menuRef}
-          className="flex h-full w-[280px] flex-col gap-4 bg-white"
+          className="flex h-full w-[280px] flex-col gap-4 overflow-hidden rounded-r-xl bg-white"
         >
           <NavbarMenuItems closeMenu={closeMenu} />
         </div>

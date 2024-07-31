@@ -26,6 +26,7 @@ export async function UmbracoContentPage({ path }: UmbracoContentPageProps) {
       <UmbracoRenderer type="contentPage" contentPage={umbracoContentPage} />
     );
   } catch (error) {
+    console.log(error);
     return <NotFound />;
   }
 }

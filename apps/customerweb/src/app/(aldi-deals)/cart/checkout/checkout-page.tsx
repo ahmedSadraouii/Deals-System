@@ -26,7 +26,6 @@ import { AldiInput } from '@/components/nextui/aldi-input';
 import { AldiSelect } from '@/components/nextui/aldi-select';
 import { PaymentIconMastercard } from '@/components/svg/payment-icon-mastercard';
 import { PaymentIconVisa } from '@/components/svg/payment-icon-visa';
-import useIsMobile from '@/hooks/useIsMobile';
 import { ApiErrorCodes } from '@/utils/api-response-handling';
 import { emailRegex } from '@/utils/email-regex';
 import { toast } from '@/utils/toast';
@@ -63,7 +62,6 @@ export function CheckoutPage({
   const { cartContext } = useCart();
   const session = useSession();
   const searchParams = useSearchParams();
-  const isMobile = useIsMobile();
 
   const [isLoading, setLoading] = useState(false);
   const [responseError, setResponseError] = useState<ApiErrorCodes | null>(
@@ -196,11 +194,9 @@ export function CheckoutPage({
       <div className="mx-auto max-w-5xl">
         <CartStepIndicator step={2} />
       </div>
-      {isMobile && (
-        <div className="mt-10 rounded-[20px] bg-neutral-100 p-4 md:hidden md:p-10">
-          <CheckoutCartMobile />
-        </div>
-      )}
+      <div className="mt-10 rounded-[20px] bg-neutral-100 p-4 md:hidden md:p-10">
+        <CheckoutCartMobile />
+      </div>
 
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>

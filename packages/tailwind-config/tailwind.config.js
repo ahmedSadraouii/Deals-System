@@ -12,6 +12,24 @@ module.exports = {
     ...Array(12)
       .fill(0)
       .map((_, i) => `row-span-${i + 1}`),
+    ...Array(12)
+      .fill(0)
+      .map((_, i) => `md:grid-cols-${i + 1}`),
+    ...Array(12)
+      .fill(0)
+      .map((_, i) => `md:col-span-${i + 1}`),
+    ...Array(12)
+      .fill(0)
+      .map((_, i) => `md:row-span-${i + 1}`),
+    ...Array(12)
+      .fill(0)
+      .map((_, i) => `xl:grid-cols-${i + 1}`),
+    ...Array(12)
+      .fill(0)
+      .map((_, i) => `xl:col-span-${i + 1}`),
+    ...Array(12)
+      .fill(0)
+      .map((_, i) => `xl:row-span-${i + 1}`),
   ],
   darkMode: 'class',
   content: [

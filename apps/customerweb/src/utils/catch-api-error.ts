@@ -33,11 +33,6 @@ export function getApiClientErrorHandler(
       }
 
       if (response.status < 200 || response.status >= 300) {
-        // check if we have a content length
-        if (response.headers.get('content-length') === '0') {
-          throw new ApiError(`[${hint}] ApiError`, undefined, responseContext);
-        }
-
         if (
           response.headers.get('content-type')?.includes('application/json')
         ) {

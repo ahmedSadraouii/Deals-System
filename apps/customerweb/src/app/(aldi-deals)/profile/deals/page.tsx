@@ -127,22 +127,19 @@ export default async function Page() {
           </div>
         )}
         {activeHonoredDealsList.length === 0 && (
-          <div className="mt-4 flex h-full w-full flex-col items-center justify-center gap-8">
+          <div className="flex h-full w-full flex-col items-center justify-center gap-10">
             <Image
               src="/shopping-bag.png"
               alt="empty deals"
-              className="mb-6"
-              width={100}
-              height={100}
+              width={120}
+              height={120}
             />
             <div>
-              <h1 className="m-0 text-center text-2xl font-bold text-secondary lg:text-4xl">
+              <h1 className="m-0 text-center text-4xl font-bold text-secondary lg:text-5xl">
                 Du hast noch keine DEALS erworben!
               </h1>
-              <p className="text-center text-sm text-secondary/50">
-                Du hast noch keine{' '}
-                <span className="font-semibold underline">DEALS</span> erworben!
-                Durchstöbere jetzt{' '}
+              <p className="mt-2 text-center font-medium text-secondary/50">
+                Du hast noch keine DEALS erworben! Durchstöbere jetzt{' '}
                 <span className="font-semibold underline">alle DEALS</span> und
                 leg los.
               </p>
@@ -153,7 +150,6 @@ export default async function Page() {
               href="/"
               color="secondary"
               size="lg"
-              className="mb-8"
             >
               DEALS entdecken
             </AldiButton>

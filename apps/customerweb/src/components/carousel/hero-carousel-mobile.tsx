@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { CarouselMobile } from './carousel-mobile';
 import type { CarouselProps } from '@/components/carousel/carousel';
+import { cn } from '@/utils/cn';
 
 export interface HeroCarouselProps extends CarouselProps {
   title: string;
@@ -37,9 +38,12 @@ export function HeroCarouselMobile({
               <button
                 key={index}
                 type="button"
-                className={`w-10 rounded-full lg:w-20 ${
-                  itemStart === index ? 'h-1.5 bg-aldi-blue' : 'h-1 bg-blue-100'
-                }`}
+                className={cn(
+                  'w-10 rounded-full lg:w-20',
+                  itemStart === index
+                    ? 'h-1.5 bg-aldi-blue'
+                    : 'h-1 bg-blue-100',
+                )}
                 onClick={() => setItemStart(index)}
               />
             ))}

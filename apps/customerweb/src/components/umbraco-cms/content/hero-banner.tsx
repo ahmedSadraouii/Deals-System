@@ -14,12 +14,12 @@ import { fixUmbracoMediaLink } from '@/utils/fix-umbraco-media-link';
 import { formatAvailability } from '@/utils/format-availability';
 
 interface HeroBannerProps {
-  deals: Array<UmbracoDeal>;
+  deal: UmbracoDeal;
 }
 
-export default async function HeroBanner({ deals }: HeroBannerProps) {
+export default async function HeroBanner({ deal }: HeroBannerProps) {
   const contentApi = getContentApiClient();
-  const fullDeal = await contentApi.getUmbracoDeal(deals[0].id);
+  const fullDeal = await contentApi.getUmbracoDeal(deal.id);
   const pageInfo = {
     pageName: 'aldi-deals-landingpage',
     pageType: 'aldi-sued-ci-template',
@@ -82,7 +82,7 @@ export default async function HeroBanner({ deals }: HeroBannerProps) {
               </div>
             </div>
           </CardHeader>
-          <CardBody className="flex h-full flex-col items-start justify-end gap-6 p-5 md:ml-6 md:mt-0 md:justify-center lg:gap-2">
+          <CardBody className="flex h-full flex-col items-start justify-end gap-6 p-5 md:ml-6 md:mt-0 lg:gap-2">
             {fullDeal.properties?.availabilityEnd && (
               <MegaDealCard
                 availabilityEnd={formatAvailability(

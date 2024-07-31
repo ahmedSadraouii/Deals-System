@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import type { CarouselProps } from '@/components/carousel/carousel';
 import { Carousel } from '@/components/carousel/carousel';
+import { cn } from '@/utils/cn';
 
 export function DetailPageCarousel({
   children,
@@ -17,6 +18,7 @@ export function DetailPageCarousel({
         itemsPerPage={1}
         itemStart={itemStart}
         onItemChange={setItemStart}
+        className="grid-cols-1"
       >
         {children}
       </Carousel>
@@ -31,9 +33,12 @@ export function DetailPageCarousel({
               <button
                 key={index}
                 type="button"
-                className={`w-10 rounded-full lg:w-20 ${
-                  itemStart === index ? 'h-1.5 bg-aldi-blue' : 'h-1 bg-blue-100'
-                }`}
+                className={cn(
+                  'w-10 rounded-full lg:w-20',
+                  itemStart === index
+                    ? 'h-1.5 bg-aldi-blue'
+                    : 'h-1 bg-blue-100',
+                )}
                 onClick={() => setItemStart(index)}
               />
             ))}

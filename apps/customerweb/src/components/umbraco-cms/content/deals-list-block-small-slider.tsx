@@ -17,7 +17,10 @@ export async function DealsListBlockSmallSlider({
         <h2 className="pb-10 text-5xl font-bold text-secondary">
           {title || 'Deals List Block Small Slider Title'}
         </h2>
-        <Carousel itemsPerPage={3}>
+        <Carousel
+          itemsPerPage={3}
+          className="grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
+        >
           {deals.map((deal, index) => (
             <DealsListItem key={index} deal={deal} display="Small Slider" />
           ))}
@@ -26,3 +29,4 @@ export async function DealsListBlockSmallSlider({
     </div>
   );
 }
+0;

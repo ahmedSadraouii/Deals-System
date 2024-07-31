@@ -13,6 +13,7 @@ export interface CarouselProps {
   itemStart?: number;
   itemsPerPage?: number;
   onItemChange?: (index: number) => void;
+  className?: string;
 }
 
 export function Carousel({
@@ -20,6 +21,7 @@ export function Carousel({
   itemStart = 0,
   itemsPerPage = 1,
   onItemChange,
+  className,
 }: CarouselProps) {
   const items = useMemo(() => Array.from(children), [children]);
   const itemCount = items.length;
@@ -49,14 +51,7 @@ export function Carousel({
 
   return (
     <div className="relative">
-      <div
-        className={cn(
-          'grid gap-4',
-          itemsPerPage === 5
-            ? `grid-cols-${itemsPerPage}`
-            : `grid-cols-1 md:grid-cols-${itemsPerPage}`,
-        )}
-      >
+      <div className={cn('grid gap-4', className)}>
         {items.map((item, index) => {
           if (index < _itemStart || index >= _itemStart + itemsPerPage) {
             return (

@@ -69,6 +69,7 @@ export function trackVoucherSubmit(dealName: string, supplierName: string) {
     },
   });
 }
+
 export function trackVoucherError(cause: string, effect: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
@@ -86,6 +87,7 @@ export function trackVoucherError(cause: string, effect: string) {
     },
   });
 }
+
 export function trackNavigationClick(navigationItem: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
@@ -101,28 +103,13 @@ export function trackNavigationClick(navigationItem: string) {
   });
 }
 
-export function trackAddToCart(partnerName: string, dealName: string) {
+export function trackAddToCart(supplierName: string, dealName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
     event: 'add_to_cart',
     eventInfo: {
       name: 'add_to_cart',
-      eventAction: partnerName.toLowerCase(),
-      type: 'interaction',
-      category: {
-        primaryCategory: 'checkout',
-        subCategory: dealName.toLowerCase(),
-      },
-    },
-  });
-}
-export function trackRemoveFromCart(partnerName: string, dealName: string) {
-  window.adobeDataLayer = window.adobeDataLayer || [];
-  window.adobeDataLayer.push({
-    event: 'remove_from_cart',
-    eventInfo: {
-      name: 'remove_from_cart',
-      eventAction: partnerName.toLowerCase(),
+      eventAction: supplierName.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
@@ -132,13 +119,29 @@ export function trackRemoveFromCart(partnerName: string, dealName: string) {
   });
 }
 
-export function trackCheckoutStep1(partnerName: string, dealName: string) {
+export function trackRemoveFromCart(supplierName: string, dealName: string) {
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.push({
+    event: 'remove_from_cart',
+    eventInfo: {
+      name: 'remove_from_cart',
+      eventAction: supplierName.toLowerCase(),
+      type: 'interaction',
+      category: {
+        primaryCategory: 'checkout',
+        subCategory: dealName.toLowerCase(),
+      },
+    },
+  });
+}
+
+export function trackCheckoutStep1(supplierName: string, dealName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
     event: 'checkout_step_1',
     eventInfo: {
       name: 'checkout_step_1',
-      eventAction: partnerName.toLowerCase(),
+      eventAction: supplierName.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
@@ -147,13 +150,14 @@ export function trackCheckoutStep1(partnerName: string, dealName: string) {
     },
   });
 }
-export function trackCheckoutStep2(partnerName: string, dealName: string) {
+
+export function trackCheckoutStep2(supplierName: string, dealName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
     event: 'checkout_step_2',
     eventInfo: {
       name: 'checkout_step_2',
-      eventAction: partnerName.toLowerCase(),
+      eventAction: supplierName.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
@@ -162,13 +166,14 @@ export function trackCheckoutStep2(partnerName: string, dealName: string) {
     },
   });
 }
-export function trackCheckoutStep3(partnerName: string, dealName: string) {
+
+export function trackCheckoutStep3(supplierName: string, dealName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
     event: 'checkout_step_3',
     eventInfo: {
       name: 'checkout_step_3',
-      eventAction: partnerName.toLowerCase(),
+      eventAction: supplierName.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
@@ -177,13 +182,14 @@ export function trackCheckoutStep3(partnerName: string, dealName: string) {
     },
   });
 }
-export function trackCheckoutStep4(partnerName: string, dealName: string) {
+
+export function trackCheckoutStep4(supplierName: string, dealName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
     event: 'checkout_step_4',
     eventInfo: {
       name: 'checkout_step_4',
-      eventAction: partnerName.toLowerCase(),
+      eventAction: supplierName.toLowerCase(),
       type: 'interaction',
       category: {
         primaryCategory: 'checkout',
@@ -208,6 +214,7 @@ export function trackFormSend(formName: string) {
     },
   });
 }
+
 export function trackFormError(cause: string, effect: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
@@ -226,7 +233,7 @@ export function trackFormError(cause: string, effect: string) {
   });
 }
 
-export function trackOfferClick(dealName: string, partnerName: string) {
+export function trackOfferClick(dealName: string, supplierName: string) {
   window.adobeDataLayer = window.adobeDataLayer || [];
   window.adobeDataLayer.push({
     event: 'offer_click',
@@ -236,7 +243,7 @@ export function trackOfferClick(dealName: string, partnerName: string) {
       type: 'interaction',
       category: {
         primaryCategory: 'deal_cells',
-        subCategory: partnerName.toLowerCase(),
+        subCategory: supplierName.toLowerCase(),
       },
     },
   });
