@@ -1,25 +1,31 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { AldiButton } from '@/components/nextui/aldi-button';
-import { IconArrowLeft } from '@/components/svg/icon-arrow-left';
-import { trackCTA } from '@/utils/tracking';
 
 export function EmptyFavoriteList() {
   return (
-    <div className="flex flex-col items-center gap-4 text-secondary/50">
-      <span>Du hast noch keine Deals gemerkt.</span>
-
+    <div className="flex h-full w-full flex-col items-center justify-center gap-10">
+      <Image src="/note.png" alt="empty merkliste" width={120} height={120} />
+      <div>
+        <h1 className="m-0 text-center text-4xl font-bold text-secondary lg:text-5xl">
+          Du hast noch keine DEALS auf deiner Merkliste!{' '}
+        </h1>
+        <p className="mt-2 text-center font-medium text-secondary/50">
+          Du hast noch keine DEALS auf deiner Merkliste! Durchstöbere jetzt{' '}
+          <span className="font-semibold underline">alle DEALS</span> und leg
+          los.
+        </p>
+      </div>
       <AldiButton
+        variant="solid"
         as={Link}
-        size="lg"
-        variant="ghost"
         href="/"
-        startContent={<IconArrowLeft className="text-2xl" />}
         color="secondary"
-        onClick={() => trackCTA('zurück zur startseite', '/')}
+        size="lg"
       >
-        Zurück zur Startseite
+        DEALS entdecken{' '}
       </AldiButton>
     </div>
   );

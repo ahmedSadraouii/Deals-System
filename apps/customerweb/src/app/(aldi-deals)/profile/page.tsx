@@ -105,17 +105,20 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <HeroCarouselMobile title="Deine letzten Deals">
-        {activeHonoredDealsList.map((item, index) => (
-          <HonoredDealItem
-            key={index}
-            deal={item.deal}
-            supplier={item.supplier}
-            honoredDeal={item.honoredDeal}
-            isProfile={true}
-          />
-        ))}
-      </HeroCarouselMobile>
+      {activeHonoredDealsList.length > 0 && (
+        <HeroCarouselMobile title="Deine letzten Deals">
+          {activeHonoredDealsList.map((item, index) => (
+            <HonoredDealItem
+              key={index}
+              deal={item.deal}
+              supplier={item.supplier}
+              honoredDeal={item.honoredDeal}
+              isProfile={true}
+            />
+          ))}
+        </HeroCarouselMobile>
+      )}
+
       <Link
         href="/profile/general"
         className="flex flex-row items-center justify-between gap-4 rounded-lg bg-neutral-100 p-4 text-secondary lg:rounded-[20px]"

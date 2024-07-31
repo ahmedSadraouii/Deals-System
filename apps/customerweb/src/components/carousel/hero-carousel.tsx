@@ -46,7 +46,7 @@ export function HeroCarousel({
           <div
             key={index}
             style={{
-              flex: '0 0 90%',
+              flex: itemCount > 1 ? '0 0 90%' : '0 0 100%',
             }}
           >
             {item}
